@@ -1,0 +1,18 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-clean-order"],
+  "rules": {
+    "plugin/no-unsupported-browser-features": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ]
+  },
+  "plugins": ["stylelint-no-unsupported-browser-features"],
+  "overrides": [
+    {
+      "customSyntax": "postcss-styled-syntax",
+      "files": ["**/*.ts", "**/*.tsx"]
+    }
+  ]
+}

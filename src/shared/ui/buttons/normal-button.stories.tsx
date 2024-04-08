@@ -1,0 +1,70 @@
+import { fn } from '@storybook/test';
+
+import { NormalButton } from './normal-button';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta = {
+  title: 'shared/ui/buttons/NormalButton',
+  component: NormalButton,
+  parameters: {
+    controls: {
+      include: ['backgroundColor', 'size'],
+    },
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    backgroundColor: {
+      control: {
+        type: 'select',
+        options: ['red', 'blue', 'green'],
+      },
+    },
+    size: {
+      control: {
+        type: 'select',
+        options: ['small', 'medium', 'large'],
+      },
+    },
+    children: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
+  args: {
+    onClick: fn(),
+  },
+} satisfies Meta<typeof NormalButton>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  name: '기본 버튼',
+  args: {
+    backgroundColor: 'blue',
+    size: 'large',
+    children: '나는 버튼',
+  },
+};
+
+export const Secondary: Story = {
+  name: '보조 버튼',
+  args: {
+    backgroundColor: 'green',
+    size: 'medium',
+    children: '그래 너 버튼',
+  },
+};
+
+export const Tertiary: Story = {
+  name: '세 번째 버튼',
+  args: {
+    backgroundColor: 'red',
+    size: 'small',
+    children: '세 번째 버튼',
+  },
+};
