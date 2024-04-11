@@ -73,3 +73,12 @@ export const Tertiary: Story = {
     children: '세 번째 버튼',
   },
 };
+
+export const Quaternary: Story = {
+  name: '네 번째 버튼',
+  args: {
+    backgroundColor: 'red',
+    size: 'small',
+    children: '세 번째 버튼',
+  },
+};
