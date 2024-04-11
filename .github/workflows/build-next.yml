@@ -2,7 +2,7 @@ name: Build Next CI
 
 on:
   workflow_run:
-    workflows: [Lint Check and Test CI]
+    workflows: ['Lint Check and Test CI']
     types: [completed]
 
 jobs:
