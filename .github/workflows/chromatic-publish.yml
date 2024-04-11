@@ -33,6 +33,7 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          onlyChanged: true
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2.5.0
@@ -40,5 +41,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
-            Storybook 배포 완료
-            [🚀 Storybook 바로가기](${{ steps.chromatic.outputs.storybookUrl }})
+            | Results |  |\n| --- | --- |\n| Build Results | ${{steps.chromatic.outputs.buildUrl}} |\n| Storybook Preview | ${{steps.chromatic.outputs.storybookUrl}} |\n| Component Count | ${{steps.chromatic.outputs.componentCount}} |
