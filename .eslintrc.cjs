@@ -1,7 +1,22 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  extends: ['airbnb', 'airbnb-typescript', 'airbnb/hooks', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended', 'plugin:jsx-a11y/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:prettier/recommended', 'plugin:@next/next/recommended', 'plugin:compat/recommended', 'plugin:storybook/recommended', 'plugin:storybook/recommended'],
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:compat/recommended',
+    'plugin:storybook/recommended',
+    'plugin:storybook/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@next/next/recommended',
+  ],
   ignorePatterns: [
     'build',
     'dist',
@@ -11,6 +26,7 @@ module.exports = {
     'next.config.mjs',
     'svgo.config.js',
     'node_modules/',
+    'jest.*.js',
   ],
   settings: {
     'import/parsers': {
@@ -49,6 +65,12 @@ module.exports = {
         'react/prop-types': 'off',
       },
     },
+    // {
+    //   files: ['**/*.test.{ts,tsx}'],
+    //   env: {
+    //     jest: true,
+    //   },
+    // },
   ],
   rules: {
     // @see{@link https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md}
@@ -162,7 +184,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@{app,pages,widgets,features,entities,shared}/**/*',
+            pattern: '@{app,pages,widgets,features,entities,shared,mocks}/**/*',
             group: 'internal',
             position: 'before',
           },

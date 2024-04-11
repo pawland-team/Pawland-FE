@@ -1,7 +1,7 @@
-import { iconSize } from './theme';
-import { IconProps } from './types';
+import { iconSize } from '../theme';
+import { IconProps } from '../types';
 
-export const CogWheel = ({ size = 'medium', className }: IconProps) => {
+export const CogWheelIcon = ({ size = 'medium', className }: IconProps) => {
   return (
     <svg
       className={className}
@@ -18,5 +18,3 @@ export const CogWheel = ({ size = 'medium', className }: IconProps) => {
     </svg>
   );
 };
-
-export default CogWheel;

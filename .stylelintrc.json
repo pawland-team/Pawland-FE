@@ -6,7 +6,8 @@
       {
         "severity": "warning"
       }
-    ]
+    ],
+    "property-no-vendor-prefix": null
   },
   "plugins": ["stylelint-no-unsupported-browser-features"],
   "overrides": [

@@ -7,7 +7,8 @@
       "@widgets/*": ["src/widgets/*"], // widgets layer is optional
       "@features/*": ["src/features/*"],
       "@entities/*": ["src/entities/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@mocks/*": ["src/mocks/*"]
     }
   }
 }

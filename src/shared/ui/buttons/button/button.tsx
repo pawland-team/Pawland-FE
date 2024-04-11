@@ -114,11 +114,11 @@ const variantStyles = {
 };
 
 const StyledButton = styled.button<{ size: ButtonSize; variant: ButtonVariant }>`
-  border-radius: var(--rounded);
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: var(--rounded);
 
   transition: all 0.2s;
 

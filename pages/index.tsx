@@ -1,9 +1,27 @@
+import { useForm } from 'react-hook-form';
+
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
+
+import { Home as HomePage } from '@pages/home';
+import { InputWithLabel } from '@shared/ui/inputs/input-with-label';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  type EmailInput = {
+    email: string;
+  };
+  const {
+    register,
+    formState: { errors },
+  } = useForm<EmailInput>({
+    mode: 'onBlur',
+    defaultValues: {
+      email: '',
+    },
+  });
+
   return (
     <>
       <Head>
@@ -12,7 +30,30 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={`${inter.className}`}>asdf</main>
+      <main className={`${inter.className}`}>
+        {/* 이름 겹쳐서 요래 가져옴 */}
+        <HomePage />
+        <InputWithLabel
+          type='email'
+          isError={!!errors.email}
+          id='email'
+          autoComplete='email'
+          label='이메일'
+          placeholder='please enter your email address'
+          {...register('email', {
+            pattern: {
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: '올바른 이메일 주소가 아닙니다.',
+            },
+            required: {
+              value: true,
+              message: 'please enter your email address',
+            },
+          })}
+        >
+          <span>{errors.email?.message}</span>
+        </InputWithLabel>
+      </main>
     </>
   );
 }

@@ -1,6 +1,6 @@
-import { useModalList } from './useModalList';
+'use client';
 
-('use client');
+import { useModalList } from './useModalList';
 
 export type { ModalComponent, ModalComponentProps } from './types';
 
@@ -14,7 +14,7 @@ export { default as Modal } from './modal-component/Modal';
 
 export { default as ModalList } from './modal-component/ModalList';
 
-export { useModalOnLocal } from './legacy/useModal';
+export { useModalWithLocalState } from './legacy/useModalWithLocalState';
 
 export { useModal } from './useModal';
 

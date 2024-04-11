@@ -1,11 +1,14 @@
-import type {} from 'styled-components/cssprop';
+import { HydrationBoundary } from '@tanstack/react-query';
 import Head from 'next/head';
 
-import '@app/styles/global.css';
-import { LibConfigProviders } from '@app/providers/lib-config-providers';
+import type {} from 'styled-components/cssprop';
+
+import { LibConfigProviders } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
+
+import '@app/styles/global.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <LibConfigProviders>
         <ModalListProvider>
-          <Component {...pageProps} />;
+          <HydrationBoundary state={pageProps.dehydratedState}>
+            <Component {...pageProps} />
+          </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
       </LibConfigProviders>

@@ -20,7 +20,7 @@ type DirectModalComponentProps = OptionalModalProps;
  * - but it is not recommended to use this hook
  * - because this is a hook bound to a local component(local state), so it's unlikely to be used frequently.
  */
-const useModalOnLocal = <CustomModalProps = unknown,>() => {
+const useModalWithLocalState = <CustomModalProps = unknown,>() => {
   const [Modal, setModal] = useState<ModalComponent>();
   const [ModalProps, setModalInfo] = useState<ExposedModalPropsWithoutModalRef<ModalComponent<CustomModalProps>>>();
   const [openModalOptions, setOpenModalOptions] = useState<OpenModalOptions>({ persist: false });
@@ -86,4 +86,4 @@ const useModalOnLocal = <CustomModalProps = unknown,>() => {
   return { isModalOpen, ModalProps, openModal, closeModal, ModalComponent };
 };
 
-export { useModalOnLocal };
+export { useModalWithLocalState };
