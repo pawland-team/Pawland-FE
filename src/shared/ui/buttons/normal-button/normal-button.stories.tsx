@@ -1,4 +1,4 @@
-import { fn } from '@storybook/test';
+import { fn, userEvent, within } from '@storybook/test';
 
 import { NormalButton } from './normal-button';
 
@@ -48,6 +48,11 @@ export const Primary: Story = {
     backgroundColor: 'blue',
     size: 'large',
     children: '나는 버튼',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const primaryButton = await canvas.findByText(/나는 버튼/, { selector: 'button' });
+    await userEvent.click(primaryButton);
   },
 };
 

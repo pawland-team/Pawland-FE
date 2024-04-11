@@ -64,7 +64,8 @@ const S = {
     ${buttonSize}
 
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 800;
+    color: white;
 
     background-color: ${({ $backgroundColor }) => $backgroundColor};
     border: none;
