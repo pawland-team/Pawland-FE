@@ -8,7 +8,7 @@ export interface AddTodoRequestBody {
   title: string;
 }
 
-export interface AddTodoResponseBody {
+export interface Todo {
   id: number;
   title: string;
 }

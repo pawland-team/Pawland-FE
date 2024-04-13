@@ -3,12 +3,20 @@ import Head from 'next/head';
 
 import type {} from 'styled-components/cssprop';
 
+import { MSWComponent } from '@app/lib/msw-component';
 import { LibConfigProviders } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
 
 import '@app/styles/global.css';
+
+if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  (async () => {
+    const { initMSW } = await import('@mocks/index');
+    await initMSW();
+  })();
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,7 +29,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <MSWComponent>
+              <Component {...pageProps} />
+            </MSWComponent>
           </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
