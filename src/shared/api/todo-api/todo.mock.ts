@@ -1,23 +1,27 @@
-import { http, HttpResponse } from 'msw';
+import { rest } from 'msw';
 
-import { AddTodoParam, AddTodoRequestBody, Todo } from './dto';
+import { AddTodoRequestBody, Todo } from './dto';
 
 const todos: Todo[] = [
   {
     id: 1,
     title: '밥먹기',
+    isUrgent: false,
   },
   {
     id: 2,
     title: '공부하기',
+    isUrgent: true,
   },
   {
     id: 3,
     title: '자기',
+    isUrgent: false,
   },
   {
     id: 4,
     title: '놀기',
+    isUrgent: false,
   },
 ];
 
@@ -27,20 +31,22 @@ const todos: Todo[] = [
  */
 export const todoHandlers = [
   // 할일 목록
-  // http.get('/todos', ({ cookies, params, request, requestId }) => {
-  http.get('/todos', (_info) => {
-    // return new Response(ctx.status(200), ctx.json(todos));
-    return HttpResponse.json(todos, {
-      status: 200,
-      statusText: 'OK',
-    });
+  rest.get(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/todos`, (_req, res, ctx) => {
+    return res(ctx.json(todos));
+  }),
+
+  // 급한 할일 목록
+  rest.get(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/todos/urgent`, (req, res, ctx) => {
+    const urgentTodos = todos.filter((todo) => todo.isUrgent);
+
+    return res(ctx.json(urgentTodos));
   }),
 
   // 할일 추가
-  http.post<AddTodoParam, AddTodoRequestBody, Todo[]>('/todos', async ({ request }) => {
-    const newTodo = await request.json();
-    todos.push({ id: todos.length + 1, title: newTodo.title });
+  rest.post(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/todos`, async (req, res, ctx) => {
+    const newTodo = await req.json<AddTodoRequestBody>();
+    todos.push({ id: todos.length + 1, title: newTodo.title, isUrgent: false });
 
-    return HttpResponse.json(todos);
+    return res(ctx.json(todos));
   }),
 ];

@@ -27,6 +27,7 @@ module.exports = {
     'svgo.config.js',
     'node_modules/',
     'jest.*.js',
+    'dotenv-config.js',
   ],
   settings: {
     'import/parsers': {
@@ -187,6 +188,11 @@ module.exports = {
             pattern: '@{app,pages,widgets,features,entities,shared,mocks}/**/*',
             group: 'internal',
             position: 'before',
+          },
+          {
+            pattern: '@/**/*',
+            group: 'internal',
+            position: 'after',
           },
           {
             pattern: '{.,..}/**/*.style',
