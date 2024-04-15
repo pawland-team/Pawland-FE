@@ -29,7 +29,6 @@ jobs:
         run: npm ci
 
       - name: Create dotenv
-        shell: bash
         run: |
           echo "${{ secrets.ENV_LOCAL }}" > .env.local
 
