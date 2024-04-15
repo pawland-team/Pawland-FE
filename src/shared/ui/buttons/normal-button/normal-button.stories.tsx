@@ -5,8 +5,9 @@ import { NormalButton } from './normal-button';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'shared/ui/buttons/NormalButton',
+  title: 'Components/Button/NormalButton',
   component: NormalButton,
+  // https://storybook.js.org/docs/api/parameters#available-parameters
   parameters: {
     controls: {
       include: ['backgroundColor', 'size'],
@@ -16,6 +17,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     backgroundColor: {
+      // https://storybook.js.org/docs/essentials/controls
       control: {
         type: 'select',
         options: ['red', 'blue', 'green'],

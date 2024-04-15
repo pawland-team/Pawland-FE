@@ -5,7 +5,6 @@ const nextConfig = {
     styledComponents: {
       cssProp: true,
       displayName: true,
-      pure: true,
       ssr: true,
     },
     removeConsole: process.env.NODE_ENV === 'production',

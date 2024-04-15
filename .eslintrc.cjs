@@ -27,6 +27,7 @@ module.exports = {
     'svgo.config.js',
     'node_modules/',
     'jest.*.js',
+    'dotenv-config.js',
   ],
   settings: {
     'import/parsers': {
@@ -189,27 +190,9 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@{layout,components,assets}/**/*',
+            pattern: '@/**/*',
             group: 'internal',
             position: 'after',
-          },
-          {
-            pattern: '@{lib,utils,hooks,event,api}/**/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@{store,slice}/**/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@pages/**/*.style',
-            group: 'unknown',
-          },
-          {
-            pattern: '@components/**/*.style',
-            group: 'unknown',
           },
           {
             pattern: '{.,..}/**/*.style',
