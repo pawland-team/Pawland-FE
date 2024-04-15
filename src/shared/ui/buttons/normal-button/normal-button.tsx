@@ -20,11 +20,21 @@ type NormalButtonProps = {
    * 클릭 이벤트
    */
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * type 속성
+   */
+  type?: 'button' | 'submit' | 'reset';
 };
 
-export const NormalButton = ({ backgroundColor, size, children = '나는 버튼', onClick }: NormalButtonProps) => {
+export const NormalButton = ({
+  backgroundColor,
+  size,
+  children = '나는 버튼',
+  onClick,
+  type = 'submit',
+}: NormalButtonProps) => {
   return (
-    <S.Button onClick={onClick} $backgroundColor={backgroundColor} $size={size}>
+    <S.Button type={type} onClick={onClick} $backgroundColor={backgroundColor} $size={size}>
       {children}
     </S.Button>
   );

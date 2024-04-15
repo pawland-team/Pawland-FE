@@ -1,3 +1,4 @@
-import { todoHandlers } from '@shared/__mocks__/localhost/todo/todoHandlers';
+import { todoHandlers } from '@shared/api/todo-api/todo.mock';
 
+// export const handlers = [...todoHandlers, ...folderHandlers, ...otherHandlers];
 export const handlers = [...todoHandlers];

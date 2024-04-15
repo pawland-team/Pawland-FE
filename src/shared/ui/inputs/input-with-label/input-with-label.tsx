@@ -11,7 +11,7 @@ type InputWithLabelProps = Omit<UseFormRegisterReturn, 'ref'> &
     {
       id: InputHTMLAttributes<HTMLInputElement>['id'];
       placeholder: InputHTMLAttributes<HTMLInputElement>['placeholder'];
-      autoComplete: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
+      autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
     } & AppendedCommonInputProps & {
         label: string;
       }
