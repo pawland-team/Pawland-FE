@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, renderHook, screen } from '@testing-library/react';
 
 import { useGetTodoList } from '@entities/todo/hooks';
-import { Todo } from '@shared/api/todo-api';
+import { Todo } from '@shared/apis/todo-api';
 
 import { TodoList } from './todo-list';
 

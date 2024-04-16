@@ -1,7 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getTodoApi } from '@shared/api/todo-api';
-import { getUrgentTodoApi } from '@shared/api/todo-api/get-urgent-todo-api';
+import { getTodoApi, getUrgentTodoApi } from '@shared/apis/todo-api';
 
 export const todoQueryKeys = {
   all: () => ['todo'],
