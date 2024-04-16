@@ -1,4 +1,4 @@
-import { Todo } from '@shared/api/todo-api';
+import { Todo } from '@shared/apis/todo-api';
 
 interface TodoListProps {
   todoList: Todo[];
