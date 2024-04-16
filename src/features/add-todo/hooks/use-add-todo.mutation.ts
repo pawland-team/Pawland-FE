@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { todoQueryKeys } from '@entities/todo/api/todo-querykeys';
-import { addTodoApi } from '@shared/api/todo-api';
+import { todoQueryKeys } from '@entities/todo/apis';
+import { addTodoApi } from '@shared/apis/todo-api';
 
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
