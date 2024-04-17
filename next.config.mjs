@@ -3,8 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     styledComponents: {
-      cssProp: true,
-      displayName: true,
       ssr: true,
     },
     removeConsole: process.env.NODE_ENV === 'production',
