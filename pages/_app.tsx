@@ -3,7 +3,6 @@ import Head from 'next/head';
 
 import type {} from 'styled-components/cssprop';
 
-import { MSWComponent } from '@app/lib/msw-component';
 import { LibConfigProviders } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
@@ -29,9 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <MSWComponent>
-              <Component {...pageProps} />
-            </MSWComponent>
+            <Component {...pageProps} />
           </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
