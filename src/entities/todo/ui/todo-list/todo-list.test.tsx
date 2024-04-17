@@ -30,27 +30,27 @@ const createWrapper = () => {
 };
 
 describe('TodoList Component test', () => {
-  beforeEach(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
+  // beforeEach(() => {
+  //   jest.spyOn(console, 'error').mockImplementation(() => {});
+  // });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+  // afterAll(() => {
+  //   jest.restoreAllMocks();
+  // });
 
   it('TodoList Component Render', async () => {
-    // given
+    // given - useGetTodoList 훅을 사용하여 할 일 목록을 가져온다.
     const { result } = renderHook(() => useGetTodoList(), { wrapper: createWrapper() });
 
-    // ✅ wait until the query has transitioned to success state
     let data: Todo[] = [];
 
-    // given - Home 화면이 그려진다.
+    // when - success 상태일 때
+    // ✅ wait until the query has transitioned to success state
     if (result.current.status === 'success') {
       data = result.current.data;
       render(<TodoList todoList={data} />);
 
-      // then - TodoList 컴포넌트가 그려진다.
+      // then - TodoList 컴포넌트 내부 아이템 요소가 렌더링 되었는지 확인한다.
       // expect(screen.getByText('할 일')).toBeInTheDocument();
       const todo = await screen.findByText('공부하기');
       expect(todo).toBeInTheDocument();
