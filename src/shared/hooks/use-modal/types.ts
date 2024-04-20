@@ -113,7 +113,7 @@ export type ModalComponentForListSuperSet = ModalComponentForList<any>;
  * ```tsx
  * const MyModal = ({ closeModal, modalRef, submitModal, userName }: ModalComponentProps<{ userName: string; }>) => {
  *   return (
- *     <div ref={ref={(node) => {
+ *     <div ref={(node) => {
  *         if (modalRef) modalRef.current = node;
  *       }}>
  *       <h1>{userName}</h1>
