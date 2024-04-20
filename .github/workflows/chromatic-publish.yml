@@ -27,7 +27,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check for stories
+        id: check_stories
+        run: |
+          if [ -z "$(find src -name '*.stories.*')" ]; then
+            echo "No stories found. Skipping Chromatic deployment."
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+
       - name: publish to chromatic
+        if: steps.check_stories.outputs.skip == 'false'
         id: chromatic
         uses: chromaui/action@v1
         with:
@@ -37,6 +48,7 @@ jobs:
           onlyChanged: true
 
       - name: Comment PR
+        if: steps.check_stories.outputs.skip == 'false'
         uses: thollander/actions-comment-pull-request@v2.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
