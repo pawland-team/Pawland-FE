@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Header } from '@shared/ui/header';
+import { Header } from '@widgets/header';
 
 import * as S from './layout-style';
 

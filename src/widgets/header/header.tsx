@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SearchInput } from '../inputs';
+import { SearchInput } from '../../shared/ui/inputs';
 import * as S from './header-style';
 
 const Header = () => {

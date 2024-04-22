@@ -1,4 +1,4 @@
-import { Header } from '@shared/ui/header';
+import { Header } from '@widgets/header';
 
 import type { StoryObj } from '@storybook/react';
 
