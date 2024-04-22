@@ -1,10 +1,6 @@
 import { zIndex } from '../z-index';
 
 export const theme = {
-  deviceSize: {
-    mobile: 'screen and (max-width: 768px)',
-    tablet: 'screen and (max-width: 1025px)',
-  },
   font: {
     imcre: `'Imcre-Soojin', sans-serif`,
   },
