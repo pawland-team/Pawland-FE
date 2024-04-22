@@ -4,7 +4,7 @@ import Head from 'next/head';
 import type {} from 'styled-components/cssprop';
 
 import { LibConfigProviders } from '@app/providers';
-import { pretendard } from '@app/styles/font/pretendard/pretendard';
+import { pretendard } from '@app/styles/font/font';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
