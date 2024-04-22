@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import * as S from './style';
+import * as S from './home-page-style';
 
 export const HomePage = () => {
   return (
