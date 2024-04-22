@@ -13,6 +13,8 @@ export const theme = {
     pretendard_500: `'Pretendard-500', sans-serif`,
     pretendard_600: `'Pretendard-600', sans-serif`,
     pretendard_700: `'Pretendard-700', sans-serif`,
+
+    imcre: `'Imcre-Soojin', sans-serif`,
   },
   color: {
     black_000000: '#000000',
