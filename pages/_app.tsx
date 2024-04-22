@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import type {} from 'styled-components/cssprop';
 
+import { Layout } from '@app/layout';
 import { LibConfigProviders } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
@@ -28,7 +29,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
