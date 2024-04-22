@@ -1,4 +1,5 @@
 import { HydrationBoundary } from '@tanstack/react-query';
+import localFont from 'next/font/local';
 import Head from 'next/head';
 
 import type {} from 'styled-components/cssprop';
@@ -17,6 +18,44 @@ if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKIN
   })();
 }
 
+const pretendard = localFont({
+  src: [
+    {
+      path: './fonts/pretendard/Pretendard-ExtraBold.woff',
+      weight: '800',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-Bold.woff',
+      weight: '700',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-SemiBold.woff',
+      weight: '600',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-Medium.woff',
+      weight: '500',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-Regular.woff',
+      weight: '400',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-Light.woff',
+      weight: '300',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-ExtraLight.woff',
+      weight: '200',
+    },
+    {
+      path: './fonts/pretendard/Pretendard-Thin.woff',
+      weight: '100',
+    },
+  ],
+  display: 'swap',
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -28,7 +67,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <main className={`${pretendard.className}`}>
+              <Component {...pageProps} />
+            </main>
           </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
