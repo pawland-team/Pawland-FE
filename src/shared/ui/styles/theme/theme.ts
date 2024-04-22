@@ -22,6 +22,11 @@ export const theme = {
     red_F5511D: '#F5511D',
     red_FFC2AF: '#FFC2AF',
     blue_2087D6: '#2087D6',
+
+    gray_9E9E9E: '#9E9E9E',
+    gray_BDBDBD: '#BDBDBD',
+    gray_F3F3F3: '#F3F3F3',
+    gray_F9F9F9: '#F9F9F9',
   },
   zIndex,
 } as const;
