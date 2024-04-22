@@ -19,7 +19,6 @@ body {
   overflow-x: auto;
   height: fit-content;
   min-height: 100vh;
-  font-weight: 400;
 }
 
 /* 혹은 Styled components의 global css로 관리 */
