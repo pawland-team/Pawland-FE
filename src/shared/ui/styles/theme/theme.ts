@@ -6,14 +6,6 @@ export const theme = {
     tablet: 'screen and (max-width: 1025px)',
   },
   font: {
-    pretendard_100: `'Pretendard-100', sans-serif`,
-    pretendard_200: `'Pretendard-200', sans-serif`,
-    pretendard_300: `'Pretendard-300', sans-serif`,
-    pretendard_400: `'Pretendard-400', sans-serif`,
-    pretendard_500: `'Pretendard-500', sans-serif`,
-    pretendard_600: `'Pretendard-600', sans-serif`,
-    pretendard_700: `'Pretendard-700', sans-serif`,
-
     imcre: `'Imcre-Soojin', sans-serif`,
   },
   color: {
