@@ -3,35 +3,35 @@ import localFont from 'next/font/local';
 export const pretendard = localFont({
   src: [
     {
-      path: './pretendard/woff/Pretendard-Bold.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Bold.woff',
       weight: '800',
     },
     {
-      path: './pretendard/woff/Pretendard-Bold.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Bold.woff',
       weight: '700',
     },
     {
-      path: './pretendard/woff/Pretendard-SemiBold.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-SemiBold.woff',
       weight: '600',
     },
     {
-      path: './pretendard/woff/Pretendard-Medium.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Medium.woff',
       weight: '500',
     },
     {
-      path: './pretendard/woff/Pretendard-Regular.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Regular.woff',
       weight: '400',
     },
     {
-      path: './pretendard/woff/Pretendard-Light.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Light.woff',
       weight: '300',
     },
     {
-      path: './pretendard/woff/Pretendard-ExtraLight.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-ExtraLight.woff',
       weight: '200',
     },
     {
-      path: './pretendard/woff/Pretendard-Thin.woff',
+      path: '../../../../public/fonts/pretendard/Pretendard-Thin.woff',
       weight: '100',
     },
   ],
