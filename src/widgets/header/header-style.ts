@@ -22,7 +22,7 @@ export const HeaderContainer = styled.div`
 
   width: 95%;
   max-width: 1194px;
-  padding: 20px 0;
+  padding: 18px 0;
 `;
 
 export const InputBox = styled.div`
