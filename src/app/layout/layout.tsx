@@ -13,7 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <S.LayoutPage>
         <Header />
-        {children}
+        <main>{children}</main>
       </S.LayoutPage>
     </>
   );
