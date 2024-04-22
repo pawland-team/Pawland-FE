@@ -139,3 +139,9 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
+
+a {
+  cursor: pointer;
+  color: unset;
+  text-decoration: none;
+}

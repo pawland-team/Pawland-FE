@@ -1,0 +1,3 @@
+const WishItemButton = () => {};
+
+export { WishItemButton };
