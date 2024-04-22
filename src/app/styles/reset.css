@@ -139,3 +139,33 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
+
+a {
+  cursor: pointer;
+  color: unset;
+  text-decoration: none;
+}
+
+input,
+textarea {
+  resize: none;
+  outline: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+input,
+textarea,
+select,
+button {
+  background: transparent;
+  border: 0;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
