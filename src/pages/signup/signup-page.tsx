@@ -1,8 +1,37 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import Head from 'next/head';
 
 import * as S from './signup-page-style';
 
 export const SignupPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleShowPasswordConfirmation = () => {
+    setShowPasswordConfirmation(!showPasswordConfirmation);
+  };
+
+  const {
+    onBlur,
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid, isSubmitting },
+    setError,
+  } = useForm({ mode: 'onChange' });
+  const email = watch('email');
+  const password = watch('password');
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       <Head>
@@ -17,22 +46,73 @@ export const SignupPage = () => {
             <S.SignupPageTitle>회원가입</S.SignupPageTitle>
             <S.SignupPageTitleSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageTitleSpan>
           </S.SignupPageTitleContainer>
-          <S.SignupPageForm>
+          <S.SignupPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
               <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
             </S.SignupPageInputContainer>
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
-              <S.SignupPageInput placeholder='이메일을 적어주세요.' />
+              <S.SignupPageInput
+                type='email'
+                placeholder='이메일을 입력해주세요.'
+                style={{ borderColor: errors.email && 'red' }}
+                {...register('email', {
+                  required: '* 이메일을 입력해주세요.',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: '* 이메일 형식이 올바르지 않습니다.',
+                  },
+                })}
+              />
+              {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
-              <S.SignupPageInput placeholder='비밀번호를 적어주세요.' />
+              <S.SignupPageInput
+                type={showPassword ? 'text' : 'password'}
+                placeholder='비밀번호를 적어주세요.'
+                style={{ borderColor: errors.password && 'red' }}
+                {...register('password', {
+                  required: '* 비밀번호를 입력해주세요.',
+                  minLength: {
+                    value: 8,
+                    message: '* 영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+                  },
+                  pattern: {
+                    value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/,
+                    message: '* 영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+                  },
+                })}
+              />
+              <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
+                <img
+                  src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
+                  alt='show-or-hide-password-icon'
+                />
+              </S.SignupInputPasswordShowOrHideButton>
+              {errors.password && <S.SignupPageErrorSpan>{errors.password.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
-              <S.SignupPageInput placeholder='비밀번호를 한 번 더 적어주세요.' />
+              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-confirm-icon' />
+              <S.SignupPageInput
+                type={showPasswordConfirmation ? 'text' : 'password'}
+                placeholder='비밀번호를 한 번 더 적어주세요.'
+                style={{ borderColor: errors.password && 'red' }}
+                {...register('passwordConfirmation', {
+                  required: '* 비밀번호를 입력해주세요.',
+                  validate: (value) => value === password || '비밀번호가 일치하지 않습니다.',
+                })}
+              />
+              <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPasswordConfirmation}>
+                <img
+                  src={showPasswordConfirmation ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
+                  alt='show-or-hide-password-confirmation-icon'
+                />
+              </S.SignupInputPasswordShowOrHideButton>
+              {errors.passwordConfirmation && (
+                <S.SignupPageErrorSpan>{errors.passwordConfirmation.message}</S.SignupPageErrorSpan>
+              )}
             </S.SignupPageInputContainer>
             <S.SignupPageDisabledButton type='submit'>인증을 진행해 주세요.</S.SignupPageDisabledButton>
           </S.SignupPageForm>
