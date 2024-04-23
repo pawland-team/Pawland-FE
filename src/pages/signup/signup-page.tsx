@@ -18,13 +18,12 @@ export const SignupPage = () => {
   };
 
   const {
-    onBlur,
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isSubmitting },
     setError,
-  } = useForm({ mode: 'onChange' });
+  } = useForm({ mode: 'onBlur' });
   const email = watch('email');
   const password = watch('password');
 
@@ -49,7 +48,27 @@ export const SignupPage = () => {
           <S.SignupPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
-              <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
+              <S.SignupPageInput
+                type='text'
+                placeholder='닉네임을 정해주세요.'
+                style={{ borderColor: errors.nickname && 'red' }}
+                {...register('nickname', {
+                  required: '* 닉네임을 입력해주세요.',
+                  minLength: {
+                    value: 2,
+                    message: '* 2자 이상의 닉네임을 입력해주세요.',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '* 10자 이하의 닉네임을 입력해주세요.',
+                  },
+                  pattern: {
+                    value: /^[가-힣a-zA-Z0-9]{2,10}$/,
+                    message: '* 한글, 영문, 숫자만 입력 가능합니다.',
+                  },
+                })}
+              />
+              {errors.nickname && <S.SignupPageErrorSpan>{errors.nickname.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
