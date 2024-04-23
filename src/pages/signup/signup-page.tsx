@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 
@@ -15,6 +15,14 @@ export const SignupPage = () => {
 
   const toggleShowPasswordConfirmation = () => {
     setShowPasswordConfirmation(!showPasswordConfirmation);
+  };
+
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [verificationCodeEntered, setVerificationCodeEntered] = useState('');
+
+  const handleVerifyEmail = () => {
+    // 이메일 인증 관련 API 호출
+    setEmailVerified(true);
   };
 
   const {
@@ -84,6 +92,7 @@ export const SignupPage = () => {
                 })}
               />
               <S.SignupPageEmailAuthenticationButton
+                onClick={handleVerifyEmail}
                 type='button'
                 style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
                 disabled={!email || errors.email}
@@ -92,6 +101,19 @@ export const SignupPage = () => {
               </S.SignupPageEmailAuthenticationButton>
               {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
+            {emailVerified && (
+              <S.SignupPageInputContainer>
+                <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+                <S.SignupPageInput
+                  {...register('verificationCode', {
+                    required: '* 인증번호를 입력해주세요.',
+                  })}
+                  onChange={(e) => setVerificationCodeEntered(e.target.value)}
+                  placeholder='인증번호를 입력해주세요.'
+                  style={{ borderColor: errors.verificationCode && 'red' }}
+                />
+              </S.SignupPageInputContainer>
+            )}
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
               <S.SignupPageInput
