@@ -1,5 +1,7 @@
 import Head from 'next/head';
 
+import * as S from './home-page-style';
+
 export const HomePage = () => {
   return (
     <>
@@ -9,7 +11,9 @@ export const HomePage = () => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>main page</main>
+      <main>
+        <S.HomePage>main page</S.HomePage>
+      </main>
     </>
   );
 };
