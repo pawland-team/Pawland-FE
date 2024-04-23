@@ -90,6 +90,24 @@ const SignupInputIcon = styled.img`
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
+const SignupPageEmailAuthenticationButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+
+  padding: 4px 10px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.white_FFFFFF};
+
+  background-color: ${({ theme }) => theme.color.red_F5511D};
+  border-radius: 4px;
+`;
+
 const SignupInputPasswordShowOrHideButton = styled.button`
   position: absolute;
   top: 50%;
@@ -132,6 +150,7 @@ export {
   SignupPageInput,
   SignupPageErrorSpan,
   SignupInputIcon,
+  SignupPageEmailAuthenticationButton,
   SignupPageInputContainer,
   SignupInputPasswordShowOrHideButton,
   SignupPageDisabledButton,

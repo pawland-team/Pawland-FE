@@ -21,11 +21,10 @@ export const SignupPage = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm({ mode: 'onBlur' });
-  const email = watch('email');
+    formState: { errors },
+  } = useForm({ mode: 'onChange' });
   const password = watch('password');
+  const email = watch('email');
 
   const onSubmit = (data) => {
     console.log(data);
@@ -84,6 +83,13 @@ export const SignupPage = () => {
                   },
                 })}
               />
+              <S.SignupPageEmailAuthenticationButton
+                type='button'
+                style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
+                disabled={!email || errors.email}
+              >
+                인증받기
+              </S.SignupPageEmailAuthenticationButton>
               {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             <S.SignupPageInputContainer>
