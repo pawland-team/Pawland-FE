@@ -12,7 +12,9 @@ export const SignupPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <S.SignupPage>Signup page</S.SignupPage>
+        <S.SignupPageTitle>회원가입</S.SignupPageTitle>
+        <S.SignupPageSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageSpan>
+        <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
       </main>
     </>
   );

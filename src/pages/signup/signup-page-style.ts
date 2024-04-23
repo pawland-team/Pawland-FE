@@ -1,9 +1,33 @@
 import styled from 'styled-components';
 
-const SignupPage = styled.div`
-  font-size: 5.2rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+const SignupPageTitle = styled.h1`
+  font-family: Imcre-Soojin, sans-serif;
+  font-size: 4rem;
+  color: ${({ theme }) => theme.color.black_000000};
 `;
 
-export { SignupPage };
+const SignupPageSpan = styled.span`
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const SignupPageInput = styled.input`
+  width: 100%;
+  height: 64px;
+  padding: 20px 18px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  color: ${({ theme }) => theme.color.gray_BDBDBD};
+
+  background-color: ${({ theme }) => theme.color.gray_F3F3F3};
+  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+  border-radius: 6px;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.gray_BDBDBD};
+  }
+`;
+
+export { SignupPageTitle, SignupPageSpan, SignupPageInput };
