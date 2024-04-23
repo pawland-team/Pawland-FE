@@ -3,12 +3,14 @@ import styled from 'styled-components';
 const SignupPageTitle = styled.h1`
   font-family: Imcre-Soojin, sans-serif;
   font-size: 4rem;
+  font-weight: 400;
   color: ${({ theme }) => theme.color.black_000000};
 `;
 
 const SignupPageSpan = styled.span`
   font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
+  font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
@@ -23,6 +25,7 @@ const SignupPageInput = styled.input`
 
   font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
+  font-weight: 400;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 
   background-color: ${({ theme }) => theme.color.gray_F3F3F3};
@@ -43,4 +46,23 @@ const SignupInputIcon = styled.img`
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
-export { SignupPageTitle, SignupPageSpan, SignupPageInput, SignupInputIcon, SignupPageInputContainer };
+const SignupPageDisabledButton = styled.button`
+  width: 100%;
+  height: 64px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.white_FFFFFF};
+
+  background-color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+export {
+  SignupPageTitle,
+  SignupPageSpan,
+  SignupPageInput,
+  SignupInputIcon,
+  SignupPageInputContainer,
+  SignupPageDisabledButton,
+};

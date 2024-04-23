@@ -12,24 +12,31 @@ export const SignupPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <S.SignupPageTitle>회원가입</S.SignupPageTitle>
-        <S.SignupPageSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageSpan>
-        <S.SignupPageInputContainer>
-          <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
-          <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
-        </S.SignupPageInputContainer>
-        <S.SignupPageInputContainer>
-          <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
-          <S.SignupPageInput placeholder='이메일을 적어주세요.' />
-        </S.SignupPageInputContainer>
-        <S.SignupPageInputContainer>
-          <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
-          <S.SignupPageInput placeholder='비밀번호를 적어주세요.' />
-        </S.SignupPageInputContainer>
-        <S.SignupPageInputContainer>
-          <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
-          <S.SignupPageInput placeholder='비밀번호를 한 번 더 적어주세요.' />
-        </S.SignupPageInputContainer>
+        <div>
+          <S.SignupPageTitle>회원가입</S.SignupPageTitle>
+          <S.SignupPageSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageSpan>
+        </div>
+        <form>
+          <S.SignupPageInputContainer>
+            <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
+            <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
+          </S.SignupPageInputContainer>
+          <S.SignupPageInputContainer>
+            <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+            <S.SignupPageInput placeholder='이메일을 적어주세요.' />
+          </S.SignupPageInputContainer>
+          <S.SignupPageInputContainer>
+            <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+            <S.SignupPageInput placeholder='비밀번호를 적어주세요.' />
+          </S.SignupPageInputContainer>
+          <S.SignupPageInputContainer>
+            <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+            <S.SignupPageInput placeholder='비밀번호를 한 번 더 적어주세요.' />
+          </S.SignupPageInputContainer>
+          <S.SignupPageDisabledButton type='submit'>인증을 진행해 주세요.</S.SignupPageDisabledButton>
+          <span>이미 포랜드 계정이 있으신가요?</span>
+          <span>로그인하기</span>
+        </form>
       </main>
     </>
   );
