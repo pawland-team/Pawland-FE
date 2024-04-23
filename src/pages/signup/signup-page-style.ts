@@ -7,7 +7,7 @@ const SignupPageTitle = styled.h1`
   color: ${({ theme }) => theme.color.black_000000};
 `;
 
-const SignupPageSpan = styled.span`
+const SignupPageTitleSpan = styled.span`
   font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
@@ -58,11 +58,28 @@ const SignupPageDisabledButton = styled.button`
   background-color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const SignupPageBottomSpan = styled.span`
+  font-family: Pretendard, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const SignupPageBottomLink = styled.span`
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.black_000000};
+  text-decoration: underline;
+`;
+
 export {
   SignupPageTitle,
-  SignupPageSpan,
+  SignupPageTitleSpan,
   SignupPageInput,
   SignupInputIcon,
   SignupPageInputContainer,
   SignupPageDisabledButton,
+  SignupPageBottomSpan,
+  SignupPageBottomLink,
 };

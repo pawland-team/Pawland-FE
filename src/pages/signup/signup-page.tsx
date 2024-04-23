@@ -14,7 +14,7 @@ export const SignupPage = () => {
       <main>
         <div>
           <S.SignupPageTitle>회원가입</S.SignupPageTitle>
-          <S.SignupPageSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageSpan>
+          <S.SignupPageTitleSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageTitleSpan>
         </div>
         <form>
           <S.SignupPageInputContainer>
@@ -34,8 +34,8 @@ export const SignupPage = () => {
             <S.SignupPageInput placeholder='비밀번호를 한 번 더 적어주세요.' />
           </S.SignupPageInputContainer>
           <S.SignupPageDisabledButton type='submit'>인증을 진행해 주세요.</S.SignupPageDisabledButton>
-          <span>이미 포랜드 계정이 있으신가요?</span>
-          <span>로그인하기</span>
+          <S.SignupPageBottomSpan>이미 포랜드 계정이 있으신가요?</S.SignupPageBottomSpan>
+          <S.SignupPageBottomLink>로그인하기</S.SignupPageBottomLink>
         </form>
       </main>
     </>
