@@ -14,7 +14,22 @@ export const SignupPage = () => {
       <main>
         <S.SignupPageTitle>회원가입</S.SignupPageTitle>
         <S.SignupPageSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageSpan>
-        <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
+        <S.SignupPageInputContainer>
+          <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
+          <S.SignupPageInput placeholder='닉네임을 정해주세요.' />
+        </S.SignupPageInputContainer>
+        <S.SignupPageInputContainer>
+          <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+          <S.SignupPageInput placeholder='이메일을 적어주세요.' />
+        </S.SignupPageInputContainer>
+        <S.SignupPageInputContainer>
+          <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+          <S.SignupPageInput placeholder='비밀번호를 적어주세요.' />
+        </S.SignupPageInputContainer>
+        <S.SignupPageInputContainer>
+          <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+          <S.SignupPageInput placeholder='비밀번호를 한 번 더 적어주세요.' />
+        </S.SignupPageInputContainer>
       </main>
     </>
   );
