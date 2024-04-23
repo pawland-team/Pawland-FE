@@ -72,6 +72,25 @@ const SignupPageInput = styled.input`
   }
 `;
 
+const SignupPageVerifyInput = styled.input`
+  width: 70%;
+  height: 64px;
+  padding: 20px 50px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_BDBDBD};
+
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+  border-radius: 6px;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.gray_BDBDBD};
+  }
+`;
+
 const SignupPageErrorSpan = styled.span`
   margin-top: 5px;
 
@@ -90,7 +109,7 @@ const SignupInputIcon = styled.img`
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
-const SignupPageEmailAuthenticationButton = styled.button`
+const SignupPageEmailVerificationButton = styled.button`
   position: absolute;
   top: 50%;
   right: 22px;
@@ -113,6 +132,20 @@ const SignupInputPasswordShowOrHideButton = styled.button`
   top: 50%;
   right: 22px;
   transform: translateY(-50%);
+`;
+
+const SignupPageSubmitButton = styled.button`
+  width: 100%;
+  height: 64px;
+  margin-top: 20px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.white_FFFFFF};
+
+  background-color: ${({ theme }) => theme.color.black_000000};
+  border-radius: 6px;
 `;
 
 const SignupPageDisabledButton = styled.button`
@@ -148,11 +181,13 @@ export {
   SignupPageTitle,
   SignupPageTitleSpan,
   SignupPageInput,
+  SignupPageVerifyInput,
   SignupPageErrorSpan,
   SignupInputIcon,
-  SignupPageEmailAuthenticationButton,
+  SignupPageEmailVerificationButton,
   SignupPageInputContainer,
   SignupInputPasswordShowOrHideButton,
+  SignupPageSubmitButton,
   SignupPageDisabledButton,
   SignupPageBottomSpan,
   SignupPageBottomLink,

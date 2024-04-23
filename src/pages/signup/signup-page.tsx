@@ -25,6 +25,13 @@ export const SignupPage = () => {
     setEmailVerified(true);
   };
 
+  const [verificationSuccess, setVerificationSuccess] = useState(false);
+
+  const handleCompleteVerification = () => {
+    // 이메일 인증 완료 관련 API 호출
+    setVerificationSuccess(true);
+  };
+
   const {
     register,
     handleSubmit,
@@ -91,20 +98,20 @@ export const SignupPage = () => {
                   },
                 })}
               />
-              <S.SignupPageEmailAuthenticationButton
+              <S.SignupPageEmailVerificationButton
                 onClick={handleVerifyEmail}
                 type='button'
                 style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
                 disabled={!email || errors.email}
               >
                 인증받기
-              </S.SignupPageEmailAuthenticationButton>
+              </S.SignupPageEmailVerificationButton>
               {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             {emailVerified && (
               <S.SignupPageInputContainer>
                 <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
-                <S.SignupPageInput
+                <S.SignupPageVerifyInput
                   {...register('verificationCode', {
                     required: '* 인증번호를 입력해주세요.',
                   })}
@@ -112,6 +119,14 @@ export const SignupPage = () => {
                   placeholder='인증번호를 입력해주세요.'
                   style={{ borderColor: errors.verificationCode && 'red' }}
                 />
+                <S.SignupPageEmailVerificationButton
+                  type='button'
+                  style={{ backgroundColor: verificationCodeEntered ? '#F5511D' : '#9E9E9E' }}
+                  disabled={!verificationCodeEntered}
+                  onClick={handleCompleteVerification}
+                >
+                  인증완료
+                </S.SignupPageEmailVerificationButton>
               </S.SignupPageInputContainer>
             )}
             <S.SignupPageInputContainer>
@@ -161,7 +176,13 @@ export const SignupPage = () => {
                 <S.SignupPageErrorSpan>{errors.passwordConfirmation.message}</S.SignupPageErrorSpan>
               )}
             </S.SignupPageInputContainer>
-            <S.SignupPageDisabledButton type='submit'>인증을 진행해 주세요.</S.SignupPageDisabledButton>
+            {verificationSuccess ? (
+              <S.SignupPageSubmitButton type='submit'>회원가입</S.SignupPageSubmitButton>
+            ) : (
+              <S.SignupPageDisabledButton type='submit' disabled>
+                인증을 진행해 주세요.
+              </S.SignupPageDisabledButton>
+            )}
           </S.SignupPageForm>
           <S.SignupPageBottomContainer>
             <S.SignupPageBottomSpan>이미 포랜드 계정이 있으신가요?</S.SignupPageBottomSpan>
