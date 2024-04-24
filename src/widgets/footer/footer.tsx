@@ -10,7 +10,7 @@ const Footer = () => {
     <S.FooterArea>
       <S.UpperContainer className='upper-container'>
         <div className='logo-box'>
-          <Image src='/assets/images/logos/footer-logo.png' alt='포랜드 로고' width={279} height={78} />
+          <Image src='/assets/images/logo/footer-logo.png' alt='포랜드 로고' width={279} height={78} />
         </div>
         <nav className='nav-box'>
           <div>

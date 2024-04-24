@@ -8,7 +8,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   return (
     <>
       <S.SearchInputBox>
-        <img src='/assets/images/icons/search-icon-9E9E9E-w12-h12.svg' alt='검색 아이콘' />
+        <img src='/assets/images/icon/search-icon-9E9E9E-w12-h12.svg' alt='검색 아이콘' />
         <input type='text' placeholder={placeholder} />
       </S.SearchInputBox>
     </>
