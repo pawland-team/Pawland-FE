@@ -268,7 +268,7 @@ export const SignupPage = () => {
                         message: '* 인증번호는 숫자로만 구성되어야 합니다.',
                       },
                     })}
-                    onBlur={(e) => setVerificationCodeEntered(e.target.value)}
+                    onChange={(e) => setVerificationCodeEntered(e.target.value)}
                   />
                   <S.SignupPageTimerSpan>{formatTime(timer)}</S.SignupPageTimerSpan>
                   {verificationSuccess ? (
