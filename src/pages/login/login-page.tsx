@@ -58,15 +58,15 @@ export const LoginPage = () => {
                 placeholder='이메일을 입력해주세요.'
                 style={{ borderColor: errors.email && 'red' }}
                 {...register('email', {
-                  required: '* 이메일을 입력해주세요.',
+                  required: '이메일을 입력해주세요.',
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: '* 이메일 형식이 올바르지 않습니다.',
+                    message: '이메일 형식이 올바르지 않습니다.',
                   },
                 })}
               />
             </S.LoginPageInputContainer>
-            {errors.email && <S.LoginPageErrorSpan>{errors.email.message}</S.LoginPageErrorSpan>}
+
             <S.LoginPageInputContainer>
               <S.LoginInputIcon src='input-password-icon.svg' alt='input-password-icon' />
               <S.LoginPageInput
@@ -74,14 +74,14 @@ export const LoginPage = () => {
                 placeholder='비밀번호를 적어주세요.'
                 style={{ borderColor: errors.password && 'red' }}
                 {...register('password', {
-                  required: '* 비밀번호를 입력해주세요.',
+                  required: '비밀번호를 입력해주세요.',
                   minLength: {
                     value: 8,
-                    message: '* 영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+                    message: '영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
                   },
                   pattern: {
                     value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/,
-                    message: '* 영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
+                    message: '영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
                   },
                 })}
               />
@@ -92,7 +92,21 @@ export const LoginPage = () => {
                 />
               </S.LoginInputPasswordShowOrHideButton>
             </S.LoginPageInputContainer>
-            {errors.password && <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>}
+
+            {errors.email && (
+              <S.LoginPageErrorContainer>
+                <S.LoginPageErrorWrapper />
+                <S.LoginPageErrorIcon src='login-error-icon.svg' alt='login-error-icon' />
+                <S.LoginPageErrorSpan>{errors.email.message}</S.LoginPageErrorSpan>
+              </S.LoginPageErrorContainer>
+            )}
+            {errors.password && (
+              <S.LoginPageErrorContainer>
+                <S.LoginPageErrorWrapper />
+                <S.LoginPageErrorIcon src='login-error-icon.svg' alt='login-error-icon' />
+                <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>
+              </S.LoginPageErrorContainer>
+            )}
             <S.LoginPageSubmitButton>로그인</S.LoginPageSubmitButton>
           </S.LoginPageForm>
           <Link href='/signup'>

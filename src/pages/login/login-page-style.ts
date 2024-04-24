@@ -53,8 +53,37 @@ const LoginPageInput = styled.input`
   }
 `;
 
+const LoginPageErrorContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 43px;
+  margin-top: 6px;
+`;
+
+const LoginPageErrorWrapper = styled.div`
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0.2;
+  background-color: ${({ theme }) => theme.color.red_FFC2AF};
+  border-radius: 6px;
+`;
+
+const LoginPageErrorIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+`;
+
 const LoginPageErrorSpan = styled.span`
-  margin-top: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  transform: translateY(-50%);
+
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.red_F5511D};
@@ -139,6 +168,9 @@ const SocialLoginLogo = styled.img`
 export {
   LoginPageLogo,
   LoginPageInput,
+  LoginPageErrorContainer,
+  LoginPageErrorWrapper,
+  LoginPageErrorIcon,
   LoginPageErrorSpan,
   LoginInputIcon,
   LoginPageInputContainer,
