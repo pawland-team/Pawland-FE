@@ -17,6 +17,29 @@ export const SignupPage = () => {
     setShowPasswordConfirmation(!showPasswordConfirmation);
   };
 
+  const dupCheckEmail = async (email) => {
+    if (!email) {
+      return;
+    }
+
+    const response = await fetch(`http://43.200.183.10:8080/api/auth/email-dupcheck`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    if (response.status === 400) {
+      setError('email', {
+        type: 'manual',
+        message: '이미 사용 중인 이메일입니다.',
+      });
+    }
+  };
+
   const [emailVerified, setEmailVerified] = useState(false);
   const [verificationCodeEntered, setVerificationCodeEntered] = useState('');
 
@@ -69,6 +92,8 @@ export const SignupPage = () => {
     register,
     handleSubmit,
     watch,
+    onBlur,
+    setError,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
   const password = watch('password');
@@ -154,6 +179,7 @@ export const SignupPage = () => {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                     message: '* 이메일 형식이 올바르지 않습니다.',
                   },
+                  onBlur: (e) => dupCheckEmail(e.target.value),
                 })}
               />
               {emailVerified ? (
