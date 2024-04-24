@@ -107,6 +107,10 @@ export const LoginPage = () => {
                 <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>
               </S.LoginPageErrorContainer>
             )}
+            <S.LoginCredentialsSaveContainer>
+              <S.LoginCredentailsSaveCheckbox type='checkbox' />
+              <S.LoginPageBottomSpan>이메일, 비밀번호 저장</S.LoginPageBottomSpan>
+            </S.LoginCredentialsSaveContainer>
             <S.LoginPageSubmitButton>로그인</S.LoginPageSubmitButton>
           </S.LoginPageForm>
           <Link href='/signup'>

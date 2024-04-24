@@ -53,6 +53,22 @@ const LoginPageInput = styled.input`
   }
 `;
 
+const LoginInputIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+
+  color: ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+
+const LoginInputPasswordShowOrHideButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+`;
+
 const LoginPageErrorContainer = styled.div`
   position: relative;
   width: 100%;
@@ -89,20 +105,17 @@ const LoginPageErrorSpan = styled.span`
   color: ${({ theme }) => theme.color.red_F5511D};
 `;
 
-const LoginInputIcon = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 18px;
-  transform: translateY(-50%);
-
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+const LoginCredentialsSaveContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 `;
 
-const LoginInputPasswordShowOrHideButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 22px;
-  transform: translateY(-50%);
+const LoginCredentailsSaveCheckbox = styled.input`
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 `;
 
 const LoginPageSubmitButton = styled.button`
@@ -175,6 +188,8 @@ export {
   LoginInputIcon,
   LoginPageInputContainer,
   LoginInputPasswordShowOrHideButton,
+  LoginCredentialsSaveContainer,
+  LoginCredentailsSaveCheckbox,
   LoginPageSubmitButton,
   LinkToSignupPageButton,
   LoginPageBottomBorderLine,
