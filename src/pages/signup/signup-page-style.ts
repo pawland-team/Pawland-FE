@@ -61,7 +61,7 @@ const SignupPageInput = styled.input`
   font-family: Pretendard, sans-serif;
   font-size: 1.4rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+  color: ${({ theme }) => theme.color.black_000000};
 
   background-color: ${({ theme }) => theme.color.gray_F9F9F9};
   border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
@@ -80,7 +80,7 @@ const SignupPageVerifyInput = styled.input`
   font-family: Pretendard, sans-serif;
   font-size: 1.4rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+  color: ${({ theme }) => theme.color.black_000000};
 
   background-color: ${({ theme }) => theme.color.gray_F9F9F9};
   border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
