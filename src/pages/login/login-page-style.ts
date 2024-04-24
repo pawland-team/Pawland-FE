@@ -20,6 +20,11 @@ const LoginPageTitleContainer = styled.div`
   margin-bottom: 40px;
 `;
 
+const LoginPageLogo = styled.img`
+  width: 200px;
+  height: 160px;
+`;
+
 const LoginPageForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -125,6 +130,7 @@ const LoginPageBottomLink = styled.span`
 `;
 
 export {
+  LoginPageLogo,
   LoginPageInput,
   LoginPageErrorSpan,
   LoginInputIcon,

@@ -47,7 +47,7 @@ export const LoginPage = () => {
       <main>
         <S.LoginPageContainer>
           <S.LoginPageTitleContainer>
-            <h1>로고</h1>
+            <S.LoginPageLogo src='pawland-logo.svg' />
           </S.LoginPageTitleContainer>
           <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.LoginPageInputContainer>
