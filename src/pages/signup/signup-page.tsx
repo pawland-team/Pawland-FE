@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
+import Link from 'next/link';
 
 import * as S from './signup-page-style';
 
@@ -348,7 +349,9 @@ export const SignupPage = () => {
           </S.SignupPageForm>
           <S.SignupPageBottomContainer>
             <S.SignupPageBottomSpan>이미 포랜드 계정이 있으신가요?</S.SignupPageBottomSpan>
-            <S.SignupPageBottomLink>로그인하기</S.SignupPageBottomLink>
+            <Link href='/login'>
+              <S.SignupPageBottomLink>로그인하기</S.SignupPageBottomLink>
+            </Link>
           </S.SignupPageBottomContainer>
         </S.SignupPageContainer>
       </main>
