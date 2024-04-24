@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export const HeaderArea = styled.div`
+import { ZIndexObject } from '@shared/ui/styles/z-index/z-index';
+
+interface HeaderAreaStyle {
+  $zIndex: ZIndexObject;
+}
+
+export const HeaderArea = styled.header<HeaderAreaStyle>`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,6 +19,8 @@ export const HeaderArea = styled.div`
 
   background: #fff;
   border-bottom: 1px solid #bdbdbd;
+
+  z-index: ${(props) => props.$zIndex.header};
 `;
 
 export const HeaderContainer = styled.div`

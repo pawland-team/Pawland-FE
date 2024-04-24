@@ -2,13 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
+import { zIndex } from '@shared/ui/styles/z-index';
 
 import * as S from './header-style';
 
 const Header = () => {
   return (
     <>
-      <S.HeaderArea>
+      <S.HeaderArea $zIndex={zIndex}>
         <S.HeaderContainer>
           <S.LogoBox>
             <Link href='/'>
