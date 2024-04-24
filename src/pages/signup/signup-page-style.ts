@@ -23,7 +23,6 @@ const SignupPageTitleContainer = styled.div`
 const SignupPageForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 const SignupPageBottomContainer = styled.div`
@@ -51,6 +50,7 @@ const SignupPageTitleSpan = styled.span`
 
 const SignupPageInputContainer = styled.div`
   position: relative;
+  margin-top: 20px;
 `;
 
 const SignupPageInput = styled.input`
@@ -93,8 +93,6 @@ const SignupPageVerifyInput = styled.input`
 
 const SignupPageErrorSpan = styled.span`
   margin-top: 5px;
-
-  font-family: Pretendard, sans-serif;
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.red_F5511D};
