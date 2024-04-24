@@ -5,6 +5,7 @@ import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
 import { LibConfigProviders } from '@app/providers';
+import { pretendard } from '@app/styles/font/font';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
@@ -29,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <Layout>
+            <Layout className={`${pretendard.className}`}>
               <Component {...pageProps} />
             </Layout>
           </HydrationBoundary>

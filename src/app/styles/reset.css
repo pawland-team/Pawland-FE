@@ -145,3 +145,27 @@ a {
   color: unset;
   text-decoration: none;
 }
+
+input,
+textarea {
+  resize: none;
+  outline: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+input,
+textarea,
+select,
+button {
+  background: transparent;
+  border: 0;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
