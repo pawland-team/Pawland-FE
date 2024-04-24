@@ -93,25 +93,21 @@ export const LoginPage = () => {
               </S.LoginInputPasswordShowOrHideButton>
             </S.LoginPageInputContainer>
             {errors.password && <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>}
+            <S.LoginPageSubmitButton>로그인</S.LoginPageSubmitButton>
           </S.LoginPageForm>
-
+          <Link href='/signup'>
+            <S.LinkToSignupPageButton>회원가입</S.LinkToSignupPageButton>
+          </Link>
           <S.SocialLoginContainer>
+            <S.SocialLoginWrapper>
+              <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
+            </S.SocialLoginWrapper>
             <S.SocialLoginWrapper>
               <S.SocialLoginLogo src='naver-logo.svg' alt='naver-logo-icon' />
               <S.SocialLoginLogo src='kakao-logo.svg' alt='kakao-logo-icon' />
               <S.SocialLoginLogo src='google-logo.svg' alt='google-logo-icon' />
             </S.SocialLoginWrapper>
-            <S.SocialLoginWrapper>
-              <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
-            </S.SocialLoginWrapper>
           </S.SocialLoginContainer>
-
-          <S.LoginPageBottomContainer>
-            <S.LoginPageBottomSpan>포랜드 계정이 없으신가요?</S.LoginPageBottomSpan>
-            <Link href='/signup'>
-              <S.LoginPageBottomLink>이메일 회원가입</S.LoginPageBottomLink>
-            </Link>
-          </S.LoginPageBottomContainer>
         </S.LoginPageContainer>
       </main>
     </>

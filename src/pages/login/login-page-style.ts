@@ -100,7 +100,7 @@ const LoginPageSubmitButton = styled.button`
   border-radius: 6px;
 `;
 
-const LoginPageDisabledButton = styled.button`
+const LinkToSignupPageButton = styled.button`
   width: 100%;
   height: 64px;
   margin-top: 20px;
@@ -108,9 +108,10 @@ const LoginPageDisabledButton = styled.button`
   font-family: Pretendard, sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.color.white_FFFFFF};
+  color: ${({ theme }) => theme.color.black_000000};
 
-  background-color: ${({ theme }) => theme.color.gray_9E9E9E};
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
   border-radius: 6px;
 `;
 
@@ -119,14 +120,6 @@ const LoginPageBottomSpan = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
-`;
-
-const LoginPageBottomLink = styled.span`
-  font-family: Pretendard, sans-serif;
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: ${({ theme }) => theme.color.black_000000};
-  text-decoration: underline;
 `;
 
 const SocialLoginContainer = styled.div`
@@ -155,9 +148,8 @@ export {
   LoginPageInputContainer,
   LoginInputPasswordShowOrHideButton,
   LoginPageSubmitButton,
-  LoginPageDisabledButton,
+  LinkToSignupPageButton,
   LoginPageBottomSpan,
-  LoginPageBottomLink,
   LoginPageContainer,
   LoginPageTitleContainer,
   LoginPageForm,
