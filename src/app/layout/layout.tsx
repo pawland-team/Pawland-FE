@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { Footer } from '@widgets/footer';
 import { Header } from '@widgets/header';
 
 import * as S from './layout-style';
@@ -15,6 +16,7 @@ const Layout = ({ children, className }: LayoutProps) => {
       <S.LayoutPage className={className}>
         <Header />
         <main>{children}</main>
+        <Footer />
       </S.LayoutPage>
     </>
   );
