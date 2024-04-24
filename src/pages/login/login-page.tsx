@@ -70,53 +70,6 @@ export const LoginPage = () => {
               />
             </S.SignupPageInputContainer>
             {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
-            {emailVerified && (
-              <>
-                <S.SignupPageInputContainer>
-                  <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
-                  <S.SignupPageVerifyInput
-                    type='text'
-                    placeholder='인증번호를 입력해주세요.'
-                    style={{ borderColor: errors.verificationCode && 'red' }}
-                    {...register('verificationCode', {
-                      required: '* 인증번호를 입력해주세요.',
-                      minLength: {
-                        value: 6,
-                        message: '* 인증번호는 6자리 숫자입니다.',
-                      },
-                      maxLength: {
-                        value: 6,
-                        message: '* 인증번호는 6자리 숫자입니다.',
-                      },
-                      pattern: {
-                        value: /^[0-9]{6}$/,
-                        message: '* 인증번호는 숫자로만 구성되어야 합니다.',
-                      },
-                    })}
-                    onBlur={(e) => setVerificationCodeEntered(e.target.value)}
-                  />
-                  <S.SignupPageTimerSpan>{formatTime(timer)}</S.SignupPageTimerSpan>
-                  {verificationSuccess ? (
-                    <S.SignupPageEmailVerificationDisabledButton type='button' disabled={verificationSuccess}>
-                      인증완료
-                    </S.SignupPageEmailVerificationDisabledButton>
-                  ) : (
-                    <S.SignupPageEmailVerificationButton
-                      type='button'
-                      style={{ backgroundColor: verificationCodeEntered ? '#F5511D' : '#9E9E9E' }}
-                      disabled={!verificationCodeEntered || verificationSuccess}
-                      onClick={handleCompleteVerification}
-                    >
-                      인증완료
-                    </S.SignupPageEmailVerificationButton>
-                  )}
-                </S.SignupPageInputContainer>
-                {errors.verificationCode && (
-                  <S.SignupPageErrorSpan>{errors.verificationCode.message}</S.SignupPageErrorSpan>
-                )}
-              </>
-            )}
-
             <S.SignupPageInputContainer>
               <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
               <S.SignupPageInput
@@ -143,38 +96,10 @@ export const LoginPage = () => {
               </S.SignupInputPasswordShowOrHideButton>
             </S.SignupPageInputContainer>
             {errors.password && <S.SignupPageErrorSpan>{errors.password.message}</S.SignupPageErrorSpan>}
-            <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-confirm-icon' />
-              <S.SignupPageInput
-                type={showPasswordConfirmation ? 'text' : 'password'}
-                placeholder='비밀번호를 한 번 더 적어주세요.'
-                style={{ borderColor: errors.password && 'red' }}
-                {...register('passwordConfirmation', {
-                  required: '* 비밀번호를 입력해주세요.',
-                  validate: (value) => value === password || '* 비밀번호가 일치하지 않습니다.',
-                })}
-              />
-              <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPasswordConfirmation}>
-                <img
-                  src={showPasswordConfirmation ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
-                  alt='show-or-hide-password-confirmation-icon'
-                />
-              </S.SignupInputPasswordShowOrHideButton>
-            </S.SignupPageInputContainer>
-            {errors.passwordConfirmation && (
-              <S.SignupPageErrorSpan>{errors.passwordConfirmation.message}</S.SignupPageErrorSpan>
-            )}
-            {verificationSuccess ? (
-              <S.SignupPageSubmitButton type='submit'>회원가입</S.SignupPageSubmitButton>
-            ) : (
-              <S.SignupPageDisabledButton type='submit' disabled>
-                인증을 진행해 주세요.
-              </S.SignupPageDisabledButton>
-            )}
           </S.SignupPageForm>
           <S.SignupPageBottomContainer>
-            <S.SignupPageBottomSpan>이미 포랜드 계정이 있으신가요?</S.SignupPageBottomSpan>
-            <S.SignupPageBottomLink>로그인하기</S.SignupPageBottomLink>
+            <S.SignupPageBottomSpan>포랜드 계정이 없으신가요?</S.SignupPageBottomSpan>
+            <S.SignupPageBottomLink>회원가입</S.SignupPageBottomLink>
           </S.SignupPageBottomContainer>
         </S.SignupPageContainer>
       </main>
