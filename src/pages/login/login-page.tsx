@@ -94,10 +94,22 @@ export const LoginPage = () => {
             </S.LoginPageInputContainer>
             {errors.password && <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>}
           </S.LoginPageForm>
+
+          <S.SocialLoginContainer>
+            <S.SocialLoginWrapper>
+              <S.SocialLoginLogo src='naver-logo.svg' alt='naver-logo-icon' />
+              <S.SocialLoginLogo src='kakao-logo.svg' alt='kakao-logo-icon' />
+              <S.SocialLoginLogo src='google-logo.svg' alt='google-logo-icon' />
+            </S.SocialLoginWrapper>
+            <S.SocialLoginWrapper>
+              <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
+            </S.SocialLoginWrapper>
+          </S.SocialLoginContainer>
+
           <S.LoginPageBottomContainer>
             <S.LoginPageBottomSpan>포랜드 계정이 없으신가요?</S.LoginPageBottomSpan>
             <Link href='/signup'>
-              <S.LoginPageBottomLink>회원가입</S.LoginPageBottomLink>
+              <S.LoginPageBottomLink>이메일 회원가입</S.LoginPageBottomLink>
             </Link>
           </S.LoginPageBottomContainer>
         </S.LoginPageContainer>

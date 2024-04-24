@@ -129,6 +129,24 @@ const LoginPageBottomLink = styled.span`
   text-decoration: underline;
 `;
 
+const SocialLoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const SocialLoginWrapper = styled.div`
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const SocialLoginLogo = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
 export {
   LoginPageLogo,
   LoginPageInput,
@@ -144,4 +162,7 @@ export {
   LoginPageTitleContainer,
   LoginPageForm,
   LoginPageBottomContainer,
+  SocialLoginContainer,
+  SocialLoginWrapper,
+  SocialLoginLogo,
 };
