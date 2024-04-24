@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
@@ -8,6 +8,18 @@ import * as S from './login-page-style';
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberCredentials, setRememberCredentials] = useState(false);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
+
+    if (storedEmail && storedPassword) {
+      setValue('email', storedEmail, { shouldValidate: true, shouldDirty: true });
+      setValue('password', storedPassword, { shouldValidate: true, shouldDirty: true });
+      setRememberCredentials(true);
+    }
+  }, []);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -108,7 +120,11 @@ export const LoginPage = () => {
               </S.LoginPageErrorContainer>
             )}
             <S.LoginCredentialsSaveContainer>
-              <S.LoginCredentailsSaveCheckbox type='checkbox' />
+              <S.LoginCredentailsSaveCheckbox
+                type='checkbox'
+                checked={rememberCredentials}
+                onChange={(e) => setRememberCredentials(e.target.checked)}
+              />
               <S.LoginPageBottomSpan>이메일, 비밀번호 저장</S.LoginPageBottomSpan>
             </S.LoginCredentialsSaveContainer>
             <S.LoginPageSubmitButton>로그인</S.LoginPageSubmitButton>
