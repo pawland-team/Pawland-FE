@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
@@ -20,9 +20,13 @@ export const SignupPage = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [verificationCodeEntered, setVerificationCodeEntered] = useState('');
 
+  const [timer, setTimer] = useState(180);
+  const timerInterval = useRef(null);
+
   const handleVerifyEmail = () => {
     // 이메일 인증 관련 API 호출
     setEmailVerified(true);
+    setTimer(180);
   };
 
   const [verificationSuccess, setVerificationSuccess] = useState(false);
@@ -30,6 +34,7 @@ export const SignupPage = () => {
   const handleCompleteVerification = () => {
     // 이메일 인증 완료 관련 API 호출
     setVerificationSuccess(true);
+    clearInterval(timerInterval.current);
   };
 
   const {
@@ -40,6 +45,31 @@ export const SignupPage = () => {
   } = useForm({ mode: 'onChange' });
   const password = watch('password');
   const email = watch('email');
+
+  useEffect(() => {
+    if (emailVerified && timer > 0) {
+      timerInterval.current = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    }
+
+    if (timer === 0) {
+      clearInterval(timerInterval.current);
+      alert('인증번호 입력 시간이 만료되었습니다. 다시 시도해주세요.');
+      setEmailVerified(false);
+      setVerificationSuccess(false);
+      setTimer(180);
+    }
+
+    return () => clearInterval(timerInterval.current);
+  }, [emailVerified, timer]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -131,6 +161,7 @@ export const SignupPage = () => {
                   placeholder='인증번호를 입력해주세요.'
                   style={{ borderColor: errors.verificationCode && 'red' }}
                 />
+                <S.SignupPageTimerSpan>{formatTime(timer)}</S.SignupPageTimerSpan>
                 {verificationSuccess ? (
                   <S.SignupPageEmailVerificationDisabledButton type='button' disabled={verificationSuccess}>
                     인증완료

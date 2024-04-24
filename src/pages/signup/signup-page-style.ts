@@ -59,7 +59,7 @@ const SignupPageInput = styled.input`
   padding: 20px 50px;
 
   font-family: Pretendard, sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 
@@ -78,7 +78,7 @@ const SignupPageVerifyInput = styled.input`
   padding: 20px 50px;
 
   font-family: Pretendard, sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 
@@ -107,6 +107,19 @@ const SignupInputIcon = styled.img`
   transform: translateY(-50%);
 
   color: ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+
+const SignupPageTimerSpan = styled.span`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 56%;
+  transform: translateY(-50%);
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.black_000000};
 `;
 
 const SignupPageEmailVerificationButton = styled.button`
@@ -220,6 +233,7 @@ export {
   SignupPageVerifyInput,
   SignupPageErrorSpan,
   SignupInputIcon,
+  SignupPageTimerSpan,
   SignupPageEmailVerificationButton,
   SignupPageEmailVerificationReSendButton,
   SignupPageEmailVerificationDisabledButton,
