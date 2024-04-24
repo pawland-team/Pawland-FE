@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 
@@ -98,14 +98,26 @@ export const SignupPage = () => {
                   },
                 })}
               />
-              <S.SignupPageEmailVerificationButton
-                onClick={handleVerifyEmail}
-                type='button'
-                style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
-                disabled={!email || errors.email}
-              >
-                인증받기
-              </S.SignupPageEmailVerificationButton>
+              {emailVerified ? (
+                <S.SignupPageEmailVerificationReSendButton
+                  onClick={handleVerifyEmail}
+                  type='button'
+                  style={{ backgroundColor: verificationSuccess ? '#9E9E9E' : '#2087D6' }}
+                  disabled={!email || errors.email || verificationSuccess}
+                >
+                  재전송
+                </S.SignupPageEmailVerificationReSendButton>
+              ) : (
+                <S.SignupPageEmailVerificationButton
+                  onClick={handleVerifyEmail}
+                  type='button'
+                  style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
+                  disabled={!email || errors.email || verificationSuccess}
+                >
+                  인증받기
+                </S.SignupPageEmailVerificationButton>
+              )}
+
               {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
             </S.SignupPageInputContainer>
             {emailVerified && (
@@ -119,14 +131,20 @@ export const SignupPage = () => {
                   placeholder='인증번호를 입력해주세요.'
                   style={{ borderColor: errors.verificationCode && 'red' }}
                 />
-                <S.SignupPageEmailVerificationButton
-                  type='button'
-                  style={{ backgroundColor: verificationCodeEntered ? '#F5511D' : '#9E9E9E' }}
-                  disabled={!verificationCodeEntered}
-                  onClick={handleCompleteVerification}
-                >
-                  인증완료
-                </S.SignupPageEmailVerificationButton>
+                {verificationSuccess ? (
+                  <S.SignupPageEmailVerificationDisabledButton type='button' disabled={verificationSuccess}>
+                    인증완료
+                  </S.SignupPageEmailVerificationDisabledButton>
+                ) : (
+                  <S.SignupPageEmailVerificationButton
+                    type='button'
+                    style={{ backgroundColor: verificationCodeEntered ? '#F5511D' : '#9E9E9E' }}
+                    disabled={!verificationCodeEntered || verificationSuccess}
+                    onClick={handleCompleteVerification}
+                  >
+                    인증완료
+                  </S.SignupPageEmailVerificationButton>
+                )}
               </S.SignupPageInputContainer>
             )}
             <S.SignupPageInputContainer>

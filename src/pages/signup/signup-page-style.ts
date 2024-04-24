@@ -127,6 +127,42 @@ const SignupPageEmailVerificationButton = styled.button`
   border-radius: 4px;
 `;
 
+const SignupPageEmailVerificationReSendButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+
+  padding: 4px 10px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.white_FFFFFF};
+
+  background-color: ${({ theme }) => theme.color.blue_2087D6};
+  border-radius: 4px;
+`;
+
+const SignupPageEmailVerificationDisabledButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+
+  padding: 4px 10px;
+
+  font-family: Pretendard, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.white_FFFFFF};
+
+  background-color: ${({ theme }) => theme.color.gray_9E9E9E};
+  border-radius: 4px;
+`;
+
 const SignupInputPasswordShowOrHideButton = styled.button`
   position: absolute;
   top: 50%;
@@ -185,6 +221,8 @@ export {
   SignupPageErrorSpan,
   SignupInputIcon,
   SignupPageEmailVerificationButton,
+  SignupPageEmailVerificationReSendButton,
+  SignupPageEmailVerificationDisabledButton,
   SignupPageInputContainer,
   SignupInputPasswordShowOrHideButton,
   SignupPageSubmitButton,
