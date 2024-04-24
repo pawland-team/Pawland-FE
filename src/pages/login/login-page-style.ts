@@ -13,11 +13,10 @@ const LoginPageContainer = styled.div`
 const LoginPageTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 `;
 
 const LoginPageLogo = styled.img`
@@ -30,18 +29,9 @@ const LoginPageForm = styled.form`
   flex-direction: column;
 `;
 
-const LoginPageBottomContainer = styled.div`
-  display: flex;
-  gap: 25px;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 20px;
-`;
-
 const LoginPageInputContainer = styled.div`
   position: relative;
-  margin-top: 20px;
+  margin-top: 6px;
 `;
 
 const LoginPageInput = styled.input`
@@ -89,7 +79,7 @@ const LoginInputPasswordShowOrHideButton = styled.button`
 const LoginPageSubmitButton = styled.button`
   width: 100%;
   height: 64px;
-  margin-top: 20px;
+  margin-top: 40px;
 
   font-family: Pretendard, sans-serif;
   font-size: 2rem;
@@ -103,7 +93,7 @@ const LoginPageSubmitButton = styled.button`
 const LinkToSignupPageButton = styled.button`
   width: 100%;
   height: 64px;
-  margin-top: 20px;
+  margin-top: 12px;
 
   font-family: Pretendard, sans-serif;
   font-size: 2rem;
@@ -153,7 +143,6 @@ export {
   LoginPageContainer,
   LoginPageTitleContainer,
   LoginPageForm,
-  LoginPageBottomContainer,
   SocialLoginContainer,
   SocialLoginWrapper,
   SocialLoginLogo,
