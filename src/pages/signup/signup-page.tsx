@@ -6,6 +6,7 @@ import Head from 'next/head';
 import * as S from './signup-page-style';
 
 export const SignupPage = () => {
+  const { BASE_URL } = process.env;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -23,9 +24,19 @@ export const SignupPage = () => {
   const [timer, setTimer] = useState(180);
   const timerInterval = useRef(null);
 
-  const handleVerifyEmail = () => {
+  const handleVerifyEmail = async () => {
     // 이메일 인증 관련 API 호출
+    await fetch(`${BASE_URL}/api/auth/send-verification-code`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
     setEmailVerified(true);
+    // 인증 메일 발송 알림 모달 띄우기
     setTimer(180);
   };
 
