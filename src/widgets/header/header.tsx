@@ -42,7 +42,12 @@ const Header = () => {
                 />
               </Link>
               <Link href='/chat'>
-                <img src='/assets/images/icons/chat-icon-33363F-w32-h32.svg' alt='채팅 아이콘' />
+                <Image
+                  width={32}
+                  height={32}
+                  src='/assets/images/icons/chat-icon-33363F-w32-h32.svg'
+                  alt='채팅 아이콘'
+                />
               </Link>
             </div>
             <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />
