@@ -147,8 +147,23 @@ export const SignupPage = () => {
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const response = await fetch(`http://43.200.183.10:8080/api/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nickname: data.nickname,
+        email: data.email,
+        password: data.password,
+      }),
+    });
+
+    if (response.status === 201) {
+      // 회원가입 완료 관련 알림 모달 띄우기
+      console.log('회원가입이 완료되었습니다.');
+    }
   };
 
   return (
