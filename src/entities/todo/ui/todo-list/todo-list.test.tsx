@@ -39,18 +39,18 @@ describe('TodoList Component test', () => {
   });
 
   it('TodoList Component Render', async () => {
-    // given
+    // given - todolist api를 호출하여
     const { result } = renderHook(() => useGetTodoList(), { wrapper: createWrapper() });
 
     // ✅ wait until the query has transitioned to success state
     let data: Todo[] = [];
 
-    // given - Home 화면이 그려진다.
+    // when - status가 성공상태가 되고 TodoList가 화면에 렌더링되면
     if (result.current.status === 'success') {
       data = result.current.data;
       render(<TodoList todoList={data} />);
 
-      // then - TodoList 컴포넌트가 그려진다.
+      // then - 가져온 내용이 TodoList 컴포넌트에 채워져 있다.
       // expect(screen.getByText('할 일')).toBeInTheDocument();
       const todo = await screen.findByText('공부하기');
       expect(todo).toBeInTheDocument();
