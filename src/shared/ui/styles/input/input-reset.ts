@@ -13,11 +13,18 @@ export const inputContainer = css`
 
   background: #fff;
   border-radius: 6px;
+
+  &:focus-within {
+    border: 1px solid ${({ theme }) => theme.color.blue_2087D6};
+  }
+
+  &.red {
+    border: 1px solid ${({ theme }) => theme.color.red_F5511D};
+  }
 `;
 
 /**
  * - input 요소에 import해서 넣어주면 스타일 초기화됨
- * - textarea에는 사용 불가
  */
 export const inputReset = css`
   width: 100%;
@@ -30,9 +37,5 @@ export const inputReset = css`
 
   &::placeholder {
     color: #9e9e9e;
-  }
-
-  @media screen and (width >= 768px) {
-    font-size: 1.4rem;
   }
 `;

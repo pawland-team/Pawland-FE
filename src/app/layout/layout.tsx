@@ -6,12 +6,13 @@ import * as S from './layout-style';
 
 interface LayoutProps {
   children: ReactNode;
+  className: any;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, className }: LayoutProps) => {
   return (
     <>
-      <S.LayoutPage>
+      <S.LayoutPage className={className}>
         <Header />
         <main>{children}</main>
       </S.LayoutPage>
