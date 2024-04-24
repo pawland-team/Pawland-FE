@@ -3,24 +3,25 @@ import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import * as S from './login-page-style';
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberCredentials, setRememberCredentials] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
 
-    if (storedEmail && storedPassword) {
-      setValue('email', storedEmail, { shouldValidate: true, shouldDirty: true });
-      setValue('password', storedPassword, { shouldValidate: true, shouldDirty: true });
+    if (storedEmail) {
+      setValue('email', storedEmail, { shouldValidate: true });
+      setValue('password', storedPassword, { shouldValidate: true });
       setRememberCredentials(true);
     }
   }, []);
-
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -28,6 +29,7 @@ export const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
 
@@ -43,9 +45,24 @@ export const LoginPage = () => {
       }),
     });
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       // 로그인 완료 관련 알림 모달 띄우기
       console.log('로그인이 완료되었습니다.');
+
+      if (rememberCredentials) {
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('password', data.password);
+      } else {
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
+      }
+
+      router.push('/');
+    }
+
+    if (response.status === 400) {
+      // 로그인 실패 관련 알림 모달 띄우기
+      console.log('아이디와 비밀번호를 확인해주세요.');
     }
   };
 
