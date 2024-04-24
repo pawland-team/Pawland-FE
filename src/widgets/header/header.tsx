@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
 import { CommonButton } from '@shared/ui/buttons';
@@ -7,8 +8,16 @@ import { zIndex } from '@shared/ui/styles/z-index';
 
 import * as S from './header-style';
 
-const Header = () => {
-  const isLoggedIn = true;
+interface HeaderProps {
+  isLoggedIn: boolean;
+}
+
+const Header = ({ isLoggedIn }: HeaderProps) => {
+  const router = useRouter();
+
+  const handleClickLogin = () => {
+    router.push('/login');
+  };
 
   return (
     <>
@@ -36,8 +45,6 @@ const Header = () => {
             </ul>
           </S.NavContainer>
           {isLoggedIn ? (
-            <CommonButton fontWeight={700}>로그인/회원가입</CommonButton>
-          ) : (
             <S.LinkGroupContainer>
               <div className='link-box'>
                 <Link href='/'>
@@ -59,6 +66,10 @@ const Header = () => {
               </div>
               <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />
             </S.LinkGroupContainer>
+          ) : (
+            <CommonButton fontWeight={700} handleClick={handleClickLogin}>
+              로그인/회원가입
+            </CommonButton>
           )}
         </S.HeaderContainer>
       </S.HeaderArea>

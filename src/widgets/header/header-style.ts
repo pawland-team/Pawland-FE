@@ -8,6 +8,7 @@ interface HeaderAreaStyle {
 
 export const HeaderArea = styled.header<HeaderAreaStyle>`
   position: fixed;
+  z-index: ${(props) => props.$zIndex.header};
   top: 0;
   left: 0;
 
@@ -16,11 +17,10 @@ export const HeaderArea = styled.header<HeaderAreaStyle>`
   justify-content: center;
 
   width: 100%;
+  height: 80px;
 
   background: #fff;
   border-bottom: 1px solid #bdbdbd;
-
-  z-index: ${(props) => props.$zIndex.header};
 `;
 
 export const HeaderContainer = styled.div`
@@ -32,7 +32,6 @@ export const HeaderContainer = styled.div`
 
   width: 95%;
   max-width: 1194px;
-  padding: 18px 0;
 `;
 
 export const NavContainer = styled.nav`
