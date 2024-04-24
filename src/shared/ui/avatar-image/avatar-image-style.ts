@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 interface AvatarStyleProps {
-  $avatarBorderRadius?: string;
-  $avatarWidth?: string;
-  $avatarHeight?: string;
+  $avatarBorderRadius?: number;
+  $avatarWidth?: number;
+  $avatarHeight?: number;
 }
 
 export const AvatarImage = styled.div<AvatarStyleProps>`
   overflow: hidden;
   display: block;
 
-  width: ${(props) => props.$avatarWidth};
-  height: ${(props) => props.$avatarHeight};
+  width: ${(props) => props.$avatarWidth}px;
+  height: ${(props) => props.$avatarHeight}px;
 
-  border-radius: ${(props) => props.$avatarBorderRadius};
+  border-radius: ${(props) => props.$avatarBorderRadius}px;
 
   img {
     width: 100%;

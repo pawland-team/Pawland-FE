@@ -6,6 +6,14 @@ export const ProductCardItem = styled.div`
   overflow: hidden;
   width: calc(100% / 3);
   border-radius: 12px;
+
+  @media (hover: hover) and (pointer: fine) {
+    .thumbnail {
+      img {
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+  }
 `;
 
 export const ProductThumbnaile = styled.div`
@@ -18,7 +26,14 @@ export const ProductThumbnaile = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: all 0.2s;
   }
 `;
 
