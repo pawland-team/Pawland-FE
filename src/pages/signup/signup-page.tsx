@@ -42,10 +42,29 @@ export const SignupPage = () => {
 
   const [verificationSuccess, setVerificationSuccess] = useState(false);
 
-  const handleCompleteVerification = () => {
+  const handleCompleteVerification = async () => {
     // 이메일 인증 완료 관련 API 호출
-    setVerificationSuccess(true);
-    clearInterval(timerInterval.current);
+    const response = await fetch(`${BASE_URL}/api/auth/verify-code`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: verificationCodeEntered,
+        email,
+      }),
+    });
+
+    if (response.status === 200) {
+      setVerificationSuccess(true);
+      // 인증 완료 알림 모달 띄우기
+      clearInterval(timerInterval.current);
+    }
+
+    if (response.status === 400) {
+      // 잘못된 인증번호 알림 모달 띄우기
+      console.log('잘못된 인증번호입니다. 다시 시도해주세요.');
+    }
   };
 
   const {
