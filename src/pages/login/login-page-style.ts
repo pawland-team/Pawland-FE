@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SignupPageContainer = styled.div`
+const LoginPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ const SignupPageContainer = styled.div`
   margin: 0 auto;
 `;
 
-const SignupPageTitleContainer = styled.div`
+const LoginPageTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -20,12 +20,12 @@ const SignupPageTitleContainer = styled.div`
   margin-bottom: 40px;
 `;
 
-const SignupPageForm = styled.form`
+const LoginPageForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const SignupPageBottomContainer = styled.div`
+const LoginPageBottomContainer = styled.div`
   display: flex;
   gap: 25px;
   align-items: center;
@@ -34,26 +34,12 @@ const SignupPageBottomContainer = styled.div`
   margin-top: 20px;
 `;
 
-const SignupPageTitle = styled.h1`
-  font-family: Imcre-Soojin, sans-serif;
-  font-size: 4rem;
-  font-weight: 400;
-  color: ${({ theme }) => theme.color.black_000000};
-`;
-
-const SignupPageTitleSpan = styled.span`
-  font-family: Pretendard, sans-serif;
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: ${({ theme }) => theme.color.gray_9E9E9E};
-`;
-
-const SignupPageInputContainer = styled.div`
+const LoginPageInputContainer = styled.div`
   position: relative;
   margin-top: 20px;
 `;
 
-const SignupPageInput = styled.input`
+const LoginPageInput = styled.input`
   width: 100%;
   height: 64px;
   padding: 20px 50px;
@@ -72,33 +58,14 @@ const SignupPageInput = styled.input`
   }
 `;
 
-const SignupPageVerifyInput = styled.input`
-  width: 70%;
-  height: 64px;
-  padding: 20px 50px;
-
-  font-family: Pretendard, sans-serif;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: ${({ theme }) => theme.color.black_000000};
-
-  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
-  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
-  border-radius: 6px;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.color.gray_BDBDBD};
-  }
-`;
-
-const SignupPageErrorSpan = styled.span`
+const LoginPageErrorSpan = styled.span`
   margin-top: 5px;
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.red_F5511D};
 `;
 
-const SignupInputIcon = styled.img`
+const LoginInputIcon = styled.img`
   position: absolute;
   top: 50%;
   left: 18px;
@@ -107,81 +74,14 @@ const SignupInputIcon = styled.img`
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
-const SignupPageTimerSpan = styled.span`
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 56%;
-  transform: translateY(-50%);
-
-  font-family: Pretendard, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: ${({ theme }) => theme.color.black_000000};
-`;
-
-const SignupPageEmailVerificationButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 22px;
-  transform: translateY(-50%);
-
-  padding: 4px 10px;
-
-  font-family: Pretendard, sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 20px;
-  color: ${({ theme }) => theme.color.white_FFFFFF};
-
-  background-color: ${({ theme }) => theme.color.red_F5511D};
-  border-radius: 4px;
-`;
-
-const SignupPageEmailVerificationReSendButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 22px;
-  transform: translateY(-50%);
-
-  padding: 4px 10px;
-
-  font-family: Pretendard, sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 20px;
-  color: ${({ theme }) => theme.color.white_FFFFFF};
-
-  background-color: ${({ theme }) => theme.color.blue_2087D6};
-  border-radius: 4px;
-`;
-
-const SignupPageEmailVerificationDisabledButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 22px;
-  transform: translateY(-50%);
-
-  padding: 4px 10px;
-
-  font-family: Pretendard, sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 20px;
-  color: ${({ theme }) => theme.color.white_FFFFFF};
-
-  background-color: ${({ theme }) => theme.color.gray_9E9E9E};
-  border-radius: 4px;
-`;
-
-const SignupInputPasswordShowOrHideButton = styled.button`
+const LoginInputPasswordShowOrHideButton = styled.button`
   position: absolute;
   top: 50%;
   right: 22px;
   transform: translateY(-50%);
 `;
 
-const SignupPageSubmitButton = styled.button`
+const LoginPageSubmitButton = styled.button`
   width: 100%;
   height: 64px;
   margin-top: 20px;
@@ -195,7 +95,7 @@ const SignupPageSubmitButton = styled.button`
   border-radius: 6px;
 `;
 
-const SignupPageDisabledButton = styled.button`
+const LoginPageDisabledButton = styled.button`
   width: 100%;
   height: 64px;
   margin-top: 20px;
@@ -209,14 +109,14 @@ const SignupPageDisabledButton = styled.button`
   border-radius: 6px;
 `;
 
-const SignupPageBottomSpan = styled.span`
+const LoginPageBottomSpan = styled.span`
   font-family: Pretendard, sans-serif;
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const SignupPageBottomLink = styled.span`
+const LoginPageBottomLink = styled.span`
   font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
@@ -225,24 +125,17 @@ const SignupPageBottomLink = styled.span`
 `;
 
 export {
-  SignupPageTitle,
-  SignupPageTitleSpan,
-  SignupPageInput,
-  SignupPageVerifyInput,
-  SignupPageErrorSpan,
-  SignupInputIcon,
-  SignupPageTimerSpan,
-  SignupPageEmailVerificationButton,
-  SignupPageEmailVerificationReSendButton,
-  SignupPageEmailVerificationDisabledButton,
-  SignupPageInputContainer,
-  SignupInputPasswordShowOrHideButton,
-  SignupPageSubmitButton,
-  SignupPageDisabledButton,
-  SignupPageBottomSpan,
-  SignupPageBottomLink,
-  SignupPageContainer,
-  SignupPageTitleContainer,
-  SignupPageForm,
-  SignupPageBottomContainer,
+  LoginPageInput,
+  LoginPageErrorSpan,
+  LoginInputIcon,
+  LoginPageInputContainer,
+  LoginInputPasswordShowOrHideButton,
+  LoginPageSubmitButton,
+  LoginPageDisabledButton,
+  LoginPageBottomSpan,
+  LoginPageBottomLink,
+  LoginPageContainer,
+  LoginPageTitleContainer,
+  LoginPageForm,
+  LoginPageBottomContainer,
 };

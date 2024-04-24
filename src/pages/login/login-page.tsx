@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
@@ -15,12 +15,8 @@ export const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    setError,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
-  const password = watch('password');
-  const email = watch('email');
 
   const onSubmit = async (data) => {
     const response = await fetch(`http://43.200.183.10:8080/api/auth/login`, {
@@ -49,14 +45,14 @@ export const LoginPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-        <S.SignupPageContainer>
-          <S.SignupPageTitleContainer>
-            <S.SignupPageTitle>로고</S.SignupPageTitle>
-          </S.SignupPageTitleContainer>
-          <S.SignupPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
-            <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
-              <S.SignupPageInput
+        <S.LoginPageContainer>
+          <S.LoginPageTitleContainer>
+            <h1>로고</h1>
+          </S.LoginPageTitleContainer>
+          <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
+            <S.LoginPageInputContainer>
+              <S.LoginInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+              <S.LoginPageInput
                 type='email'
                 placeholder='이메일을 입력해주세요.'
                 style={{ borderColor: errors.email && 'red' }}
@@ -68,11 +64,11 @@ export const LoginPage = () => {
                   },
                 })}
               />
-            </S.SignupPageInputContainer>
-            {errors.email && <S.SignupPageErrorSpan>{errors.email.message}</S.SignupPageErrorSpan>}
-            <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
-              <S.SignupPageInput
+            </S.LoginPageInputContainer>
+            {errors.email && <S.LoginPageErrorSpan>{errors.email.message}</S.LoginPageErrorSpan>}
+            <S.LoginPageInputContainer>
+              <S.LoginInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+              <S.LoginPageInput
                 type={showPassword ? 'text' : 'password'}
                 placeholder='비밀번호를 적어주세요.'
                 style={{ borderColor: errors.password && 'red' }}
@@ -88,20 +84,20 @@ export const LoginPage = () => {
                   },
                 })}
               />
-              <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
+              <S.LoginInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
                 <img
                   src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
                   alt='show-or-hide-password-icon'
                 />
-              </S.SignupInputPasswordShowOrHideButton>
-            </S.SignupPageInputContainer>
-            {errors.password && <S.SignupPageErrorSpan>{errors.password.message}</S.SignupPageErrorSpan>}
-          </S.SignupPageForm>
-          <S.SignupPageBottomContainer>
-            <S.SignupPageBottomSpan>포랜드 계정이 없으신가요?</S.SignupPageBottomSpan>
-            <S.SignupPageBottomLink>회원가입</S.SignupPageBottomLink>
-          </S.SignupPageBottomContainer>
-        </S.SignupPageContainer>
+              </S.LoginInputPasswordShowOrHideButton>
+            </S.LoginPageInputContainer>
+            {errors.password && <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>}
+          </S.LoginPageForm>
+          <S.LoginPageBottomContainer>
+            <S.LoginPageBottomSpan>포랜드 계정이 없으신가요?</S.LoginPageBottomSpan>
+            <S.LoginPageBottomLink>회원가입</S.LoginPageBottomLink>
+          </S.LoginPageBottomContainer>
+        </S.LoginPageContainer>
       </main>
     </>
   );
