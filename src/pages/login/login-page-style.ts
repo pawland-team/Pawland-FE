@@ -105,6 +105,12 @@ const LinkToSignupPageButton = styled.button`
   border-radius: 6px;
 `;
 
+const LoginPageBottomBorderLine = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+
 const LoginPageBottomSpan = styled.span`
   font-family: Pretendard, sans-serif;
   font-size: 1.4rem;
@@ -139,6 +145,7 @@ export {
   LoginInputPasswordShowOrHideButton,
   LoginPageSubmitButton,
   LinkToSignupPageButton,
+  LoginPageBottomBorderLine,
   LoginPageBottomSpan,
   LoginPageContainer,
   LoginPageTitleContainer,

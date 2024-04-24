@@ -100,6 +100,9 @@ export const LoginPage = () => {
           </Link>
           <S.SocialLoginContainer>
             <S.SocialLoginWrapper>
+              <S.LoginPageBottomBorderLine />
+            </S.SocialLoginWrapper>
+            <S.SocialLoginWrapper>
               <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
             </S.SocialLoginWrapper>
             <S.SocialLoginWrapper>
