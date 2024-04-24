@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
+import Link from 'next/link';
 
 import * as S from './login-page-style';
 
@@ -95,7 +96,9 @@ export const LoginPage = () => {
           </S.LoginPageForm>
           <S.LoginPageBottomContainer>
             <S.LoginPageBottomSpan>포랜드 계정이 없으신가요?</S.LoginPageBottomSpan>
-            <S.LoginPageBottomLink>회원가입</S.LoginPageBottomLink>
+            <Link href='/signup'>
+              <S.LoginPageBottomLink>회원가입</S.LoginPageBottomLink>
+            </Link>
           </S.LoginPageBottomContainer>
         </S.LoginPageContainer>
       </main>
