@@ -251,7 +251,7 @@ export const SignupPage = () => {
                   onClick={handleVerifyEmail}
                   type='button'
                   style={{ backgroundColor: verificationSuccess ? '#9E9E9E' : '#2087D6' }}
-                  disabled={!email || errors.email || verificationSuccess}
+                  disabled={!email || !!errors.email || verificationSuccess}
                 >
                   재전송
                 </S.SignupPageEmailVerificationReSendButton>
@@ -260,7 +260,7 @@ export const SignupPage = () => {
                   onClick={handleVerifyEmail}
                   type='button'
                   style={{ backgroundColor: !email || errors.email ? '#9E9E9E' : '#F5511D' }}
-                  disabled={!email || errors.email || verificationSuccess}
+                  disabled={!email || !!errors.email || verificationSuccess}
                 >
                   인증받기
                 </S.SignupPageEmailVerificationButton>
