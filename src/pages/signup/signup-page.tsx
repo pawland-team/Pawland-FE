@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import * as S from './signup-page-style';
 
 export const SignupPage = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -123,7 +125,6 @@ export const SignupPage = () => {
   } = useForm({ mode: 'onChange' });
   const password = watch('password');
   const email = watch('email');
-  const verificationCode = watch('verificationCode');
 
   useEffect(() => {
     if (emailVerified && timer > 0) {
@@ -166,6 +167,7 @@ export const SignupPage = () => {
     if (response.status === 201) {
       // 회원가입 완료 관련 알림 모달 띄우기
       console.log('회원가입이 완료되었습니다.');
+      router.push('/login');
     }
   };
 

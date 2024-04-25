@@ -13,6 +13,13 @@ export const LoginPage = () => {
   const [rememberCredentials, setRememberCredentials] = useState(false);
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({ mode: 'onChange' });
+
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
 
@@ -20,17 +27,10 @@ export const LoginPage = () => {
       setValue('email', storedEmail, { shouldValidate: true });
       setRememberCredentials(true);
     }
-  }, []);
+  }, [setValue]);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({ mode: 'onChange' });
 
   const onSubmit = async (data) => {
     const response = await fetch(`${BASE_URL}/api/auth/login`, {
