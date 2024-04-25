@@ -162,7 +162,7 @@ export const SignupPage = () => {
 
     if (timer === 0) {
       clearInterval(timerInterval.current as NodeJS.Timeout);
-      alert('인증번호 입력 시간이 만료되었습니다. 다시 시도해주세요.');
+      openModal('인증 시간이 만료되었습니다. 다시 시도해주세요.');
       setEmailVerified(false);
       setVerificationSuccess(false);
       setTimer(180);
