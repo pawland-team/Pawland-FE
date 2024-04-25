@@ -4,16 +4,16 @@ import { textLineClamp2 } from '@shared/ui/styles/text-style/text-style';
 
 export const ProductCardItem = styled.div`
   overflow: hidden;
-  width: calc(100% / 3);
+  width: calc(100% / 4 - 15px);
   border-radius: 12px;
 
-  @media (hover: hover) and (pointer: fine) {
+  /* @media (hover: hover) and (pointer: fine) {
     .thumbnail {
       img {
         transform: translate(-50%, -50%) scale(1.1);
       }
     }
-  }
+  } */
 `;
 
 export const ProductThumbnaile = styled.div`
@@ -22,11 +22,11 @@ export const ProductThumbnaile = styled.div`
   width: 100%;
   padding-bottom: 100%;
 
-  img {
+  .thumbnail-image {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(1);
 
     width: 100%;
     height: 100%;
@@ -44,14 +44,15 @@ export const ProductDescription = styled.div`
 
   h4 {
     ${textLineClamp2}
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 18px;
+    height: 48px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #4d5053;
   }
 
   .price {
     margin-top: 10px;
-    font-size: 2rem;
+    font-size: 3.2rem;
     font-weight: 600;
   }
 
@@ -61,4 +62,10 @@ export const ProductDescription = styled.div`
     font-size: 1.2rem;
     color: #9e9e9e;
   }
+`;
+
+export const WishButton = styled.button`
+  position: absolute;
+  right: 14px;
+  bottom: 20px;
 `;

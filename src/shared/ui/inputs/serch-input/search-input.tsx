@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import * as S from './search-input-style';
 
 interface SearchInputProps {
@@ -8,7 +10,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   return (
     <>
       <S.SearchInputBox>
-        <img src='/assets/images/icon/search-icon.svg' alt='검색 아이콘' />
+        <Image width={13} height={13} src='/assets/images/icon/search-icon.svg' alt='검색 아이콘' />
         <input type='text' placeholder={placeholder} />
       </S.SearchInputBox>
     </>

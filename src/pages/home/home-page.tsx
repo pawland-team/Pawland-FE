@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { ProductCardItem } from '@entities/product/product-card-item';
+import { ProductList } from '@widgets/product-list';
 
 import * as S from './home-page-style';
 
@@ -21,7 +21,7 @@ export const HomePage = () => {
             <h3>최신 상품</h3>
             <Link href='/'>더보기</Link>
           </div>
-          <ProductCardItem />
+          <ProductList />
         </S.ProductListArea>
       </S.HomePage>
     </>
