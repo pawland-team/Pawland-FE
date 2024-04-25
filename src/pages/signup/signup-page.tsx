@@ -207,7 +207,7 @@ export const SignupPage = () => {
           </S.SignupPageTitleContainer>
           <S.SignupPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-nickname-icon.svg' alt='input-nickname-icon' />
+              <S.SignupInputIcon src='/images/login-signup-images/input-nickname-icon.svg' alt='input-nickname-icon' />
               <S.SignupPageInput
                 type='text'
                 placeholder='닉네임을 정해주세요.'
@@ -233,7 +233,7 @@ export const SignupPage = () => {
             </S.SignupPageInputContainer>
             {errors.nickname && <S.SignupPageErrorSpan>{errors.nickname.message}</S.SignupPageErrorSpan>}
             <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+              <S.SignupInputIcon src='/images/login-signup-images/input-email-icon.svg' alt='input-email-icon' />
               <S.SignupPageInput
                 type='email'
                 placeholder='이메일을 입력해주세요.'
@@ -271,7 +271,7 @@ export const SignupPage = () => {
             {emailVerified && (
               <>
                 <S.SignupPageInputContainer>
-                  <S.SignupInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+                  <S.SignupInputIcon src='/images/login-signup-images/input-email-icon.svg' alt='input-email-icon' />
                   <S.SignupPageVerifyInput
                     type='text'
                     placeholder='인증번호를 입력해주세요.'
@@ -316,7 +316,7 @@ export const SignupPage = () => {
             )}
 
             <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+              <S.SignupInputIcon src='/images/login-signup-images/input-password-icon.svg' alt='input-password-icon' />
               <S.SignupPageInput
                 type={showPassword ? 'text' : 'password'}
                 placeholder='비밀번호를 적어주세요.'
@@ -334,16 +334,25 @@ export const SignupPage = () => {
                 })}
               />
               <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
-                <Image
-                  fill
-                  src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
-                  alt='show-or-hide-password-icon'
-                />
+                <S.HideButtonWrapper>
+                  <Image
+                    fill
+                    src={
+                      showPassword
+                        ? '/images/login-signup-images/input-eye-open-icon.svg'
+                        : '/images/login-signup-images/input-eye-close-icon.svg'
+                    }
+                    alt='show-or-hide-password-icon'
+                  />
+                </S.HideButtonWrapper>
               </S.SignupInputPasswordShowOrHideButton>
             </S.SignupPageInputContainer>
             {errors.password && <S.SignupPageErrorSpan>{errors.password.message}</S.SignupPageErrorSpan>}
             <S.SignupPageInputContainer>
-              <S.SignupInputIcon src='input-password-icon.svg' alt='input-password-confirm-icon' />
+              <S.SignupInputIcon
+                src='/images/login-signup-images/input-password-icon.svg'
+                alt='input-password-confirm-icon'
+              />
               <S.SignupPageInput
                 type={showPasswordConfirmation ? 'text' : 'password'}
                 placeholder='비밀번호를 한 번 더 적어주세요.'
@@ -354,11 +363,17 @@ export const SignupPage = () => {
                 })}
               />
               <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPasswordConfirmation}>
-                <Image
-                  fill
-                  src={showPasswordConfirmation ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
-                  alt='show-or-hide-password-confirmation-icon'
-                />
+                <S.HideButtonWrapper>
+                  <Image
+                    fill
+                    src={
+                      showPasswordConfirmation
+                        ? '/images/login-signup-images/input-eye-open-icon.svg'
+                        : '/images/login-signup-images/input-eye-close-icon.svg'
+                    }
+                    alt='show-or-hide-password-confirmation-icon'
+                  />
+                </S.HideButtonWrapper>
               </S.SignupInputPasswordShowOrHideButton>
             </S.SignupPageInputContainer>
             {errors.passwordConfirmation && (

@@ -174,6 +174,12 @@ const SignupPageEmailVerificationDisabledButton = styled.button`
   border-radius: 4px;
 `;
 
+const HideButtonWrapper = styled.div`
+  position: relative;
+  width: 16px;
+  height: 16px;
+`;
+
 const SignupInputPasswordShowOrHideButton = styled.button`
   position: absolute;
   top: 50%;
@@ -236,6 +242,7 @@ export {
   SignupPageEmailVerificationReSendButton,
   SignupPageEmailVerificationDisabledButton,
   SignupPageInputContainer,
+  HideButtonWrapper,
   SignupInputPasswordShowOrHideButton,
   SignupPageSubmitButton,
   SignupPageDisabledButton,

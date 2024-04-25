@@ -91,12 +91,12 @@ export const LoginPage = () => {
       <main>
         <S.LoginPageContainer>
           <S.LoginPageTitleContainer>
-            <S.LoginPageLogo src='big-text-main-logo.svg' />
+            <S.LoginPageLogo src='/images/logo/big-text-main-logo.svg' />
           </S.LoginPageTitleContainer>
           <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.LoginPageInputContainer>
               <S.InputIconWrapper>
-                <S.LoginInputIcon fill src='input-email-icon.svg' alt='input-email-icon' />
+                <S.LoginInputIcon fill src='images/login-signup-images/input-email-icon.svg' alt='input-email-icon' />
               </S.InputIconWrapper>
               <S.LoginPageInput
                 type='email'
@@ -114,7 +114,11 @@ export const LoginPage = () => {
 
             <S.LoginPageInputContainer>
               <S.InputIconWrapper>
-                <S.LoginInputIcon fill src='input-password-icon.svg' alt='input-password-icon' />
+                <S.LoginInputIcon
+                  fill
+                  src='images/login-signup-images/input-password-icon.svg'
+                  alt='input-password-icon'
+                />
               </S.InputIconWrapper>
               <S.LoginPageInput
                 type={showPassword ? 'text' : 'password'}
@@ -136,7 +140,11 @@ export const LoginPage = () => {
                 <S.HideButtonWrapper>
                   <Image
                     fill
-                    src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
+                    src={
+                      showPassword
+                        ? 'images/login-signup-images/input-eye-open-icon.svg'
+                        : 'images/login-signup-images/input-eye-close-icon.svg'
+                    }
                     alt='show-or-hide-password-icon'
                   />
                 </S.HideButtonWrapper>
@@ -147,7 +155,11 @@ export const LoginPage = () => {
               <S.LoginPageErrorContainer>
                 <S.LoginPageErrorWrapper />
                 <S.ErrorIconWrapper>
-                  <S.LoginPageErrorIcon fill src='login-error-icon.svg' alt='login-error-icon' />
+                  <S.LoginPageErrorIcon
+                    fill
+                    src='images/login-signup-images/login-error-icon.svg'
+                    alt='login-error-icon'
+                  />
                 </S.ErrorIconWrapper>
                 <S.LoginPageErrorSpan>{errors.email.message}</S.LoginPageErrorSpan>
               </S.LoginPageErrorContainer>
@@ -156,7 +168,11 @@ export const LoginPage = () => {
               <S.LoginPageErrorContainer>
                 <S.LoginPageErrorWrapper />
                 <S.ErrorIconWrapper>
-                  <S.LoginPageErrorIcon fill src='login-error-icon.svg' alt='login-error-icon' />
+                  <S.LoginPageErrorIcon
+                    fill
+                    src='images/login-signup-images/login-error-icon.svg'
+                    alt='login-error-icon'
+                  />
                 </S.ErrorIconWrapper>
                 <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>
               </S.LoginPageErrorContainer>
@@ -183,13 +199,13 @@ export const LoginPage = () => {
             </S.SocialLoginWrapper>
             <S.SocialLoginWrapper>
               <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='naver-logo.svg' alt='naver-logo-icon' />
+                <S.SocialLoginLogo fill src='/images/social-media/naver-logo.svg' alt='naver-logo-icon' />
               </S.SocialIconWrapper>
               <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='kakao-logo.svg' alt='kakao-logo-icon' />
+                <S.SocialLoginLogo fill src='/images/social-media/kakao-logo.svg' alt='kakao-logo-icon' />
               </S.SocialIconWrapper>
               <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='google-logo.svg' alt='google-logo-icon' />
+                <S.SocialLoginLogo fill src='/images/social-media/google-logo.svg' alt='google-logo-icon' />
               </S.SocialIconWrapper>
             </S.SocialLoginWrapper>
           </S.SocialLoginContainer>
