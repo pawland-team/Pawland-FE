@@ -14,11 +14,9 @@ export const LoginPage = () => {
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
 
     if (storedEmail) {
       setValue('email', storedEmail, { shouldValidate: true });
-      setValue('password', storedPassword, { shouldValidate: true });
       setRememberCredentials(true);
     }
   }, []);
@@ -51,10 +49,8 @@ export const LoginPage = () => {
 
       if (rememberCredentials) {
         localStorage.setItem('email', data.email);
-        localStorage.setItem('password', data.password);
       } else {
         localStorage.removeItem('email');
-        localStorage.removeItem('password');
       }
 
       router.push('/');
@@ -142,7 +138,7 @@ export const LoginPage = () => {
                 checked={rememberCredentials}
                 onChange={(e) => setRememberCredentials(e.target.checked)}
               />
-              <S.LoginPageBottomSpan>이메일, 비밀번호 저장</S.LoginPageBottomSpan>
+              <S.LoginPageBottomSpan>이메일 저장</S.LoginPageBottomSpan>
             </S.LoginCredentialsSaveContainer>
             <S.LoginPageSubmitButton>로그인</S.LoginPageSubmitButton>
           </S.LoginPageForm>
