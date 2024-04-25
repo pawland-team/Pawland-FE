@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 
-import { ZIndexObject } from '@shared/ui/styles/z-index/z-index';
-
-interface HeaderAreaStyle {
-  $zIndex: ZIndexObject;
-}
-
-export const HeaderArea = styled.header<HeaderAreaStyle>`
+export const HeaderArea = styled.header`
   position: fixed;
-  z-index: ${(props) => props.$zIndex.header};
+  z-index: ${({ theme }) => theme.zIndex.header};
   top: 0;
   left: 0;
 

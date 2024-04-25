@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
 import { CommonButton } from '@shared/ui/buttons';
-import { zIndex } from '@shared/ui/styles/z-index';
 
 import * as S from './header-style';
 
@@ -21,7 +20,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
 
   return (
     <>
-      <S.HeaderArea $zIndex={zIndex}>
+      <S.HeaderArea>
         <S.HeaderContainer>
           <S.LogoBox>
             <Link href='/'>
