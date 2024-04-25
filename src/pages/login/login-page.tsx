@@ -91,7 +91,7 @@ export const LoginPage = () => {
       <main>
         <S.LoginPageContainer>
           <S.LoginPageTitleContainer>
-            <S.LoginPageLogo src='pawland-logo.svg' />
+            <S.LoginPageLogo src='big-text-main-logo.svg' />
           </S.LoginPageTitleContainer>
           <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.LoginPageInputContainer>
