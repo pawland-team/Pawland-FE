@@ -6,7 +6,9 @@ import { css } from 'styled-components';
  */
 export const textLineClamp2 = css`
   overflow: hidden;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
+
   text-overflow: ellipsis;
 
   -webkit-line-clamp: 2;
