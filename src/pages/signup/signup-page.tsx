@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -333,7 +334,8 @@ export const SignupPage = () => {
                 })}
               />
               <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
-                <img
+                <Image
+                  fill
                   src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
                   alt='show-or-hide-password-icon'
                 />
@@ -352,7 +354,8 @@ export const SignupPage = () => {
                 })}
               />
               <S.SignupInputPasswordShowOrHideButton type='button' onClick={toggleShowPasswordConfirmation}>
-                <img
+                <Image
+                  fill
                   src={showPasswordConfirmation ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
                   alt='show-or-hide-password-confirmation-icon'
                 />

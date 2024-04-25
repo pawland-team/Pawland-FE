@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 
 const LoginPageContainer = styled.div`
@@ -53,13 +54,19 @@ const LoginPageInput = styled.input`
   }
 `;
 
-const LoginInputIcon = styled.img`
+const InputIconWrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 18px;
   transform: translateY(-50%);
 
+  width: 24px;
+  height: 24px;
+`;
+
+const LoginInputIcon = styled(Image)`
   color: ${({ theme }) => theme.color.gray_BDBDBD};
+  object-fit: cover;
 `;
 
 const LoginInputPasswordShowOrHideButton = styled.button`
@@ -87,11 +94,18 @@ const LoginPageErrorWrapper = styled.div`
   border-radius: 6px;
 `;
 
-const LoginPageErrorIcon = styled.img`
+const ErrorIconWrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 18px;
   transform: translateY(-50%);
+
+  width: 14px;
+  height: 13px;
+`;
+
+const LoginPageErrorIcon = styled(Image)`
+  object-fit: cover;
 `;
 
 const LoginPageErrorSpan = styled.span`
@@ -173,16 +187,23 @@ const SocialLoginWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const SocialLoginLogo = styled.img`
+const SocialIconWrapper = styled.div`
+  position: relative;
   width: 40px;
   height: 40px;
 `;
 
+const SocialLoginLogo = styled(Image)`
+  object-fit: cover;
+`;
+
 export {
   LoginPageLogo,
+  InputIconWrapper,
   LoginPageInput,
   LoginPageErrorContainer,
   LoginPageErrorWrapper,
+  ErrorIconWrapper,
   LoginPageErrorIcon,
   LoginPageErrorSpan,
   LoginInputIcon,
@@ -199,5 +220,6 @@ export {
   LoginPageForm,
   SocialLoginContainer,
   SocialLoginWrapper,
+  SocialIconWrapper,
   SocialLoginLogo,
 };

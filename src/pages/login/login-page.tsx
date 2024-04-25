@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -94,7 +95,9 @@ export const LoginPage = () => {
           </S.LoginPageTitleContainer>
           <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
             <S.LoginPageInputContainer>
-              <S.LoginInputIcon src='input-email-icon.svg' alt='input-email-icon' />
+              <S.InputIconWrapper>
+                <S.LoginInputIcon fill src='input-email-icon.svg' alt='input-email-icon' />
+              </S.InputIconWrapper>
               <S.LoginPageInput
                 type='email'
                 placeholder='이메일을 입력해주세요.'
@@ -110,7 +113,9 @@ export const LoginPage = () => {
             </S.LoginPageInputContainer>
 
             <S.LoginPageInputContainer>
-              <S.LoginInputIcon src='input-password-icon.svg' alt='input-password-icon' />
+              <S.InputIconWrapper>
+                <S.LoginInputIcon fill src='input-password-icon.svg' alt='input-password-icon' />
+              </S.InputIconWrapper>
               <S.LoginPageInput
                 type={showPassword ? 'text' : 'password'}
                 placeholder='비밀번호를 적어주세요.'
@@ -128,7 +133,8 @@ export const LoginPage = () => {
                 })}
               />
               <S.LoginInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
-                <img
+                <Image
+                  fill
                   src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
                   alt='show-or-hide-password-icon'
                 />
@@ -138,14 +144,18 @@ export const LoginPage = () => {
             {errors.email && (
               <S.LoginPageErrorContainer>
                 <S.LoginPageErrorWrapper />
-                <S.LoginPageErrorIcon src='login-error-icon.svg' alt='login-error-icon' />
+                <S.ErrorIconWrapper>
+                  <S.LoginPageErrorIcon fill src='login-error-icon.svg' alt='login-error-icon' />
+                </S.ErrorIconWrapper>
                 <S.LoginPageErrorSpan>{errors.email.message}</S.LoginPageErrorSpan>
               </S.LoginPageErrorContainer>
             )}
             {errors.password && (
               <S.LoginPageErrorContainer>
                 <S.LoginPageErrorWrapper />
-                <S.LoginPageErrorIcon src='login-error-icon.svg' alt='login-error-icon' />
+                <S.ErrorIconWrapper>
+                  <S.LoginPageErrorIcon fill src='login-error-icon.svg' alt='login-error-icon' />
+                </S.ErrorIconWrapper>
                 <S.LoginPageErrorSpan>{errors.password.message}</S.LoginPageErrorSpan>
               </S.LoginPageErrorContainer>
             )}
@@ -170,9 +180,15 @@ export const LoginPage = () => {
               <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
             </S.SocialLoginWrapper>
             <S.SocialLoginWrapper>
-              <S.SocialLoginLogo src='naver-logo.svg' alt='naver-logo-icon' />
-              <S.SocialLoginLogo src='kakao-logo.svg' alt='kakao-logo-icon' />
-              <S.SocialLoginLogo src='google-logo.svg' alt='google-logo-icon' />
+              <S.SocialIconWrapper>
+                <S.SocialLoginLogo fill src='naver-logo.svg' alt='naver-logo-icon' />
+              </S.SocialIconWrapper>
+              <S.SocialIconWrapper>
+                <S.SocialLoginLogo fill src='kakao-logo.svg' alt='kakao-logo-icon' />
+              </S.SocialIconWrapper>
+              <S.SocialIconWrapper>
+                <S.SocialLoginLogo fill src='google-logo.svg' alt='google-logo-icon' />
+              </S.SocialIconWrapper>
             </S.SocialLoginWrapper>
           </S.SocialLoginContainer>
         </S.LoginPageContainer>
