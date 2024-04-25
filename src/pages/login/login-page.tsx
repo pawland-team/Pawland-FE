@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -9,29 +9,34 @@ import { Modal } from '@shared/ui/modal';
 
 import * as S from './login-page-style';
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 export const LoginPage = () => {
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberCredentials, setRememberCredentials] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState('');
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [rememberCredentials, setRememberCredentials] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<string>('');
   const router = useRouter();
-
-  const openModal = (content) => {
-    setModalContent(content);
-    setModalOpen(true);
-  };
-
-  const closeMdal = () => {
-    setModalOpen(false);
-  };
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ mode: 'onChange' });
+  } = useForm<FormValues>({ mode: 'onChange' });
+
+  const openModal = (content: string): void => {
+    setModalContent(content);
+    setModalOpen(true);
+  };
+
+  const closeMdal = (): void => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -41,11 +46,12 @@ export const LoginPage = () => {
       setRememberCredentials(true);
     }
   }, [setValue]);
-  const toggleShowPassword = () => {
+
+  const toggleShowPassword = (): void => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await fetch(`${BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
