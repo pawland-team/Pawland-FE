@@ -13,14 +13,6 @@ export const inputContainer = css`
 
   background: #fff;
   border-radius: 6px;
-
-  &:focus-within {
-    border: 1px solid ${({ theme }) => theme.color.blue_2087D6};
-  }
-
-  &.red {
-    border: 1px solid ${({ theme }) => theme.color.red_F5511D};
-  }
 `;
 
 /**
