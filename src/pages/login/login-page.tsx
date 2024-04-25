@@ -133,11 +133,13 @@ export const LoginPage = () => {
                 })}
               />
               <S.LoginInputPasswordShowOrHideButton type='button' onClick={toggleShowPassword}>
-                <Image
-                  fill
-                  src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
-                  alt='show-or-hide-password-icon'
-                />
+                <S.HideButtonWrapper>
+                  <Image
+                    fill
+                    src={showPassword ? '/input-eye-open-icon.svg' : '/input-eye-close-icon.svg'}
+                    alt='show-or-hide-password-icon'
+                  />
+                </S.HideButtonWrapper>
               </S.LoginInputPasswordShowOrHideButton>
             </S.LoginPageInputContainer>
 

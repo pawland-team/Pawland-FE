@@ -69,6 +69,12 @@ const LoginInputIcon = styled(Image)`
   object-fit: cover;
 `;
 
+const HideButtonWrapper = styled.div`
+  position: relative;
+  width: 16px;
+  height: 16px;
+`;
+
 const LoginInputPasswordShowOrHideButton = styled.button`
   position: absolute;
   top: 50%;
@@ -208,6 +214,7 @@ export {
   LoginPageErrorSpan,
   LoginInputIcon,
   LoginPageInputContainer,
+  HideButtonWrapper,
   LoginInputPasswordShowOrHideButton,
   LoginCredentialsSaveContainer,
   LoginCredentailsSaveCheckbox,
