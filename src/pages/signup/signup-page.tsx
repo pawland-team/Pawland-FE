@@ -24,6 +24,10 @@ export const SignupPage = () => {
 
   const closeMdal = () => {
     setModalOpen(false);
+
+    if (modalContent === '회원가입이 완료되었습니다.') {
+      router.push('/login');
+    }
   };
 
   const toggleShowPassword = () => {
@@ -177,8 +181,9 @@ export const SignupPage = () => {
     });
 
     if (response.status === 201) {
+      // 회원가입 완료 시 모달 띄우기
       openModal('회원가입이 완료되었습니다.');
-      router.push('/login');
+      // 모달 닫히면 로그인 페이지로 이동
     }
   };
 
