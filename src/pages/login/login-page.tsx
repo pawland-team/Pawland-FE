@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import * as S from './login-page-style';
 
 export const LoginPage = () => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [rememberCredentials, setRememberCredentials] = useState(false);
   const router = useRouter();
@@ -32,7 +33,7 @@ export const LoginPage = () => {
   } = useForm({ mode: 'onChange' });
 
   const onSubmit = async (data) => {
-    const response = await fetch(`http://43.200.183.10:8080/api/auth/login`, {
+    const response = await fetch(`${BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

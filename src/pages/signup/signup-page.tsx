@@ -7,6 +7,7 @@ import Link from 'next/link';
 import * as S from './signup-page-style';
 
 export const SignupPage = () => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -24,7 +25,7 @@ export const SignupPage = () => {
   //     return;
   //   }
 
-  //   const response = await fetch(`http://43.200.183.10:8080/api/auth/nickname-dupcheck`, {
+  //   const response = await fetch(`${BASE_URL}/api/auth/nickname-dupcheck`, {
   //     method: 'POST',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ export const SignupPage = () => {
       return;
     }
 
-    const response = await fetch(`http://43.200.183.10:8080/api/auth/email-dupcheck`, {
+    const response = await fetch(`${BASE_URL}/api/auth/email-dupcheck`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ export const SignupPage = () => {
   const timerInterval = useRef(null);
 
   const handleVerifyEmail = async () => {
-    await fetch(`http://43.200.183.10:8080/api/auth/send-verification-code`, {
+    await fetch(`${BASE_URL}/api/auth/send-verification-code`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ export const SignupPage = () => {
 
   const handleCompleteVerification = async () => {
     // 이메일 인증 완료 관련 API 호출
-    const response = await fetch(`http://43.200.183.10:8080/api/auth/verify-code`, {
+    const response = await fetch(`${BASE_URL}/api/auth/verify-code`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -150,7 +151,7 @@ export const SignupPage = () => {
   };
 
   const onSubmit = async (data) => {
-    const response = await fetch(`http://43.200.183.10:8080/api/auth/signup`, {
+    const response = await fetch(`${BASE_URL}/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
