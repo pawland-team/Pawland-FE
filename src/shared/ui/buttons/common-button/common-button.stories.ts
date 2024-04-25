@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const LoggedOut: Story = {
+export const Default: Story = {
   args: {
     children: '버튼입니다.',
     borderRadius: '6px',
