@@ -67,7 +67,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
               <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />
             </S.LinkGroupContainer>
           ) : (
-            <CommonButton fontWeight={700} handleClick={handleClickLogin}>
+            <CommonButton maxWidth='172px' fontWeight='700' handleClick={handleClickLogin}>
               로그인/회원가입
             </CommonButton>
           )}
