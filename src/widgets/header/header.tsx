@@ -24,7 +24,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
         <S.HeaderContainer>
           <S.LogoBox>
             <Link href='/'>
-              <Image src='/assets/images/logo/header-logo.svg' alt='Pawland 로고' width={63} height={40} />
+              <Image src='/assets/images/logo/main-logo.svg' alt='Pawland 로고' width={63} height={40} />
             </Link>
           </S.LogoBox>
           <S.NavContainer>
