@@ -1,6 +1,12 @@
 import * as S from './modal-style';
 
-export const Modal = ({ content, onClose, isOpen }) => {
+interface ModalProps {
+  content: string;
+  onClose: () => void;
+  isOpen: boolean;
+}
+
+export const Modal: React.FC<ModalProps> = ({ content, onClose, isOpen }) => {
   if (!isOpen) {
     return null;
   }
