@@ -47,20 +47,10 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
             <S.LinkGroupContainer>
               <div className='link-box'>
                 <Link href='/'>
-                  <Image
-                    width={32}
-                    height={32}
-                    src='/assets/images/icon/bell-icon-33363F-w32-h32.svg'
-                    alt='알람 아이콘'
-                  />
+                  <Image width={32} height={32} src='/assets/images/icon/bell-icon.svg' alt='알람 아이콘' />
                 </Link>
                 <Link href='/chat'>
-                  <Image
-                    width={32}
-                    height={32}
-                    src='/assets/images/icon/chat-icon-33363F-w32-h32.svg'
-                    alt='채팅 아이콘'
-                  />
+                  <Image width={32} height={32} src='/assets/images/icon/chat-icon.svg' alt='채팅 아이콘' />
                 </Link>
               </div>
               <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />
