@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -9,20 +9,50 @@ import { Modal } from '@shared/ui/modal';
 
 import * as S from './signup-page-style';
 
-export const SignupPage = () => {
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState('');
+interface FormValues {
+  nickname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  verificationCode: string;
+}
 
-  const openModal = (content) => {
+export const SignupPage = () => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<string>('');
+  const [emailVerified, setEmailVerified] = useState<boolean>(false);
+  const [verificationCodeEntered, setVerificationCodeEntered] = useState<string>('');
+  const [verificationSuccess, setVerificationSuccess] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(180);
+  const timerInterval = useRef<NodeJS.Timeout | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm<FormValues>({ mode: 'onChange' });
+  const password = watch('password');
+  const email = watch('email');
+
+  const formatTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  const openModal = (content: string): void => {
     setModalContent(content);
     setModalOpen(true);
   };
 
-  const closeMdal = () => {
+  const closeMdal = (): void => {
     setModalOpen(false);
 
     if (modalContent === '회원가입이 완료되었습니다.') {
@@ -30,11 +60,11 @@ export const SignupPage = () => {
     }
   };
 
-  const toggleShowPassword = () => {
+  const toggleShowPassword = (): void => {
     setShowPassword(!showPassword);
   };
 
-  const toggleShowPasswordConfirmation = () => {
+  const toggleShowPasswordConfirmation = (): void => {
     setShowPasswordConfirmation(!showPasswordConfirmation);
   };
 
@@ -62,7 +92,7 @@ export const SignupPage = () => {
   //   }
   // };
 
-  const dupCheckEmail = async (email) => {
+  const dupCheckEmail = async (email: string): Promise<void> => {
     if (!email) {
       return;
     }
@@ -85,13 +115,7 @@ export const SignupPage = () => {
     }
   };
 
-  const [emailVerified, setEmailVerified] = useState(false);
-  const [verificationCodeEntered, setVerificationCodeEntered] = useState('');
-
-  const [timer, setTimer] = useState(180);
-  const timerInterval = useRef(null);
-
-  const handleVerifyEmail = async () => {
+  const handleVerifyEmail = async (): Promise<void> => {
     await fetch(`${BASE_URL}/api/auth/send-verification-code`, {
       method: 'POST',
       headers: {
@@ -106,10 +130,7 @@ export const SignupPage = () => {
     setTimer(180);
   };
 
-  const [verificationSuccess, setVerificationSuccess] = useState(false);
-
-  const handleCompleteVerification = async () => {
-    // 이메일 인증 완료 관련 API 호출
+  const handleCompleteVerification = async (): Promise<void> => {
     const response = await fetch(`${BASE_URL}/api/auth/verify-code`, {
       method: 'POST',
       headers: {
@@ -124,23 +145,13 @@ export const SignupPage = () => {
     if (response.status === 200) {
       setVerificationSuccess(true);
       openModal('이메일 인증이 완료되었습니다.');
-      clearInterval(timerInterval.current);
+      clearInterval(timerInterval.current as NodeJS.Timeout);
     }
 
     if (response.status === 400) {
       openModal('잘못된 인증번호입니다. 다시 시도해주세요.');
     }
   };
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setError,
-    formState: { errors },
-  } = useForm({ mode: 'onChange' });
-  const password = watch('password');
-  const email = watch('email');
 
   useEffect(() => {
     if (emailVerified && timer > 0) {
@@ -150,24 +161,17 @@ export const SignupPage = () => {
     }
 
     if (timer === 0) {
-      clearInterval(timerInterval.current);
+      clearInterval(timerInterval.current as NodeJS.Timeout);
       alert('인증번호 입력 시간이 만료되었습니다. 다시 시도해주세요.');
       setEmailVerified(false);
       setVerificationSuccess(false);
       setTimer(180);
     }
 
-    return () => clearInterval(timerInterval.current);
+    return () => clearInterval(timerInterval.current as NodeJS.Timeout);
   }, [emailVerified, timer]);
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await fetch(`${BASE_URL}/api/auth/signup`, {
       method: 'POST',
       headers: {
@@ -181,15 +185,13 @@ export const SignupPage = () => {
     });
 
     if (response.status === 201) {
-      // 회원가입 완료 시 모달 띄우기
       openModal('회원가입이 완료되었습니다.');
-      // 모달 닫히면 로그인 페이지로 이동
     }
   };
 
   return (
     <>
-      {modalOpen && <Modal content={modalContent} onClose={closeMdal} isOpen={openModal} />}
+      {modalOpen && <Modal content={modalContent} onClose={closeMdal} isOpen={modalOpen} />}
       <Head>
         <title>Pawland Signup</title>
         <meta name='description' content='Generated by create next app' />
