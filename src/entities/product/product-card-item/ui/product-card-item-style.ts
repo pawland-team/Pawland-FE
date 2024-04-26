@@ -58,8 +58,11 @@ export const ProductDescription = styled.div`
 
   .text-group {
     display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
     align-items: center;
     justify-content: space-between;
+
     margin-top: 12px;
   }
 
