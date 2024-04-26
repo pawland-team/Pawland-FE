@@ -37,7 +37,7 @@ const ModalContentStyle = styled.p`
 
   height: 118px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.black_000000};
@@ -52,7 +52,7 @@ const ModalButton = styled.button`
   height: 62px;
   padding-top: 20px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: Pretendard, sans-serif;
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
