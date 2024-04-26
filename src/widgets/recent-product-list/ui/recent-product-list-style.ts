@@ -5,5 +5,4 @@ export const ProductListContainer = styled.div`
   flex-wrap: wrap;
   gap: 60px 30px;
   align-items: center;
-  justify-content: space-between;
 `;

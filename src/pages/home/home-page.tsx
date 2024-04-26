@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
-import { ProductList } from '@widgets/product-list';
+import { RecentProductList } from '@widgets/recent-product-list';
 
 import * as S from './home-page-style';
 
@@ -28,7 +28,7 @@ export const HomePage = () => {
             <h3>최신 상품</h3>
             <Link href='/'>더보기</Link>
           </div>
-          <ProductList />
+          <RecentProductList />
         </S.ProductListArea>
       </S.HomePage>
     </>

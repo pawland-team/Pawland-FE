@@ -1,8 +1,8 @@
 import { ProductCardItem } from '@entities/product/product-card-item';
 
-import * as S from './product-list-style';
+import * as S from './recent-product-list-style';
 
-const ProductList = () => {
+const RecentProductList = () => {
   return (
     <S.ProductListContainer>
       <ProductCardItem />
@@ -17,4 +17,4 @@ const ProductList = () => {
   );
 };
 
-export { ProductList };
+export { RecentProductList };

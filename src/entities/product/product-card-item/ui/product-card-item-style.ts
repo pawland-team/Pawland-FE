@@ -9,7 +9,7 @@ interface ProductCardItemStyleProps {
 
 export const ProductCardItem = styled.div<ProductCardItemStyleProps>`
   overflow: hidden;
-  width: calc(100% / 4 - 23px);
+  width: ${(props) => `calc(100% / ${props.$cardNumberPerRow} - ${props.$flexGap}px)`};
   border-radius: 12px;
 
   /* @media (hover: hover) and (pointer: fine) {
