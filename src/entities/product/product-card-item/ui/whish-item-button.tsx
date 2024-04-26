@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -7,7 +7,8 @@ import * as S from './product-card-item-style';
 const WishItemButton = () => {
   const [isWished, setIsWished] = useState(false);
 
-  const handleClickWishButton = () => {
+  const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsWished((prev) => !prev);
   };
 
