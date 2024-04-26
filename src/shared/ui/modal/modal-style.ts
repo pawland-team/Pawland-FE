@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import { zIndex } from '../styles/z-index';
+
 const ModalContainer = styled.div`
   position: fixed;
-  z-index: 1000;
+  z-index: ${zIndex.modal};
   top: 0;
   left: 0;
 
