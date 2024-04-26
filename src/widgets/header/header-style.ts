@@ -34,20 +34,25 @@ export const NavContainer = styled.nav`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 100%;
-  max-width: 440px;
-
   ul {
     display: flex;
-    gap: 12px;
+    gap: 4px;
     align-items: center;
     justify-content: space-between;
   }
 
   li {
+    min-width: 120px;
+    text-align: center;
+
     a {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
+      transition: all 0.15s;
+
+      &:hover {
+        color: ${({ theme }) => theme.color.blue_43ADFF};
+      }
     }
   }
 `;
