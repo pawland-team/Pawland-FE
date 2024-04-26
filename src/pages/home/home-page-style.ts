@@ -9,6 +9,24 @@ export const HomePage = styled.div`
   font-weight: 700;
 `;
 
+export const InputArea = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  margin: 48px 0;
+`;
+
+export const CategoryArea = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  margin-bottom: 62px;
+`;
+
 export const ProductListArea = styled.section`
   width: 100%;
 

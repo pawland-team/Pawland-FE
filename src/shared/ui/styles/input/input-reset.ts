@@ -28,6 +28,6 @@ export const inputReset = css`
   outline: none;
 
   &::placeholder {
-    color: #9e9e9e;
+    color: ${({ theme }) => theme.color.gray_9E9E9E};
   }
 `;

@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+import { SearchInput } from '@shared/ui/inputs';
+import { categoryData, CategoryList } from '@widgets/category-list';
 import { ProductList } from '@widgets/product-list';
 
 import * as S from './home-page-style';
@@ -15,7 +17,12 @@ export const HomePage = () => {
       </Head>
       <S.HomePage>
         <section className='slider-area'>slider</section>
-        <section className='category-area'>category menus</section>
+        <S.InputArea>
+          <SearchInput placeholder='원하시는 상품을 검색해보세요!' maxWidth='940px' />
+        </S.InputArea>
+        <S.CategoryArea>
+          <CategoryList categoryList={categoryData} />
+        </S.CategoryArea>
         <S.ProductListArea>
           <div className='product-title-box'>
             <h3>최신 상품</h3>

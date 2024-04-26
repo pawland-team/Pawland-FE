@@ -2,7 +2,12 @@ import styled from 'styled-components';
 
 import { textLineClamp2 } from '@shared/ui/styles/text-style/text-style';
 
-export const ProductCardItem = styled.div`
+interface ProductCardItemStyleProps {
+  $flexGap: number;
+  $cardNumberPerRow: number;
+}
+
+export const ProductCardItem = styled.div<ProductCardItemStyleProps>`
   overflow: hidden;
   width: calc(100% / 4 - 15px);
   border-radius: 12px;
@@ -44,23 +49,34 @@ export const ProductDescription = styled.div`
 
   h4 {
     ${textLineClamp2}
-    height: 48px;
+    height: 70px;
+
     font-size: 2.4rem;
+    line-height: 34px;
     font-weight: 700;
     color: #4d5053;
   }
 
+  .text-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+
   .price {
-    margin-top: 10px;
     font-size: 3.2rem;
     font-weight: 600;
   }
 
   .view {
     display: block;
+
     margin-top: 4px;
+
     font-size: 1.2rem;
-    color: #9e9e9e;
+    font-weight: 400;
+    color: ${({ theme }) => theme.color.gray_9E9E9E};
   }
 `;
 
