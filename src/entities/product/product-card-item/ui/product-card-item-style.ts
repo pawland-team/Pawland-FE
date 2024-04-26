@@ -9,7 +9,7 @@ interface ProductCardItemStyleProps {
 
 export const ProductCardItem = styled.div<ProductCardItemStyleProps>`
   overflow: hidden;
-  width: calc(100% / 4 - 15px);
+  width: calc(100% / 4 - 23px);
   border-radius: 12px;
 
   /* @media (hover: hover) and (pointer: fine) {
@@ -43,8 +43,7 @@ export const ProductThumbnaile = styled.div`
 `;
 
 export const ProductDescription = styled.div`
-  height: 165px;
-  padding: 12px;
+  padding: 12px 12px 0;
   background: #fff;
 
   h4 {

@@ -7,6 +7,8 @@ interface AvatarStyleProps {
 }
 
 export const AvatarImage = styled.div<AvatarStyleProps>`
+  position: relative;
+
   overflow: hidden;
   display: block;
 

@@ -30,6 +30,9 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
             <Link href='/'>프로필</Link>
           </li>
           <li>
+            <Link href='/'>상품 등록</Link>
+          </li>
+          <li>
             <button type='button'>로그아웃</button>
           </li>
         </S.DropDownMenu>
