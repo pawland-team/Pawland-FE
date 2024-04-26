@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { zIndex } from '@shared/ui/styles/z-index';
+
 const SignupPageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -109,7 +111,7 @@ const SignupInputIcon = styled.img`
 
 const SignupPageTimerSpan = styled.span`
   position: absolute;
-  z-index: 1;
+  z-index: ${zIndex.root};
   top: 50%;
   left: 56%;
   transform: translateY(-50%);
