@@ -82,10 +82,7 @@ audio,
 video {
   margin: 0;
   padding: 0;
-
-  font: inherit;
   vertical-align: baseline;
-
   border: 0;
 }
 
@@ -158,13 +155,17 @@ input,
 textarea,
 select,
 button {
+  /*
+  next local font 사용할때 button에 inherit줘도 폰트 안먹힘
+  크롬 브라우저 내장 스타일이 상속되기 때문
+  수정하기 위해서는 직접 표시해주어야함.
+  */
+  font-family: '__pretendard_c55f2b', '__pretendard_Fallback_c55f2b';
   background: transparent;
-  border: 0;
+  border: none;
 }
 
 button {
   cursor: pointer;
   padding: 0;
-  font-family: inherit;
-  border: none;
 }

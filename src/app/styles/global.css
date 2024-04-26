@@ -6,8 +6,6 @@
 :root {
   --root-z-index: 1;
   --modal-z-index: 5;
-
-  font-size: 62.5%; /* 1rem = 10px */
 }
 
 * {
@@ -19,6 +17,7 @@ body {
   overflow-x: auto;
   height: fit-content;
   min-height: 100vh;
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 /* 혹은 Styled components의 global css로 관리 */
