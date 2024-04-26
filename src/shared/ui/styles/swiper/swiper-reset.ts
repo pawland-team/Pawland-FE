@@ -7,10 +7,10 @@ export const SwiperPaginationReset = css`
   width: auto;
 
   .swiper-pagination-bullet {
-    background-color: ${({ theme }) => theme.color.white_FFFFFF};
+    background-color: ${({ theme }) => theme.color.gray_BDBDBD};
   }
 
   .swiper-pagination-bullet-active {
-    background-color: ${({ theme }) => theme.color.gray_BDBDBD};
+    background-color: ${({ theme }) => theme.color.white_FFFFFF};
   }
 `;
