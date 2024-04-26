@@ -1,9 +1,17 @@
 import styled from 'styled-components';
 
-const HomePage = styled.div`
-  font-size: 5.2rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+export const ProfilePage = styled.div`
+  display: flex;
+  margin-top: 141px;
 `;
 
-export { HomePage };
+export const UserInfoContainer = styled.div`
+  width: 274px;
+  margin-left: 364px;
+`;
+
+export const ListContainer = styled.div`
+  margin-left: 60px;
+  padding-left: 40px;
+  border-left: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+`;
