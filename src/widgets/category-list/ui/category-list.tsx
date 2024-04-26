@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CategoryArray } from '../api/dto';
+import { CategoryArray } from '../lib/dto';
 import * as S from './category-list-style';
 
 interface CategoryListProps {
@@ -9,8 +9,6 @@ interface CategoryListProps {
 }
 
 const CategoryList = ({ categoryList }: CategoryListProps) => {
-  console.log(categoryList);
-
   return (
     <S.CategoryList>
       {categoryList.map((category) => (

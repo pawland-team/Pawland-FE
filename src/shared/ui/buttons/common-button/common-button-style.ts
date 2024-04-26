@@ -17,7 +17,6 @@ export const CommonButton = styled.button<CommonButtonStyleProps>`
 
   width: 100%;
   max-width: ${(props) => props.$maxWidth};
-  margin: 10px;
   padding: ${(props) => props.$padding};
 
   font-size: ${(props) => props.$fontSize};

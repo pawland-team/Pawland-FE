@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
+import { MainbannerSwiper } from '@widgets/main-banner-swiper';
+import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
 import { RecentProductList } from '@widgets/recent-product-list';
 
 import * as S from './home-page-style';
@@ -16,7 +18,9 @@ export const HomePage = () => {
         {/* <link rel='icon' href='/favicon.ico' /> */}
       </Head>
       <S.HomePage>
-        <section className='slider-area'>slider</section>
+        <S.SwiperArea>
+          <MainbannerSwiper mainBannerList={mainBannerData} />
+        </S.SwiperArea>
         <S.InputArea>
           <SearchInput placeholder='원하시는 상품을 검색해보세요!' maxWidth='940px' />
         </S.InputArea>

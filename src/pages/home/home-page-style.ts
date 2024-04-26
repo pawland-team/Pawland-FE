@@ -9,6 +9,10 @@ export const HomePage = styled.div`
   font-weight: 700;
 `;
 
+export const SwiperArea = styled.section`
+  margin-top: 58px;
+`;
+
 export const InputArea = styled.section`
   display: flex;
   align-items: center;

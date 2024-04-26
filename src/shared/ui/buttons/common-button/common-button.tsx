@@ -34,7 +34,7 @@ const CommonButton = ({
   handleClick,
   borderRadius = '6px',
   maxWidth = '100%',
-  fontSize = '1.6',
+  fontSize = '1.6rem',
   backgroundColor = '#000',
   fontColor = '#fff',
   fontWeight = '400',

@@ -1,6 +1,5 @@
 import { HydrationBoundary } from '@tanstack/react-query';
 import Head from 'next/head';
-
 import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
@@ -11,6 +10,8 @@ import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 import type { AppProps } from 'next/app';
 
 import '@app/styles/global.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   (async () => {
