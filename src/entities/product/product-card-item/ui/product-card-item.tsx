@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Discription } from './discription';
+import { Description } from './description';
 import * as S from './product-card-item-style';
 import { Thumbnail } from './thumbnail';
 
@@ -18,7 +18,7 @@ const ProductCardItem = ({ flexGap = 23, cardNumberPerRow = 4 }: ProductCardItem
     <S.ProductCardItem $flexGap={flexGap} $cardNumberPerRow={cardNumberPerRow}>
       <Link href='/'>
         <Thumbnail />
-        <Discription />
+        <Description />
       </Link>
     </S.ProductCardItem>
   );

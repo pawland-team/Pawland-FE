@@ -2,7 +2,7 @@ import { formatPrice } from '@shared/utils/format-price';
 
 import * as S from './product-card-item-style';
 
-const Discription = () => {
+const Description = () => {
   return (
     <S.ProductDescription>
       <h4>뽁뽁이 뼈다귀 뽁뽁이 뼈다귀 뽁뽁이 뼈다귀 뽁뽁이 뼈다귀 뽁뽁이 뼈다귀 뽁뽁이 뼈다귀</h4>
@@ -14,4 +14,4 @@ const Discription = () => {
   );
 };
 
-export { Discription };
+export { Description };
