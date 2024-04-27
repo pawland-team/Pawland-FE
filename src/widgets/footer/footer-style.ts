@@ -17,6 +17,7 @@ export const UpperContainer = styled.div`
   border-bottom: 2px solid #c8c8c8;
 
   .logo-box {
+    position: relative;
     width: 279px;
     height: 78px;
   }
