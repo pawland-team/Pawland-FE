@@ -18,7 +18,7 @@ const MainbannerSwiper = ({ mainBannerList }: MainBannerProps) => {
   const router = useRouter();
 
   const handleClickJoin = () => {
-    router.push('/join');
+    router.push('/signup');
   };
 
   return (
@@ -42,6 +42,7 @@ const MainbannerSwiper = ({ mainBannerList }: MainBannerProps) => {
       >
         {mainBannerList.map((banner) => (
           <SwiperSlide key={banner.id}>
+            {/* <img src={banner.imageSrc} alt={banner.title} /> */}
             <Image src={banner.imageSrc} alt={banner.title} fill sizes='1195px' priority />
             <div className={`description-box ${banner.id === activeIndex ? 'active' : ''}`}>
               <h2>{banner.title}</h2>
