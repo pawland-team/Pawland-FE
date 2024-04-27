@@ -53,6 +53,7 @@ export const ProductDescription = styled.div`
     font-size: 2.4rem;
     line-height: 34px;
     font-weight: 700;
+    word-break: break-all;
     color: #4d5053;
   }
 
