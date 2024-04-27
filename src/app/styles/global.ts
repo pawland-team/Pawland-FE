@@ -5,6 +5,7 @@ import resetCss from './reset';
 
 const GlobalStyle = createGlobalStyle`${css`
   ${resetCss}
+
   * {
     box-sizing: border-box;
     margin: 0;

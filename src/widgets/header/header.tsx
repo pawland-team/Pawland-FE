@@ -24,7 +24,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
         <S.HeaderContainer>
           <S.LogoBox>
             <Link href='/'>
-              <Image src='/assets/images/logo/main-logo.svg' alt='Pawland 로고' width={63} height={40} />
+              <Image src='/images/logo/main-logo.svg' alt='Pawland 로고' width={63} height={40} />
             </Link>
           </S.LogoBox>
           <S.NavContainer>
@@ -47,10 +47,10 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
             <S.LinkGroupContainer>
               <div className='link-box'>
                 <Link href='/'>
-                  <Image width={32} height={32} src='/assets/images/icon/bell-icon.svg' alt='알람 아이콘' />
+                  <Image width={32} height={32} src='/images/icon/bell-icon.svg' alt='알람 아이콘' />
                 </Link>
                 <Link href='/chat'>
-                  <Image width={32} height={32} src='/assets/images/icon/chat-icon.svg' alt='채팅 아이콘' />
+                  <Image width={32} height={32} src='/images/icon/chat-icon.svg' alt='채팅 아이콘' />
                 </Link>
               </div>
               <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />

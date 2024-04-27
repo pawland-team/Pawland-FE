@@ -11,7 +11,7 @@ const SearchInput = ({ placeholder, maxWidth = '100%' }: SearchInputProps) => {
   return (
     <>
       <S.SearchInputBox $maxWidth={maxWidth}>
-        <Image width={19} height={19} src='/assets/images/icon/search-icon.svg' alt='검색 아이콘' />
+        <Image width={19} height={19} src='/images/icon/search-icon.svg' alt='검색 아이콘' />
         <input type='text' placeholder={placeholder} />
       </S.SearchInputBox>
     </>

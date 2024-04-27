@@ -12,7 +12,7 @@ const Thumbnail = () => {
         placeholder='blur'
         blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHhTPQAGYgJ5cH4fHAAAAABJRU5ErkJggg=='
         className='thumbnail-image'
-        src='/assets/images/product/test-image.png'
+        src='/images/mock/product-card-test-image.png'
         alt='상품 이미지'
       />
       <WishItemButton />
