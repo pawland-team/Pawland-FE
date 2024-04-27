@@ -14,7 +14,7 @@ const Layout = ({ children, className }: LayoutProps) => {
   return (
     <>
       <S.LayoutPage className={className}>
-        <Header isLoggedIn />
+        <Header isLoggedIn={false} />
         <main>{children}</main>
         <Footer />
       </S.LayoutPage>
