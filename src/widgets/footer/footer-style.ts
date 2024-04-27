@@ -19,12 +19,6 @@ export const UpperContainer = styled.div`
   .logo-box {
     width: 279px;
     height: 78px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
   }
 
   .nav-box {
