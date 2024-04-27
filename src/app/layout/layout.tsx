@@ -7,13 +7,12 @@ import * as S from './layout-style';
 
 interface LayoutProps {
   children: ReactNode;
-  className: any;
 }
 
-const Layout = ({ children, className }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <S.LayoutPage className={className}>
+      <S.LayoutPage>
         <Header isLoggedIn={false} />
         <main>{children}</main>
         <Footer />

@@ -4,12 +4,12 @@ import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
 import { LibConfigProviders } from '@app/providers';
-import { pretendard } from '@app/styles/font/font';
+import GlobalStyle from '@app/styles/global';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
 
-import '@app/styles/global.css';
+// import '@app/styles/global.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKIN
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      <GlobalStyle />
       <Head>
         <meta charSet='UTF-8' />
         <link rel='icon' type='image/svg+xml' href='/next.svg' />
@@ -31,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <Layout className={`${pretendard.className}`}>
+            <Layout>
               <Component {...pageProps} />
             </Layout>
           </HydrationBoundary>
