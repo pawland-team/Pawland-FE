@@ -58,10 +58,10 @@ export const ProductDescription = styled.div`
 
   .text-group {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+    justify-content: flex-end;
 
     margin-top: 12px;
   }
@@ -69,14 +69,12 @@ export const ProductDescription = styled.div`
   .price {
     font-size: 3.2rem;
     font-weight: 600;
+    line-height: 42px;
   }
 
   .view {
     display: block;
-
-    margin-top: 4px;
-
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: 400;
     color: ${({ theme }) => theme.color.gray_9E9E9E};
   }
