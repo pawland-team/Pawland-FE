@@ -4,7 +4,6 @@ import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
 import { LibConfigProviders } from '@app/providers';
-import GlobalStyle from '@app/styles/global';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
@@ -23,7 +22,6 @@ if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKIN
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <GlobalStyle />
       <Head>
         <meta charSet='UTF-8' />
         <link rel='icon' type='image/svg+xml' href='/next.svg' />

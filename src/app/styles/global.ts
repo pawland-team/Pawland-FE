@@ -15,47 +15,57 @@ const GlobalStyle = createGlobalStyle`${css`
     word-break: keep-all;
   }
 
+  /* stylelint-disable-next-line selector-id-pattern */
+  #__next {
+    position: relative;
+    z-index: ${({ theme }) => theme.zIndex.root};
+  }
+
+  #modal {
+    position: fixed;
+    z-index: ${({ theme }) => theme.zIndex.modal};
+  }
+
   html,
   body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-
+    overflow-x: auto;
+    height: fit-content;
+    min-height: 100vh;
     font-size: 62.5%; /* 1rem = 10px */
-    input,
-    textarea,
-    select,
-    button {
-      background: transparent;
-      border: 0;
-    }
+  }
 
-    button {
-      cursor: pointer;
-      padding: 0;
-      border: none;
-    }
+  input,
+  textarea,
+  select,
+  button {
+    background: transparent;
+    border: 0;
+  }
 
-    a {
-      cursor: pointer;
-      color: unset;
-      text-decoration: none;
+  button {
+    cursor: pointer;
+    padding: 0;
+    border: none;
+  }
 
-      &[role='button']:focus-visible {
-        border: 1px solid #007bff;
-      }
-    }
+  a {
+    cursor: pointer;
+    color: unset;
+    text-decoration: none;
 
-    input,
-    textarea {
-      resize: none;
-      outline: none;
+    &[role='button']:focus-visible {
+      border: 1px solid #007bff;
     }
+  }
 
-    ul {
-      list-style-type: none;
-    }
+  input,
+  textarea {
+    resize: none;
+    outline: none;
+  }
+
+  ul {
+    list-style-type: none;
   }
 `}
 `;
