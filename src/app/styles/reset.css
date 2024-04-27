@@ -160,9 +160,7 @@ button {
   크롬 브라우저 내장 스타일이 상속되기 때문
   수정하기 위해서는 직접 표시해주어야함.
   */
-
-  /* stylelint-disable */
-  font-family: '__pretendard_c55f2b', '__pretendard_Fallback_c55f2b';
+  font-family: '__pretendard_c55f2b', '__pretendard_Fallback_c55f2b', sans-serif;
   background: transparent;
   border: none;
 }
