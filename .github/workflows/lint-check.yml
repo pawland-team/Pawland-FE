@@ -41,5 +41,7 @@ jobs:
           npm run typecheck || (echo "You should run typecheck before pr" && exit 1)
 
       - name: test
+        env:
+          TZ: Asia/Seoul
         run: |
           npm run test:ci || (echo "You should run test before pr" && exit 1)
