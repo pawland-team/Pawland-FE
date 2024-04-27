@@ -26,33 +26,3 @@ body {
 
 /* page router 기본 root id */
 /* stylelint-disable-next-line selector-id-pattern */
-#__next {
-  position: relative;
-  z-index: var(--root-z-index);
-}
-
-#modal {
-  position: fixed;
-  z-index: var(--modal-z-index);
-}
-
-.sr-only {
-  position: absolute;
-
-  overflow: hidden;
-
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-
-  white-space: nowrap;
-
-  clip: rect(0, 0, 0, 0);
-  border-width: 0;
-}
-
-.background-clip-text {
-  color: transparent;
-  background-clip: text;
-}

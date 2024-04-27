@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { textLineClamp2 } from '@shared/ui/styles/text-style/text-style';
+import { textLineClamp2 } from '@shared/ui/styles/utills';
 
 interface ProductCardItemStyleProps {
   $flexGap: number;

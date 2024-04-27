@@ -13,3 +13,10 @@ export const textLineClamp2 = css`
 
   -webkit-line-clamp: 2;
 `;
+
+export const backgroundClip = css`
+  .background-clip-text {
+    color: transparent;
+    background-clip: text;
+  }
+`;
