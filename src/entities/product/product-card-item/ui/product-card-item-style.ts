@@ -69,7 +69,7 @@ export const ProductDescription = styled.div`
 
   .price {
     font-size: 3.2rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 42px;
   }
 

@@ -2,6 +2,7 @@ import { createGlobalStyle, css } from 'styled-components';
 
 import { pretendard } from './font/font';
 import resetCss from './reset';
+import './font/font-face/imcre-font-face.css';
 
 const GlobalStyle = createGlobalStyle`${css`
   ${resetCss}
@@ -12,6 +13,7 @@ const GlobalStyle = createGlobalStyle`${css`
     padding: 0;
 
     font-family: ${pretendard.style.fontFamily}, sans-serif;
+    letter-spacing: -0.006em;
     word-break: keep-all;
   }
 
