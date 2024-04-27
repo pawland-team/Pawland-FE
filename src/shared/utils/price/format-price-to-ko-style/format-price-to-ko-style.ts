@@ -6,7 +6,7 @@
  * formatPriceToKoStyle(1000, false); // 1,000
  * ```
  */
-export const formatPriceToKoStyle = (price: number, withUnit?: boolean) => {
+export const formatPriceToKoStyle = (price: number, withUnit = true) => {
   const options: Intl.NumberFormatOptions = {
     currency: 'KRW',
   };
