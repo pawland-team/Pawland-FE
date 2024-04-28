@@ -1,12 +1,36 @@
 import Head from 'next/head';
 import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
 import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
-import { ReviewList } from '../../widgets/review-list/review-list';
 import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
 
 import * as S from './profile-page-style';
+import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
+import { WishList } from '../../widgets/wish-list/wish-list';
+import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
+import { CommunityList } from '../../widgets/community-list/community-list';
+import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
+
+interface ActiveButtonState {
+  activeButton: string;
+}
 
 export const ProfilePage = () => {
+  const activeButton = useActiveButtonStore((state: ActiveButtonState) => state.activeButton);
+
+  const renderComponent = () => {
+    switch (activeButton) {
+      case 'register':
+        return <RegisteredProductList />;
+      case 'wish':
+        return <WishList />;
+      case 'transaction':
+        return <TransactionHistoryList />;
+      case 'community':
+        return <CommunityList />;
+      default:
+        return <RegisteredProductList />;
+    }
+  };
   return (
     <>
       <Head>
@@ -23,7 +47,7 @@ export const ProfilePage = () => {
           </S.UserInfoContainer>
           <S.ListContainer>
             <ProfilePageMenuBar />
-            <ReviewList></ReviewList>
+            {renderComponent()}
           </S.ListContainer>
         </S.ProfilePage>
       </main>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const WishList = styled.div`
+export const TransactionHistoryList = styled.div`
   display: flex;
   gap: 15px;
 `;

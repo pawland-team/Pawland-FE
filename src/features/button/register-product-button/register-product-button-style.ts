@@ -8,7 +8,7 @@ export const RegisterProductButton = styled.div`
   height: 64px;
   padding: 20px 67px;
 
-  background-color: ${({ theme }) => theme.color.blue_2087D6};
+  background-color: ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 41px;
 
   div {
