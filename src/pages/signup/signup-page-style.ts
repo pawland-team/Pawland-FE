@@ -154,7 +154,7 @@ const SignupPageEmailVerificationReSendButton = styled.button`
   line-height: 20px;
   color: ${({ theme }) => theme.color.white_FFFFFF};
 
-  background-color: ${({ theme }) => theme.color.blue_2087D6};
+  background-color: ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 4px;
 `;
 
