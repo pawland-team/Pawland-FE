@@ -7,7 +7,7 @@ export const ProfilePageMenuBar = styled.div`
 `;
 
 interface MenuButtonProps {
-  isActive: boolean; // isActive prop 추가
+  isActive: boolean;
 }
 
 export const MenuButton = styled.button<MenuButtonProps>`
