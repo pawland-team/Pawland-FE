@@ -6,7 +6,7 @@ import { MainbannerSwiper } from '@widgets/main-banner-swiper';
 import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
 
 import * as S from './home-page-style';
-import { MainProductListArea } from './ui/main-product-list-area';
+import { MainProductList } from './ui/main-product-list';
 
 export const HomePage = () => {
   return (
@@ -26,7 +26,7 @@ export const HomePage = () => {
         <S.CategoryArea>
           <CategoryList categoryList={categoryData} />
         </S.CategoryArea>
-        <MainProductListArea />
+        <MainProductList />
       </S.HomePage>
     </>
   );

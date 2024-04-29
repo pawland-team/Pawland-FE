@@ -4,7 +4,7 @@ import { ProductList } from '@widgets/recent-product-list';
 
 import * as S from '../home-page-style';
 
-const MainProductListArea = () => {
+const MainProductList = () => {
   return (
     <S.ProductListArea>
       <div className='product-title-box'>
@@ -16,4 +16,4 @@ const MainProductListArea = () => {
   );
 };
 
-export { MainProductListArea };
+export { MainProductList };
