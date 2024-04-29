@@ -18,6 +18,9 @@ const HeaderArea = styled.section`
 
   width: 100%;
   margin-bottom: 40px;
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const HeaderTitle = styled.h1`
