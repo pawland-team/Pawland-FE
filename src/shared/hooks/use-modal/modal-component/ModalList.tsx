@@ -7,46 +7,50 @@ import { Portal } from '@shared/ui/portal';
 import { ModalListStateContext, useModalListDispatch } from '../context/ModalListContext';
 import { ModalKey, StringifiedModalKey } from '../types';
 
+interface CloseParams {
+  onClose?: VoidFunction;
+  modalKey: ModalKey | StringifiedModalKey;
+}
 interface SubmitParams {
   onSubmit?: VoidFunction;
   modalKey: ModalKey | StringifiedModalKey;
 }
 
-interface CloseParams {
-  onClose?: VoidFunction;
-  modalKey: ModalKey | StringifiedModalKey;
-}
-type OnSubmitModal = (submitParams: SubmitParams) => (e?: React.BaseSyntheticEvent) => void;
-type OnCloseModal = (closeParams: CloseParams) => () => void;
+type OnCloseModal = (closeParams: CloseParams) => () => Promise<void>;
+type OnSubmitModal = (submitParams: SubmitParams) => (e?: React.BaseSyntheticEvent) => Promise<void>;
 
 const ModalList = () => {
   const modalList = useContext(ModalListStateContext);
 
   const { closeWithModalKeyImpl } = useModalListDispatch();
 
+  const onCloseModal: OnCloseModal =
+    ({ onClose, modalKey }) =>
+    async () => {
+      queueMicrotask(() => {
+        closeWithModalKeyImpl({ modalKey });
+
+        if (typeof onClose === 'function') {
+          onClose();
+        }
+      });
+    };
+
   const onSubmitModal: OnSubmitModal =
     ({ onSubmit, modalKey }) =>
-    (e) => {
+    async (e) => {
       if (e) {
         e.preventDefault?.();
         e.persist?.();
       }
 
-      if (typeof onSubmit === 'function') {
-        onSubmit();
-      }
+      queueMicrotask(() => {
+        closeWithModalKeyImpl({ modalKey });
 
-      closeWithModalKeyImpl({ modalKey });
-    };
-
-  const onCloseModal: OnCloseModal =
-    ({ onClose, modalKey }) =>
-    () => {
-      if (typeof onClose === 'function') {
-        onClose();
-      }
-
-      closeWithModalKeyImpl({ modalKey });
+        if (typeof onSubmit === 'function') {
+          onSubmit();
+        }
+      });
     };
 
   return (
@@ -64,8 +68,8 @@ const ModalList = () => {
               key={modalKey}
               modalRef={modalRef}
               isCurrentModalOpen={Boolean(modalKey.length) && Boolean(modalKey)}
-              submitModal={onSubmitModal({ onSubmit, modalKey })}
               closeModal={onCloseModal({ onClose, modalKey })}
+              submitModal={onSubmitModal({ onSubmit, modalKey })}
               {...rest}
             />
           );

@@ -17,25 +17,25 @@ const Modal = () => {
   } = useContext(ModalStateContext);
   const { close } = useModalDispatch();
 
-  const onCloseHandler = () => {
+  const onCloseHandler = async () => {
+    await close();
+
     if (typeof onClose === 'function') {
       onClose();
     }
-
-    close();
   };
 
-  const onSubmitHandler = (e?: React.BaseSyntheticEvent) => {
+  const onSubmitHandler = async (e?: React.BaseSyntheticEvent) => {
     if (e) {
       e.preventDefault?.();
       e.persist?.();
     }
 
+    await close();
+
     if (typeof onSubmit === 'function') {
       onSubmit();
     }
-
-    close();
   };
 
   return (

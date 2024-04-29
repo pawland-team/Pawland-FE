@@ -1,7 +1,7 @@
 'use client';
 
 import { useModalDispatch, useModalState } from './context/ModalContext';
-import { OpenModal, UseModal } from './types';
+import { CloseModal, OpenModal, UseModal } from './types';
 
 /**
  *
@@ -26,7 +26,7 @@ export const useModal: UseModal = () => {
     });
   };
 
-  const closeModal = () => {
+  const closeModal: CloseModal = async () => {
     close();
   };
 
