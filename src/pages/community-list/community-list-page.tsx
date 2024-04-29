@@ -8,7 +8,6 @@ export const CommunityListPage = () => {
       <S.MainArea>
         <S.HeaderArea>
           <S.HeaderTitle>커뮤니티</S.HeaderTitle>
-
           <S.SearchBarContainer>
             <S.SearchIconWrapper>
               <Image src='/images/icon/search-icon.svg' alt='search-icon' fill />
@@ -22,6 +21,7 @@ export const CommunityListPage = () => {
             <S.buttonTextWrapper>새 글 등록</S.buttonTextWrapper>
           </S.NewPostButton>
         </S.HeaderArea>
+
         <div>
           <h1>카테고리</h1>
           <div>

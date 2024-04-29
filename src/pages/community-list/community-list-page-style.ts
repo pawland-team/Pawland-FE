@@ -50,10 +50,7 @@ const SearchBar = styled.input`
 const NewPostButton = styled.button`
   position: relative;
 
-  display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: space-between;
 
   height: 40px;
   padding: 10px 20px;
@@ -82,6 +79,7 @@ const buttonTextWrapper = styled.div`
 
   width: 96px;
   height: 20px;
+  margin-left: 10px;
 `;
 
 export {
