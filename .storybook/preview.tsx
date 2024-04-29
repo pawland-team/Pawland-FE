@@ -1,9 +1,9 @@
 import type { Preview } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/shared/ui/styles/theme/index';
-import '../src/app/styles/global.css';
 
 import React from 'react';
+import GlobalStyle from '../src/app/styles/global';
 
 const preview: Preview = {
   parameters: {
@@ -35,6 +35,7 @@ const preview: Preview = {
     (Story, context) => {
       return (
         <ThemeProvider theme={theme}>
+          <GlobalStyle />
           <Story {...context} />
         </ThemeProvider>
       );
