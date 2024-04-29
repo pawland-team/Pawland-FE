@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CommonCheckBoxContainer = styled.div`
+  position: relative;
   display: inline-flex;
   gap: 6px;
   align-items: center;
@@ -11,13 +12,18 @@ export const CommonCheckBoxContainer = styled.div`
   }
 
   input {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    appearance: none;
   }
 
   .checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
 
     width: 20px;
     height: 20px;
@@ -27,6 +33,13 @@ export const CommonCheckBoxContainer = styled.div`
 
     &.checked {
       background-color: ${({ theme }) => theme.color.blue_43ADFF};
+    }
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 `;
