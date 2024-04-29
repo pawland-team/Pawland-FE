@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { useRouter } from 'next/router';
+
 import { Footer } from '@widgets/footer';
 import { Header } from '@widgets/header';
 
@@ -10,15 +12,21 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  return (
-    <>
-      <S.LayoutPage>
-        <Header isLoggedIn={false} />
-        <main>{children}</main>
-        <Footer />
-      </S.LayoutPage>
-    </>
-  );
+  const router = useRouter();
+
+  if (router.pathname !== '/login' && router.pathname !== '/signup') {
+    return (
+      <>
+        <S.LayoutPage>
+          <Header isLoggedIn={false} />
+          <main>{children}</main>
+          <Footer />
+        </S.LayoutPage>
+      </>
+    );
+  }
+
+  return <main>{children}</main>;
 };
 
 export { Layout };
