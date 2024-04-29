@@ -5,7 +5,7 @@ import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
 import { MainbannerSwiper } from '@widgets/main-banner-swiper';
 import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
-import { RecentProductList } from '@widgets/recent-product-list';
+import { ProductList } from '@widgets/recent-product-list';
 
 import * as S from './home-page-style';
 
@@ -32,7 +32,7 @@ export const HomePage = () => {
             <h3>최신 상품</h3>
             <Link href='/'>더보기</Link>
           </div>
-          <RecentProductList />
+          <ProductList />
         </S.ProductListArea>
       </S.HomePage>
     </>
