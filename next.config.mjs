@@ -4,6 +4,7 @@ const nextConfig = {
   compiler: {
     styledComponents: {
       ssr: true,
+      displayName: true,
     },
     removeConsole: process.env.NODE_ENV === 'production',
   },
