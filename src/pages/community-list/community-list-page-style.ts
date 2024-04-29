@@ -25,6 +25,19 @@ const HeaderTitle = styled.h1`
   font-weight: 700;
 `;
 
+const SearchBarContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+const SearchIconWrapper = styled.div`
+  position: absolute;
+  left: 20px;
+  width: 13px;
+  height: 12px;
+`;
+
 const SearchBar = styled.input`
   width: 440px;
   height: 40px;
@@ -76,6 +89,8 @@ export {
   MainArea,
   HeaderArea,
   HeaderTitle,
+  SearchBarContainer,
+  SearchIconWrapper,
   SearchBar,
   NewPostButton,
   PostButtonIconWrapper,

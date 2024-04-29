@@ -8,7 +8,13 @@ export const CommunityListPage = () => {
       <S.MainArea>
         <S.HeaderArea>
           <S.HeaderTitle>커뮤니티</S.HeaderTitle>
-          <S.SearchBar placeholder='제목을 검색해주세요.' />
+
+          <S.SearchBarContainer>
+            <S.SearchIconWrapper>
+              <Image src='/images/icon/search-icon.svg' alt='search-icon' fill />
+            </S.SearchIconWrapper>
+            <S.SearchBar placeholder='제목을 검색해주세요.' />
+          </S.SearchBarContainer>
           <S.NewPostButton>
             <S.PostButtonIconWrapper>
               <Image src='/images/button/add-button.svg' alt='add-button' fill />
