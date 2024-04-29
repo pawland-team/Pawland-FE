@@ -5,4 +5,10 @@ export const RegisteredProductList = styled.div`
   flex-direction: column;
   margin-top: 40px;
   gap: 15px;
+  width: 744px;
+
+  .buttonArea {
+    justify-content: end;
+    display: flex;
+  }
 `;

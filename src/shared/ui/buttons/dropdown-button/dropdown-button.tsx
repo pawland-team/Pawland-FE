@@ -36,9 +36,18 @@ const DropdownButton = ({
   };
 
   return (
-    <S.DropdownButton $width={width} $buttonHeight={buttonHeight} $borderColor={borderColor} $fontColor={fontColor}>
+    <S.DropdownButton
+      $width={width}
+      $buttonHeight={buttonHeight}
+      $borderColor={borderColor}
+      $fontColor={fontColor}
+      onClick={(e) => {
+        e.preventDefault();
+        toggleDropdown();
+      }}
+    >
       <S.SelectedMenu $selectedFontSize={selectedFontSize}>{selectedMenu}</S.SelectedMenu>
-      <Image onClick={toggleDropdown} width={13} height={13} src={iconPath} alt='화살표 아이콘' />
+      <Image width={13} height={13} src={iconPath} alt='화살표 아이콘' />
       {isDropdownOpen && (
         <S.DropdownMenuList $width={width} $borderColor={borderColor}>
           {dropdownItems.map((item, index) => (

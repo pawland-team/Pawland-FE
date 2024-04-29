@@ -4,6 +4,7 @@ export const ProfilePageMenuBar = styled.div`
   display: flex;
   border-radius: 10px;
   box-shadow: 0 0 5px 0 rgb(0 0 0 / 15%);
+  width: fit-content;
 `;
 
 interface MenuButtonProps {
