@@ -1,15 +1,16 @@
 import { HydrationBoundary } from '@tanstack/react-query';
 import Head from 'next/head';
-
 import type {} from 'styled-components/cssprop';
 
+import { Layout } from '@app/layout';
 import { LibConfigProviders } from '@app/providers';
-import { pretendard } from '@app/styles/font/font';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
 
-import '@app/styles/global.css';
+// import '@app/styles/global.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   (async () => {
@@ -29,9 +30,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <LibConfigProviders>
         <ModalListProvider>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <main className={`${pretendard.className}`}>
+            <Layout>
               <Component {...pageProps} />
-            </main>
+            </Layout>
           </HydrationBoundary>
           <ModalList />
         </ModalListProvider>
