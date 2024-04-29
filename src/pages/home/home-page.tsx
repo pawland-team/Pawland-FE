@@ -1,13 +1,12 @@
 import Head from 'next/head';
-import Link from 'next/link';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
 import { MainbannerSwiper } from '@widgets/main-banner-swiper';
 import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
-import { ProductList } from '@widgets/recent-product-list';
 
 import * as S from './home-page-style';
+import { MainProductListArea } from './ui/main-product-list-area';
 
 export const HomePage = () => {
   return (
@@ -27,13 +26,7 @@ export const HomePage = () => {
         <S.CategoryArea>
           <CategoryList categoryList={categoryData} />
         </S.CategoryArea>
-        <S.ProductListArea>
-          <div className='product-title-box'>
-            <h3>최신 상품</h3>
-            <Link href='/'>더보기</Link>
-          </div>
-          <ProductList />
-        </S.ProductListArea>
+        <MainProductListArea />
       </S.HomePage>
     </>
   );
