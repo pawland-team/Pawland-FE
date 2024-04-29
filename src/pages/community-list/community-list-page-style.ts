@@ -85,6 +85,27 @@ const buttonTextWrapper = styled.div`
   margin-left: 10px;
 `;
 
+const ContentsArea = styled.section`
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+
+  width: 100%;
+  margin-bottom: 40px;
+`;
+
+const CategoryArea = styled.section`
+  width: 276px;
+  height: 904px;
+  border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const ItemListArea = styled.section`
+  width: 890px;
+  height: 904px;
+  border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 export {
   CommunityListPage,
   MainArea,
@@ -96,4 +117,7 @@ export {
   NewPostButton,
   PostButtonIconWrapper,
   buttonTextWrapper,
+  ContentsArea,
+  CategoryArea,
+  ItemListArea,
 };

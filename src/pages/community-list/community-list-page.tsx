@@ -22,13 +22,36 @@ export const CommunityListPage = () => {
           </S.NewPostButton>
         </S.HeaderArea>
 
-        <div>
-          <h1>카테고리</h1>
-          <div>
-            <h1>아이템 리스트</h1>
+        <S.ContentsArea>
+          <S.CategoryArea>
+            <h1>카테고리</h1>
+            <div>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+              <h1>1</h1>
+            </div>
+          </S.CategoryArea>
+          <S.ItemListArea>
+            <div>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+              <h1>아이템</h1>
+            </div>
             <h1>페이지네이션</h1>
-          </div>
-        </div>
+          </S.ItemListArea>
+        </S.ContentsArea>
       </S.MainArea>
     </S.CommunityListPage>
   );
