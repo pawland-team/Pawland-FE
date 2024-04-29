@@ -7,16 +7,21 @@ interface SearchInputBoxStyle {
 }
 
 export const SearchInputBox = styled.div<SearchInputBoxStyle>`
-  ${inputContainer}
-  border-radius: 37px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 
-  gap: 26px;
+  form {
+    ${inputContainer}
+    max-width: ${(props) => props.$maxWidth};
 
-  padding: 15px 34px;
+    gap: 26px;
 
-  border: 2px solid ${({ theme }) => theme.color.blue_43ADFF};
+    padding: 15px 34px;
 
-  max-width: ${(props) => props.$maxWidth};
+    border-radius: 37px;
+    border: 2px solid ${({ theme }) => theme.color.blue_43ADFF};
+  }
 
   input {
     ${inputReset}

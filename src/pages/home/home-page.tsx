@@ -1,3 +1,5 @@
+import { FormEvent, useRef } from 'react';
+
 import Head from 'next/head';
 
 import { SearchInput } from '@shared/ui/inputs';
@@ -9,6 +11,14 @@ import * as S from './home-page-style';
 import { MainProductList } from './ui/main-product-list';
 
 export const HomePage = () => {
+  const inputRef = useRef(null);
+
+  const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(inputRef?.current?.value);
+  };
+
   return (
     <>
       <Head>
@@ -21,7 +31,12 @@ export const HomePage = () => {
           <MainbannerSwiper mainBannerList={mainBannerData} />
         </S.SwiperArea>
         <S.InputArea>
-          <SearchInput placeholder='원하시는 상품을 검색해보세요!' maxWidth='940px' />
+          <SearchInput
+            handleSubmit={handleSubmitKeyword}
+            inputRef={inputRef}
+            placeholder='원하시는 상품을 검색해보세요!'
+            maxWidth='940px'
+          />
         </S.InputArea>
         <S.CategoryArea>
           <CategoryList categoryList={categoryData} />
