@@ -40,6 +40,16 @@ export const CommunityListPage = () => {
           </S.CategoryArea>
           <S.ItemListArea>
             <div>
+              <S.ItemBox>
+                <S.ThumnailImageWrapper>
+                  <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+                </S.ThumnailImageWrapper>
+                <span>지역</span>
+                <h1>제목</h1>
+                <span>날짜</span>
+                <span>댓글수</span>
+                <span>추천수</span>
+              </S.ItemBox>
               <h1>아이템</h1>
               <h1>아이템</h1>
               <h1>아이템</h1>

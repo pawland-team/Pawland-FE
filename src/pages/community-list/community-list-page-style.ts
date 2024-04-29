@@ -106,6 +106,27 @@ const ItemListArea = styled.section`
   border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const ItemBox = styled.div`
+  position: relative;
+
+  width: 100%;
+  height: 134px;
+  padding: 34px 286px 18px 146px;
+
+  border: 1px solid ${({ theme }) => theme.color.gray_F3F3F3};
+  border-radius: 6px;
+`;
+
+const ThumnailImageWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+
+  width: 95px;
+  height: 95px;
+`;
+
 export {
   CommunityListPage,
   MainArea,
@@ -120,4 +141,6 @@ export {
   ContentsArea,
   CategoryArea,
   ItemListArea,
+  ItemBox,
+  ThumnailImageWrapper,
 };
