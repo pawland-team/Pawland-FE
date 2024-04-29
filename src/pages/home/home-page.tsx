@@ -11,7 +11,7 @@ import * as S from './home-page-style';
 import { MainProductList } from './ui/main-product-list';
 
 export const HomePage = () => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
