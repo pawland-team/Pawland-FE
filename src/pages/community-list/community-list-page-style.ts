@@ -127,6 +127,41 @@ const ThumnailImageWrapper = styled.div`
   height: 95px;
 `;
 
+const textContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const itemRegiontext = styled.span`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const itemTitleText = styled.h1`
+  font-size: 2.4rem;
+  font-weight: 700;
+`;
+
+const itemSubTextBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const itemSubText = styled.span`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const itemSubDivider = styled.div`
+  width: 1px;
+  height: 12px;
+  margin: 0 12px;
+  border-right: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 export {
   CommunityListPage,
   MainArea,
@@ -143,4 +178,10 @@ export {
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
+  textContentsWrapper,
+  itemRegiontext,
+  itemTitleText,
+  itemSubTextBox,
+  itemSubText,
+  itemSubDivider,
 };

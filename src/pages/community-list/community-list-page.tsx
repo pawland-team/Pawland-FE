@@ -39,27 +39,22 @@ export const CommunityListPage = () => {
             </div>
           </S.CategoryArea>
           <S.ItemListArea>
-            <div>
-              <S.ItemBox>
-                <S.ThumnailImageWrapper>
-                  <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
-                </S.ThumnailImageWrapper>
-                <span>지역</span>
-                <h1>제목</h1>
-                <span>날짜</span>
-                <span>댓글수</span>
-                <span>추천수</span>
-              </S.ItemBox>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-              <h1>아이템</h1>
-            </div>
-            <h1>페이지네이션</h1>
+            <S.ItemBox>
+              <S.ThumnailImageWrapper>
+                <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+              </S.ThumnailImageWrapper>
+              <S.textContentsWrapper>
+                <S.itemRegiontext>지역</S.itemRegiontext>
+                <S.itemTitleText>제목제목제목제목제목</S.itemTitleText>
+                <S.itemSubTextBox>
+                  <S.itemSubText>날짜</S.itemSubText>
+                  <S.itemSubDivider />
+                  <S.itemSubText>댓글 100</S.itemSubText>
+                  <S.itemSubDivider />
+                  <S.itemSubText>추천 100</S.itemSubText>
+                </S.itemSubTextBox>
+              </S.textContentsWrapper>
+            </S.ItemBox>
           </S.ItemListArea>
         </S.ContentsArea>
       </S.MainArea>
