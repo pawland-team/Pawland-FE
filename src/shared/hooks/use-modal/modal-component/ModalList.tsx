@@ -27,13 +27,11 @@ const ModalList = () => {
   const onCloseModal: OnCloseModal =
     ({ onClose, modalKey }) =>
     async () => {
-      queueMicrotask(() => {
-        closeWithModalKeyImpl({ modalKey });
+      await closeWithModalKeyImpl({ modalKey });
 
-        if (typeof onClose === 'function') {
-          onClose();
-        }
-      });
+      if (typeof onClose === 'function') {
+        onClose();
+      }
     };
 
   const onSubmitModal: OnSubmitModal =
@@ -44,13 +42,11 @@ const ModalList = () => {
         e.persist?.();
       }
 
-      queueMicrotask(() => {
-        closeWithModalKeyImpl({ modalKey });
+      await closeWithModalKeyImpl({ modalKey });
 
-        if (typeof onSubmit === 'function') {
-          onSubmit();
-        }
-      });
+      if (typeof onSubmit === 'function') {
+        onSubmit();
+      }
     };
 
   return (
