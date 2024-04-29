@@ -5,6 +5,7 @@ export const UserInfoArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 export const ProfileImageArea = styled.div``;
 export const ProfileImage = styled(Image)`
@@ -30,6 +31,10 @@ export const UserIntroduce = styled.div`
   font-weight: 300;
   line-height: 28px;
   text-align: center;
+  width: 100%;
+  max-height: 3 * 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Line = styled.hr`

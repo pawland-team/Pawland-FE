@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ProfilePage = styled.div`
   display: flex;
   margin-top: 141px;
+  margin-bottom: 156px;
 `;
 
 export const UserInfoContainer = styled.div`

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const EditProfileButton = styled.div`
   position: absolute;
-  top: 90px;
+  top: 310px;
   left: 520px;
 
   display: flex;

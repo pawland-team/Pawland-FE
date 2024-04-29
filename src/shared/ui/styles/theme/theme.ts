@@ -1,3 +1,4 @@
+import * as blockSize from '../block-size';
 import { zIndex } from '../z-index';
 
 export const theme = {
@@ -19,6 +20,7 @@ export const theme = {
     gray_F9F9F9: '#F9F9F9',
   },
   zIndex,
+  blockSize,
 } as const;
 
 export type CustomTheme = typeof theme;

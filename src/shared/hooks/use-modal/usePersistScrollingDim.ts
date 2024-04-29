@@ -21,6 +21,7 @@ export const usePersistScrollingDim = ({ modalInfoManageMap, dependencyList = []
     document.body.style.top = `-${window.scrollY}px`;
     const scrollY = document.documentElement.scrollTop;
     document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
 
     return () => {
       document.body.style.position = '';
