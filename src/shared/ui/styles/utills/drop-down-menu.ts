@@ -1,5 +1,9 @@
 import { css } from 'styled-components';
 
+/**
+ * position을 통한 위치 잡기는 직접 해주어야 함.
+ * - 예시 NicknameWithAvatar.tsx -> DropDownMenu 참고
+ */
 export const dropDownMenuStyle = css`
   overflow: hidden;
   display: flex;
