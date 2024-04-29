@@ -16,8 +16,8 @@ export const SearchInputBox = styled.div<SearchInputBoxStyle>`
     ${inputContainer}
     gap: 26px;
     padding: 15px 34px;
-    border-radius: 37px;
     border: 2px solid ${({ theme }) => theme.color.blue_43ADFF};
+    border-radius: 37px;
   }
 
   input {
