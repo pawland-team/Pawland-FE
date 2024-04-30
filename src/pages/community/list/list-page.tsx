@@ -46,28 +46,30 @@ export const CommunityListPage = () => {
             </div>
           </S.CategoryArea>
           <S.ItemListArea>
-            <S.ItemBox
-              onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
-              onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
-            >
-              <S.ThumnailImageWrapper>
-                <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
-              </S.ThumnailImageWrapper>
-              <S.textContentsWrapper>
-                <S.itemRegiontext>지역</S.itemRegiontext>
-                <S.itemTitleText>제목제목제목제목제목</S.itemTitleText>
-                <S.itemSubTextBox>
-                  <S.itemSubText>날짜</S.itemSubText>
-                  <S.itemSubDivider />
-                  <S.itemSubText>댓글 100</S.itemSubText>
-                  <S.itemSubDivider />
-                  <S.itemSubText>추천 100</S.itemSubText>
-                </S.itemSubTextBox>
-              </S.textContentsWrapper>
-              <S.arrowIconWrapper>
-                <Image src={iconSrc} alt='arrow-icon' fill />
-              </S.arrowIconWrapper>
-            </S.ItemBox>
+            <Link href='/community/post-detail'>
+              <S.ItemBox
+                onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
+                onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
+              >
+                <S.ThumnailImageWrapper>
+                  <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+                </S.ThumnailImageWrapper>
+                <S.textContentsWrapper>
+                  <S.itemRegiontext>지역</S.itemRegiontext>
+                  <S.itemTitleText>제목제목제목제목제목</S.itemTitleText>
+                  <S.itemSubTextBox>
+                    <S.itemSubText>날짜</S.itemSubText>
+                    <S.itemSubDivider />
+                    <S.itemSubText>댓글 100</S.itemSubText>
+                    <S.itemSubDivider />
+                    <S.itemSubText>추천 100</S.itemSubText>
+                  </S.itemSubTextBox>
+                </S.textContentsWrapper>
+                <S.arrowIconWrapper>
+                  <Image src={iconSrc} alt='arrow-icon' fill />
+                </S.arrowIconWrapper>
+              </S.ItemBox>
+            </Link>
           </S.ItemListArea>
         </S.ContentsArea>
       </S.MainArea>
