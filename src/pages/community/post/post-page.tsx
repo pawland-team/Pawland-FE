@@ -1,9 +1,19 @@
+import Image from 'next/image';
+
 import * as S from './post-page-style';
 
 export const CommunityPostPage = () => {
   return (
     <S.PostPage>
-      <h1>헤더 영역</h1>
+      <S.HeaderArea>
+        <S.HeaderTitle>커뮤니티 등록</S.HeaderTitle>
+        <S.PostButton>
+          <S.PostButtonIconWrapper>
+            <Image src='/images/button/add-button.svg' alt='add-button' fill />
+          </S.PostButtonIconWrapper>
+          <S.buttonTextWrapper>커뮤니티 등록</S.buttonTextWrapper>
+        </S.PostButton>
+      </S.HeaderArea>
       <h1>지역카테고리선택영역</h1>
       <h1>게시글 제목 입력 영역</h1>
       <h1>텍스트 에디터 영역</h1>
