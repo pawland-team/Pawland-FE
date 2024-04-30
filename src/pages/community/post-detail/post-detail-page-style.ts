@@ -111,6 +111,57 @@ const ContentsParagraph = styled.p`
   font-weight: 400;
 `;
 
+const RecommendButtonBox = styled.div`
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 56px;
+`;
+
+const RecommendButton = styled.button`
+  cursor: pointer;
+
+  width: 174px;
+  height: 48px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  border-radius: 54px;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.white_FFFFFF};
+    background-color: ${({ theme }) => theme.color.blue_43ADFF};
+    border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
+  }
+`;
+
+const LikeIconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  transform: translateY(-50%);
+
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+`;
+
+const LikeButtonText = styled.span`
+  display: inline-block;
+
+  width: 76px;
+  height: 20px;
+  margin-left: 18px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -127,4 +178,8 @@ export {
   ContentsArea,
   Contents,
   ContentsParagraph,
+  RecommendButtonBox,
+  RecommendButton,
+  LikeIconWrapper,
+  LikeButtonText,
 };

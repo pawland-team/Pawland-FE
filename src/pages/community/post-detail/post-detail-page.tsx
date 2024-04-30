@@ -1,9 +1,13 @@
+import { useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 import * as S from './post-detail-page-style';
 
 export const CommunityPostDetailPage = () => {
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <S.PostDetailPage>
       <S.HeaderArea>
@@ -42,7 +46,19 @@ export const CommunityPostDetailPage = () => {
             가다 보니 좀 낯설어 보이는 그녀가 보인적 없던 눈물로 나를 반겨 태양보다 뜨거워진 나 그녀의 가슴에 안겨
           </S.ContentsParagraph>
         </S.Contents>
-        <div>추천버튼 영역</div>
+
+        <S.RecommendButtonBox>
+          <S.RecommendButton onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+            <S.LikeIconWrapper>
+              <Image
+                src={isHover ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
+                alt='like-icon'
+                fill
+              />
+            </S.LikeIconWrapper>
+            <S.LikeButtonText>추천해요!</S.LikeButtonText>
+          </S.RecommendButton>
+        </S.RecommendButtonBox>
       </S.ContentsArea>
 
       <div>댓글 영역</div>
