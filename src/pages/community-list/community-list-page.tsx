@@ -1,8 +1,12 @@
+import { useState } from 'react';
+
 import Image from 'next/image';
 
 import * as S from './community-list-page-style';
 
 export const CommunityListPage = () => {
+  const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -39,7 +43,10 @@ export const CommunityListPage = () => {
             </div>
           </S.CategoryArea>
           <S.ItemListArea>
-            <S.ItemBox>
+            <S.ItemBox
+              onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
+              onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
+            >
               <S.ThumnailImageWrapper>
                 <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
               </S.ThumnailImageWrapper>
@@ -54,6 +61,9 @@ export const CommunityListPage = () => {
                   <S.itemSubText>추천 100</S.itemSubText>
                 </S.itemSubTextBox>
               </S.textContentsWrapper>
+              <S.arrowIconWrapper>
+                <Image src={iconSrc} alt='arrow-icon' fill />
+              </S.arrowIconWrapper>
             </S.ItemBox>
           </S.ItemListArea>
         </S.ContentsArea>

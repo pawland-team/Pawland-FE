@@ -171,6 +171,22 @@ const itemSubDivider = styled.div`
   border-right: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const arrowIconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+
+  fill: ${({ theme }) => theme.color.black_000000};
+
+  ${ItemBox}:hover & {
+    fill: #43adff;
+  }
+`;
+
 export {
   CommunityListPage,
   MainArea,
@@ -193,4 +209,5 @@ export {
   itemSubTextBox,
   itemSubText,
   itemSubDivider,
+  arrowIconWrapper,
 };
