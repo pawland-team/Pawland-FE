@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import * as S from './post-detail-page-style';
 
 export const CommunityPostDetailPage = () => {
@@ -5,9 +7,11 @@ export const CommunityPostDetailPage = () => {
     <S.PostDetailPage>
       <S.HeaderArea>
         <S.HeaderButtonBox>
-          <S.BacktoListButton>
-            <S.HeaderButtonText>목록으로 이동</S.HeaderButtonText>
-          </S.BacktoListButton>
+          <Link href='/community/list'>
+            <S.BacktoListButton>
+              <S.HeaderButtonText>목록으로 이동</S.HeaderButtonText>
+            </S.BacktoListButton>
+          </Link>
         </S.HeaderButtonBox>
         <div>
           <div>제목 영역</div>
