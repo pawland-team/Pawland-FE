@@ -107,6 +107,8 @@ const ItemListArea = styled.section`
 `;
 
 const ItemBox = styled.div`
+  cursor: pointer;
+
   position: relative;
 
   width: 100%;
@@ -115,6 +117,13 @@ const ItemBox = styled.div`
 
   border: 1px solid ${({ theme }) => theme.color.gray_F3F3F3};
   border-radius: 6px;
+
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 10px rgb(0 0 0 / 15%);
+  }
 `;
 
 const ThumnailImageWrapper = styled.div`
