@@ -28,6 +28,29 @@ export const CommunityPostPage = () => {
             <S.CategortyParagraph>원활한 소통을 위하여 지역을 선택해주세요.</S.CategortyParagraph>
           </div>
         </S.CategoryTitleBox>
+        <S.RegionArea>
+          <S.RegionSelectBoxTitle>지역 선택</S.RegionSelectBoxTitle>
+          <S.RegionSelectBox>
+            <S.RegionSelectItem>서울</S.RegionSelectItem>
+            <S.RegionSelectItem>부산</S.RegionSelectItem>
+            <S.RegionSelectItem>대구</S.RegionSelectItem>
+            <S.RegionSelectItem>인천</S.RegionSelectItem>
+            <S.RegionSelectItem>광주</S.RegionSelectItem>
+            <S.RegionSelectItem>대전</S.RegionSelectItem>
+            <S.RegionSelectItem>울산</S.RegionSelectItem>
+            <S.RegionSelectItem>세종</S.RegionSelectItem>
+            <S.RegionSelectItem>경기</S.RegionSelectItem>
+            <S.RegionSelectItem>강원</S.RegionSelectItem>
+            <S.RegionSelectItem>충북</S.RegionSelectItem>
+            <S.RegionSelectItem>충남</S.RegionSelectItem>
+            <S.RegionSelectItem>전북</S.RegionSelectItem>
+            <S.RegionSelectItem>전남</S.RegionSelectItem>
+            <S.RegionSelectItem>경북</S.RegionSelectItem>
+            <S.RegionSelectItem>경남</S.RegionSelectItem>
+            <S.RegionSelectItem>제주</S.RegionSelectItem>
+            <S.RegionSelectItem>해외</S.RegionSelectItem>
+          </S.RegionSelectBox>
+        </S.RegionArea>
       </S.CategoryArea>
 
       <h1>게시글 제목 입력 영역</h1>

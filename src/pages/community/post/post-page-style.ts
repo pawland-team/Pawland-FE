@@ -17,8 +17,6 @@ const HeaderArea = styled.section`
   width: 1197px;
   margin: 0 auto;
   padding-bottom: 24px;
-
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const HeaderTitle = styled.h1`
@@ -85,7 +83,6 @@ const buttonTextWrapper = styled.div`
 
 const CategoryArea = styled.section`
   display: flex;
-  align-items: center;
   justify-content: space-between;
 
   width: 1197px;
@@ -113,6 +110,42 @@ const CategortyParagraph = styled.p`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const RegionArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 40px;
+`;
+
+const RegionSelectBoxTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const RegionSelectBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  width: 700px;
+  height: 85px;
+`;
+
+const RegionSelectItem = styled.div`
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 20px;
+
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+
+  border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+  border-radius: 6px;
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -127,4 +160,8 @@ export {
   CategoryTitleBox,
   CategoryTitle,
   CategortyParagraph,
+  RegionArea,
+  RegionSelectBoxTitle,
+  RegionSelectBox,
+  RegionSelectItem,
 };
