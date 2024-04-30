@@ -28,7 +28,7 @@ export const CommunityPostPage = () => {
             <S.CategortyParagraph>원활한 소통을 위하여 지역을 선택해주세요.</S.CategortyParagraph>
           </div>
         </S.CategoryTitleBox>
-        <S.RegionArea>
+        <S.RegionBox>
           <S.RegionSelectBoxTitle>지역 선택</S.RegionSelectBoxTitle>
           <S.RegionSelectBox>
             <S.RegionSelectItem>서울</S.RegionSelectItem>
@@ -50,7 +50,7 @@ export const CommunityPostPage = () => {
             <S.RegionSelectItem>제주</S.RegionSelectItem>
             <S.RegionSelectItem>해외</S.RegionSelectItem>
           </S.RegionSelectBox>
-        </S.RegionArea>
+        </S.RegionBox>
       </S.CategoryArea>
 
       <S.TitleInputArea>

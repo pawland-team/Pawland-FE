@@ -109,7 +109,7 @@ const CategortyParagraph = styled.p`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const RegionArea = styled.div`
+const RegionBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -225,7 +225,7 @@ export {
   CategoryTitleBox,
   CategoryTitle,
   CategortyParagraph,
-  RegionArea,
+  RegionBox,
   RegionSelectBoxTitle,
   RegionSelectBox,
   RegionSelectItem,
