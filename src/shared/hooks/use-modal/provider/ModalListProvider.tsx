@@ -63,16 +63,19 @@ const ModalListProvider = ({ children }: ModalListProviderProps) => {
     });
   };
 
-  const closeWithModalKeyImpl: CloseWithModalKeyImpl = ({ modalKey }) => {
+  const closeWithModalKeyImpl: CloseWithModalKeyImpl = async ({ modalKey }) => {
     const stringifiedModalKey = typeof modalKey === 'string' ? modalKey : JSON.stringify(modalKey);
-    setOpenedModalList((prev) => {
-      return prev.filter((modal) => modal.modalKey !== stringifiedModalKey);
-    });
-    const removalResult = modalInfoManageMapRef.current.delete(stringifiedModalKey);
 
-    if (!removalResult) {
-      console.error(`Failed to remove modal with key: ${stringifiedModalKey}`);
-    }
+    queueMicrotask(() => {
+      setOpenedModalList((prev) => {
+        return prev.filter((modal) => modal.modalKey !== stringifiedModalKey);
+      });
+      const removalResult = modalInfoManageMapRef.current.delete(stringifiedModalKey);
+
+      if (!removalResult) {
+        console.error(`Failed to remove modal with key: ${stringifiedModalKey}`);
+      }
+    });
   };
 
   useCloseModalOnMouseDown({ modalInfoManageMap: modalInfoManageMapRef.current, closeWithModalKeyImpl });
