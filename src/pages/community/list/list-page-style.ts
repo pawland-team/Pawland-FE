@@ -91,7 +91,7 @@ const ContentsArea = styled.section`
   justify-content: center;
 
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 126px;
 `;
 
 const CategoryArea = styled.section`
