@@ -193,6 +193,24 @@ const TitleInputCounter = styled.span`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const TextEditorArea = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 1197px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const TextEditorTitle = styled.h1`
+  font-size: 2.8rem;
+  font-weight: 700;
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -216,4 +234,6 @@ export {
   TitleInputTitle,
   TitleInput,
   TitleInputCounter,
+  TextEditorArea,
+  TextEditorTitle,
 };
