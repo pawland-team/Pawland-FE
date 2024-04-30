@@ -9,7 +9,7 @@ const MainProductList = () => {
     <S.ProductListArea>
       <div className='product-title-box'>
         <h3>최신 상품</h3>
-        <Link href='/'>더보기</Link>
+        <Link href='/product'>더보기</Link>
       </div>
       <ProductList />
     </S.ProductListArea>
