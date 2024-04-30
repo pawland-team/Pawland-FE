@@ -213,6 +213,7 @@ const TextEditorTitle = styled.h1`
 
 const PostThumnailImageArea = styled.section`
   display: flex;
+  justify-content: space-between;
 
   width: 1197px;
   margin: 0 auto;
@@ -233,6 +234,24 @@ const PostThumnailImageAreaTitle = styled.h1`
 
 const PostThumnailImageAreaSubTitle = styled.span`
   font-size: 2rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const ThumnailUploadBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const ThumnailUploadBoxTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const ThumnailUploadBoxSubTitle = styled.span`
+  font-size: 1.6rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
@@ -266,4 +285,7 @@ export {
   PostThumnailImageAreaTitleBox,
   PostThumnailImageAreaTitle,
   PostThumnailImageAreaSubTitle,
+  ThumnailUploadBox,
+  ThumnailUploadBoxTitle,
+  ThumnailUploadBoxSubTitle,
 };

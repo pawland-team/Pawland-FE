@@ -69,13 +69,13 @@ export const CommunityPostPage = () => {
       <S.PostThumnailImageArea>
         <S.PostThumnailImageAreaTitleBox>
           <S.PostThumnailImageAreaTitle>대표이미지</S.PostThumnailImageAreaTitle>
-          <S.PostThumnailImageAreaSubTitle>대표 이미지를 넣어주세요</S.PostThumnailImageAreaSubTitle>
+          <S.PostThumnailImageAreaSubTitle>대표 이미지를 넣어주세요.</S.PostThumnailImageAreaSubTitle>
         </S.PostThumnailImageAreaTitleBox>
-        <div>
-          <h2>대표이미지</h2>
-          <span>* 리스트에서 썸네일로 보여지는 이미지입니다.</span>
+        <S.ThumnailUploadBox>
+          <S.ThumnailUploadBoxTitle>대표이미지</S.ThumnailUploadBoxTitle>
+          <S.ThumnailUploadBoxSubTitle>* 리스트에서 썸네일로 보여지는 이미지입니다.</S.ThumnailUploadBoxSubTitle>
           <input placeholder='이미지 업로드' />
-        </div>
+        </S.ThumnailUploadBox>
       </S.PostThumnailImageArea>
     </S.PostPage>
   );
