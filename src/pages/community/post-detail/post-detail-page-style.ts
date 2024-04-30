@@ -87,6 +87,30 @@ const Divider = styled.div`
   border-right: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const ContentsArea = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 1197px;
+  margin: 0 auto;
+  padding-top: 60px;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ContentsParagraph = styled.p`
+  font-size: 2rem;
+  font-weight: 400;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -100,4 +124,7 @@ export {
   CommunityStatusBox,
   StatusText,
   Divider,
+  ContentsArea,
+  Contents,
+  ContentsParagraph,
 };
