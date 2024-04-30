@@ -19,7 +19,11 @@ export const CommunityPostPage = () => {
           </S.PostButton>
         </S.ButtonArea>
       </S.HeaderArea>
-      <h1>지역카테고리선택영역</h1>
+
+      <S.CategoryArea>
+        <S.CategoryTitle>지역 선택</S.CategoryTitle>
+      </S.CategoryArea>
+
       <h1>게시글 제목 입력 영역</h1>
       <h1>텍스트 에디터 영역</h1>
       <h1>대표 이미지 업로드 영역</h1>

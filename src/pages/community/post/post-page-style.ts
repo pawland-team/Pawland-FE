@@ -83,6 +83,24 @@ const buttonTextWrapper = styled.div`
   margin-left: 20px;
 `;
 
+const CategoryArea = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 1197px;
+  margin: 0 auto;
+  margin-top: 96px;
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const CategoryTitle = styled.h1`
+  font-size: 2.8rem;
+  font-weight: 700;
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -93,4 +111,6 @@ export {
   PostButton,
   PostButtonIconWrapper,
   buttonTextWrapper,
+  CategoryArea,
+  CategoryTitle,
 };
