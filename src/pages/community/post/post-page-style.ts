@@ -16,7 +16,7 @@ const HeaderArea = styled.section`
 
   width: 1197px;
   margin: 0 auto;
-  padding-bottom: 24px;
+  padding-bottom: 96px;
 `;
 
 const HeaderTitle = styled.h1`
@@ -87,7 +87,6 @@ const CategoryArea = styled.section`
 
   width: 1197px;
   margin: 0 auto;
-  margin-top: 96px;
   padding-bottom: 24px;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
@@ -114,7 +113,7 @@ const RegionArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 80px;
 `;
 
 const RegionSelectBoxTitle = styled.h2`
@@ -153,8 +152,8 @@ const TitleInputArea = styled.div`
 
   width: 1197px;
   margin: 0 auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
@@ -162,6 +161,21 @@ const TitleInputArea = styled.div`
 const TitleInputTitle = styled.h1`
   font-size: 2.8rem;
   font-weight: 700;
+`;
+
+const TitleInput = styled.input`
+  width: 100%;
+  height: 64px;
+  padding: 20px 32px;
+
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  border-radius: 6px;
+
+  &::placeholder {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.color.gray_BDBDBD};
+  }
 `;
 
 export {
@@ -184,4 +198,5 @@ export {
   RegionSelectItem,
   TitleInputArea,
   TitleInputTitle,
+  TitleInput,
 };
