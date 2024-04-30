@@ -30,7 +30,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
           <S.NavContainer>
             <ul>
               <li>
-                <Link href='/product'>중고거래</Link>
+                <Link href='/'>중고거래</Link>
               </li>
               <li>
                 <Link href='/'>커뮤니티</Link>

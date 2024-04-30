@@ -4,7 +4,7 @@ import type { StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'organisms/layout/Footer',
+  title: 'organisms/Footer',
   component: Footer,
 };
 
