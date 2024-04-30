@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import * as S from './list-page-style';
 
@@ -22,7 +23,9 @@ export const CommunityListPage = () => {
             <S.PostButtonIconWrapper>
               <Image src='/images/button/add-button.svg' alt='add-button' fill />
             </S.PostButtonIconWrapper>
-            <S.buttonTextWrapper>새 글 등록</S.buttonTextWrapper>
+            <Link href='/community/post'>
+              <S.buttonTextWrapper>새 글 등록</S.buttonTextWrapper>
+            </Link>
           </S.NewPostButton>
         </S.HeaderArea>
 
