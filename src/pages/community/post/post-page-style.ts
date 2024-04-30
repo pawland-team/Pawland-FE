@@ -211,6 +211,32 @@ const TextEditorTitle = styled.h1`
   font-weight: 700;
 `;
 
+const PostThumnailImageArea = styled.section`
+  display: flex;
+
+  width: 1197px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 80px;
+`;
+
+const PostThumnailImageAreaTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const PostThumnailImageAreaTitle = styled.h1`
+  font-size: 2.8rem;
+  font-weight: 700;
+`;
+
+const PostThumnailImageAreaSubTitle = styled.span`
+  font-size: 2rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -236,4 +262,8 @@ export {
   TitleInputCounter,
   TextEditorArea,
   TextEditorTitle,
+  PostThumnailImageArea,
+  PostThumnailImageAreaTitleBox,
+  PostThumnailImageAreaTitle,
+  PostThumnailImageAreaSubTitle,
 };

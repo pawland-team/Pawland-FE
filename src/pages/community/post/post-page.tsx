@@ -66,7 +66,17 @@ export const CommunityPostPage = () => {
         <div>여기에 텍스트 에디터</div>
       </S.TextEditorArea>
 
-      <h1>대표 이미지 업로드 영역</h1>
+      <S.PostThumnailImageArea>
+        <S.PostThumnailImageAreaTitleBox>
+          <S.PostThumnailImageAreaTitle>대표이미지</S.PostThumnailImageAreaTitle>
+          <S.PostThumnailImageAreaSubTitle>대표 이미지를 넣어주세요</S.PostThumnailImageAreaSubTitle>
+        </S.PostThumnailImageAreaTitleBox>
+        <div>
+          <h2>대표이미지</h2>
+          <span>* 리스트에서 썸네일로 보여지는 이미지입니다.</span>
+          <input placeholder='이미지 업로드' />
+        </div>
+      </S.PostThumnailImageArea>
     </S.PostPage>
   );
 };
