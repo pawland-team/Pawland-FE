@@ -61,18 +61,23 @@ export const CommunityPostDetailPage = () => {
         </S.RecommendButtonBox>
       </S.ContentsArea>
 
+      {/* 댓글 입력 컴포넌트 */}
       <S.CommentArea>
         <S.ComentBox>
-          <S.ProfileBox>
-            <S.ProfileImageWrapper>
-              <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
-            </S.ProfileImageWrapper>
-            <S.ProfileNickname>홍길동</S.ProfileNickname>
-          </S.ProfileBox>
+          <S.ProfileImageWrapper>
+            <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+          </S.ProfileImageWrapper>
+          <S.ComentPostBox>
+            <S.ComentTextareaBox>
+              <S.ProfileNickname>힙합페페</S.ProfileNickname>
+              <S.ComentTextarea placeholder='댓글을 입력해주세요.' />
+            </S.ComentTextareaBox>
+            <S.ComentPostButtonWrapper>
+              <S.ComentPostButton>댓글 등록하기</S.ComentPostButton>
+            </S.ComentPostButtonWrapper>
+          </S.ComentPostBox>
         </S.ComentBox>
       </S.CommentArea>
-
-      <div>페이지네이션</div>
     </S.PostDetailPage>
   );
 };

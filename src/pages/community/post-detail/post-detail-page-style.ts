@@ -164,41 +164,84 @@ const LikeButtonText = styled.span`
 
 const CommentArea = styled.section`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
   width: 1197px;
   margin: 0 auto;
-  padding-top: 160px;
+  margin-top: 160px;
+  padding-top: 60px;
+
+  border-top: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const ComentBox = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const ProfileBox = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
+  gap: 25px;
+  width: 100%;
 `;
 
 const ProfileImageWrapper = styled.div`
   overflow: hidden;
-  display: flex;
-
   width: 60px;
   height: 60px;
-
   border-radius: 50%;
 `;
 
 const ProfileNickname = styled.span`
   font-size: 1.6rem;
   font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const ComentPostBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+`;
+
+const ComentTextareaBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`;
+
+const ComentTextarea = styled.textarea`
+  width: 100%;
+  height: 138px;
+  padding: 30px 37px;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  border: 1px solid ${({ theme }) => theme.color.gray_F9F9F9};
+  border-radius: 10px;
+
+  &::placeholder {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.color.gray_9E9E9E};
+  }
+`;
+
+const ComentPostButtonWrapper = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+const ComentPostButton = styled.button`
+  display: flex;
+
+  padding: 10px 32px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 20px;
   color: ${({ theme }) => theme.color.black_000000};
+
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  border-radius: 6px;
 `;
 
 export {
@@ -223,7 +266,11 @@ export {
   LikeButtonText,
   CommentArea,
   ComentBox,
-  ProfileBox,
   ProfileImageWrapper,
   ProfileNickname,
+  ComentPostBox,
+  ComentTextareaBox,
+  ComentTextarea,
+  ComentPostButtonWrapper,
+  ComentPostButton,
 };
