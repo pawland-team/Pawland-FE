@@ -26,6 +26,28 @@ const HeaderTitle = styled.h1`
   font-weight: 700;
 `;
 
+const ButtonArea = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const TempSaveButton = styled.button`
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 32px;
+
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  border-radius: 6px;
+`;
+
+const TempSaveButtonText = styled.div`
+  width: 90px;
+  font-size: 1.6rem;
+  font-weight: 700;
+`;
+
 const PostButton = styled.button`
   position: relative;
 
@@ -61,4 +83,14 @@ const buttonTextWrapper = styled.div`
   margin-left: 20px;
 `;
 
-export { PostPage, HeaderArea, HeaderTitle, PostButton, PostButtonIconWrapper, buttonTextWrapper };
+export {
+  PostPage,
+  HeaderArea,
+  HeaderTitle,
+  ButtonArea,
+  TempSaveButton,
+  TempSaveButtonText,
+  PostButton,
+  PostButtonIconWrapper,
+  buttonTextWrapper,
+};

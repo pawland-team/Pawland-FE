@@ -7,12 +7,17 @@ export const CommunityPostPage = () => {
     <S.PostPage>
       <S.HeaderArea>
         <S.HeaderTitle>커뮤니티 등록</S.HeaderTitle>
-        <S.PostButton>
-          <S.PostButtonIconWrapper>
-            <Image src='/images/button/add-button.svg' alt='add-button' fill />
-          </S.PostButtonIconWrapper>
-          <S.buttonTextWrapper>커뮤니티 등록</S.buttonTextWrapper>
-        </S.PostButton>
+        <S.ButtonArea>
+          <S.TempSaveButton>
+            <S.TempSaveButtonText>임시저장</S.TempSaveButtonText>
+          </S.TempSaveButton>
+          <S.PostButton>
+            <S.PostButtonIconWrapper>
+              <Image src='/images/button/add-button.svg' alt='add-button' fill />
+            </S.PostButtonIconWrapper>
+            <S.buttonTextWrapper>커뮤니티 등록</S.buttonTextWrapper>
+          </S.PostButton>
+        </S.ButtonArea>
       </S.HeaderArea>
       <h1>지역카테고리선택영역</h1>
       <h1>게시글 제목 입력 영역</h1>
