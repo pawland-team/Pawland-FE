@@ -6,7 +6,7 @@ export const ProductPage = styled.div`
   margin: 0 auto;
 `;
 
-export const SearchInputArea = styled.section`
+export const SortingArea = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,6 +19,7 @@ export const SearchSortingContainer = styled.div`
   width: 100%;
   max-width: 1194px;
   margin-top: 40px;
+  margin-bottom: 80px;
 
   h2 {
     margin-bottom: 20px;
@@ -38,5 +39,5 @@ export const SearchSortingContainer = styled.div`
 `;
 
 export const CardListArea = styled.section`
-  margin: 80px 0;
+  margin: 0 0 80px;
 `;

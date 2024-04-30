@@ -1,7 +1,8 @@
 import { FormEvent, useRef, useState } from 'react';
 
-import { CommonCheckBox } from '@shared/ui/checkbox';
+import { mainCategory } from '@shared/constants/main-category';
 import { SearchInput } from '@shared/ui/inputs';
+import { ProductCategoryFilterBox } from '@widgets/product-category-filter';
 
 import * as S from './product-page-style';
 import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
@@ -18,7 +19,7 @@ const ProductPage = () => {
 
   return (
     <S.ProductPage>
-      <S.SearchInputArea>
+      <S.SortingArea>
         <SearchInput
           handleSubmit={handleSubmitKeyword}
           inputRef={inputRef}
@@ -31,10 +32,9 @@ const ProductPage = () => {
               <strong>{`‘${keyword}‘`}</strong>에 대한 검색결과입니다.
             </h2>
           )}
-          <CommonCheckBox label='대구' checked group='region' />
-          <CommonCheckBox label='서울' group='region' />
+          <ProductCategoryFilterBox list={mainCategory} />
         </S.SearchSortingContainer>
-      </S.SearchInputArea>
+      </S.SortingArea>
       <S.CardListArea>
         <CardListWithSortingBox />
       </S.CardListArea>
