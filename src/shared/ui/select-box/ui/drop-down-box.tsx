@@ -12,14 +12,18 @@ export interface DropDownBoxDto {
 interface DropDownBoxProps {
   dropdownList: DropDownBoxDto[];
   selectedName?: string;
-  setSelectedSortingName: Dispatch<SetStateAction<string | undefined>>;
+  setSelectedSortingName?: Dispatch<SetStateAction<string | undefined>>;
   setIsOpened: Dispatch<SetStateAction<boolean>>;
 }
 
 const DropDownBox = ({ dropdownList, selectedName, setSelectedSortingName, setIsOpened }: DropDownBoxProps) => {
   const handleClickName = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    setSelectedSortingName(target.innerHTML);
+
+    if (setSelectedSortingName) {
+      setSelectedSortingName(target.innerHTML);
+    }
+
     setIsOpened(false);
   };
 

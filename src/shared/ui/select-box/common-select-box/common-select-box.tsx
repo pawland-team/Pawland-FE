@@ -8,7 +8,7 @@ import { SelectBox } from '../ui/select-box';
 interface CommonSelectBoxProps {
   selectedName?: string;
   dropdownList: DropDownBoxDto[];
-  setSelectedSortingName: Dispatch<SetStateAction<string | undefined>>;
+  setSelectedSortingName?: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const CommonSelectBox = ({ selectedName, dropdownList, setSelectedSortingName }: CommonSelectBoxProps) => {
