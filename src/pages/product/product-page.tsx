@@ -9,12 +9,12 @@ import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
 
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState<string | undefined>('');
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setKeyword(inputRef?.current?.value);
+    setKeyword(inputRef.current?.value);
   };
 
   return (
