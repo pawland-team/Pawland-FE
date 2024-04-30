@@ -53,7 +53,10 @@ export const CommunityPostPage = () => {
         </S.RegionArea>
       </S.CategoryArea>
 
-      <h1>게시글 제목 입력 영역</h1>
+      <S.TitleInputArea>
+        <S.TitleInputTitle>제목을 입력해주세요.</S.TitleInputTitle>
+        <input placeholder='제목을 20자내로 작성해주세요.' />
+      </S.TitleInputArea>
       <h1>텍스트 에디터 영역</h1>
       <h1>대표 이미지 업로드 영역</h1>
     </S.PostPage>

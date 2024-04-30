@@ -146,6 +146,24 @@ const RegionSelectItem = styled.div`
   border-radius: 6px;
 `;
 
+const TitleInputArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 1197px;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const TitleInputTitle = styled.h1`
+  font-size: 2.8rem;
+  font-weight: 700;
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -164,4 +182,6 @@ export {
   RegionSelectBoxTitle,
   RegionSelectBox,
   RegionSelectItem,
+  TitleInputArea,
+  TitleInputTitle,
 };
