@@ -96,9 +96,21 @@ const CategoryArea = styled.section`
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const CategoryTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+`;
+
 const CategoryTitle = styled.h1`
   font-size: 2.8rem;
   font-weight: 700;
+`;
+
+const CategortyParagraph = styled.p`
+  font-size: 2rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 export {
@@ -112,5 +124,7 @@ export {
   PostButtonIconWrapper,
   buttonTextWrapper,
   CategoryArea,
+  CategoryTitleBox,
   CategoryTitle,
+  CategortyParagraph,
 };
