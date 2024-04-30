@@ -61,7 +61,11 @@ export const CommunityPostPage = () => {
         </S.TitleInputBox>
       </S.TitleInputArea>
 
-      <h1>텍스트 에디터 영역</h1>
+      <div>
+        <h1>내용</h1>
+        <div>여기에 텍스트 에디터</div>
+      </div>
+
       <h1>대표 이미지 업로드 영역</h1>
     </S.PostPage>
   );
