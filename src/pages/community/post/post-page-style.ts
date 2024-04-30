@@ -132,6 +132,8 @@ const RegionSelectBox = styled.div`
 `;
 
 const RegionSelectItem = styled.div`
+  cursor: pointer;
+
   align-items: center;
   justify-content: center;
 
@@ -143,6 +145,12 @@ const RegionSelectItem = styled.div`
 
   border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
   border-radius: 6px;
+
+  &:hover {
+    font-weight: 700;
+    color: ${({ theme }) => theme.color.blue_43ADFF};
+    border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
+  }
 `;
 
 const TitleInputArea = styled.section`
