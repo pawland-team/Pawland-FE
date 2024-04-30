@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`${css`
     padding: 0;
 
     font-family: ${pretendard.style.fontFamily}, sans-serif;
-    letter-spacing: -0.006em;
+    letter-spacing: -0.019em;
     word-break: keep-all;
   }
 
