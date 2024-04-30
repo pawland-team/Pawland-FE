@@ -259,11 +259,22 @@ const ComentPostButton = styled.button`
   border-radius: 6px;
 `;
 
+const ReplyBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+`;
+
+const ReplyWrapper = styled.div`
+  display: flex;
+  gap: 25px;
+`;
+
 const ReplyPostButtonWrapper = styled.div`
   display: flex;
 `;
 
-const ReplyPostButton = styled.button`
+const ReplyPostStatus = styled.div`
   display: flex;
 
   padding: 10px 20px;
@@ -275,6 +286,20 @@ const ReplyPostButton = styled.button`
 
   border: 1px solid ${({ theme }) => theme.color.black_000000};
   border-radius: 32px;
+`;
+
+const ReplyPostButton = styled.button`
+  display: flex;
+
+  padding: 10px 32px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.blue_43ADFF};
+
+  border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
+  border-radius: 6px;
 `;
 
 export {
@@ -308,6 +333,9 @@ export {
   ComentTextarea,
   ComentPostButtonWrapper,
   ComentPostButton,
+  ReplyBox,
+  ReplyWrapper,
   ReplyPostButtonWrapper,
   ReplyPostButton,
+  ReplyPostStatus,
 };

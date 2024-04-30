@@ -79,19 +79,37 @@ export const CommunityPostDetailPage = () => {
         </S.ComentBox>
 
         {/* 댓글 입력 시 컴포넌트 */}
+
         <S.ComentBox>
           <S.ProfileImageWrapper>
             <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
           </S.ProfileImageWrapper>
           <S.ComentPostBox>
             <S.ComentTextareaBox>
-              <S.ProfileNickname>힙합페페</S.ProfileNickname>
+              <S.ProfileNickname>키네틱플로우</S.ProfileNickname>
               <S.PostDateText>2024.05.01</S.PostDateText>
               <S.Coment>우리 사랑하지 말아요. 아직 잘 모르잖아요. 사실 조금은 두려운거야. 그대 미안해요.</S.Coment>
             </S.ComentTextareaBox>
-            <S.ReplyPostButtonWrapper>
-              <S.ReplyPostButton>답글</S.ReplyPostButton>
-            </S.ReplyPostButtonWrapper>
+            <S.ReplyBox>
+              <S.ReplyPostButtonWrapper>
+                <S.ReplyPostStatus>답글</S.ReplyPostStatus>
+              </S.ReplyPostButtonWrapper>
+
+              <S.ReplyWrapper>
+                <S.ProfileImageWrapper>
+                  <Image src='/images/test/test-image2.png' alt='test-image2' width={60} height={60} />
+                </S.ProfileImageWrapper>
+
+                <S.ComentPostBox>
+                  <S.ProfileNickname>힙합페페</S.ProfileNickname>
+                  <S.ComentTextarea placeholder='답글을 입력해주세요.' />
+
+                  <S.ComentPostButtonWrapper>
+                    <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
+                  </S.ComentPostButtonWrapper>
+                </S.ComentPostBox>
+              </S.ReplyWrapper>
+            </S.ReplyBox>
           </S.ComentPostBox>
         </S.ComentBox>
       </S.CommentArea>
