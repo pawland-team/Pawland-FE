@@ -12,8 +12,12 @@ const PostDetailPage = styled.main`
 const HeaderArea = styled.section`
   display: flex;
   flex-direction: column;
+
   width: 1197px;
   margin: 0 auto;
+  padding-bottom: 21px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const HeaderButtonBox = styled.div`
@@ -64,6 +68,25 @@ const HeaderDate = styled.span`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const CommunityStatusBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+`;
+
+const StatusText = styled.span`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const Divider = styled.div`
+  width: 1px;
+  height: 12px;
+  margin: 0 12px;
+  border-right: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -74,4 +97,7 @@ export {
   RegionSpan,
   HeaderTitle,
   HeaderDate,
+  CommunityStatusBox,
+  StatusText,
+  Divider,
 };

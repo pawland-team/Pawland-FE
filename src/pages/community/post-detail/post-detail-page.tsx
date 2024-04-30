@@ -20,9 +20,13 @@ export const CommunityPostDetailPage = () => {
           <S.HeaderDate>2024.05.01</S.HeaderDate>
         </S.HeaderTitleBox>
 
-        <div>
-          <div>수정 댓글 추천 영역</div>
-        </div>
+        <S.CommunityStatusBox>
+          <S.StatusText>수정</S.StatusText>
+          <S.Divider />
+          <S.StatusText>댓글 100</S.StatusText>
+          <S.Divider />
+          <S.StatusText>추천 100</S.StatusText>
+        </S.CommunityStatusBox>
       </S.HeaderArea>
       <div>본문 영역</div>
       <div>추천버튼 영역</div>
