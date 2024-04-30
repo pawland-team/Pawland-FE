@@ -12,6 +12,8 @@ export const CommonCheckBoxContainer = styled.div`
   }
 
   input {
+    cursor: pointer;
+
     position: absolute;
     top: 0;
     left: 0;
