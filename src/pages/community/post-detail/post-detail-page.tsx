@@ -77,6 +77,23 @@ export const CommunityPostDetailPage = () => {
             </S.ComentPostButtonWrapper>
           </S.ComentPostBox>
         </S.ComentBox>
+
+        {/* 댓글 입력 시 컴포넌트 */}
+        <S.ComentBox>
+          <S.ProfileImageWrapper>
+            <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+          </S.ProfileImageWrapper>
+          <S.ComentPostBox>
+            <S.ComentTextareaBox>
+              <S.ProfileNickname>힙합페페</S.ProfileNickname>
+              <S.PostDateText>2024.05.01</S.PostDateText>
+              <S.Coment>우리 사랑하지 말아요. 아직 잘 모르잖아요. 사실 조금은 두려운거야. 그대 미안해요.</S.Coment>
+            </S.ComentTextareaBox>
+            <S.ReplyPostButtonWrapper>
+              <S.ReplyPostButton>답글</S.ReplyPostButton>
+            </S.ReplyPostButtonWrapper>
+          </S.ComentPostBox>
+        </S.ComentBox>
       </S.CommentArea>
     </S.PostDetailPage>
   );

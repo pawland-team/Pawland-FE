@@ -164,19 +164,22 @@ const LikeButtonText = styled.span`
 
 const CommentArea = styled.section`
   display: flex;
+  flex-direction: column;
 
   width: 1197px;
   margin: 0 auto;
   margin-top: 160px;
-  padding-top: 60px;
-
-  border-top: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const ComentBox = styled.div`
   display: flex;
   gap: 25px;
+
   width: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  border-top: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const ProfileImageWrapper = styled.div`
@@ -189,6 +192,12 @@ const ProfileImageWrapper = styled.div`
 const ProfileNickname = styled.span`
   font-size: 1.6rem;
   font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const PostDateText = styled.span`
+  font-size: 1.6rem;
+  font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
@@ -225,6 +234,12 @@ const ComentTextarea = styled.textarea`
   }
 `;
 
+const Coment = styled.p`
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 const ComentPostButtonWrapper = styled.div`
   display: flex;
   justify-content: end;
@@ -242,6 +257,24 @@ const ComentPostButton = styled.button`
 
   border: 1px solid ${({ theme }) => theme.color.black_000000};
   border-radius: 6px;
+`;
+
+const ReplyPostButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const ReplyPostButton = styled.button`
+  display: flex;
+
+  padding: 10px 20px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.black_000000};
+
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  border-radius: 32px;
 `;
 
 export {
@@ -268,9 +301,13 @@ export {
   ComentBox,
   ProfileImageWrapper,
   ProfileNickname,
+  PostDateText,
+  Coment,
   ComentPostBox,
   ComentTextareaBox,
   ComentTextarea,
   ComentPostButtonWrapper,
   ComentPostButton,
+  ReplyPostButtonWrapper,
+  ReplyPostButton,
 };
