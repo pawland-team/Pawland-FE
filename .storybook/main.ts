@@ -20,8 +20,8 @@ const config: StorybookConfig = {
   // staticDirs: ['../public'],
   staticDirs: [
     {
-      from: '../public/fonts',
-      to: '/public/fonts',
+      from: '../src/app/styles/font/pretendard',
+      to: '/src/app/styles/font/pretendard',
     },
     {
       from: '../public/images',
