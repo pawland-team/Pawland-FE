@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
-import * as S from './community-list-page-style';
+import * as S from './list-page-style';
 
 export const CommunityListPage = () => {
   const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
