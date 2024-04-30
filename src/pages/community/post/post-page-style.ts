@@ -145,7 +145,7 @@ const RegionSelectItem = styled.div`
   border-radius: 6px;
 `;
 
-const TitleInputArea = styled.div`
+const TitleInputArea = styled.section`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -163,6 +163,12 @@ const TitleInputTitle = styled.h1`
   font-weight: 700;
 `;
 
+const TitleInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 const TitleInput = styled.input`
   width: 100%;
   height: 64px;
@@ -176,6 +182,15 @@ const TitleInput = styled.input`
     font-weight: 500;
     color: ${({ theme }) => theme.color.gray_BDBDBD};
   }
+`;
+
+const TitleInputCounter = styled.span`
+  display: flex;
+  justify-content: end;
+
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 export {
@@ -197,6 +212,8 @@ export {
   RegionSelectBox,
   RegionSelectItem,
   TitleInputArea,
+  TitleInputBox,
   TitleInputTitle,
   TitleInput,
+  TitleInputCounter,
 };

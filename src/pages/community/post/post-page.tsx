@@ -55,7 +55,10 @@ export const CommunityPostPage = () => {
 
       <S.TitleInputArea>
         <S.TitleInputTitle>제목을 입력해주세요.</S.TitleInputTitle>
-        <S.TitleInput placeholder='제목을 20자내로 작성해주세요.' />
+        <S.TitleInputBox>
+          <S.TitleInput placeholder='제목을 20자내로 작성해주세요.' />
+          <S.TitleInputCounter>0/20</S.TitleInputCounter>
+        </S.TitleInputBox>
       </S.TitleInputArea>
 
       <h1>텍스트 에디터 영역</h1>
