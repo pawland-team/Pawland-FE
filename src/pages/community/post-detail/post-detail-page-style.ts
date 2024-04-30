@@ -162,6 +162,45 @@ const LikeButtonText = styled.span`
   font-weight: 700;
 `;
 
+const CommentArea = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 1197px;
+  margin: 0 auto;
+  padding-top: 160px;
+`;
+
+const ComentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`;
+
+const ProfileImageWrapper = styled.div`
+  overflow: hidden;
+  display: flex;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+`;
+
+const ProfileNickname = styled.span`
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.black_000000};
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -182,4 +221,9 @@ export {
   RecommendButton,
   LikeIconWrapper,
   LikeButtonText,
+  CommentArea,
+  ComentBox,
+  ProfileBox,
+  ProfileImageWrapper,
+  ProfileNickname,
 };

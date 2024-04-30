@@ -61,7 +61,17 @@ export const CommunityPostDetailPage = () => {
         </S.RecommendButtonBox>
       </S.ContentsArea>
 
-      <div>댓글 영역</div>
+      <S.CommentArea>
+        <S.ComentBox>
+          <S.ProfileBox>
+            <S.ProfileImageWrapper>
+              <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+            </S.ProfileImageWrapper>
+            <S.ProfileNickname>홍길동</S.ProfileNickname>
+          </S.ProfileBox>
+        </S.ComentBox>
+      </S.CommentArea>
+
       <div>페이지네이션</div>
     </S.PostDetailPage>
   );
