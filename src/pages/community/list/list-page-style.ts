@@ -111,6 +111,8 @@ const ItemBox = styled.div`
 
   position: relative;
 
+  gap: 20px;
+
   width: 100%;
   height: 134px;
   padding: 34px 286px 18px 146px;
