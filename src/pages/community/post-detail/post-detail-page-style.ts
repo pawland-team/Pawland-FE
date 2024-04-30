@@ -204,7 +204,7 @@ const PostDateText = styled.span`
 const ComentPostBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
 `;
 
@@ -277,6 +277,7 @@ const ReplyPostButtonWrapper = styled.div`
 const ReplyPostStatus = styled.div`
   display: flex;
 
+  margin-top: 10px;
   padding: 10px 20px;
 
   font-size: 1.6rem;
@@ -300,6 +301,13 @@ const ReplyPostButton = styled.button`
 
   border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 6px;
+`;
+
+const ReplyDivider = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 27px;
+  border-top: 1px solid ${({ theme }) => theme.color.gray_F9F9F9};
 `;
 
 export {
@@ -338,4 +346,5 @@ export {
   ReplyPostButtonWrapper,
   ReplyPostButton,
   ReplyPostStatus,
+  ReplyDivider,
 };
