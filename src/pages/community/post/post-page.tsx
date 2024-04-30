@@ -1,8 +1,37 @@
+import { useState } from 'react';
+
 import Image from 'next/image';
 
 import * as S from './post-page-style';
 
 export const CommunityPostPage = () => {
+  const [selectedRegion, setSelectedRegion] = useState('');
+
+  const handleRegionSelect = (region: string) => {
+    setSelectedRegion(region);
+  };
+
+  const regionList = [
+    '서울',
+    '부산',
+    '대구',
+    '인천',
+    '광주',
+    '대전',
+    '울산',
+    '세종',
+    '경기',
+    '강원',
+    '충북',
+    '충남',
+    '전북',
+    '전남',
+    '경북',
+    '경남',
+    '제주',
+    '해외',
+  ];
+
   return (
     <S.PostPage>
       <S.HeaderArea>
@@ -31,24 +60,18 @@ export const CommunityPostPage = () => {
         <S.RegionBox>
           <S.RegionSelectBoxTitle>지역 선택</S.RegionSelectBoxTitle>
           <S.RegionSelectBox>
-            <S.RegionSelectItem>서울</S.RegionSelectItem>
-            <S.RegionSelectItem>부산</S.RegionSelectItem>
-            <S.RegionSelectItem>대구</S.RegionSelectItem>
-            <S.RegionSelectItem>인천</S.RegionSelectItem>
-            <S.RegionSelectItem>광주</S.RegionSelectItem>
-            <S.RegionSelectItem>대전</S.RegionSelectItem>
-            <S.RegionSelectItem>울산</S.RegionSelectItem>
-            <S.RegionSelectItem>세종</S.RegionSelectItem>
-            <S.RegionSelectItem>경기</S.RegionSelectItem>
-            <S.RegionSelectItem>강원</S.RegionSelectItem>
-            <S.RegionSelectItem>충북</S.RegionSelectItem>
-            <S.RegionSelectItem>충남</S.RegionSelectItem>
-            <S.RegionSelectItem>전북</S.RegionSelectItem>
-            <S.RegionSelectItem>전남</S.RegionSelectItem>
-            <S.RegionSelectItem>경북</S.RegionSelectItem>
-            <S.RegionSelectItem>경남</S.RegionSelectItem>
-            <S.RegionSelectItem>제주</S.RegionSelectItem>
-            <S.RegionSelectItem>해외</S.RegionSelectItem>
+            {regionList.map((region) => (
+              <S.RegionSelectItem
+                key={region}
+                onClick={() => handleRegionSelect(region)}
+                style={{
+                  backgroundColor: selectedRegion === region ? '#43ADFF' : '',
+                  color: selectedRegion === region ? '#FFFFFF' : '',
+                }}
+              >
+                {region}
+              </S.RegionSelectItem>
+            ))}
           </S.RegionSelectBox>
         </S.RegionBox>
       </S.CategoryArea>
