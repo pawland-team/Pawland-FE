@@ -85,7 +85,7 @@ export const CommunityPostPage = () => {
       </S.TitleInputArea>
 
       <S.TextEditorArea>
-        <S.TextEditorTitle>내용</S.TextEditorTitle>
+        <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
         <div>여기에 텍스트 에디터</div>
       </S.TextEditorArea>
 
