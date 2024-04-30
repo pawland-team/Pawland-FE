@@ -40,4 +40,38 @@ const HeaderButtonText = styled.span`
   font-weight: 700;
 `;
 
-export { PostDetailPage, HeaderArea, HeaderButtonBox, BacktoListButton, HeaderButtonText };
+const HeaderTitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 22px;
+`;
+
+const RegionSpan = styled.span`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const HeaderTitle = styled.h1`
+  font-size: 3.2rem;
+  font-weight: 700;
+`;
+
+const HeaderDate = styled.span`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+export {
+  PostDetailPage,
+  HeaderArea,
+  HeaderButtonBox,
+  BacktoListButton,
+  HeaderButtonText,
+  HeaderTitleBox,
+  RegionSpan,
+  HeaderTitle,
+  HeaderDate,
+};

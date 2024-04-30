@@ -13,9 +13,13 @@ export const CommunityPostDetailPage = () => {
             </S.BacktoListButton>
           </Link>
         </S.HeaderButtonBox>
-        <div>
-          <div>제목 영역</div>
-        </div>
+
+        <S.HeaderTitleBox>
+          <S.RegionSpan>서울</S.RegionSpan>
+          <S.HeaderTitle>안녕하세요. 저희 집 강아지 너무 귀엽죠.</S.HeaderTitle>
+          <S.HeaderDate>2024.05.01</S.HeaderDate>
+        </S.HeaderTitleBox>
+
         <div>
           <div>수정 댓글 추천 영역</div>
         </div>
