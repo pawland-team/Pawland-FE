@@ -12,14 +12,13 @@ export const SortingArea = styled.section`
   align-items: center;
   justify-content: center;
 
-  margin: 58px 0 40px;
+  margin: 58px 0 80px;
 `;
 
 export const SearchSortingContainer = styled.div`
   width: 100%;
   max-width: 1194px;
   margin-top: 40px;
-  margin-bottom: 80px;
 
   h2 {
     margin-bottom: 20px;
