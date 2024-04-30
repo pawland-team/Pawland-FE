@@ -1,4 +1,4 @@
-import { MainCategoryItemDto } from '@shared/constants/main-category';
+import { MainCategoryItemDto } from '@widgets/product-category-filter/product-category-data';
 
 import { CommonCheckBox } from '../checkbox';
 import * as S from './category-filter-style';

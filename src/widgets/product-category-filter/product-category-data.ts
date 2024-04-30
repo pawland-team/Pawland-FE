@@ -7,7 +7,7 @@ export interface MainCategoryItemDto {
   }[];
 }
 
-export const mainCategory: MainCategoryItemDto[] = [
+export const mainCategoryData: MainCategoryItemDto[] = [
   {
     id: 0,
     title: '지역별',

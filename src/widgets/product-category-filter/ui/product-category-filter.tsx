@@ -1,5 +1,5 @@
-import { MainCategoryItemDto } from '@shared/constants/main-category';
 import { CategoryFilter } from '@shared/ui/category-filter';
+import { MainCategoryItemDto } from '@widgets/product-category-filter/product-category-data';
 
 interface ProductCategoryFilterBoxProps {
   list: MainCategoryItemDto[];
