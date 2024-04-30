@@ -73,8 +73,14 @@ export const CommunityPostPage = () => {
         </S.PostThumnailImageAreaTitleBox>
         <S.ThumnailUploadBox>
           <S.ThumnailUploadBoxTitle>대표이미지</S.ThumnailUploadBoxTitle>
-          <S.ThumnailUploadBoxSubTitle>* 리스트에서 썸네일로 보여지는 이미지입니다.</S.ThumnailUploadBoxSubTitle>
-          <input placeholder='이미지 업로드' />
+          <S.ThumnailUploadBoxSubTitle>* 썸네일로 보여지는 이미지입니다.</S.ThumnailUploadBoxSubTitle>
+          <S.UploadLabel htmlFor='thumnail-upload'>
+            <S.UploadIconWrapper>
+              <Image src='/images/icon/upload-file-icon.svg' alt='upload-icon' fill />
+            </S.UploadIconWrapper>
+            <S.UploadSpan>이미지 업로드</S.UploadSpan>
+            <S.HideInput id='thumnail-upload' type='file' />
+          </S.UploadLabel>
         </S.ThumnailUploadBox>
       </S.PostThumnailImageArea>
     </S.PostPage>

@@ -256,6 +256,43 @@ const ThumnailUploadBoxSubTitle = styled.span`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
+const UploadLabel = styled.label`
+  cursor: pointer;
+
+  position: relative;
+
+  width: 686px;
+  height: 200px;
+
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  border-radius: 6px;
+`;
+
+const HideInput = styled.input`
+  display: none;
+`;
+
+const UploadIconWrapper = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 20px;
+  height: 20px;
+`;
+
+const UploadSpan = styled.span`
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 export {
   PostPage,
   HeaderArea,
@@ -288,4 +325,8 @@ export {
   ThumnailUploadBox,
   ThumnailUploadBoxTitle,
   ThumnailUploadBoxSubTitle,
+  UploadLabel,
+  HideInput,
+  UploadIconWrapper,
+  UploadSpan,
 };
