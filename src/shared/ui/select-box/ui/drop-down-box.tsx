@@ -11,7 +11,7 @@ export interface DropDownBoxDto {
 
 interface DropDownBoxProps {
   dropdownList: DropDownBoxDto[];
-  selectedName: string;
+  selectedName?: string;
   setSelectedSortingName: Dispatch<SetStateAction<string | undefined>>;
   setIsOpened: Dispatch<SetStateAction<boolean>>;
 }
