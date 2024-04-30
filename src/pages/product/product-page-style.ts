@@ -38,6 +38,12 @@ export const SearchSortingContainer = styled.div`
   }
 `;
 
+export const SelectBoxArea = styled.section`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+`;
+
 export const CardListArea = styled.section`
   margin: 0 0 80px;
 `;

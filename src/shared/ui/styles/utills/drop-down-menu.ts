@@ -11,7 +11,6 @@ export const dropDownMenuStyle = css`
   align-items: center;
 
   width: 100%;
-  max-width: 120px;
   padding: 16px 10px;
 
   background: ${({ theme }) => theme.color.white_FFFFFF};
@@ -52,8 +51,12 @@ export const dropDownMenuStyle = css`
       color: ${({ theme }) => theme.color.gray_9E9E9E};
 
       &:hover {
-        color: ${({ theme }) => theme.color.black_000000};
+        font-weight: 700;
         transition: all 0.15s;
+      }
+
+      &.selected {
+        font-weight: 700;
       }
     }
   }

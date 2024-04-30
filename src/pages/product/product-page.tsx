@@ -2,6 +2,8 @@ import { FormEvent, useRef, useState } from 'react';
 
 import { mainCategory } from '@shared/constants/main-category';
 import { SearchInput } from '@shared/ui/inputs';
+import { CommonSelectBox } from '@shared/ui/select-box';
+import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
 import { ProductCategoryFilterBox } from '@widgets/product-category-filter';
 
 import * as S from './product-page-style';
@@ -10,6 +12,7 @@ import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string | undefined>('');
+  const [selectedSortingName, setSelectedSortingName] = useState<string | undefined>('최신순');
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +38,13 @@ const ProductPage = () => {
           <ProductCategoryFilterBox list={mainCategory} />
         </S.SearchSortingContainer>
       </S.SortingArea>
+      <S.SelectBoxArea>
+        <CommonSelectBox
+          selectedName={selectedSortingName}
+          dropdownList={productListSortingData}
+          setSelectedSortingName={setSelectedSortingName}
+        />
+      </S.SelectBoxArea>
       <S.CardListArea>
         <CardListWithSortingBox />
       </S.CardListArea>
