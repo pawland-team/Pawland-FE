@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run lint:fix
+        run: |
+          npm run lint:fix || (echo "You should run lint:fix before pr" && exit 1)
+
       - name: build next
         run: |
           npm run build || (echo "next build failed" && exit 1)

@@ -26,28 +26,32 @@ const useModalWithLocalState = <CustomModalProps = unknown,>() => {
   const [openModalOptions, setOpenModalOptions] = useState<OpenModalOptions>({ persist: false });
   const { isModalOpen, toggleModal, modalRef } = useToggleModal(false, openModalOptions);
 
-  const closeModal = () => {
+  const closeModal = async () => {
     if (isModalOpen) {
-      toggleModal();
+      queueMicrotask(() => {
+        toggleModal();
 
-      if (ModalProps && typeof ModalProps.onClose === 'function') {
-        ModalProps.onClose();
-      }
+        if (ModalProps && typeof ModalProps.onClose === 'function') {
+          ModalProps.onClose();
+        }
+      });
     }
   };
 
-  const submitModal = (e?: React.BaseSyntheticEvent) => {
+  const submitModal = async (e?: React.BaseSyntheticEvent) => {
     if (e) {
       e.preventDefault?.();
       e.persist?.();
     }
 
     if (isModalOpen) {
-      toggleModal();
+      queueMicrotask(() => {
+        toggleModal();
 
-      if (ModalProps && typeof ModalProps.onSubmit === 'function') {
-        ModalProps.onSubmit();
-      }
+        if (ModalProps && typeof ModalProps.onSubmit === 'function') {
+          ModalProps.onSubmit();
+        }
+      });
     }
   };
 

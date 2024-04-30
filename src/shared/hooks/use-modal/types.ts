@@ -31,8 +31,8 @@ export interface OpenModalOptions extends OpenModalListOptions {
 }
 
 export interface OptionalModalListProps {
-  closeModal?: () => void;
-  submitModal?: (e?: React.BaseSyntheticEvent) => void;
+  closeModal?: () => Promise<void>;
+  submitModal?: (e?: React.BaseSyntheticEvent) => Promise<void>;
   modalRef: CustomModalRef;
   isCurrentModalOpen: boolean;
 }
@@ -277,9 +277,9 @@ export type OpenWithModalKeyImpl = <VMC extends ModalComponentForList>({
   options?: OpenModalListOptions;
 }) => void;
 
-export type CloseWithModalKey = ({ modalKey }: { modalKey: ModalKey }) => void;
+export type CloseWithModalKey = ({ modalKey }: { modalKey: ModalKey }) => Promise<void>;
 
-export type CloseWithModalKeyImpl = ({ modalKey }: { modalKey: ModalKey | StringifiedModalKey }) => void;
+export type CloseWithModalKeyImpl = ({ modalKey }: { modalKey: ModalKey | StringifiedModalKey }) => Promise<void>;
 
 export type Watch = (modalKey: ModalKey) => ManagedModalInfo | undefined;
 
@@ -333,7 +333,7 @@ export type TModalDispatchContext = {
     props?: ExposedModalPropsWithoutModalRef<VMC> | null;
     options?: OpenModalOptions;
   }) => void;
-  close: VoidFunction;
+  close: () => Promise<void>;
 };
 
 export type OpenModal = <MC extends ModalComponentSuperSet, VMC extends ModalComponentHasAllRequiredProps<MC>>({
@@ -346,9 +346,11 @@ export type OpenModal = <MC extends ModalComponentSuperSet, VMC extends ModalCom
   options?: OpenModalOptions;
 }) => void;
 
+export type CloseModal = () => Promise<void>;
+
 export type UseModal = () => {
   openModal: OpenModal;
-  closeModal: VoidFunction;
+  closeModal: CloseModal;
   isModalOpen: boolean;
 };
 

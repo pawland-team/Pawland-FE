@@ -22,7 +22,7 @@ export const useModalList: UseModalList = () => {
    * closeModalList({ modalKey: ['my-modal'] })
    * ```
    */
-  const closeModalList: CloseWithModalKey = ({ modalKey }) => {
+  const closeModalList: CloseWithModalKey = async ({ modalKey }) => {
     closeWithModalKeyImpl({ modalKey });
   };
 

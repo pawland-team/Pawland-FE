@@ -43,8 +43,10 @@ const ModalProvider = ({ children }: ModalProviderProps) => {
     }
   };
 
-  const close = () => {
-    if (isModalOpen === true) toggleModal();
+  const close = async () => {
+    if (isModalOpen === true) {
+      queueMicrotask(toggleModal);
+    }
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
