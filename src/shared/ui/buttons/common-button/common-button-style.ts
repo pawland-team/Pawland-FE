@@ -25,4 +25,10 @@ export const CommonButton = styled.button<CommonButtonStyleProps>`
 
   background-color: ${(props) => props.$backgroundColor};
   border-radius: ${(props) => props.$borderRadius};
+
+  &:disabled {
+    cursor: not-allowed;
+    color: #fff;
+    background-color: ${({ theme }) => theme.color.gray_BDBDBD};
+  }
 `;

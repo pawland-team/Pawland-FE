@@ -13,6 +13,7 @@ interface CommonButtonProps {
   fontColor?: string;
   padding?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  disabled?: boolean;
 }
 
 /**
@@ -27,6 +28,7 @@ interface CommonButtonProps {
  * @param fontWeight default 400
  * @param backgroundColor default #000
  * @param type default 'button'
+ * @param disabled default false
  */
 
 const CommonButton = ({
@@ -40,6 +42,7 @@ const CommonButton = ({
   fontWeight = '400',
   type = 'button',
   padding = '10px 0',
+  disabled = false,
 }: CommonButtonProps) => {
   return (
     <S.CommonButton
@@ -52,6 +55,7 @@ const CommonButton = ({
       $fontSize={fontSize}
       $fontWeight={fontWeight}
       $padding={padding}
+      disabled={disabled}
     >
       {children}
     </S.CommonButton>

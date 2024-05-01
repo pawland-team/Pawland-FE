@@ -23,5 +23,6 @@ export const Default: Story = {
     fontColor: '#fff',
     padding: '10px 0',
     type: 'button',
+    disabled: false,
   },
 };
