@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useRouter } from '../../../node_modules/next/router';
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
 import * as S from './profile-page-menu-bar-style';
 
@@ -9,9 +11,18 @@ interface ActiveButtonState {
 export const ProfilePageMenuBar = () => {
   const activeButton = useActiveButtonStore((state: ActiveButtonState) => state.activeButton);
   const setActiveButton = useActiveButtonStore((state: ActiveButtonState) => state.setActiveButton);
+  const router = useRouter();
+
+  useEffect(() => {
+    const { tab } = router.query;
+    if (tab) {
+      setActiveButton(tab as string);
+    }
+  }, [router.query, setActiveButton]);
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
+    router.push(`/profile?tab=${buttonName}`);
   };
 
   return (
