@@ -7,7 +7,7 @@ const UserInfoArea = () => {
   return (
     <S.UserInfoArea>
       <S.ProfileImageArea>
-        <S.ProfileImage src='/images/profileImage.png' alt='프로필 이미지' width={120} height={120} />
+        <S.ProfileImage src='/images/mock/profileImage.png' alt='프로필 이미지' width={120} height={120} />
         <EditProfileButton />
       </S.ProfileImageArea>
       <S.UserNicknameArea>
