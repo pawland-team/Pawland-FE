@@ -2,11 +2,11 @@ import Link from 'next/link';
 
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
-import * as S from './product-flex-card-item-style';
+import * as S from './product-card-item-style';
 import { Description } from '../ui/description';
 import { Thumbnail } from '../ui/thumbnail';
 
-interface ProductFlexCardItemProps {
+interface ProductCardItemProps {
   flexGap?: number;
   cardNumberPerRow?: number;
   item: mainProductInfo;
@@ -17,15 +17,15 @@ interface ProductFlexCardItemProps {
  * @param cardNumberPerRow 한줄 카드 갯수 (number)
  * @param item 상품 데이터
  */
-const ProductFlexCardItem = ({ flexGap = 23, cardNumberPerRow = 4, item }: ProductFlexCardItemProps) => {
+const ProductCardItem = ({ flexGap = 23, cardNumberPerRow = 4, item }: ProductCardItemProps) => {
   return (
-    <S.ProductFlexCardItem $flexGap={flexGap} $cardNumberPerRow={cardNumberPerRow}>
+    <S.ProductCardItem $flexGap={flexGap} $cardNumberPerRow={cardNumberPerRow}>
       <Link href={`/product/${item.id}`}>
         <Thumbnail item={item} />
         <Description item={item} />
       </Link>
-    </S.ProductFlexCardItem>
+    </S.ProductCardItem>
   );
 };
 
-export { ProductFlexCardItem };
+export { ProductCardItem };

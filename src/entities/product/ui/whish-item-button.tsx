@@ -1,8 +1,7 @@
 // import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
-
-import * as S from '../product-flex-card-item/product-flex-card-item-style';
+import styled from 'styled-components';
 
 interface WishItemButtonProps {
   isWished: boolean;
@@ -18,15 +17,21 @@ const WishItemButton = ({ isWished }: WishItemButtonProps) => {
 
   return (
     <>
-      <S.WishButton type='button'>
+      <SWishButton type='button'>
         {isWished ? (
           <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={42} height={35} />
         ) : (
           <Image src='/images/button/wish-button-off.png' alt='찜하기' width={42} height={35} />
         )}
-      </S.WishButton>
+      </SWishButton>
     </>
   );
 };
 
 export { WishItemButton };
+
+const SWishButton = styled.button`
+  position: absolute;
+  right: 14px;
+  bottom: 20px;
+`;

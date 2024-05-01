@@ -13,7 +13,7 @@ const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
     <Swiper
       modules={[Navigation]}
       spaceBetween={50}
-      slidesPerView={1}
+      slidesPerView={4}
       // onSlideChange={(e) => setActiveIndex(e.activeIndex)}
       // onSwiper={(swiper) => console.log(swiper)}
       speed={500}

@@ -7,8 +7,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { CommonButton } from '@shared/ui/buttons';
 
-import { MainBannerArray } from '../lib/dto';
 import * as S from './main-banner-swiper-style';
+import { MainBannerArray } from '../lib/dto';
 
 interface MainBannerProps {
   mainBannerList: MainBannerArray[];
