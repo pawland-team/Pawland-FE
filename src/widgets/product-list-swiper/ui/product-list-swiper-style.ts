@@ -9,7 +9,6 @@ export const ProductListSwiperBox = styled.div`
 
 export const NavigationLeft = styled.div`
   position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.floatingButton};
   top: 50%;
   left: -7%;
   transform: translateY(-50%);
@@ -17,7 +16,6 @@ export const NavigationLeft = styled.div`
 
 export const NavigationRight = styled.div`
   position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.floatingButton};
   top: 50%;
   right: -7%;
   transform: translateY(-50%);
