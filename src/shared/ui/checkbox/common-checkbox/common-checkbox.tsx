@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import Image from 'next/image';
-
 import * as S from './common-checkbox-style';
 
 interface CommonCheckBoxProps {
@@ -26,9 +24,7 @@ const CommonCheckBox = ({ label, group, checked = false }: CommonCheckBoxProps) 
 
   return (
     <S.CommonCheckBoxContainer>
-      <div className={isChecked ? 'checkbox checked' : 'checkbox'}>
-        {isChecked && <Image width={11} height={9} alt='체크되었음' src='/images/icon/checkbox-checked-icon.svg' />}
-      </div>
+      <div className={isChecked ? 'checkbox checked' : 'checkbox'} />
       <label htmlFor={label}>{label}</label>
       <input type='checkbox' name={group} id={label} checked={isChecked} onChange={handleChangeCheckBox} />
     </S.CommonCheckBoxContainer>
