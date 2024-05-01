@@ -21,7 +21,7 @@ const Thumbnail = ({ item }: ThumbnailProps) => {
         src={item.imageThumbnail}
         alt={`${item.productName} 상품의 대표 이미지`}
       />
-      <WishItemButton />
+      <WishItemButton isWished={item.isWished} />
     </S.ProductThumbnaile>
   );
 };

@@ -1,20 +1,24 @@
-import { MouseEvent, useState } from 'react';
+// import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
 
 import * as S from '../product-flex-card-item/product-flex-card-item-style';
 
-const WishItemButton = () => {
-  const [isWished, setIsWished] = useState(false);
+interface WishItemButtonProps {
+  isWished: boolean;
+}
 
-  const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsWished((prev) => !prev);
-  };
+const WishItemButton = ({ isWished }: WishItemButtonProps) => {
+  // const [isWished, setIsWished] = useState(false);
+
+  // const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   setIsWished((prev) => !prev);
+  // };
 
   return (
     <>
-      <S.WishButton type='button' onClick={handleClickWishButton}>
+      <S.WishButton type='button'>
         {isWished ? (
           <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={42} height={35} />
         ) : (
