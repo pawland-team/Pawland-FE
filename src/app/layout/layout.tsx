@@ -20,14 +20,20 @@ const Layout = ({ children }: LayoutProps) => {
       <>
         <S.LayoutPage>
           <Header isLoggedIn={false} />
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Suspense fallback={<Loading />}>
+            <main>{children}</main>
+          </Suspense>
           <Footer />
         </S.LayoutPage>
       </>
     );
   }
 
-  return <main>{children}</main>;
+  return (
+    <Suspense fallback={<Loading />}>
+      <main>{children}</main>
+    </Suspense>
+  );
 };
 
 export { Layout };
