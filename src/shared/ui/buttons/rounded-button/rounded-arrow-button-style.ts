@@ -32,4 +32,8 @@ export const RoundedArrowButtonStyle = styled.button<RoundedArrowButtonStyleProp
       return `transform: rotate(90deg); -webkit-transform: rotate(90deg);`;
     }
   }}
+
+  &:disabled {
+    opacity: 0.4;
+  }
 `;

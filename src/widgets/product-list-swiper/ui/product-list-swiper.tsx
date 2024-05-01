@@ -15,6 +15,8 @@ interface ProductListSwiperProps {
 
 const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
   const [swiper, setSwiper] = useState<SwiperClass>();
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   const handlePrev = () => {
     swiper?.slidePrev();
@@ -30,12 +32,15 @@ const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
         modules={[Navigation]}
         spaceBetween={50}
         slidesPerView={4}
-        // onSlideChange={(e) => setActiveIndex(e.activeIndex)}
+        onSlideChange={(e) => {
+          setIsBeginning(e.isBeginning);
+          setIsEnd(e.isEnd);
+        }}
         onSwiper={(e) => {
           setSwiper(e);
         }}
         speed={500}
-        loop
+        loop={false}
       >
         {productList.map((item) => (
           <SwiperSlide key={item.id}>
@@ -43,9 +48,12 @@ const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <RoundedArrowButton handleClick={handlePrev} />
-      <RoundedArrowButton handleClick={handleNext} />
+      <S.NavigationLeft>
+        <RoundedArrowButton disabled={isBeginning} handleClick={handlePrev} direction='left' />
+      </S.NavigationLeft>
+      <S.NavigationRight>
+        <RoundedArrowButton disabled={isEnd} handleClick={handleNext} direction='right' />
+      </S.NavigationRight>
     </S.ProductListSwiperBox>
   );
 };
