@@ -1,4 +1,4 @@
-import { ProductList } from '@widgets/recent-product-list';
+import { ProductList } from '@widgets/product-list';
 
 const CardListWithSortingBox = () => {
   return <ProductList />;

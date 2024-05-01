@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { ProductList } from '@widgets/recent-product-list';
+import { ProductList } from '@widgets/product-list';
 
-import * as S from '../home-page-style';
+import * as S from './main-product-list-style';
 
 const MainProductList = () => {
   return (

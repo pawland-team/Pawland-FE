@@ -6,9 +6,9 @@ import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
 import { MainbannerSwiper } from '@widgets/main-banner-swiper';
 import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
+import { MainProductList } from '@widgets/main-product-list';
 
 import * as S from './home-page-style';
-import { MainProductList } from './ui/main-product-list';
 
 export const HomePage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
