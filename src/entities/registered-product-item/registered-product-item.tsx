@@ -15,6 +15,7 @@ export const RegisteredProductItem = () => {
             <DropdownButton
               dropdownItems={['판매중']}
               lastDropdownItem={'판매완료'}
+              defaultMenu={'판매중'}
               iconPath='images/icon/arrow-down-icon-black.svg'
               width='100px'
               buttonHeight='28px'

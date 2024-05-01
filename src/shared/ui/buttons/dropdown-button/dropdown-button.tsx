@@ -11,11 +11,13 @@ interface DropdownButtonProps {
   borderColor?: string;
   fontColor?: string;
   selectedFontSize?: string;
+  defaultMenu: string;
 }
 
 const DropdownButton = ({
   dropdownItems,
   lastDropdownItem,
+  defaultMenu,
   iconPath = 'images/icon/arrow-down-icon-gray.svg',
   width = '120px',
   buttonHeight = '36px',
@@ -24,7 +26,7 @@ const DropdownButton = ({
   selectedFontSize = '1.6rem',
 }: DropdownButtonProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState(defaultMenu);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
