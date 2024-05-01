@@ -36,7 +36,6 @@ export const StarInput = ({ onClickRating, selectedRating, uniqueValue, isHalf }
     onClickRating(uniqueValue);
     // onClickRating(value);
     e.preventDefault();
-    console.log('클릭');
   };
 
   return (
