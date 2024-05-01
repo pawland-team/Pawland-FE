@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PostDetailPage = styled.main`
+const PostDetailPage = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
