@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
 
-import * as S from './product-card-item-style';
+import * as S from '../product-flex-card-item/product-flex-card-item-style';
 
 const WishItemButton = () => {
   const [isWished, setIsWished] = useState(false);

@@ -1,4 +1,5 @@
-import { ProductCardItem } from '@entities/product/product-card-item';
+import { ProductFlexCardItem } from '@entities/product/product-flex-card-item/product-flex-card-item';
+import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
 import * as S from './product-list-style';
 
@@ -6,6 +7,8 @@ interface ProductListProps {
   cardListFlexGap?: string;
   cardItemFlexGap?: number;
   cardItemNumberPerRow?: number;
+  flexWrap?: string;
+  listData: mainProductInfo[];
 }
 
 /**
@@ -14,19 +17,27 @@ interface ProductListProps {
  * @param cardListFlexGap 카드 리스트 flex gap
  * @param flexGap 카드 아이템 flex gap
  * @param cardNumberPerRow 한줄 카드 갯수
+ * @param isFlexWrap 카드 줄바꿈 설정 default 'wrap'
+ * @param listData 상품 리스트
  */
 
-const ProductList = ({ cardListFlexGap = '60px 30px', cardItemFlexGap, cardItemNumberPerRow }: ProductListProps) => {
+const ProductList = ({
+  cardListFlexGap = '60px 30px',
+  cardItemFlexGap,
+  cardItemNumberPerRow,
+  flexWrap = 'wrap',
+  listData,
+}: ProductListProps) => {
   return (
-    <S.ProductListContainer $cardListFlexGap={cardListFlexGap}>
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
-      <ProductCardItem flexGap={cardItemFlexGap} cardNumberPerRow={cardItemNumberPerRow} />
+    <S.ProductListContainer $cardListFlexGap={cardListFlexGap} $flexWrap={flexWrap}>
+      {listData.map((item) => (
+        <ProductFlexCardItem
+          key={item.id}
+          flexGap={cardItemFlexGap}
+          cardNumberPerRow={cardItemNumberPerRow}
+          item={item}
+        />
+      ))}
     </S.ProductListContainer>
   );
 };

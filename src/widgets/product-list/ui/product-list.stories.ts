@@ -1,3 +1,5 @@
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+
 import { ProductList } from './product-list';
 
 import type { StoryObj } from '@storybook/react';
@@ -16,5 +18,7 @@ export const Default: Story = {
     cardListFlexGap: '60px 30px',
     cardItemFlexGap: 23,
     cardItemNumberPerRow: 4,
+    flexWrap: 'wrap',
+    listData: mainListData,
   },
 };

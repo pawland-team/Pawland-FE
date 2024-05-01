@@ -1,10 +1,10 @@
-import { ProductCardItem } from './product-card-item';
+import { ProductFlexCardItem } from './product-flex-card-item';
 
 import type { StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'molecules/product/ProductCardItem',
-  component: ProductCardItem,
+  title: 'molecules/product/ProductFlexCardItem',
+  component: ProductFlexCardItem,
 };
 
 export default meta;

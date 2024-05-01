@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
-import * as S from './product-card-item-style';
+import * as S from '../product-flex-card-item/product-flex-card-item-style';
 import { WishItemButton } from './whish-item-button';
 
 interface ThumbnailProps {

@@ -1,7 +1,7 @@
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 import { formatPrice } from '@shared/utils/price';
 
-import * as S from './product-card-item-style';
+import * as S from '../product-flex-card-item/product-flex-card-item-style';
 
 interface DescriptionProps {
   item: mainProductInfo;
