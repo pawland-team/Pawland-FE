@@ -3,7 +3,7 @@ import { CategoryFilter } from './category-filter';
 import type { StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'organisms/filter/CategoryFilter',
+  title: 'molecules/filter/CategoryFilter',
   component: CategoryFilter,
 };
 
