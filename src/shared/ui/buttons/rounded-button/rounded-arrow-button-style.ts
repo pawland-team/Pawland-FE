@@ -34,6 +34,7 @@ export const RoundedArrowButtonStyle = styled.button<RoundedArrowButtonStyleProp
   }}
 
   &:disabled {
-    opacity: 0.4;
+    cursor: default;
+    opacity: 0.3;
   }
 `;
