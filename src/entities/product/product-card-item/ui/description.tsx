@@ -1,4 +1,4 @@
-import { formatPrice } from '@shared/utils/format-price';
+import { formatPrice } from '@shared/utils/price';
 
 import * as S from './product-card-item-style';
 

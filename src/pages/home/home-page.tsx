@@ -1,15 +1,24 @@
+import { FormEvent, useRef } from 'react';
+
 import Head from 'next/head';
-import Link from 'next/link';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
 import { MainbannerSwiper } from '@widgets/main-banner-swiper';
 import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
-import { RecentProductList } from '@widgets/recent-product-list';
 
 import * as S from './home-page-style';
+import { MainProductList } from './ui/main-product-list';
 
 export const HomePage = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(inputRef?.current?.value);
+  };
+
   return (
     <>
       <Head>
@@ -22,18 +31,17 @@ export const HomePage = () => {
           <MainbannerSwiper mainBannerList={mainBannerData} />
         </S.SwiperArea>
         <S.InputArea>
-          <SearchInput placeholder='원하시는 상품을 검색해보세요!' maxWidth='940px' />
+          <SearchInput
+            handleSubmit={handleSubmitKeyword}
+            inputRef={inputRef}
+            placeholder='원하시는 상품을 검색해보세요!'
+            maxWidth='940px'
+          />
         </S.InputArea>
         <S.CategoryArea>
           <CategoryList categoryList={categoryData} />
         </S.CategoryArea>
-        <S.ProductListArea>
-          <div className='product-title-box'>
-            <h3>최신 상품</h3>
-            <Link href='/'>더보기</Link>
-          </div>
-          <RecentProductList />
-        </S.ProductListArea>
+        <MainProductList />
       </S.HomePage>
     </>
   );

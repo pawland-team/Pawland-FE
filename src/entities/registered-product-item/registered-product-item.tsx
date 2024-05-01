@@ -1,9 +1,9 @@
 import { DropdownButton } from '../../shared/ui/buttons/dropdown-button/dropdown-button';
 import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
-import { formatPrice } from '@shared/utils/format-price';
 import * as S from './registered-product-item-style';
 import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
 import Link from '../../../node_modules/next/link';
+import { formatPrice } from '../../shared/utils/price/index';
 
 export const RegisteredProductItem = () => {
   return (
