@@ -1,9 +1,15 @@
 import Image from 'next/image';
 
+import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+
 import * as S from './product-card-item-style';
 import { WishItemButton } from './whish-item-button';
 
-const Thumbnail = () => {
+interface ThumbnailProps {
+  item: mainProductInfo;
+}
+
+const Thumbnail = ({ item }: ThumbnailProps) => {
   return (
     <S.ProductThumbnaile className='thumbnail'>
       <Image
@@ -12,8 +18,8 @@ const Thumbnail = () => {
         placeholder='blur'
         blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHhTPQAGYgJ5cH4fHAAAAABJRU5ErkJggg=='
         className='thumbnail-image'
-        src='/images/mock/product-card-test-image.png'
-        alt='상품 이미지'
+        src={item.imageThumbnail}
+        alt={`${item.productName} 상품의 대표 이미지`}
       />
       <WishItemButton />
     </S.ProductThumbnaile>

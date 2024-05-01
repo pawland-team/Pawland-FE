@@ -11,14 +11,6 @@ export const ProductCardItem = styled.div<ProductCardItemStyleProps>`
   overflow: hidden;
   width: ${(props) => `calc(100% / ${props.$cardNumberPerRow} - ${props.$flexGap}px)`};
   border-radius: 12px;
-
-  /* @media (hover: hover) and (pointer: fine) {
-    .thumbnail {
-      img {
-        transform: translate(-50%, -50%) scale(1.1);
-      }
-    }
-  } */
 `;
 
 export const ProductThumbnaile = styled.div`
@@ -37,8 +29,6 @@ export const ProductThumbnaile = styled.div`
     height: 100%;
 
     object-fit: cover;
-
-    transition: all 0.2s;
   }
 `;
 
