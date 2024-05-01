@@ -16,16 +16,16 @@ export const ProfilePageMenuBar = () => {
 
   return (
     <S.ProfilePageMenuBar>
-      <S.FirstMenuButton isActive={activeButton === 'register'} onClick={() => handleButtonClick('register')}>
+      <S.FirstMenuButton $isActive={activeButton === 'register'} onClick={() => handleButtonClick('register')}>
         등록 상품
       </S.FirstMenuButton>
-      <S.MenuButton isActive={activeButton === 'wish'} onClick={() => handleButtonClick('wish')}>
+      <S.MenuButton $isActive={activeButton === 'wish'} onClick={() => handleButtonClick('wish')}>
         찜한 상품
       </S.MenuButton>
-      <S.MenuButton isActive={activeButton === 'transaction'} onClick={() => handleButtonClick('transaction')}>
+      <S.MenuButton $isActive={activeButton === 'transaction'} onClick={() => handleButtonClick('transaction')}>
         거래 내역
       </S.MenuButton>
-      <S.LastMenuButton isActive={activeButton === 'community'} onClick={() => handleButtonClick('community')}>
+      <S.LastMenuButton $isActive={activeButton === 'community'} onClick={() => handleButtonClick('community')}>
         커뮤니티
       </S.LastMenuButton>
     </S.ProfilePageMenuBar>
