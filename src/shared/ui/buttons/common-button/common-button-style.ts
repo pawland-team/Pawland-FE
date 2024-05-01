@@ -8,6 +8,8 @@ interface CommonButtonStyleProps {
   $fontColor?: string;
   $fontWeight?: string;
   $padding?: string;
+  $borderColor?: string;
+  $borderWidth?: string;
 }
 
 export const CommonButton = styled.button<CommonButtonStyleProps>`
@@ -25,6 +27,14 @@ export const CommonButton = styled.button<CommonButtonStyleProps>`
 
   background-color: ${(props) => props.$backgroundColor};
   border-radius: ${(props) => props.$borderRadius};
+
+  ${(props) => {
+    if (props.$borderColor && props.$borderWidth) {
+      return `
+        border: ${props.$borderWidth} solid ${props.$borderColor};
+      `;
+    }
+  }}
 
   &:disabled {
     cursor: not-allowed;
