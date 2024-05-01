@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -6,6 +6,7 @@ import { Footer } from '@widgets/footer';
 import { Header } from '@widgets/header';
 
 import * as S from './layout-style';
+import { Loading } from './loading';
 
 interface LayoutProps {
   children: ReactNode;
@@ -19,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
       <>
         <S.LayoutPage>
           <Header isLoggedIn={false} />
-          <main>{children}</main>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <Footer />
         </S.LayoutPage>
       </>
