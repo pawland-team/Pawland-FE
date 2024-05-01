@@ -1,6 +1,4 @@
 import { FaStar, FaStarHalf } from 'react-icons/fa';
-import { useState } from 'react';
-import styled from 'styled-components';
 
 import * as S from './star-input-style';
 
@@ -34,7 +32,6 @@ interface StarInputProps {
 export const StarInput = ({ onClickRating, selectedRating, uniqueValue, isHalf }: StarInputProps) => {
   const handleClickRatingInput = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     onClickRating(uniqueValue);
-    // onClickRating(value);
     e.preventDefault();
   };
 
