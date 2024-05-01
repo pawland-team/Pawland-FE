@@ -1,7 +1,5 @@
-// /api/user/my-info
-
-import { clientWithTokenApi } from '../instance';
 import { GetUserInfoResponse } from './dto';
+import { clientWithTokenApi } from '../instance';
 
 /**
  * 내 정보 조회

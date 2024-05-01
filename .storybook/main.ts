@@ -27,6 +27,10 @@ const config: StorybookConfig = {
       from: '../public/images',
       to: '/images',
     },
+    {
+      from: '../public',
+      to: '/',
+    },
   ],
 };
 export default config;
