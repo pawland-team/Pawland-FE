@@ -13,8 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    flexGap: 23,
-    cardNumberPerRow: 4,
     item: {
       id: 0,
       category: 'food',

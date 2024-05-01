@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 
-interface ProductCardItemStyleProps {
-  $flexGap: number;
-  $cardNumberPerRow: number;
-}
-
-export const ProductCardItem = styled.div<ProductCardItemStyleProps>`
+export const ProductCardItemBox = styled.div`
   overflow: hidden;
-  width: ${(props) => `calc(100% / ${props.$cardNumberPerRow} - ${props.$flexGap}px)`};
+  width: 100%;
   border-radius: 12px;
 `;
