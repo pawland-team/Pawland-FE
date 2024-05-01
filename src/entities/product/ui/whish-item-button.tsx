@@ -1,4 +1,4 @@
-// import { MouseEvent, useState } from 'react';
+import { MouseEvent } from 'react';
 
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -10,14 +10,14 @@ interface WishItemButtonProps {
 const WishItemButton = ({ isWished }: WishItemButtonProps) => {
   // const [isWished, setIsWished] = useState(false);
 
-  // const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   setIsWished((prev) => !prev);
-  // };
+  const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // setIsWished((prev) => !prev);
+  };
 
   return (
     <>
-      <SWishButton type='button'>
+      <SWishButton type='button' onClick={handleClickWishButton}>
         {isWished ? (
           <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={42} height={35} />
         ) : (
