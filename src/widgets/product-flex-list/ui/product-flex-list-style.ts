@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-interface ProductListProps {
+interface ProductFlexListProps {
   $cardListFlexGap: string;
   $flexWrap: string;
 }
 
-export const ProductListContainer = styled.div<ProductListProps>`
+export const ProductFlexListContainer = styled.div<ProductFlexListProps>`
   display: flex;
   flex-wrap: ${(props) => props.$flexWrap};
   gap: ${(props) => props.$cardListFlexGap};

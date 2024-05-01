@@ -1,12 +1,12 @@
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
-import { ProductList } from './product-list';
+import { ProductFlexList } from './product-flex-list';
 
 import type { StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'molecules/product/ProductList',
-  component: ProductList,
+  title: 'molecules/product/ProductFlexList',
+  component: ProductFlexList,
 };
 
 export default meta;

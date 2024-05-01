@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { ProductList } from '@widgets/product-list';
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+import { ProductFlexList } from '@widgets/product-flex-list';
 
 import * as S from './main-product-list-style';
 
@@ -11,7 +12,7 @@ const MainProductList = () => {
         <h3>최신 상품</h3>
         <Link href='/product'>더보기</Link>
       </div>
-      <ProductList />
+      <ProductFlexList listData={mainListData} />
     </S.ProductListArea>
   );
 };

@@ -1,9 +1,9 @@
 import { ProductFlexCardItem } from '@entities/product/product-flex-card-item/product-flex-card-item';
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
-import * as S from './product-list-style';
+import * as S from './product-flex-list-style';
 
-interface ProductListProps {
+interface ProductFlexListProps {
   cardListFlexGap?: string;
   cardItemFlexGap?: number;
   cardItemNumberPerRow?: number;
@@ -21,15 +21,15 @@ interface ProductListProps {
  * @param listData 상품 리스트
  */
 
-const ProductList = ({
+const ProductFlexList = ({
   cardListFlexGap = '60px 30px',
   cardItemFlexGap,
   cardItemNumberPerRow,
   flexWrap = 'wrap',
   listData,
-}: ProductListProps) => {
+}: ProductFlexListProps) => {
   return (
-    <S.ProductListContainer $cardListFlexGap={cardListFlexGap} $flexWrap={flexWrap}>
+    <S.ProductFlexListContainer $cardListFlexGap={cardListFlexGap} $flexWrap={flexWrap}>
       {listData.map((item) => (
         <ProductFlexCardItem
           key={item.id}
@@ -38,8 +38,8 @@ const ProductList = ({
           item={item}
         />
       ))}
-    </S.ProductListContainer>
+    </S.ProductFlexListContainer>
   );
 };
 
-export { ProductList };
+export { ProductFlexList };
