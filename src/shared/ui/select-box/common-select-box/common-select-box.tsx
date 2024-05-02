@@ -15,8 +15,8 @@ interface CommonSelectBoxProps {
 
 /**
  *
- * 리스트 클릭했을 때 클릭된 value 값이 보여져야하는 경우 사용.
- * 주로 최신순/인기순 소팅 셀렉트 박스로 활용. (예시는 상품 리스트에서 확인)
+ * - 리스트 클릭했을 때 클릭된 value 값이 보여져야하는 경우 사용.
+ * - 주로 최신순/인기순 소팅 셀렉트 박스로 활용. (예시는 상품 리스트에서 확인)
  */
 
 const CommonSelectBox = ({ selectedName, dropdownList, setSelectedSortingName }: CommonSelectBoxProps) => {

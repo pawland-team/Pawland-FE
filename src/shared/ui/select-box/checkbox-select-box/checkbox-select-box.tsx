@@ -12,6 +12,14 @@ interface CheckboxSelectBoxProps {
   categoryList: MainCategoryItemDto;
 }
 
+/**
+ *
+ * - 셀렉트 박스 + 체크박스 컴포넌트
+ * - categoryList로 체크박스 렌더링 되어야하는 리스트 배열을 넘겨줘야함.
+ * - 예시는 상품 리스트에서 체크
+ *
+ */
+
 const CheckboxSelectBox = ({ categoryList }: CheckboxSelectBoxProps) => {
   const dropDownRef = useRef(null);
   const [isSelectOpened, setIsSelectOpened] = useState(false);
