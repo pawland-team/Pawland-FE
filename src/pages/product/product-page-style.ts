@@ -16,10 +16,12 @@ export const SearchArea = styled.section`
 `;
 
 export const filterArea = styled.section`
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  margin-top: 20px;
+  .filter-select-container {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin: 20px 0;
+  }
 `;
 
 export const SearchSortingContainer = styled.div`
@@ -28,8 +30,6 @@ export const SearchSortingContainer = styled.div`
   margin-top: 40px;
 
   h2 {
-    margin-bottom: 20px;
-
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 28px;

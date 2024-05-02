@@ -1,5 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 
+import { SelectedFilterManageBox } from '@features/selected-filter-manage-box';
+import { RoundedCancelButton } from '@shared/ui/buttons';
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
@@ -39,10 +41,13 @@ const ProductPage = () => {
         </S.SearchSortingContainer>
       </S.SearchArea>
       <S.filterArea>
-        <CheckboxSelectBox categoryList={regionData} />
-        <CheckboxSelectBox categoryList={speciesData} />
-        <CheckboxSelectBox categoryList={productCategoryData} />
-        <BorderCheckBox label='무료나눔' group='무료나눔' />
+        <div className='filter-select-container'>
+          <CheckboxSelectBox categoryList={regionData} />
+          <CheckboxSelectBox categoryList={speciesData} />
+          <CheckboxSelectBox categoryList={productCategoryData} />
+          <BorderCheckBox label='무료나눔' group='무료나눔' />
+        </div>
+        <SelectedFilterManageBox selectedValueList={['서울', '악세서리', '무료나눔']} />
       </S.filterArea>
       <S.SelectBoxArea>
         <CommonSelectBox
