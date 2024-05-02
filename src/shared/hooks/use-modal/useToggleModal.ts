@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-import { useToggle } from '../use-toggle';
 import { OpenModalOptions } from './types';
+import { useToggle } from '../use-toggle';
 
 const useToggleModal = <T extends HTMLElement>(initialValue = false, openModalOptions?: OpenModalOptions) => {
   const [isModalOpen, toggleModal] = useToggle(initialValue);

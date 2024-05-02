@@ -1,5 +1,5 @@
-import { productListSortingData } from '../lib/product-list-sorting-data';
 import { CommonSelectBox } from './common-select-box';
+import { productListSortingData } from '../lib/product-list-sorting-data';
 
 import type { StoryObj } from '@storybook/react';
 
