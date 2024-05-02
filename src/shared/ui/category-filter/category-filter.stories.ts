@@ -15,7 +15,7 @@ export const Default: Story = {
   args: {
     categoryItem: {
       id: 0,
-      title: '지역별',
+      group: '지역별',
       item: [
         {
           label: '서울',
