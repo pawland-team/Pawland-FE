@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ScrollToTopButtonBox = styled.div`
+export const ScrollToButtonBox = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.floatingButton};
   right: 40px;

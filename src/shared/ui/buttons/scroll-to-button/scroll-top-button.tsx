@@ -1,16 +1,16 @@
-import * as S from './scroll-to-top-button-style';
+import * as S from './scroll-to-button-style';
 import { RoundedArrowButton } from '../rounded-button/rounded-arrow-button';
 
-const ScrollToTopButton = () => {
+const ScrollToButton = () => {
   const handleClickToTop = () => {};
   const handleClickToBottom = () => {};
 
   return (
-    <S.ScrollToTopButtonBox>
+    <S.ScrollToButtonBox>
       <RoundedArrowButton direction='up' handleClick={handleClickToTop} />
       <RoundedArrowButton handleClick={handleClickToBottom} />
-    </S.ScrollToTopButtonBox>
+    </S.ScrollToButtonBox>
   );
 };
 
-export { ScrollToTopButton };
+export { ScrollToButton };
