@@ -52,8 +52,8 @@ const DropdownButton = ({
       <Image width={13} height={13} src={iconPath} alt='화살표 아이콘' />
       {isDropdownOpen && (
         <S.DropdownMenuList $width={width} $borderColor={borderColor}>
-          {dropdownItems.map((item, index) => (
-            <S.DropdownMenu key={index} onClick={() => handleMenuClick(item)} $borderColor={borderColor}>
+          {dropdownItems.map((item) => (
+            <S.DropdownMenu key={item.id} onClick={() => handleMenuClick(item)} $borderColor={borderColor}>
               {item}
             </S.DropdownMenu>
           ))}
