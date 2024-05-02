@@ -6,13 +6,13 @@ export const TapMenuBar = () => {
 
   return (
     <S.TapMenuBar>
-      <S.MenuButton isActive={activeButton === 'written'} onClick={() => setActiveButton('written')}>
+      <S.MenuButton $isActive={activeButton === 'written'} onClick={() => setActiveButton('written')}>
         작성한 글
       </S.MenuButton>
-      <S.MenuButton isActive={activeButton === 'recommand'} onClick={() => setActiveButton('recommand')}>
+      <S.MenuButton $isActive={activeButton === 'recommand'} onClick={() => setActiveButton('recommand')}>
         추천한 글
       </S.MenuButton>
-      <S.MenuButton isActive={activeButton === 'review'} onClick={() => setActiveButton('review')}>
+      <S.MenuButton $isActive={activeButton === 'review'} onClick={() => setActiveButton('review')}>
         댓글단 글
       </S.MenuButton>
     </S.TapMenuBar>

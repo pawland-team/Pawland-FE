@@ -6,7 +6,7 @@ interface ActiveButtonState {
 }
 
 export const useActiveButtonStore = create(
-  (set: SetState): ActiveButtonState => ({
+  (set: SetState<ActiveButtonState>): ActiveButtonState => ({
     activeButton: 'register',
     setActiveButton: (buttonName) => set({ activeButton: buttonName }),
   }),
