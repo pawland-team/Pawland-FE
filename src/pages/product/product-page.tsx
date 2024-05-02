@@ -1,7 +1,6 @@
 import { FormEvent, useRef, useState } from 'react';
 
 import { SelectedFilterManageBox } from '@features/selected-filter-manage-box';
-import { RoundedCancelButton } from '@shared/ui/buttons';
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
