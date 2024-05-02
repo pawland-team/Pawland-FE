@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { BackgroundStar } from './star-input-style';
+import styled from 'styled-components';
 
 export const StarRating = styled.section`
   gap: 50px;

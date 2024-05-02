@@ -22,8 +22,6 @@ export const BackgroundStar = styled.input`
 export const ForeGroundStar = styled.label<LabelProps>`
   cursor: pointer;
   font-size: 3.6rem;
-
-  /* color: ${({ theme, $uniqueValue, $selectedRating }) => theme.color.gray_F3F3F3}; */
   color: ${({ theme, $uniqueValue, $selectedRating }) => {
     // 현재 가리키고 있는 별점의 고유값이 선택된 별점보다 작거나 같으면 색이 칠해진 상태로 표시
     if ($uniqueValue <= $selectedRating) {
