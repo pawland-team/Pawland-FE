@@ -8,7 +8,12 @@ export const CommunityList = () => {
     <S.CommunityList>
       <div className='button-area'>
         <TapMenuBar />
-        <DropdownButton dropdownItems={['전체보기', '최신순']} lastDropdownItem={'인기순'} defaultMenu={'전체보기'} />
+        <DropdownButton
+          dropdownItems={['전체보기', '최신순']}
+          lastDropdownItem={'인기순'}
+          defaultMenu={'전체보기'}
+          iconPath={'images/icon/arrow-down-icon-gray.svg'}
+        />
       </div>
       <CommunityPostItem />
       <CommunityPostItem />

@@ -5,6 +5,7 @@ import { useState } from 'react';
 interface DropdownButtonProps {
   dropdownItems: string[];
   lastDropdownItem: string;
+  iconPath: string;
   width?: string;
   buttonHeight?: string;
   borderColor?: string;

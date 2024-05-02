@@ -6,7 +6,12 @@ export const RegisteredProductList = () => {
   return (
     <S.RegisteredProductList>
       <div className='button-area'>
-        <DropdownButton dropdownItems={['전체보기', '판매중']} lastDropdownItem={'판매완료'} defaultMenu={'전체보기'} />
+        <DropdownButton
+          dropdownItems={['전체보기', '판매중']}
+          lastDropdownItem={'판매완료'}
+          defaultMenu={'전체보기'}
+          iconPath={'images/icon/arrow-down-icon-gray.svg'}
+        />
       </div>
       <RegisteredProductItem />
       <RegisteredProductItem />
