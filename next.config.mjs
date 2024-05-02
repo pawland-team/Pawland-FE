@@ -29,6 +29,15 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'midcon-bucket.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
