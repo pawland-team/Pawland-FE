@@ -95,13 +95,13 @@ export const speciesData: MainCategoryItemDto = {
       checked: false,
     },
     {
-      label: '기타',
+      label: '그 외',
       checked: false,
     },
   ],
 };
 
-export const categoryData: MainCategoryItemDto = {
+export const productCategoryData: MainCategoryItemDto = {
   id: 2,
   group: '상품별',
   item: [
@@ -122,7 +122,7 @@ export const categoryData: MainCategoryItemDto = {
       checked: false,
     },
     {
-      label: '기타',
+      label: '그 외',
       checked: false,
     },
   ],

@@ -4,7 +4,7 @@ import { CommonCheckBox } from '@shared/ui/checkbox';
 import { MainCategoryItemDto } from '@widgets/product-category-filter/product-category-data';
 
 import * as S from './checkbox-select-box-style';
-import { DropDownBox } from '../ui/drop-down-box';
+import { CheckDropDownBox } from '../ui/check-drop-down-box';
 import { SelectBox } from '../ui/select-box';
 
 interface CheckboxSelectBoxProps {
@@ -20,18 +20,15 @@ const CheckboxSelectBox = ({ categoryList }: CheckboxSelectBoxProps) => {
 
   return (
     <S.CheckboxSelectBoxStyle>
-      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isOpened} />
+      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isOpened} selectedName={categoryList.group} />
       {isOpened && (
-        <DropDownBox maxWidth='290px'>
+        <CheckDropDownBox width='290px'>
           {categoryList.item.map((checkbox) => (
-            <CommonCheckBox
-              key={checkbox.label}
-              label={checkbox.label}
-              checked={checkbox.checked}
-              group={categoryList.group}
-            />
+            <li key={checkbox.label}>
+              <CommonCheckBox label={checkbox.label} checked={checkbox.checked} group={categoryList.group} />
+            </li>
           ))}
-        </DropDownBox>
+        </CheckDropDownBox>
       )}
     </S.CheckboxSelectBoxStyle>
   );

@@ -4,8 +4,7 @@ import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
-import { ProductCategoryFilterBox } from '@widgets/product-category-filter';
-import { regionData } from '@widgets/product-category-filter/product-category-data';
+import { productCategoryData, regionData, speciesData } from '@widgets/product-category-filter/product-category-data';
 
 import * as S from './product-page-style';
 import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
@@ -23,7 +22,7 @@ const ProductPage = () => {
 
   return (
     <S.ProductPage>
-      <S.SortingArea>
+      <S.SearchArea>
         <SearchInput
           handleSubmit={handleSubmitKeyword}
           inputRef={inputRef}
@@ -36,10 +35,13 @@ const ProductPage = () => {
               <strong>{`‘${keyword}‘`}</strong>에 대한 검색결과입니다.
             </h2>
           )}
-          <CheckboxSelectBox categoryList={regionData} />
-          <ProductCategoryFilterBox list={regionData} />
         </S.SearchSortingContainer>
-      </S.SortingArea>
+      </S.SearchArea>
+      <S.filterArea>
+        <CheckboxSelectBox categoryList={regionData} />
+        <CheckboxSelectBox categoryList={speciesData} />
+        <CheckboxSelectBox categoryList={productCategoryData} />
+      </S.filterArea>
       <S.SelectBoxArea>
         <CommonSelectBox
           selectedName={selectedSortingName}

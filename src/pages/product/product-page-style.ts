@@ -6,13 +6,19 @@ export const ProductPage = styled.div`
   margin: 0 auto;
 `;
 
-export const SortingArea = styled.section`
+export const SearchArea = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   margin: 58px 0 80px;
+`;
+
+export const filterArea = styled.section`
+  display: flex;
+  gap: 14px;
+  align-items: center;
 `;
 
 export const SearchSortingContainer = styled.div`
