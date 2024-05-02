@@ -1,5 +1,5 @@
 import * as S from './scroll-to-button-style';
-import { RoundedArrowButton } from '../rounded-button/rounded-arrow-button';
+import { RoundedArrowButton } from '../rounded-arrow-button/rounded-arrow-button';
 
 const ScrollToButton = () => {
   const handleClickToTop = () => {};
