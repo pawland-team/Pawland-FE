@@ -13,7 +13,7 @@ const SelectBox = ({ selectedName, handleClick, isOpened = false }: SelectBoxPro
   return (
     <SSelectBox type='button' onClick={handleClick} $isOpened={isOpened}>
       <span>{selectedName}</span>
-      <Image alt='화살표 아이콘' src='/images/icon/arrow-down-icon-9E9E9E.svg' width={10} height={10} />
+      <Image alt='화살표 아이콘' src='/images/icon/arrow-down-icon-9E9E9E.svg' width={15} height={15} />
     </SSelectBox>
   );
 };
