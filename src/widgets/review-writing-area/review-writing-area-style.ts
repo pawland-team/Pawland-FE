@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-export const ReviewWritingArea = styled.div``;
 export const ReviewInput = styled.textarea`
   width: 100%;
   height: 84px;

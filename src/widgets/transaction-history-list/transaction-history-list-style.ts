@@ -3,12 +3,13 @@ import styled from 'styled-components';
 export const TransactionHistoryList = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
   gap: 15px;
-  width: 744px;
 
-  .buttonArea {
-    justify-content: end;
+  width: 744px;
+  margin-top: 40px;
+
+  .button-area {
     display: flex;
+    justify-content: end;
   }
 `;

@@ -6,7 +6,7 @@ import { CommunityPostItem } from '../../entities/community-post-item/community-
 export const CommunityList = () => {
   return (
     <S.CommunityList>
-      <div className='buttonArea'>
+      <div className='button-area'>
         <TapMenuBar />
         <DropdownButton dropdownItems={['전체보기', '최신순']} lastDropdownItem={'인기순'} defaultMenu={'전체보기'} />
       </div>

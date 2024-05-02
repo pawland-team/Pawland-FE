@@ -17,7 +17,7 @@ export const ReviewItem = styled.div`
     align-items: center;
   }
 
-  .userProfile {
+  .user-profile {
     border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
     border-radius: 50%;
   }
@@ -29,7 +29,7 @@ export const ReviewItem = styled.div`
     color: ${({ theme }) => theme.color.gray_BDBDBD};
   }
 
-  .checkIcon {
+  .check-icon {
     margin-left: 5px;
   }
 

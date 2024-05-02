@@ -6,10 +6,10 @@ import { EditProfileButton } from '../../features/button/edit-profile-button/edi
 const UserInfoArea = () => {
   return (
     <S.UserInfoArea>
-      <S.ProfileImageArea>
+      <div>
         <S.ProfileImage src='/images/mock/profileImage.png' alt='프로필 이미지' width={120} height={120} />
         <EditProfileButton />
-      </S.ProfileImageArea>
+      </div>
       <S.UserNicknameArea>
         <div>닉네임</div>
         <Link href='/profile/edit'>

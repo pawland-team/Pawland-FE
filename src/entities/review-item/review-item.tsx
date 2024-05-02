@@ -9,14 +9,14 @@ export const ReviewItem = () => {
       <S.ReviewItem>
         <div>
           <Image
-            className='userProfile'
+            className='user-profile'
             src='/images/mock/profileImage.png'
             alt='프로필 이미지'
             width={24}
             height={24}
           />
-          <span className='nickNamne'>닉네임</span>
-          <Image className='checkIcon' src='/images/icon/check-icon.svg' alt='프로필 이미지' width={14} height={11} />
+          <span className='nicknamne'>닉네임</span>
+          <Image className='check-icon' src='/images/icon/check-icon.svg' alt='프로필 이미지' width={14} height={11} />
         </div>
 
         <div>별점 영역</div>

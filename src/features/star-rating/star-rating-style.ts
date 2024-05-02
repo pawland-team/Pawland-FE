@@ -27,7 +27,7 @@ export const RatingField = styled.fieldset`
 
   border: none;
 
-  input[type='radio']:checked ~ label,
+  /* input[type='radio']:checked ~ label, */
   label:hover,
   label:hover ~ label {
     color: ${({ theme }) => theme.color.blue_43ADFF};

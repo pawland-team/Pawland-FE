@@ -7,7 +7,6 @@ export const UserInfoArea = styled.div`
   align-items: center;
   width: 100%;
 `;
-export const ProfileImageArea = styled.div``;
 export const ProfileImage = styled(Image)`
   position: relative;
   border: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
@@ -25,15 +24,16 @@ export const UserNicknameArea = styled.div`
 `;
 
 export const UserIntroduce = styled.div`
+  overflow: hidden;
+
+  width: 100%;
+  max-height: 3 * 1.5em;
   margin-top: 16px;
 
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 28px;
   text-align: center;
-  width: 100%;
-  max-height: 3 * 1.5em;
-  overflow: hidden;
   text-overflow: ellipsis;
 `;
 

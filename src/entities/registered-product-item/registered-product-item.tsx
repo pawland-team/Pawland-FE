@@ -25,8 +25,8 @@ export const RegisteredProductItem = () => {
             />
             <h1>뽁뽁이 뼈다귀</h1>
           </div>
-          <div className='textArea'>
-            <span className='createDate'>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
+          <div className='text-area'>
+            <span className='create-date'>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
             <p className='price'>{formatPrice(30000)}원</p>
           </div>
         </S.ItemInfoArea>

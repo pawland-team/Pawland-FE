@@ -6,7 +6,7 @@ import { CommonButton } from '../../shared/ui/buttons/index';
 export const ReviewWritingArea = () => {
   const [review, setReview] = useState('');
   return (
-    <S.ReviewWritingArea>
+    <>
       <StarRating />
       <S.ReviewInput placeholder='리뷰를 남겨주세요!!!' value={review} onChange={(e) => setReview(e.target.value)} />
       <S.ButtonArea>
@@ -20,6 +20,6 @@ export const ReviewWritingArea = () => {
           리뷰 등록하기
         </CommonButton>
       </S.ButtonArea>
-    </S.ReviewWritingArea>
+    </>
   );
 };
