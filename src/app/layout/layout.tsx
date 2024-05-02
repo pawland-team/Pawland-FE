@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
     return (
       <>
         <S.LayoutPage>
-          <Header isLoggedIn={false} />
+          <Header />
           <Suspense fallback={<Loading />}>
             <main>{children}</main>
           </Suspense>

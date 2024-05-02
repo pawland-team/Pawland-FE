@@ -1,22 +1,31 @@
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './header-style';
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-}
-
-const Header = ({ isLoggedIn }: HeaderProps) => {
+const Header = () => {
   const router = useRouter();
+
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
 
   const handleClickLogin = () => {
     router.push('/login');
   };
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setUserInfo(data);
+    }
+  }, [data, status]);
 
   return (
     <>
@@ -43,7 +52,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
               </li>
             </ul>
           </S.NavContainer>
-          {isLoggedIn ? (
+          {status === 'success' && data ? (
             <S.LinkGroupContainer>
               <div className='link-box'>
                 <Link href='/'>
@@ -53,7 +62,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
                   <Image width={32} height={32} src='/images/icon/chat-icon.svg' alt='채팅 아이콘' />
                 </Link>
               </div>
-              <NicknameWithAvatar nickname='홍길동' imageSrc='https://loremflickr.com/600/400' />
+              <NicknameWithAvatar nickname={data.nickname} imageSrc={data.profileImage} />
             </S.LinkGroupContainer>
           ) : (
             <CommonButton maxWidth='172px' fontWeight='700' handleClick={handleClickLogin}>
