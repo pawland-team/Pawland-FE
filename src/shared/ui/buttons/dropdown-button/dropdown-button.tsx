@@ -53,7 +53,7 @@ const DropdownButton = ({
       {isDropdownOpen && (
         <S.DropdownMenuList $width={width} $borderColor={borderColor}>
           {dropdownItems.map((item) => (
-            <S.DropdownMenu key={item.id} onClick={() => handleMenuClick(item)} $borderColor={borderColor}>
+            <S.DropdownMenu key={item} onClick={() => handleMenuClick(item)} $borderColor={borderColor}>
               {item}
             </S.DropdownMenu>
           ))}
