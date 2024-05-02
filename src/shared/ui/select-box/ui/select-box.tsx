@@ -30,7 +30,7 @@ const SSelectBox = styled.button<SSelectBoxType>`
   justify-content: space-between;
 
   width: 100%;
-  padding: 8px 17px;
+  padding: 9px 17px;
 
   background: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid #e0e0e0;
@@ -38,7 +38,10 @@ const SSelectBox = styled.button<SSelectBoxType>`
 
   span {
     min-width: 64px;
-    font-weight: 700;
+
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
     color: ${({ theme }) => theme.color.gray_9E9E9E};
     text-align: center;
   }

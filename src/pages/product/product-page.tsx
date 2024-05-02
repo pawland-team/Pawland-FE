@@ -1,5 +1,6 @@
 import { FormEvent, useRef, useState } from 'react';
 
+import { BorderCheckBox } from '@shared/ui/checkbox';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
@@ -41,6 +42,7 @@ const ProductPage = () => {
         <CheckboxSelectBox categoryList={regionData} />
         <CheckboxSelectBox categoryList={speciesData} />
         <CheckboxSelectBox categoryList={productCategoryData} />
+        <BorderCheckBox label='무료나눔' group='무료나눔' />
       </S.filterArea>
       <S.SelectBoxArea>
         <CommonSelectBox

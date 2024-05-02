@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import * as S from './common-checkbox-style';
 
-interface CommonCheckBoxProps {
+export interface CommonCheckBoxProps {
   label: string;
   group: string;
   checked?: boolean;
