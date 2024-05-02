@@ -2,9 +2,10 @@ import { FormEvent, useRef, useState } from 'react';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
+import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
 import { ProductCategoryFilterBox } from '@widgets/product-category-filter';
-import { mainCategoryData } from '@widgets/product-category-filter/product-category-data';
+import { regionData } from '@widgets/product-category-filter/product-category-data';
 
 import * as S from './product-page-style';
 import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
@@ -35,7 +36,8 @@ const ProductPage = () => {
               <strong>{`‘${keyword}‘`}</strong>에 대한 검색결과입니다.
             </h2>
           )}
-          <ProductCategoryFilterBox list={mainCategoryData} />
+          <CheckboxSelectBox categoryList={regionData} />
+          <ProductCategoryFilterBox list={regionData} />
         </S.SearchSortingContainer>
       </S.SortingArea>
       <S.SelectBoxArea>

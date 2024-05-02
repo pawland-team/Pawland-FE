@@ -6,20 +6,25 @@ import styled from 'styled-components';
 interface SelectBoxProps {
   selectedName?: string;
   handleClick: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+  isOpened: boolean;
 }
 
-const SelectBox = ({ selectedName, handleClick }: SelectBoxProps) => {
+const SelectBox = ({ selectedName, handleClick, isOpened = false }: SelectBoxProps) => {
   return (
-    <StyleSelectBox type='button' onClick={handleClick}>
+    <SSelectBox type='button' onClick={handleClick} $isOpened={isOpened}>
       <span>{selectedName}</span>
       <Image alt='화살표 아이콘' src='/images/icon/arrow-down-icon-9E9E9E.svg' width={10} height={10} />
-    </StyleSelectBox>
+    </SSelectBox>
   );
 };
 
 export { SelectBox };
 
-const StyleSelectBox = styled.button`
+interface SSelectBoxType {
+  $isOpened: boolean;
+}
+
+const SSelectBox = styled.button<SSelectBoxType>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,4 +42,12 @@ const StyleSelectBox = styled.button`
     color: ${({ theme }) => theme.color.gray_9E9E9E};
     text-align: center;
   }
+
+  ${(props) => {
+    if (props.$isOpened) {
+      return `img {transform: rotate(180deg)}`;
+    }
+
+    return '';
+  }}
 `;

@@ -11,17 +11,23 @@ export interface DropDownBoxDto {
 
 interface DropDownBoxProps {
   children: ReactNode;
+  maxWidth?: string;
 }
 
-const DropDownBox = ({ children }: DropDownBoxProps) => {
-  return <SDropDownBox>{children}</SDropDownBox>;
+const DropDownBox = ({ children, maxWidth = '100%' }: DropDownBoxProps) => {
+  return <SDropDownBox $maxWidth={maxWidth}>{children}</SDropDownBox>;
 };
 
 export { DropDownBox };
 
-const SDropDownBox = styled.ul`
+interface SDropDownBoxProps {
+  $maxWidth: string;
+}
+
+const SDropDownBox = styled.ul<SDropDownBoxProps>`
   ${dropDownMenuStyle}
   position: absolute;
   top: 100%;
   left: 0;
+  max-width: ${(props) => props.$maxWidth};
 `;

@@ -12,7 +12,7 @@ const CategoryFilter = ({ categoryItem }: CategoryFilterProps) => {
     <>
       <S.CategoryFilterStyle>
         <div className='filter-title'>
-          <p>{categoryItem.title}</p>
+          <p>{categoryItem.group}</p>
         </div>
         <div className='filter-checkbox'>
           {categoryItem.item.map((checkbox) => (
@@ -20,7 +20,7 @@ const CategoryFilter = ({ categoryItem }: CategoryFilterProps) => {
               key={checkbox.label}
               label={checkbox.label}
               checked={checkbox.checked}
-              group={categoryItem.title}
+              group={categoryItem.group}
             />
           ))}
         </div>

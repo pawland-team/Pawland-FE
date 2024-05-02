@@ -35,7 +35,7 @@ const CommonSelectBox = ({ selectedName, dropdownList, setSelectedSortingName }:
   return (
     <>
       <StyleCommonSelectBox>
-        <SelectBox handleClick={handleClickOpenSelectBox} selectedName={selectedName} />
+        <SelectBox handleClick={handleClickOpenSelectBox} selectedName={selectedName} isOpened={isOpened} />
         {isOpened && (
           <DropDownBox>
             {dropdownList.map((list) => (
