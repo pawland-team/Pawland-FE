@@ -1,5 +1,5 @@
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
-import { ScrollToTopButton } from '@shared/ui/buttons';
+import { ScrollToButton } from '@shared/ui/buttons';
 import { ProductListSwiper } from '@widgets/product-list-swiper';
 
 import * as S from './product-detail-page-style';
@@ -13,7 +13,7 @@ const ProductDetailPage = () => {
           <ProductListSwiper productList={mainListData} />
         </S.RecentProductArea>
       </S.ProductDetailPage>
-      <ScrollToTopButton />
+      <ScrollToButton />
     </>
   );
 };
