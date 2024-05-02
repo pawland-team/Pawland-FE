@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
@@ -10,39 +10,16 @@ export interface DropDownBoxDto {
 }
 
 interface DropDownBoxProps {
-  dropdownList: DropDownBoxDto[];
-  selectedName?: string;
-  setSelectedSortingName?: Dispatch<SetStateAction<string | undefined>>;
-  setIsOpened: Dispatch<SetStateAction<boolean>>;
+  children: ReactNode;
 }
 
-const DropDownBox = ({ dropdownList, selectedName, setSelectedSortingName, setIsOpened }: DropDownBoxProps) => {
-  const handleClickName = (e: MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-
-    if (setSelectedSortingName) {
-      setSelectedSortingName(target.innerHTML);
-    }
-
-    setIsOpened(false);
-  };
-
-  return (
-    <StyleDropDownBox>
-      {dropdownList.map((list) => (
-        <li key={list.id}>
-          <button onClick={handleClickName} type='button' className={selectedName === list.name ? 'selected' : ''}>
-            {list.name}
-          </button>
-        </li>
-      ))}
-    </StyleDropDownBox>
-  );
+const DropDownBox = ({ children }: DropDownBoxProps) => {
+  return <SDropDownBox>{children}</SDropDownBox>;
 };
 
 export { DropDownBox };
 
-const StyleDropDownBox = styled.ul`
+const SDropDownBox = styled.ul`
   ${dropDownMenuStyle}
   position: absolute;
   top: 100%;

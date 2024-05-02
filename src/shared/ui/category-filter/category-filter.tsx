@@ -1,7 +1,7 @@
 import { MainCategoryItemDto } from '@widgets/product-category-filter/product-category-data';
 
-import { CommonCheckBox } from '../checkbox';
 import * as S from './category-filter-style';
+import { CommonCheckBox } from '../checkbox';
 
 interface CategoryFilterProps {
   categoryItem: MainCategoryItemDto;
