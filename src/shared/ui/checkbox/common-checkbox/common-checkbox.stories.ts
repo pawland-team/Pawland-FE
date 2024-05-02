@@ -3,7 +3,7 @@ import { CommonCheckBox } from './common-checkbox';
 import type { StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'atoms/inputs/CommonCheckBox',
+  title: 'atoms/checkbox/CommonCheckBox',
   component: CommonCheckBox,
   tags: ['autodocs'],
   argTypes: {
