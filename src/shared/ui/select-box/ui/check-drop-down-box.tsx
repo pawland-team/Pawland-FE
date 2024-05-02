@@ -4,18 +4,18 @@ import styled from 'styled-components';
 
 import { checkDropDownBoxStyle } from '@shared/ui/styles/utills/drop-down-menu';
 
-export interface CheckDropDownBoxDto {
-  id: number;
-  name: string;
-}
-
 interface CheckDropDownBoxProps {
   children: ReactNode;
   width?: string;
+  ariaLabelledBy: string;
 }
 
-const CheckDropDownBox = ({ children, width = '100%' }: CheckDropDownBoxProps) => {
-  return <SCheckDropDownBox $width={width}>{children}</SCheckDropDownBox>;
+const CheckDropDownBox = ({ children, width = '100%', ariaLabelledBy }: CheckDropDownBoxProps) => {
+  return (
+    <SCheckDropDownBox $width={width} role='group' aria-labelledby={ariaLabelledBy}>
+      {children}
+    </SCheckDropDownBox>
+  );
 };
 
 export { CheckDropDownBox };

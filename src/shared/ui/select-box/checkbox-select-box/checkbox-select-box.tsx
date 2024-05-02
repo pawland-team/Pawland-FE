@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
+import { useOutsideClick } from '@shared/hooks/use-outside-click';
 import { CommonCheckBox } from '@shared/ui/checkbox';
 import { MainCategoryItemDto } from '@widgets/product-category-filter/product-category-data';
 
@@ -12,17 +13,20 @@ interface CheckboxSelectBoxProps {
 }
 
 const CheckboxSelectBox = ({ categoryList }: CheckboxSelectBoxProps) => {
-  const [isOpened, setIsOpened] = useState(false);
+  const dropDownRef = useRef(null);
+  const [isSelectOpened, setIsSelectOpened] = useState(false);
+
+  useOutsideClick(dropDownRef, isSelectOpened, setIsSelectOpened);
 
   const handleClickOpenSelectBox = () => {
-    setIsOpened((prev) => !prev);
+    setIsSelectOpened((prev) => !prev);
   };
 
   return (
-    <S.CheckboxSelectBoxStyle>
-      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isOpened} selectedName={categoryList.group} />
-      {isOpened && (
-        <CheckDropDownBox width='290px'>
+    <S.CheckboxSelectBoxStyle ref={dropDownRef}>
+      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isSelectOpened} selectedName={categoryList.group} />
+      {isSelectOpened && (
+        <CheckDropDownBox width='290px' ariaLabelledBy={categoryList.group}>
           {categoryList.item.map((checkbox) => (
             <li key={checkbox.label}>
               <CommonCheckBox label={checkbox.label} checked={checkbox.checked} group={categoryList.group} />
