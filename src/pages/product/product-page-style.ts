@@ -12,13 +12,14 @@ export const SearchArea = styled.section`
   align-items: center;
   justify-content: center;
 
-  margin: 58px 0 80px;
+  margin: 58px 0 0;
 `;
 
 export const filterArea = styled.section`
   display: flex;
   gap: 14px;
   align-items: center;
+  margin-top: 20px;
 `;
 
 export const SearchSortingContainer = styled.div`
@@ -46,7 +47,7 @@ export const SearchSortingContainer = styled.div`
 export const SelectBoxArea = styled.section`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px;
+  margin: 60px 0 20px;
 `;
 
 export const CardListArea = styled.section`
