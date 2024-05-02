@@ -37,10 +37,10 @@ const Footer = () => {
             <h5>Community</h5>
             <ul>
               <li>
-                <Link href='/'>All Posts</Link>
+                <Link href='/community/list'>All Posts</Link>
               </li>
               <li>
-                <Link href='/'>Popular Posts</Link>
+                <Link href='/community/list'>Popular Posts</Link>
               </li>
             </ul>
           </div>
