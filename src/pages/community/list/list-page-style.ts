@@ -17,7 +17,7 @@ const HeaderArea = styled.section`
   justify-content: space-between;
 
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
   padding-bottom: 24px;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
@@ -88,7 +88,7 @@ const buttonTextWrapper = styled.div`
 const ContentsArea = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 25px;
   justify-content: center;
 
   width: 100%;
