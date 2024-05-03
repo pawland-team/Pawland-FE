@@ -18,13 +18,28 @@ export const CommunityListPage = () => {
     setIsOpenRegion((prev) => !prev);
   };
 
-  const handleRegionCheckBox = (event, regionId) => {
+  const handleRegionCheckBox = (event, regionName) => {
     event.stopPropagation();
 
-    if (selectedRegions.includes(regionId)) {
-      setSelectedRegions((prev) => prev.filter((id) => id !== regionId));
+    if (regionName === '전체') {
+      // 전체 버튼을 클릭한 경우, 다른 모든 체크박스를 해제합니다.
+      setSelectedRegions(selectedRegions.includes('전체') ? [] : ['전체']);
     } else {
-      setSelectedRegions((prev) => [...prev, regionId]);
+      // 다른 버튼을 클릭한 경우, 전체 버튼을 해제합니다.
+      setSelectedRegions((prev) => {
+        if (prev.includes('전체')) {
+          // 전체 버튼이 체크되어 있었다면, 전체 버튼을 제외하고 현재 버튼을 체크합니다.
+          return [regionName];
+        }
+
+        if (prev.includes(regionName)) {
+          // 현재 버튼이 이미 체크되어 있다면, 현재 버튼을 해제합니다.
+          return prev.filter((name) => name !== regionName);
+        }
+
+        // 그렇지 않다면, 현재 버튼을 체크합니다.
+        return [...prev, regionName];
+      });
     }
   };
 
@@ -132,13 +147,7 @@ export const CommunityListPage = () => {
     },
   ];
 
-  const selectedRegionNames = selectedRegions
-    .map((regionId) => {
-      const region = RegionDropDownList.find((item) => item.id === regionId);
-
-      return region ? region.name : null;
-    })
-    .filter(Boolean);
+  const selectedRegionNames = selectedRegions;
 
   return (
     <S.CommunityListPage>
@@ -177,8 +186,8 @@ export const CommunityListPage = () => {
                           <input
                             type='checkbox'
                             value={item.id}
-                            checked={selectedRegions.includes(item.id)}
-                            onClick={(event) => handleRegionCheckBox(event, item.id)}
+                            checked={selectedRegions.includes(item.name)}
+                            onClick={(event) => handleRegionCheckBox(event, item.name)}
                           />
                           <label>{item.name}</label>
                         </S.RegionCheckBoxWrapper>
