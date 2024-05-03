@@ -96,8 +96,26 @@ const ContentsArea = styled.section`
 `;
 
 const CategoryArea = styled.section`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+`;
+
+const RegionSelectButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  height: 36px;
+  padding: 10px 20px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+
   border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+  border-radius: 6px;
 `;
 
 const ItemListArea = styled.section`
@@ -202,6 +220,7 @@ export {
   buttonTextWrapper,
   ContentsArea,
   CategoryArea,
+  RegionSelectButton,
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
