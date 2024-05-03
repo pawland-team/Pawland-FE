@@ -76,7 +76,11 @@ const HeaderDate = styled.span`
 const CommunityStatusBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
 `;
 
 const StatusText = styled.span`
@@ -326,6 +330,7 @@ export {
   HeaderTitle,
   HeaderSpanWrapper,
   HeaderDate,
+  FlexBox,
   CommunityStatusBox,
   StatusText,
   Divider,

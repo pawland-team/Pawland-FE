@@ -29,11 +29,16 @@ export const CommunityPostDetailPage = () => {
         </S.HeaderTitleBox>
 
         <S.CommunityStatusBox>
-          <S.StatusText>수정</S.StatusText>
-          <S.Divider />
-          <S.StatusText>댓글 100</S.StatusText>
-          <S.Divider />
-          <S.StatusText>추천 100</S.StatusText>
+          <S.FlexBox>
+            <S.StatusText>댓글 100</S.StatusText>
+            <S.Divider />
+            <S.StatusText>추천 100</S.StatusText>
+            <S.Divider />
+            <S.StatusText>조회수 100</S.StatusText>
+          </S.FlexBox>
+          <div>
+            <S.StatusText>수정하기</S.StatusText>
+          </div>
         </S.CommunityStatusBox>
       </S.HeaderArea>
 
