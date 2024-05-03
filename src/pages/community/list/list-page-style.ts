@@ -139,15 +139,40 @@ const DownArrowIconWrapper = styled.div`
 const DropDownBox = styled.div`
   position: absolute;
   z-index: ${zIndex.modal};
-  top: 50px;
+  top: 36px;
   left: 0;
 
-  width: 120px;
-  height: 120px;
+  padding: 20px;
 
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
   border-radius: 6px;
+`;
+
+const RegionFormStyle = styled.form`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 40px;
+
+  label {
+    width: 68px;
+
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.color.gray_9E9E9E};
+    text-align: left;
+  }
+
+  input {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const RegionCheckBoxWrapper = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
 `;
 
 const ItemListArea = styled.section`
@@ -254,6 +279,8 @@ export {
   RegionSelectButton,
   ArrowIconWrapper,
   DropDownBox,
+  RegionFormStyle,
+  RegionCheckBoxWrapper,
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,

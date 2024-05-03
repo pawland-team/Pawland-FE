@@ -13,6 +13,81 @@ export const CommunityListPage = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const RegionDropDownList = [
+    {
+      id: 0,
+      name: '전체',
+    },
+    {
+      id: 1,
+      name: '대구',
+    },
+    {
+      id: 2,
+      name: '광주',
+    },
+    {
+      id: 3,
+      name: '울산',
+    },
+    {
+      id: 4,
+      name: '경기',
+    },
+    {
+      id: 5,
+      name: '충북',
+    },
+    {
+      id: 6,
+      name: '전북',
+    },
+    {
+      id: 7,
+      name: '경북',
+    },
+    {
+      id: 8,
+      name: '제주',
+    },
+    {
+      id: 9,
+      name: '서울',
+    },
+    {
+      id: 10,
+      name: '인천',
+    },
+    {
+      id: 11,
+      name: '대전',
+    },
+    {
+      id: 12,
+      name: '세종',
+    },
+    {
+      id: 13,
+      name: '강원',
+    },
+    {
+      id: 14,
+      name: '충남',
+    },
+    {
+      id: 15,
+      name: '전남',
+    },
+    {
+      id: 16,
+      name: '경남',
+    },
+    {
+      id: 17,
+      name: '해외',
+    },
+  ];
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -44,7 +119,14 @@ export const CommunityListPage = () => {
               {isOpen && (
                 <>
                   <S.DropDownBox>
-                    <h1>열렸다.</h1>
+                    <S.RegionFormStyle>
+                      {RegionDropDownList.map((item) => (
+                        <S.RegionCheckBoxWrapper key={item.id}>
+                          <input type='checkbox' value={item.id} onChange={handleRegionSelect} />
+                          <label>{item.name}</label>
+                        </S.RegionCheckBoxWrapper>
+                      ))}
+                    </S.RegionFormStyle>
                   </S.DropDownBox>
                 </>
               )}
