@@ -32,7 +32,12 @@ export const EditButtonArea = styled.div`
   margin-top: 21px;
 `;
 
-export const ImageEditButton = styled.button`
+export const ImageEditButton = styled.label`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+
   width: 50px;
 
   font-size: 1.4rem;
@@ -42,7 +47,11 @@ export const ImageEditButton = styled.button`
   border-bottom: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-export const ProfileImage = styled(Image)`
+export const FileUploadInput = styled.input`
+  display: none;
+`;
+
+export const ProfileImage = styled.img`
   position: relative;
   border: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
   border-radius: 50%;

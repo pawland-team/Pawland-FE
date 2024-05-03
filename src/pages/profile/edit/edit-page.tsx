@@ -1,14 +1,31 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CommonButton } from '../../../shared/ui/buttons/index';
 
 import * as S from './edit-page-style';
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
 
 export const EditPage = () => {
-  const [nickname, setNickname] = useState('닉네임');
-  const [description, setDescription] = useState(
-    '안녕하세요 반가워요 쿨거래 원해요~~  강아지 고양이 사랑합니다!!! 두부랑 토리 강아지 두 마리 엄마입니당!!!',
-  );
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  const [nickname, setNickname] = useState(data?.nickname);
+  const [description, setDescription] = useState(data?.userDesc);
+  const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(URL.createObjectURL(file));
+    }
+  };
+  console.log(selectedFile);
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setUserInfo(data);
+    }
+  }, [data, status]);
 
   return (
     <>
@@ -22,9 +39,11 @@ export const EditPage = () => {
         <S.EditPage>
           <S.PageTitle>프로필</S.PageTitle>
           <S.InfoContainer>
-            <S.ProfileImage src='/images/mock/profileImage.png' alt='프로필 이미지' width={200} height={200} />
+            <S.ProfileImage src={selectedFile} alt='프로필 이미지' width={200} height={200} />
             <S.EditButtonArea>
-              <S.ImageEditButton>바꾸기</S.ImageEditButton>
+              <S.ImageEditButton htmlFor='fileUpload'>바꾸기</S.ImageEditButton>
+              <S.FileUploadInput id='fileUpload' type='file' accept='image/*' onChange={handleFileChange} />
+
               <S.ImageEditButton>삭제</S.ImageEditButton>
             </S.EditButtonArea>
             <S.InputArea>
