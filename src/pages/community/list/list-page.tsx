@@ -1,24 +1,34 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
 import * as S from './list-page-style';
 
+type RegionItem = {
+  id: number;
+  name: string;
+};
+
+type FilterItem = {
+  id: number;
+  name: string;
+};
+
 export const CommunityListPage = () => {
-  const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
-  const [isOpenRegion, setIsOpenRegion] = useState(false);
-  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [iconSrc, setIconSrc] = useState<string>('/images/icon/arrow-icon-gray.svg');
+  const [isOpenRegion, setIsOpenRegion] = useState<boolean>(false);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState('최신순');
+  const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
 
-  const handleRegionSelect = (event) => {
+  const handleRegionSelect = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpenRegion((prev) => !prev);
   };
 
-  const handleRegionCheckBox = (event, regionName) => {
+  const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
 
     if (regionName === '전체') {
@@ -43,13 +53,13 @@ export const CommunityListPage = () => {
     }
   };
 
-  const handleFilterSelect = (event, filterName) => {
+  const handleFilterSelect = (event: MouseEvent<HTMLDivElement>, filterName: string) => {
     event.stopPropagation();
     setSelectedFilter(filterName);
     setIsOpenFilter((prev) => !prev);
   };
 
-  const RegionDropDownList = [
+  const RegionDropDownList: RegionItem[] = [
     {
       id: 0,
       name: '전체',
@@ -124,7 +134,7 @@ export const CommunityListPage = () => {
     },
   ];
 
-  const FilterDropDownList = [
+  const FilterDropDownList: FilterItem[] = [
     {
       id: 0,
       name: '최신순',
@@ -147,7 +157,7 @@ export const CommunityListPage = () => {
     },
   ];
 
-  const selectedRegionNames = selectedRegions;
+  const selectedRegionNames: string[] = selectedRegions;
 
   return (
     <S.CommunityListPage>
