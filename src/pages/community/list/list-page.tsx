@@ -31,7 +31,12 @@ export const CommunityListPage = () => {
 
         <S.ContentsArea>
           <S.CategoryArea>
-            <S.RegionSelectButton>지역별</S.RegionSelectButton>
+            <S.RegionSelectButton>
+              지역별
+              <S.ArrowIconWrapper>
+                <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
+              </S.ArrowIconWrapper>
+            </S.RegionSelectButton>
             <S.RegionSelectButton>최신순</S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>

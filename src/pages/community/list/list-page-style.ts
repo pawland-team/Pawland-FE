@@ -102,20 +102,36 @@ const CategoryArea = styled.section`
 `;
 
 const RegionSelectButton = styled.button`
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 120px;
   height: 36px;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 0;
 
   font-size: 1.6rem;
   font-weight: 700;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 
-  border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
+  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
   border-radius: 6px;
+`;
+
+const ArrowIconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 12px;
+  height: 12px;
 `;
 
 const ItemListArea = styled.section`
@@ -221,6 +237,7 @@ export {
   ContentsArea,
   CategoryArea,
   RegionSelectButton,
+  ArrowIconWrapper,
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
