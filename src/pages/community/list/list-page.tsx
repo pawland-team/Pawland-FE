@@ -24,7 +24,7 @@ export const CommunityListPage = () => {
               <Image src='/images/button/add-button.svg' alt='add-button' fill />
             </S.PostButtonIconWrapper>
             <Link href='/community/post'>
-              <S.buttonTextWrapper>새 글 등록</S.buttonTextWrapper>
+              <S.ButtonTextWrapper>새 글 등록</S.ButtonTextWrapper>
             </Link>
           </S.NewPostButton>
         </S.HeaderArea>
@@ -33,15 +33,15 @@ export const CommunityListPage = () => {
           <S.CategoryArea>
             <S.RegionSelectButton>
               지역별
-              <S.ArrowIconWrapper>
+              <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
-              </S.ArrowIconWrapper>
+              </S.DownArrowIconWrapper>
             </S.RegionSelectButton>
             <S.RegionSelectButton>
               최신순
-              <S.ArrowIconWrapper>
+              <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
-              </S.ArrowIconWrapper>
+              </S.DownArrowIconWrapper>
             </S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>
@@ -53,20 +53,22 @@ export const CommunityListPage = () => {
                 <S.ThumnailImageWrapper>
                   <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
                 </S.ThumnailImageWrapper>
-                <S.textContentsWrapper>
-                  <S.itemRegiontext>지역</S.itemRegiontext>
-                  <S.itemTitleText>제목제목제목제목제목</S.itemTitleText>
-                  <S.itemSubTextBox>
-                    <S.itemSubText>날짜</S.itemSubText>
-                    <S.itemSubDivider />
-                    <S.itemSubText>댓글 100</S.itemSubText>
-                    <S.itemSubDivider />
-                    <S.itemSubText>추천 100</S.itemSubText>
-                  </S.itemSubTextBox>
-                </S.textContentsWrapper>
-                <S.arrowIconWrapper>
+                <S.TextContentsWrapper>
+                  <S.ItemRegiontext>지역</S.ItemRegiontext>
+                  <S.ItemTitleText>제목제목제목제목제목</S.ItemTitleText>
+                  <S.ItemSubTextBox>
+                    <S.ItemSubText>닉네임</S.ItemSubText>
+                    <S.ItemSubDivider />
+                    <S.ItemSubText>2024.05.03</S.ItemSubText>
+                    <S.ItemSubDivider />
+                    <S.ItemSubText>댓글 100</S.ItemSubText>
+                    <S.ItemSubDivider />
+                    <S.ItemSubText>추천 100</S.ItemSubText>
+                  </S.ItemSubTextBox>
+                </S.TextContentsWrapper>
+                <S.ArrowIconWrapper>
                   <Image src={iconSrc} alt='arrow-icon' fill />
-                </S.arrowIconWrapper>
+                </S.ArrowIconWrapper>
               </S.ItemBox>
             </Link>
           </S.ItemListArea>

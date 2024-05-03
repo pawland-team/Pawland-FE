@@ -75,7 +75,7 @@ const PostButtonIconWrapper = styled.div`
   height: 18px;
 `;
 
-const buttonTextWrapper = styled.div`
+const ButtonTextWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +120,7 @@ const RegionSelectButton = styled.button`
   border-radius: 6px;
 `;
 
-const ArrowIconWrapper = styled.div`
+const DownArrowIconWrapper = styled.div`
   position: absolute;
   top: 50%;
   right: 20px;
@@ -137,7 +137,6 @@ const ArrowIconWrapper = styled.div`
 const ItemListArea = styled.section`
   width: 100%;
   height: 904px;
-  border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const ItemBox = styled.div`
@@ -172,42 +171,42 @@ const ThumnailImageWrapper = styled.div`
   height: 95px;
 `;
 
-const textContentsWrapper = styled.div`
+const TextContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
 
-const itemRegiontext = styled.span`
+const ItemRegiontext = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const itemTitleText = styled.h1`
+const ItemTitleText = styled.h1`
   font-size: 2.4rem;
   font-weight: 700;
 `;
 
-const itemSubTextBox = styled.div`
+const ItemSubTextBox = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const itemSubText = styled.span`
+const ItemSubText = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const itemSubDivider = styled.div`
+const ItemSubDivider = styled.div`
   width: 1px;
   height: 12px;
   margin: 0 12px;
   border-right: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const arrowIconWrapper = styled.div`
+const ArrowIconWrapper = styled.div`
   position: absolute;
   top: 50%;
   right: 22px;
@@ -233,7 +232,7 @@ export {
   SearchBar,
   NewPostButton,
   PostButtonIconWrapper,
-  buttonTextWrapper,
+  ButtonTextWrapper,
   ContentsArea,
   CategoryArea,
   RegionSelectButton,
@@ -241,11 +240,11 @@ export {
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
-  textContentsWrapper,
-  itemRegiontext,
-  itemTitleText,
-  itemSubTextBox,
-  itemSubText,
-  itemSubDivider,
-  arrowIconWrapper,
+  TextContentsWrapper,
+  ItemRegiontext,
+  ItemTitleText,
+  ItemSubTextBox,
+  ItemSubText,
+  ItemSubDivider,
+  DownArrowIconWrapper,
 };
