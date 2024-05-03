@@ -137,7 +137,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 무료나눔 체크박스의 checked 상태 값을 바꿔주는 역할
         const updatedValue = state.giveAway.isChecked === isChecked ? !isChecked : isChecked;
 
-        // TODO: 중복되는 부분,,,,,,, 나중에 어떻게 리펙토링 해야할까 씯...
+        // TODO: 중복되는 부분,,,,,,, 나중에 giveAway를 initialValueList안에 합쳐버리자
         const isDuplicated = state.selectedValues.some((item) => item.value === value);
         const shouldAddToSelectedValues = isChecked && !isDuplicated;
         const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
