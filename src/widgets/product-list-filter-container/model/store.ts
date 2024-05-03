@@ -164,7 +164,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 2. 같다면 selectedValues에서 삭제 -> 여기까지는 문제 없이 해결 완료.
         const filterSelectedValue = state.selectedValues.filter((item) => item.value !== value);
 
-        // 3.  initialValueList[group] 체크해제 or 무료나눔 체크 해제 ㅁㅊ 근데 group을 알아야함??!?!?!?
+        // 3.  initialValueList[group] 체크해제 or 무료나눔 체크 해제 ㅁㅊ 근데 group을 어캐 알아내지??!?!?!?
 
         return {
           // initialValueList: {
