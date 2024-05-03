@@ -1,6 +1,6 @@
-import Image from '../../../../node_modules/next/image';
-import Link from '../../../../node_modules/next/link';
 import * as S from './go-detail-button-style';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const GoDetailButton = () => {
   return (

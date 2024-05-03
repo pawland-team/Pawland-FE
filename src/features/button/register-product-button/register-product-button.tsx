@@ -1,5 +1,5 @@
-import Image from '../../../../node_modules/next/image';
-import Link from '../../../../node_modules/next/link';
+import Link from 'next/link';
+import Image from 'next/image';
 import * as S from './register-product-button-style';
 
 export const RegisterProductButton = () => {

@@ -1,9 +1,9 @@
 import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
 import * as S from './community-post-item-style';
 import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
-import Link from '../../../node_modules/next/link';
-import Image from '../../../node_modules/next/image';
 import { GoDetailButton } from '../../features/button/go-detail-button/go-detail-button';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const CommunityPostItem = () => {
   return (

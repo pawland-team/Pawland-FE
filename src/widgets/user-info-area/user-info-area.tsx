@@ -1,7 +1,7 @@
-import Link from '../../../node_modules/next/link';
 import * as S from './user-info-area-style';
 import Image from 'next/image';
 import { EditProfileButton } from '../../features/button/edit-profile-button/edit-profile-button';
+import Link from 'next/link';
 
 const UserInfoArea = () => {
   return (
