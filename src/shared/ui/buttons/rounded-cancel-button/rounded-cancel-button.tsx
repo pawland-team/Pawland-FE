@@ -10,7 +10,7 @@ interface RoundedCancelButtonProps {
 
 const RoundedCancelButton = ({ selectedValue, handleClick }: RoundedCancelButtonProps) => {
   return (
-    <SRoundedCancelButton type='button' onClick={handleClick}>
+    <SRoundedCancelButton type='button' onClick={handleClick} id={selectedValue}>
       <span>{selectedValue}</span>
       <Image src='/images/icon/button-close-icon.svg' width={18} height={18} alt='선택 삭제 아이콘' />
     </SRoundedCancelButton>

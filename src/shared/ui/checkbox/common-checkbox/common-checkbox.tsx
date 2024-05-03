@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import * as S from './common-checkbox-style';
 
 export interface CommonCheckBoxProps {
   label: string;
   group: string;
-  checked?: boolean;
+  isChecked?: boolean;
+  handleChangeCheckBox: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -15,13 +16,7 @@ export interface CommonCheckBoxProps {
  * @param checked default false지만 처음부터 체크되어있어야하는 경우에만 true 사용하면 됨.
  */
 
-const CommonCheckBox = ({ label, group, checked = false }: CommonCheckBoxProps) => {
-  const [isChecked, setIsChecked] = useState(checked);
-
-  const handleChangeCheckBox = () => {
-    setIsChecked((prev) => !prev);
-  };
-
+const CommonCheckBox = ({ label, group, isChecked = false, handleChangeCheckBox }: CommonCheckBoxProps) => {
   return (
     <S.CommonCheckBoxContainer>
       <div className={isChecked ? 'checkbox checked' : 'checkbox'} />

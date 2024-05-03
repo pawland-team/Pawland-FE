@@ -16,12 +16,7 @@ export const SearchArea = styled.section`
 `;
 
 export const filterArea = styled.section`
-  .filter-select-container {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    margin: 20px 0;
-  }
+  position: relative;
 `;
 
 export const SearchSortingContainer = styled.div`

@@ -1,15 +1,7 @@
-import { useState } from 'react';
-
 import * as S from './border-checkbox-style';
 import { CommonCheckBoxProps } from '../common-checkbox/common-checkbox';
 
-const BorderCheckBox = ({ label, group, checked = false }: CommonCheckBoxProps) => {
-  const [isChecked, setIsChecked] = useState(checked);
-
-  const handleChangeCheckBox = () => {
-    setIsChecked((prev) => !prev);
-  };
-
+const BorderCheckBox = ({ label, group, isChecked = false, handleChangeCheckBox }: CommonCheckBoxProps) => {
   return (
     <S.BorderCheckBoxContainer className={isChecked ? 'checked' : ''}>
       <div className='checkbox' />
