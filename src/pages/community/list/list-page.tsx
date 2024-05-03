@@ -8,14 +8,28 @@ import * as S from './list-page-style';
 export const CommunityListPage = () => {
   const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
   const [isOpenRegion, setIsOpenRegion] = useState(false);
+  const [selectedRegions, setSelectedRegions] = useState([]);
+
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('최신순');
 
-  const handleRegionSelect = () => {
+  const handleRegionSelect = (event) => {
+    event.stopPropagation();
     setIsOpenRegion((prev) => !prev);
   };
 
-  const handleFilterSelect = (filterName) => {
+  const handleRegionCheckBox = (event, regionId) => {
+    event.stopPropagation();
+
+    if (selectedRegions.includes(regionId)) {
+      setSelectedRegions((prev) => prev.filter((id) => id !== regionId));
+    } else {
+      setSelectedRegions((prev) => [...prev, regionId]);
+    }
+  };
+
+  const handleFilterSelect = (event, filterName) => {
+    event.stopPropagation();
     setSelectedFilter(filterName);
     setIsOpenFilter((prev) => !prev);
   };
@@ -118,6 +132,14 @@ export const CommunityListPage = () => {
     },
   ];
 
+  const selectedRegionNames = selectedRegions
+    .map((regionId) => {
+      const region = RegionDropDownList.find((item) => item.id === regionId);
+
+      return region ? region.name : null;
+    })
+    .filter(Boolean);
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -142,7 +164,7 @@ export const CommunityListPage = () => {
         <S.ContentsArea>
           <S.CategoryArea>
             <S.RegionSelectButton onClick={handleRegionSelect}>
-              지역별
+              {selectedRegionNames.length > 0 ? selectedRegionNames.join(', ') : '지역별'}
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
@@ -152,7 +174,12 @@ export const CommunityListPage = () => {
                     <S.RegionFormStyle>
                       {RegionDropDownList.map((item) => (
                         <S.RegionCheckBoxWrapper key={item.id}>
-                          <input type='checkbox' value={item.id} onChange={handleRegionSelect} />
+                          <input
+                            type='checkbox'
+                            value={item.id}
+                            checked={selectedRegions.includes(item.id)}
+                            onClick={(event) => handleRegionCheckBox(event, item.id)}
+                          />
                           <label>{item.name}</label>
                         </S.RegionCheckBoxWrapper>
                       ))}
@@ -172,7 +199,7 @@ export const CommunityListPage = () => {
                 <>
                   <S.DropDownBox>
                     {FilterDropDownList.map((item) => (
-                      <S.FilterWrapper key={item.id} onClick={() => handleFilterSelect(item.name)}>
+                      <S.FilterWrapper key={item.id} onClick={(event) => handleFilterSelect(event, item.name)}>
                         <S.FilterContent>{item.name}</S.FilterContent>
                       </S.FilterWrapper>
                     ))}
