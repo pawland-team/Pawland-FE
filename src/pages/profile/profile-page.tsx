@@ -28,8 +28,6 @@ export const ProfilePage = () => {
     }
   }, [data, status]);
 
-  console.log(data);
-
   const renderComponent = () => {
     switch (activeButton) {
       case 'register':
