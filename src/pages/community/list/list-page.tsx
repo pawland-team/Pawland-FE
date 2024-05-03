@@ -9,12 +9,14 @@ export const CommunityListPage = () => {
   const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
   const [isOpenRegion, setIsOpenRegion] = useState(false);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState('최신순');
 
   const handleRegionSelect = () => {
     setIsOpenRegion((prev) => !prev);
   };
 
-  const handleFilterSelect = () => {
+  const handleFilterSelect = (filterName) => {
+    setSelectedFilter(filterName);
     setIsOpenFilter((prev) => !prev);
   };
 
@@ -160,8 +162,8 @@ export const CommunityListPage = () => {
               )}
             </S.RegionSelectButton>
 
-            <S.RegionSelectButton onClick={handleFilterSelect}>
-              최신순
+            <S.RegionSelectButton onClick={() => setIsOpenFilter((prev) => !prev)}>
+              {selectedFilter}
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
@@ -170,7 +172,7 @@ export const CommunityListPage = () => {
                 <>
                   <S.DropDownBox>
                     {FilterDropDownList.map((item) => (
-                      <S.FilterWrapper key={item.id}>
+                      <S.FilterWrapper key={item.id} onClick={() => handleFilterSelect(item.name)}>
                         <S.FilterContent>{item.name}</S.FilterContent>
                       </S.FilterWrapper>
                     ))}
