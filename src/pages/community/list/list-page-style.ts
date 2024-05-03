@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CommunityListPage = styled.main`
+const CommunityListPage = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;

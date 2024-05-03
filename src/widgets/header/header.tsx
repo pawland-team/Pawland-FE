@@ -42,7 +42,7 @@ const Header = () => {
                 <Link href='/product'>중고거래</Link>
               </li>
               <li>
-                <Link href='/'>커뮤니티</Link>
+                <Link href='/community/list'>커뮤니티</Link>
               </li>
               <li>
                 <Link href='/'>반려동물동반</Link>
