@@ -31,19 +31,8 @@ export const CommunityListPage = () => {
 
         <S.ContentsArea>
           <S.CategoryArea>
-            <h1>카테고리</h1>
-            <div>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-              <h1>1</h1>
-            </div>
+            <div>지역별</div>
+            <div>최신순</div>
           </S.CategoryArea>
           <S.ItemListArea>
             <Link href='/community/post-detail'>

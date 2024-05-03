@@ -87,6 +87,7 @@ const buttonTextWrapper = styled.div`
 
 const ContentsArea = styled.section`
   display: flex;
+  flex-direction: column;
   gap: 32px;
   justify-content: center;
 
@@ -95,13 +96,12 @@ const ContentsArea = styled.section`
 `;
 
 const CategoryArea = styled.section`
-  width: 276px;
-  height: 904px;
+  width: 100%;
   border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
 const ItemListArea = styled.section`
-  width: 890px;
+  width: 100%;
   height: 904px;
   border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
