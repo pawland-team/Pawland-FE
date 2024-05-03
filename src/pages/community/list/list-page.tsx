@@ -7,6 +7,11 @@ import * as S from './list-page-style';
 
 export const CommunityListPage = () => {
   const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleRegionSelect = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <S.CommunityListPage>
@@ -31,12 +36,20 @@ export const CommunityListPage = () => {
 
         <S.ContentsArea>
           <S.CategoryArea>
-            <S.RegionSelectButton>
+            <S.RegionSelectButton onClick={handleRegionSelect}>
               지역별
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
+              {isOpen && (
+                <>
+                  <S.DropDownBox>
+                    <h1>열렸다.</h1>
+                  </S.DropDownBox>
+                </>
+              )}
             </S.RegionSelectButton>
+
             <S.RegionSelectButton>
               최신순
               <S.DownArrowIconWrapper>

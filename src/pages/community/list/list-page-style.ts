@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { zIndex } from '@shared/ui/styles/z-index';
+
 const CommunityListPage = styled.section`
   display: flex;
   justify-content: center;
@@ -134,6 +136,20 @@ const DownArrowIconWrapper = styled.div`
   height: 12px;
 `;
 
+const DropDownBox = styled.div`
+  position: absolute;
+  z-index: ${zIndex.modal};
+  top: 50px;
+  left: 0;
+
+  width: 120px;
+  height: 120px;
+
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
+  border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+  border-radius: 6px;
+`;
+
 const ItemListArea = styled.section`
   width: 100%;
   height: 904px;
@@ -237,6 +253,7 @@ export {
   CategoryArea,
   RegionSelectButton,
   ArrowIconWrapper,
+  DropDownBox,
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
