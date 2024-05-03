@@ -30,7 +30,7 @@ const SSelectBox = styled.button<SSelectBoxType>`
   justify-content: space-between;
 
   width: 100%;
-  padding: 9px 17px;
+  padding: 9px 10px;
 
   background: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid #e0e0e0;
