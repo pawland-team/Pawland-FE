@@ -141,11 +141,17 @@ const DropDownBox = styled.div`
   top: 36px;
   left: 0;
 
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-width: 150px;
+  padding: 20px 30px;
 
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
   border-radius: 6px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
 `;
 
 const RegionFormStyle = styled.form`
