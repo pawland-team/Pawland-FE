@@ -2,33 +2,46 @@ import { ChangeEvent, MouseEvent } from 'react';
 
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
-import { productCategoryData, regionData, speciesData } from '@widgets/product-category-filter/product-category-data';
 import { SelectedFilterManageBox } from '@widgets/selected-filter-manage-box';
 
 import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
 
 const ProductListFilterContainer = () => {
-  const { selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
+  const { initialValueList, selectedValues, giveAway, addGiveAwayValue, addSelectedValue, removeSelectedValue } =
+    useCheckedCategoryStore();
 
-  const handleAddCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
-    // target input의 checked 상태를 클릭할 때 마다 toggle 시킨다.
-    addSelectedValue(e.target.id);
+  const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.name);
+    // console.log(e.target.name);
+    addSelectedValue(e.target.name, e.target.id, e.target.checked);
   };
 
-  const handleDeleteCheckedValue = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+  const handleGiveAwayChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    addGiveAwayValue('무료나눔', e.target.id, e.target.checked);
+    // addSelectedValue(e.target.id, e.target.checked, e.target.name);
+  };
+
+  const handleRemoveCheckedValue = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    // 이벤트 버블링 활용하였음. e.target하면 클릭된 요소가 찍혀서 원하는 텍스트만 가져오기 힘듦.
+    console.log(e.currentTarget.id);
     removeSelectedValue(e.currentTarget.id);
   };
 
   return (
     <S.FilterContainer>
       <div className='filter-select-container'>
-        <CheckboxSelectBox categoryList={regionData} />
-        <CheckboxSelectBox categoryList={speciesData} />
-        <CheckboxSelectBox categoryList={productCategoryData} />
-        <BorderCheckBox label='무료나눔' group='무료나눔' handleChangeCheckBox={handleAddCheckedValue} />
+        <CheckboxSelectBox categoryList={initialValueList.region} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox categoryList={initialValueList.species} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox categoryList={initialValueList.product} handleChange={handleGroupCategoryValue} />
+        <BorderCheckBox
+          label='무료나눔'
+          group='무료나눔'
+          isChecked={giveAway.isChecked}
+          handleChangeCheckBox={handleGiveAwayChecked}
+        />
       </div>
-      <SelectedFilterManageBox handleClick={handleDeleteCheckedValue} selectedValueList={selectedValues} />
+      <SelectedFilterManageBox handleClick={handleRemoveCheckedValue} selectedValueList={selectedValues} />
     </S.FilterContainer>
   );
 };

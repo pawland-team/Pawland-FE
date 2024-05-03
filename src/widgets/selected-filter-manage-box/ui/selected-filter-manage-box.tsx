@@ -5,7 +5,10 @@ import { RoundedCancelButton } from '@shared/ui/buttons';
 import * as S from './selected-filter-manage-box-style';
 
 interface SelectedFilterManageBoxProps {
-  selectedValueList: string[];
+  selectedValueList: {
+    value: string;
+    isChecked: boolean;
+  }[];
   handleClick: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
 }
 
@@ -17,7 +20,7 @@ const SelectedFilterManageBox = ({ selectedValueList, handleClick }: SelectedFil
   return (
     <S.SelectedFilterManageBoxStyle role='group'>
       {selectedValueList.map((selected) => (
-        <RoundedCancelButton key={selected} selectedValue={selected} handleClick={handleClick} />
+        <RoundedCancelButton key={selected.value} selectedValue={selected.value} handleClick={handleClick} />
       ))}
     </S.SelectedFilterManageBoxStyle>
   );
