@@ -9,13 +9,26 @@ import { WishList } from '../../widgets/wish-list/wish-list';
 import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
 import { CommunityList } from '../../widgets/community-list/community-list';
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
+import { useEffect } from 'react';
 
 interface ActiveButtonState {
   activeButton: string;
 }
 
 export const ProfilePage = () => {
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
   const activeButton = useActiveButtonStore((state: ActiveButtonState) => state.activeButton);
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setUserInfo(data);
+    }
+  }, [data, status]);
+
+  console.log(data);
 
   const renderComponent = () => {
     switch (activeButton) {
@@ -42,7 +55,7 @@ export const ProfilePage = () => {
       <main>
         <S.ProfilePage>
           <S.UserInfoContainer>
-            <UserInfoArea />
+            <UserInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
             <UserLoginInfoArea />
           </S.UserInfoContainer>
           <S.ListContainer>
