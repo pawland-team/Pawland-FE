@@ -136,7 +136,7 @@ const RecommendButtonBox = styled.div`
   margin-top: 56px;
 `;
 
-const RecommendButton = styled.button`
+const RecommendButton = styled.button<{ isLiked: boolean }>`
   cursor: pointer;
 
   width: 174px;
@@ -144,8 +144,10 @@ const RecommendButton = styled.button`
 
   font-size: 1.6rem;
   font-weight: 700;
+  color: ${({ isLiked }) => (isLiked ? 'white' : '#000000')};
 
-  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  background-color: ${({ isLiked }) => (isLiked ? '#43ADFF' : 'white')};
+  border: ${({ isLiked }) => (isLiked ? '1px solid #43ADFF' : '1px solid #000000')};
   border-radius: 54px;
 
   &:hover {

@@ -7,6 +7,11 @@ import * as S from './post-detail-page-style';
 
 export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <S.PostDetailPage>
@@ -57,10 +62,15 @@ export const CommunityPostDetailPage = () => {
         </S.Contents>
 
         <S.RecommendButtonBox>
-          <S.RecommendButton onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+          <S.RecommendButton
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            onClick={handleLike}
+            isLiked={isLiked}
+          >
             <S.LikeIconWrapper>
               <Image
-                src={isHover ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
+                src={isHover || isLiked ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
                 alt='like-icon'
                 fill
               />
