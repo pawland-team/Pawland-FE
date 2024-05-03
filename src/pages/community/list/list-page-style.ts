@@ -184,16 +184,17 @@ const FilterWrapper = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.gray_F3F3F3};
-  }
 `;
 
 const FilterContent = styled.span`
   font-size: 1.6rem;
   font-weight: 400;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
+
+  &:hover {
+    font-weight: 700;
+    color: ${({ theme }) => theme.color.black_000000};
+  }
 `;
 
 const ItemListArea = styled.section`
