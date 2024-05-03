@@ -110,9 +110,8 @@ const RegionSelectButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  width: 120px;
   height: 36px;
-  padding: 10px 20px 10px 0;
+  padding: 10px 40px 10px 20px;
 
   font-size: 1.6rem;
   font-weight: 700;
