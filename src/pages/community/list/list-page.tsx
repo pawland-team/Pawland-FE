@@ -7,10 +7,15 @@ import * as S from './list-page-style';
 
 export const CommunityListPage = () => {
   const [iconSrc, setIconSrc] = useState('/images/icon/arrow-icon-gray.svg');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenRegion, setIsOpenRegion] = useState(false);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   const handleRegionSelect = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpenRegion((prev) => !prev);
+  };
+
+  const handleFilterSelect = () => {
+    setIsOpenFilter((prev) => !prev);
   };
 
   const RegionDropDownList = [
@@ -88,6 +93,29 @@ export const CommunityListPage = () => {
     },
   ];
 
+  const FilterDropDownList = [
+    {
+      id: 0,
+      name: '최신순',
+    },
+    {
+      id: 1,
+      name: '조회순',
+    },
+    {
+      id: 2,
+      name: '추천순',
+    },
+    {
+      id: 3,
+      name: '댓글순',
+    },
+    {
+      id: 4,
+      name: '내가 쓴 글',
+    },
+  ];
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -116,7 +144,7 @@ export const CommunityListPage = () => {
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
-              {isOpen && (
+              {isOpenRegion && (
                 <>
                   <S.DropDownBox>
                     <S.RegionFormStyle>
@@ -132,11 +160,23 @@ export const CommunityListPage = () => {
               )}
             </S.RegionSelectButton>
 
-            <S.RegionSelectButton>
+            <S.RegionSelectButton onClick={handleFilterSelect}>
               최신순
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
+              {/* 최신순 조회수순 추천순 댓글순 내가쓴글 */}
+              {isOpenFilter && (
+                <>
+                  <S.DropDownBox>
+                    {FilterDropDownList.map((item) => (
+                      <S.FilterWrapper key={item.id}>
+                        <S.FilterContent>{item.name}</S.FilterContent>
+                      </S.FilterWrapper>
+                    ))}
+                  </S.DropDownBox>
+                </>
+              )}
             </S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>

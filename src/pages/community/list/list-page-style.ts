@@ -175,6 +175,22 @@ const RegionCheckBoxWrapper = styled.div`
   align-items: center;
 `;
 
+const FilterWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.gray_F3F3F3};
+  }
+`;
+
+const FilterContent = styled.span`
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
 const ItemListArea = styled.section`
   width: 100%;
   height: 904px;
@@ -281,6 +297,8 @@ export {
   DropDownBox,
   RegionFormStyle,
   RegionCheckBoxWrapper,
+  FilterWrapper,
+  FilterContent,
   ItemListArea,
   ItemBox,
   ThumnailImageWrapper,
