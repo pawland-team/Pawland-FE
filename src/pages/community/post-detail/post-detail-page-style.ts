@@ -83,6 +83,12 @@ const FlexBox = styled.div`
   display: flex;
 `;
 
+const EditBox = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`;
+
 const StatusText = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
@@ -331,6 +337,7 @@ export {
   HeaderSpanWrapper,
   HeaderDate,
   FlexBox,
+  EditBox,
   CommunityStatusBox,
   StatusText,
   Divider,

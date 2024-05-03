@@ -36,9 +36,10 @@ export const CommunityPostDetailPage = () => {
             <S.Divider />
             <S.StatusText>조회수 100</S.StatusText>
           </S.FlexBox>
-          <div>
+          <S.EditBox>
+            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
             <S.StatusText>수정하기</S.StatusText>
-          </div>
+          </S.EditBox>
         </S.CommunityStatusBox>
       </S.HeaderArea>
 
