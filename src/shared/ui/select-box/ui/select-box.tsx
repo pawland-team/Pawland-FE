@@ -37,7 +37,7 @@ const SSelectBox = styled.button<SSelectBoxType>`
   border-radius: 6px;
 
   span {
-    min-width: 64px;
+    width: calc(100% - 15px);
 
     font-size: 1.6rem;
     font-weight: 600;
