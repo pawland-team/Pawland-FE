@@ -62,6 +62,11 @@ const HeaderTitle = styled.h1`
   font-weight: 700;
 `;
 
+const HeaderSpanWrapper = styled.div`
+  display: flex;
+  gap: 14px;
+`;
+
 const HeaderDate = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
@@ -319,6 +324,7 @@ export {
   HeaderTitleBox,
   RegionSpan,
   HeaderTitle,
+  HeaderSpanWrapper,
   HeaderDate,
   CommunityStatusBox,
   StatusText,

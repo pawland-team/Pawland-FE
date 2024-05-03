@@ -22,7 +22,10 @@ export const CommunityPostDetailPage = () => {
         <S.HeaderTitleBox>
           <S.RegionSpan>서울</S.RegionSpan>
           <S.HeaderTitle>안녕하세요. 고민이 있어요. 들어주세요.</S.HeaderTitle>
-          <S.HeaderDate>2024.05.01</S.HeaderDate>
+          <S.HeaderSpanWrapper>
+            <S.HeaderDate>닉네임</S.HeaderDate>
+            <S.HeaderDate>2024.05.01</S.HeaderDate>
+          </S.HeaderSpanWrapper>
         </S.HeaderTitleBox>
 
         <S.CommunityStatusBox>
