@@ -49,24 +49,14 @@ export const EditPage = () => {
             <S.InputArea>
               <S.InputItem>
                 <S.Label htmlFor='name'>닉네임</S.Label>
-                <div>
-                  <S.NicknameInput
-                    type='text'
-                    id='name'
-                    name='nickname'
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                  />
-                  <CommonButton
-                    borderRadius={'4px'}
-                    backgroundColor={'#43ADFF'}
-                    maxWidth={'65px'}
-                    fontSize={'1.2rem'}
-                    padding={'6px 10px'}
-                  >
-                    변경하기
-                  </CommonButton>
-                </div>
+
+                <S.NicknameInput
+                  type='text'
+                  id='name'
+                  name='nickname'
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
               </S.InputItem>
 
               <S.InputItem>
@@ -77,17 +67,6 @@ export const EditPage = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <S.SaveButtonArea>
-                  <CommonButton
-                    borderRadius={'4px'}
-                    backgroundColor={'#43ADFF'}
-                    maxWidth={'65px'}
-                    fontSize={'1.2rem'}
-                    padding={'6px 10px'}
-                  >
-                    저장하기
-                  </CommonButton>
-                </S.SaveButtonArea>
               </S.InputItem>
             </S.InputArea>
             <S.LoginInfoArea>
@@ -97,6 +76,7 @@ export const EditPage = () => {
 
             <S.BigButtonArea>
               <S.BigButton>비밀번호 변경하기</S.BigButton>
+              <S.BigButton>프로필 저장하기</S.BigButton>
               <S.BigButton>로그아웃</S.BigButton>
               <S.UnregisterButton>회원탈퇴</S.UnregisterButton>
             </S.BigButtonArea>
