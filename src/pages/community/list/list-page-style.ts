@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { zIndex } from '@shared/ui/styles/z-index';
-
 const CommunityListPage = styled.section`
   display: flex;
   justify-content: center;
@@ -137,7 +135,7 @@ const DownArrowIconWrapper = styled.div`
 
 const DropDownBox = styled.div`
   position: absolute;
-  z-index: ${zIndex.modal};
+  z-index: ${({ theme }) => theme.zIndex.modal};
   top: 36px;
   left: 0;
 
