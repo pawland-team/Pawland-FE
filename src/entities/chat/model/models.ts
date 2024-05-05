@@ -100,3 +100,9 @@ export interface MessageGroupWithDateTypeForDisplay extends BaseMessageGroupForD
 export type MessageGroupListForDisplay = Array<
   MessageGroupWithMessageTypeForDisplay | MessageGroupWithDateTypeForDisplay
 >;
+
+export interface ChangedTextAreaHeight {
+  initialHeight: number;
+  currentHeight: number;
+  changedHeight: number;
+}

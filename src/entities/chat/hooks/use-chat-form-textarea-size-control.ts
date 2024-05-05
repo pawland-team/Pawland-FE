@@ -1,32 +1,49 @@
-import { MutableRefObject, useEffect, useState } from 'react';
+import { DependencyList, MutableRefObject, useEffect, useState } from 'react';
 
 import { useAutoResize } from '@shared/hooks/use-auto-resize';
 import { useResizeObserver } from '@shared/hooks/use-resize-obserer';
+import { ResponsiveNumericSizeProperties } from '@shared/interface/style';
 
-import { chatTextAreaMinMaxSize } from '../constants/style';
 import { ChangedTextAreaHeight } from '../model';
 
-interface UseChatFormTextareaSizeControlReturn {
+export interface UseChatFormTextareaSizeControlReturn {
   handleResizeHeight: () => void;
   textAreaRef: MutableRefObject<HTMLElement | undefined>;
   changedTextAreaHeight: ChangedTextAreaHeight;
   observerTargetRef: MutableRefObject<HTMLElement | undefined>;
 }
 
-export const useChatFormTextareaSizeControl = <
-  T extends HTMLElement = HTMLElement,
->(): UseChatFormTextareaSizeControlReturn => {
+interface UseChatFormTextareaSizeControlParam {
+  dependencyListForObserver?: DependencyList;
+  /**
+   * TODO: 반응형 확장하기
+   */
+  sizes: ResponsiveNumericSizeProperties<{
+    onDesktop: {
+      height: number;
+      minHeight: number;
+      maxHeight: number;
+    };
+  }>;
+}
+
+export const useChatFormTextareaSizeControl = <T extends HTMLElement = HTMLElement>({
+  dependencyListForObserver = [],
+  sizes: {
+    onDesktop: { height, maxHeight, minHeight },
+  },
+}: UseChatFormTextareaSizeControlParam): UseChatFormTextareaSizeControlReturn => {
   const [changedTextAreaHeight, setChangedTextAreaHeight] = useState<ChangedTextAreaHeight>({
-    initialHeight: chatTextAreaMinMaxSize.onDesktop.height,
+    initialHeight: height,
     changedHeight: 0,
-    currentHeight: chatTextAreaMinMaxSize.onDesktop.height,
+    currentHeight: height,
   });
 
   const { handleResizeHeight, textBoxRef: textAreaRef } = useAutoResize<T>({
-    minHeight: chatTextAreaMinMaxSize.onDesktop.minHeight,
-    maxHeight: chatTextAreaMinMaxSize.onDesktop.maxHeight,
+    minHeight,
+    maxHeight,
   });
-  const { observerTargetRef, resizeInfo } = useResizeObserver<T>();
+  const { observerTargetRef, resizeInfo } = useResizeObserver<T>({ dependencyList: dependencyListForObserver });
 
   // textarea 높이 변화를 감지한 후에 감싸고 있는 부모 태그들의 높이도 변해야 함.
   useEffect(() => {

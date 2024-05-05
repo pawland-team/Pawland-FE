@@ -3,6 +3,7 @@ import { ReactNode, useMemo } from 'react';
 import Link from 'next/link';
 
 import { useGetPreviousChatList } from '@entities/chat/hooks';
+import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks/use-chat-form-textarea-size-control';
 import { useChatStore } from '@entities/chat/model';
 import { insertMessageGroupForDisplay } from '@entities/chat/utils/insert-message-group-for-display';
 import { useUserStore } from '@entities/user/model';
@@ -18,14 +19,14 @@ import { MyChatMessage } from '../my-chat-message';
 import { OpponentChatMessage } from '../opponent-chat-message';
 import { UnselectedChatRoomDisplay } from '../unselected-chat-room-display';
 
-interface ChatRoomProps {
-  form: ReactNode;
+interface ChatRoomProps extends Pick<UseChatFormTextareaSizeControlReturn, 'changedTextAreaHeight'> {
+  formInFooter: ReactNode;
 }
 
 /**
  * 현재 선택된 roomId에 해당하는 채팅방을 보여주는 컴포넌트
  */
-export const ChatRoom = ({ form }: ChatRoomProps) => {
+export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps) => {
   const { roomMap, selectedChatRoomId, appendPreviousMessageList } = useChatStore((state) => ({
     roomMap: state.roomMap,
     selectedChatRoomId: state.selectedChatRoomId,
@@ -239,7 +240,7 @@ export const ChatRoom = ({ form }: ChatRoomProps) => {
         </S.ConfirmTransactionButton>
       </S.ChatRoomHeader> */}
       {/* Body */}
-      <S.ChatRoomBodyWrapper>
+      <S.ChatRoomBodyWrapper $changedTextAreaHeight={changedTextAreaHeight.changedHeight}>
         <S.ChatRoomBody>
           {messageGroupListForDisplay.map((messageGroup, groupListIdx) => {
             if (messageGroup.messageGroupType === 'DATE') {
@@ -354,7 +355,7 @@ export const ChatRoom = ({ form }: ChatRoomProps) => {
         </S.ChatRoomBody>
       </S.ChatRoomBodyWrapper>
       {/* Footer */}
-      {form}
+      {formInFooter}
     </S.ChatRoomWrapper>
   );
 };

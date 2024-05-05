@@ -18,13 +18,13 @@ export const useAutoResize = <T extends HTMLElement = HTMLElement>({
 
     textBoxRef.current.style.height = 'auto';
 
-    if (maxHeight && textBoxRef.current.scrollHeight > maxHeight) {
+    if (maxHeight !== undefined && textBoxRef.current.scrollHeight > maxHeight) {
       textBoxRef.current.style.height = `${maxHeight}px`;
 
       return;
     }
 
-    if (minHeight && textBoxRef.current.scrollHeight < minHeight) {
+    if (minHeight !== undefined && textBoxRef.current.scrollHeight < minHeight) {
       textBoxRef.current.style.height = `${minHeight}px`;
 
       return;

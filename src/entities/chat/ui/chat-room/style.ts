@@ -158,7 +158,7 @@ export const ConfirmTransactionButton = styled.button`
   border-radius: 22px;
 `;
 
-export const ChatRoomBodyWrapper = styled.div`
+export const ChatRoomBodyWrapper = styled.div<{ $changedTextAreaHeight: number }>`
   display: flex;
   flex-direction: column;
 
@@ -167,8 +167,14 @@ export const ChatRoomBodyWrapper = styled.div`
   justify-content: flex-end;
 
   width: 100%;
-  height: 711px;
-  max-height: 711px;
+
+  /* height: 711px;
+  max-height: 711px; */
+  height: 799px; /* 711px + 88px */
+  max-height: 799px; /* 711px + 88px */
+  padding-bottom: calc(
+    88px + ${({ $changedTextAreaHeight }) => $changedTextAreaHeight}px
+  ); /* textarea 높이 높아지면 여기 아니면 ChatRoomBody를 높여야 함 */
 `;
 
 /**
@@ -182,7 +188,9 @@ export const ChatRoomBody = styled.div`
   row-gap: 24px;
 
   width: 100%;
-  max-height: 100%;
+
+  /* max-height: 100%; */
+  max-height: 711px;
   padding: 14px 26.76px 14px 23px;
 
   &::-webkit-scrollbar {
