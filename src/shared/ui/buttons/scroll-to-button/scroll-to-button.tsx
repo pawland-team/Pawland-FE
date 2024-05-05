@@ -2,8 +2,19 @@ import * as S from './scroll-to-button-style';
 import { RoundedArrowButton } from '../rounded-arrow-button/rounded-arrow-button';
 
 const ScrollToButton = () => {
-  const handleClickToTop = () => {};
-  const handleClickToBottom = () => {};
+  const handleClickToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleClickToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <S.ScrollToButtonBox>
