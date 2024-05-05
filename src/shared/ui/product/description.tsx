@@ -13,7 +13,7 @@ const Description = ({ item }: DescriptionProps) => {
     <SProductDescription>
       <h4>{item.productName}</h4>
       <div className='text-group'>
-        <p className='price'>{formatPrice(item.price)}</p>
+        <p className='price'>{formatPrice(item.price, false)}</p>
         <span className='view'>조회수 {item.views}</span>
       </div>
     </SProductDescription>
