@@ -16,6 +16,7 @@ export interface CheckedCategoryState {
    * region/species/상품별 한꺼번에 관리
    */
   initialValueList: {
+    [index: string]: CategoryItemList;
     region: CategoryItemList;
     species: CategoryItemList;
     product: CategoryItemList;
@@ -96,6 +97,7 @@ const initialValueList = {
 
 const initialSorting = '최신순';
 
+// TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
     initialValueList,
@@ -141,7 +143,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 2. 같다면 selectedValues에서 삭제 -> 여기까지는 문제 없이 해결 완료.
         const filterSelectedValue = state.selectedValues.filter((item) => item.value !== value);
 
-        // TODO: 3.  initialValueList에서 group, value일치하는 부분 isChecked false로 해제시키자. (이.제.진.짜.된.다.)
+        // 3.  initialValueList에서 group, value일치하는 부분 isChecked false로 해제시키자.
         const updatedValues = state.initialValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked: false } : item,
         );
@@ -154,7 +156,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
               data: updatedValues,
             },
           },
-          selectedValues: isValueExist ? filterSelectedValue : null,
+          selectedValues: isValueExist ? filterSelectedValue : undefined,
         };
       });
     },
