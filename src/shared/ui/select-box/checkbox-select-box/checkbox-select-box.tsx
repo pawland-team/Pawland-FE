@@ -2,15 +2,14 @@ import { ChangeEvent, useRef, useState } from 'react';
 
 import { useOutsideClick } from '@shared/hooks/use-outside-click';
 import { CommonCheckBox } from '@shared/ui/checkbox';
-// import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
-import { CategoryItem } from '@widgets/product-list-filter-container/model/store';
+import { CategoryItemList } from '@widgets/product-list-filter-container/model/store';
 
 import * as S from './checkbox-select-box-style';
 import { CheckDropDownBox } from '../ui/check-drop-down-box';
 import { SelectBox } from '../ui/select-box';
 
 interface CheckboxSelectBoxProps {
-  categoryList: CategoryItem;
+  categoryList: CategoryItemList;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
