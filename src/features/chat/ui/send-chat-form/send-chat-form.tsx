@@ -1,22 +1,25 @@
-import { useImperativeHandle } from 'react';
+import { useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks';
 import { useChatStore } from '@entities/chat/model';
 import { useUserStore } from '@entities/user/model';
-import { useChatFormTextareaSizeControl } from '@features/chat/hooks';
 import { ChatRequest } from '@shared/apis/chat-api';
 
 import * as S from './style';
 
-export const SendChatForm = () => {
+export const SendChatForm = ({
+  changedTextAreaHeight,
+  handleResizeHeight,
+  observerTargetRef,
+  textAreaRef,
+}: UseChatFormTextareaSizeControlReturn) => {
   const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
 
-  const { sendChatMessage } = useChatStore((state) => ({
+  const { sendChatMessage, selectedChatRoomId } = useChatStore((state) => ({
     sendChatMessage: state.sendChatMessage,
+    selectedChatRoomId: state.selectedChatRoomId,
   }));
-
-  const { changedTextAreaHeight, handleResizeHeight, observerTargetRef, textAreaRef } =
-    useChatFormTextareaSizeControl<HTMLTextAreaElement>();
 
   const { register, handleSubmit, reset } = useForm<{ message: string }>({
     defaultValues: {
@@ -71,6 +74,16 @@ export const SendChatForm = () => {
       handleSubmit(onSubmit)();
     }
   };
+
+  // roomId가 바뀔 때마다 reset
+  useEffect(() => {
+    if (selectedChatRoomId === undefined) {
+      return;
+    }
+
+    reset();
+    handleResizeHeight();
+  }, [selectedChatRoomId]);
 
   return (
     <S.ChatRoomFooter $textAreaChangedHeight={changedTextAreaHeight.changedHeight}>
