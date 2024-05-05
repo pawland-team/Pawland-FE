@@ -45,4 +45,10 @@ const SProductThumbnaile = styled.div`
 
     object-fit: cover;
   }
+
+  button {
+    position: absolute;
+    right: 14px;
+    bottom: 20px;
+  }
 `;

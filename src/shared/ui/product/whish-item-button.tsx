@@ -1,7 +1,6 @@
 import { MouseEvent, useState } from 'react';
 
 import Image from 'next/image';
-import styled from 'styled-components';
 
 interface WishItemButtonProps {
   isWished: boolean;
@@ -29,21 +28,15 @@ const WishItemButton = ({ isWished, width = 42, height = 35 }: WishItemButtonPro
 
   return (
     <>
-      <SWishButton type='button' onClick={handleClickWishButton}>
+      <button type='button' onClick={handleClickWishButton}>
         {isWishedChange ? (
           <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={width} height={height} />
         ) : (
           <Image src='/images/button/wish-button-off.png' alt='찜하기' width={width} height={height} />
         )}
-      </SWishButton>
+      </button>
     </>
   );
 };
 
 export { WishItemButton };
-
-const SWishButton = styled.button`
-  position: absolute;
-  right: 14px;
-  bottom: 20px;
-`;

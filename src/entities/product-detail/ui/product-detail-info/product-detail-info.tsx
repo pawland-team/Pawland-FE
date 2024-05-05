@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 
 import { CommonButton } from '@shared/ui/buttons';
+import { CategoryTree, ProductInteractionButtonsBox } from '@shared/ui/product';
+
+import * as S from './product-detail-info-style';
 
 const ProductDetailInfo = () => {
   const router = useRouter();
@@ -11,7 +14,10 @@ const ProductDetailInfo = () => {
 
   return (
     <>
-      <div className='sub-info-container'>category / link copy</div>
+      <S.SubInfoContainer>
+        <CategoryTree region='서울' species='강아지' />
+        <ProductInteractionButtonsBox />
+      </S.SubInfoContainer>
       <div className='main-info-container'>
         <time>2024.12.10</time>
         <h2>제목</h2>
