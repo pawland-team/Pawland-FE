@@ -9,6 +9,8 @@ export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
+  const communityPostDetailQueryKey = 'communityPostDetail';
+
   const handleLike = () => {
     setIsLiked(!isLiked);
   };

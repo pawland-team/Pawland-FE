@@ -11,28 +11,24 @@ export interface CommunityPostDetailEntity {
   };
   recommendationCount: number; // 추천 수
   commentsCount: number; // 댓글 수
-  comments: [
-    {
-      id: number | null; // 댓글 id
-      content: string; // 댓글 내용
-      createdAt: string; // 댓글 작성 날짜
+  comments: {
+    id: number | null; // 댓글 id
+    content: string; // 댓글 내용
+    createdAt: string; // 댓글 작성 날짜
+    author: {
+      id: number | null; // userId (작성자 id)
+      nickname: string; // 닉네임
+      profileImage: string; // 프로필 이미지
+    };
+    reply: {
+      id: number | null; // 대댓글 id
+      content: string; // 대댓글 내용
+      createdAt: string; // 대댓글 작성 날짜
       author: {
         id: number | null; // userId (작성자 id)
         nickname: string; // 닉네임
         profileImage: string; // 프로필 이미지
       };
-      reply: [
-        {
-          id: number | null; // 대댓글 id
-          content: string; // 대댓글 내용
-          createdAt: string; // 대댓글 작성 날짜
-          author: {
-            id: number | null; // userId (작성자 id)
-            nickname: string; // 닉네임
-            profileImage: string; // 프로필 이미지
-          };
-        },
-      ];
-    },
-  ];
+    }[];
+  }[];
 }
