@@ -21,12 +21,21 @@ type FilterItem = {
 };
 
 export const CommunityListPage = () => {
-  const [iconSrc, setIconSrc] = useState<string>('/images/icon/arrow-icon-gray.svg');
   const [isOpenRegion, setIsOpenRegion] = useState<boolean>(false);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
+
+  const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+
+  const handleMouseEnter = (id: number) => {
+    setHoveredItemId(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItemId(null);
+  };
 
   const handleRegionSelect = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -247,34 +256,39 @@ export const CommunityListPage = () => {
           <S.ItemListArea>
             {isLoading
               ? '로딩중'
-              : communityList?.map((item) => (
-                  <Link href='/community/post-detail' key={item.id}>
-                    <S.ItemBox
-                      onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
-                      onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
-                    >
-                      <S.ThumnailImageWrapper>
-                        <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
-                      </S.ThumnailImageWrapper>
-                      <S.TextContentsWrapper>
-                        <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
-                        <S.ItemTitleText>{item.title}</S.ItemTitleText>
-                        <S.ItemSubTextBox>
-                          <S.ItemSubText>{item.writerInfo.nickname}</S.ItemSubText>
-                          <S.ItemSubDivider />
-                          <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
-                          <S.ItemSubDivider />
-                          <S.ItemSubText>댓글 {item.commentCount}</S.ItemSubText>
-                          <S.ItemSubDivider />
-                          <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
-                        </S.ItemSubTextBox>
-                      </S.TextContentsWrapper>
-                      <S.ArrowIconWrapper>
-                        <Image src={iconSrc} alt='arrow-icon' fill />
-                      </S.ArrowIconWrapper>
-                    </S.ItemBox>
-                  </Link>
-                ))}
+              : communityList?.map((item) => {
+                  const isHovered = hoveredItemId === item.id;
+
+                  const arrowIconSrc = isHovered
+                    ? '/images/icon/arrow-icon-blue.svg'
+                    : '/images/icon/arrow-icon-gray.svg';
+
+                  return (
+                    <Link href='/community/post-detail' key={item.id}>
+                      <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
+                        <S.ThumnailImageWrapper>
+                          <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+                        </S.ThumnailImageWrapper>
+                        <S.TextContentsWrapper>
+                          <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
+                          <S.ItemTitleText>{item.title}</S.ItemTitleText>
+                          <S.ItemSubTextBox>
+                            <S.ItemSubText>{item.writerInfo.nickname}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>댓글 {item.commentCount}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
+                          </S.ItemSubTextBox>
+                        </S.TextContentsWrapper>
+                        <S.ArrowIconWrapper>
+                          <Image src={arrowIconSrc} alt='arrow-icon' fill />
+                        </S.ArrowIconWrapper>
+                      </S.ItemBox>
+                    </Link>
+                  );
+                })}
           </S.ItemListArea>
         </S.ContentsArea>
       </S.MainArea>

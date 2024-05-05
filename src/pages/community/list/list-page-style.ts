@@ -196,6 +196,10 @@ const FilterContent = styled.span`
 `;
 
 const ItemListArea = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
   width: 100%;
   height: 904px;
 `;
