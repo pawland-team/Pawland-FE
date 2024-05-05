@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { CommunityPostListEntity } from '@shared/apis/community-api';
+
 import * as S from './list-page-style';
 
 const communityListQueryKey = 'communityList';
@@ -38,7 +40,7 @@ export const CommunityListPage = () => {
     return data;
   };
 
-  const { data: communityList, isLoading } = useQuery({
+  const { data: communityList, isLoading } = useQuery<CommunityPostListEntity[], Error>({
     queryKey: [communityListQueryKey],
     queryFn: fetchCommunityList,
   });
@@ -245,7 +247,7 @@ export const CommunityListPage = () => {
           <S.ItemListArea>
             {isLoading
               ? '로딩중'
-              : communityList.map((item) => (
+              : communityList?.map((item) => (
                   <Link href='/community/post-detail' key={item.id}>
                     <S.ItemBox
                       onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
