@@ -1,9 +1,11 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, MouseEvent, useRef, useState } from 'react';
 
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
 import { ProductListFilterContainer } from '@widgets/product-list-filter-container';
+import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
+import { SortingValueType } from '@widgets/product-list-filter-container/model/store';
 
 import * as S from './product-page-style';
 import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
@@ -11,12 +13,21 @@ import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string | undefined>('');
-  const [selectedSortingName, setSelectedSortingName] = useState<string | undefined>('최신순');
+  const { sorting, changeSelectedSortingValue } = useCheckedCategoryStore();
+
+  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setKeyword(inputRef.current?.value);
+  };
+
+  const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    const target = e.target as HTMLButtonElement | HTMLDivElement;
+    const value = target.innerText as SortingValueType;
+    changeSelectedSortingValue(value);
+    setIsDropdownOpened(false);
   };
 
   return (
@@ -41,9 +52,11 @@ const ProductPage = () => {
       </S.filterArea>
       <S.SelectBoxArea>
         <CommonSelectBox
-          selectedName={selectedSortingName}
+          selectedName={sorting}
           dropdownList={productListSortingData}
-          setSelectedSortingName={setSelectedSortingName}
+          handleClickSelectList={handleClickSelectList}
+          setIsOpened={setIsDropdownOpened}
+          isOpened={isDropdownOpened}
         />
       </S.SelectBoxArea>
       <S.CardListArea>

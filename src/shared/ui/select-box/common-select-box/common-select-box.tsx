@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, MouseEvent, SetStateAction, useRef } from 'react';
 
 import styled from 'styled-components';
 
@@ -10,7 +10,9 @@ import { SelectBox } from '../ui/select-box';
 interface CommonSelectBoxProps {
   selectedName?: string;
   dropdownList: DropDownBoxDto[];
-  setSelectedSortingName?: Dispatch<SetStateAction<string | undefined>>;
+  handleClickSelectList: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+  setIsOpened: Dispatch<SetStateAction<boolean>>;
+  isOpened: boolean;
 }
 
 /**
@@ -19,22 +21,19 @@ interface CommonSelectBoxProps {
  * - 주로 최신순/인기순 소팅 셀렉트 박스로 활용. (예시는 상품 리스트에서 확인)
  */
 
-const CommonSelectBox = ({ selectedName, dropdownList, setSelectedSortingName }: CommonSelectBoxProps) => {
+const CommonSelectBox = ({
+  selectedName,
+  dropdownList,
+  handleClickSelectList,
+  isOpened,
+  setIsOpened,
+}: CommonSelectBoxProps) => {
   const dropDownRef = useRef(null);
-  const [isOpened, setIsOpened] = useState(false);
 
   useOutsideClick(dropDownRef, isOpened, setIsOpened);
 
   const handleClickOpenSelectBox = () => {
     setIsOpened((prev) => !prev);
-  };
-
-  const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
-    if (setSelectedSortingName) {
-      const target = e.target as HTMLButtonElement | HTMLDivElement;
-      setSelectedSortingName(target.innerHTML);
-      setIsOpened(false);
-    }
   };
 
   return (

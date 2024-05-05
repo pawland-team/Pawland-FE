@@ -3,6 +3,8 @@ import { devtools } from 'zustand/middleware';
 
 // 어차피 post 보낼때는 value값만 파라미터 추가되는거 아님..? 아 region=** 이렇게 가야하넹
 
+export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
+
 export type CategoryItemList = {
   category: string;
   data: {
@@ -43,7 +45,7 @@ export interface CheckedCategoryState {
   /**
    * 소팅
    */
-  sorting: '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
+  sorting: SortingValueType;
 
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
@@ -51,6 +53,7 @@ export interface CheckedCategoryState {
   addSelectedValue: (group: string, value: string, isChecked: boolean) => void;
   // addGiveAwayValue: (group: string, value: string, isChecked: boolean) => void;
   removeSelectedValue: (group: string, value: string) => void;
+  changeSelectedSortingValue: (value: SortingValueType) => void;
 }
 
 const initialValueList = {
@@ -175,6 +178,11 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     // 선택된 값 모두 초기화
     clearSelectedValues: () => {
       set({ updatedValueList: initialValueList });
+    },
+
+    // sorting value 값 변경하기
+    changeSelectedSortingValue: (value: SortingValueType) => {
+      set({ sorting: value });
     },
   })),
 );
