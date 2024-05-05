@@ -37,7 +37,6 @@ const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
           setIsEnd(e.isEnd);
         }}
         onSwiper={(e) => {
-          console.log(e);
           setSwiper(e);
         }}
         speed={500}
