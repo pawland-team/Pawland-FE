@@ -5,9 +5,21 @@ import styled from 'styled-components';
 
 interface WishItemButtonProps {
   isWished: boolean;
+  /**
+   * 버튼 너비 : default 42
+   */
+  width?: number;
+  /**
+   * 버튼 높이 : default 35
+   */
+  height?: number;
 }
 
-const WishItemButton = ({ isWished }: WishItemButtonProps) => {
+/**
+ * 찜 버튼
+ */
+
+const WishItemButton = ({ isWished, width = 42, height = 35 }: WishItemButtonProps) => {
   const [isWishedChange, setIsWishedChange] = useState(isWished);
 
   const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -19,9 +31,9 @@ const WishItemButton = ({ isWished }: WishItemButtonProps) => {
     <>
       <SWishButton type='button' onClick={handleClickWishButton}>
         {isWishedChange ? (
-          <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={42} height={35} />
+          <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={width} height={height} />
         ) : (
-          <Image src='/images/button/wish-button-off.png' alt='찜하기' width={42} height={35} />
+          <Image src='/images/button/wish-button-off.png' alt='찜하기' width={width} height={height} />
         )}
       </SWishButton>
     </>
