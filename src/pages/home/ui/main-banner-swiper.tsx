@@ -13,7 +13,7 @@ import { MainBannerArray } from '../lib/dto';
 interface MainBannerProps {
   mainBannerList: MainBannerArray[];
 }
-const MainbannerSwiper = ({ mainBannerList }: MainBannerProps) => {
+const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
 
@@ -58,4 +58,4 @@ const MainbannerSwiper = ({ mainBannerList }: MainBannerProps) => {
   );
 };
 
-export { MainbannerSwiper };
+export { MainBannerSwiper };

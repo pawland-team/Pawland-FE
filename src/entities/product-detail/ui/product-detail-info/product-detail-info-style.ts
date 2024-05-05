@@ -5,6 +5,7 @@ export const ProductDetailInfoArea = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  width: 100%;
   min-height: 540px;
   padding: 42px 44px;
 

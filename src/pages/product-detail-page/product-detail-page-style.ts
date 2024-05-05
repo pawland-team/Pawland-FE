@@ -10,6 +10,12 @@ export const ProductDetailArea = styled.article`
   margin: 0 auto;
 `;
 
+export const InfoContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+`;
+
 export const RecentProductArea = styled.section`
   width: 95%;
   max-width: 1340px;

@@ -8,7 +8,7 @@ import { categoryData, CategoryList } from '@widgets/category-list';
 import { MainProductList } from '@widgets/main-product-list';
 
 import * as S from './home-page-style';
-import { MainbannerSwiper } from './ui/main-banner-swiper';
+import { MainBannerSwiper } from './ui/main-banner-swiper';
 
 export const HomePage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export const HomePage = () => {
       </Head>
       <S.HomePage>
         <S.SwiperArea>
-          <MainbannerSwiper mainBannerList={mainBannerData} />
+          <MainBannerSwiper mainBannerList={mainBannerData} />
         </S.SwiperArea>
         <S.InputArea>
           <SearchInput
