@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 import { RoundedCancelButton } from '@shared/ui/buttons';
 
@@ -6,13 +6,14 @@ import * as S from './selected-filter-manage-box-style';
 
 interface SelectedFilterManageBoxProps {
   selectedValueList: {
+    group: string;
     value: string;
     isChecked: boolean;
   }[];
-  handleClick: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SelectedFilterManageBox = ({ selectedValueList, handleClick }: SelectedFilterManageBoxProps) => {
+const SelectedFilterManageBox = ({ selectedValueList, handleChange }: SelectedFilterManageBoxProps) => {
   if (selectedValueList.length <= 0) {
     return;
   }
@@ -20,7 +21,12 @@ const SelectedFilterManageBox = ({ selectedValueList, handleClick }: SelectedFil
   return (
     <S.SelectedFilterManageBoxStyle role='group'>
       {selectedValueList.map((selected) => (
-        <RoundedCancelButton key={selected.value} selectedValue={selected.value} handleClick={handleClick} />
+        <RoundedCancelButton
+          key={selected.value}
+          selectedValue={selected.value}
+          selectedName={selected.group}
+          handleChange={handleChange}
+        />
       ))}
     </S.SelectedFilterManageBoxStyle>
   );

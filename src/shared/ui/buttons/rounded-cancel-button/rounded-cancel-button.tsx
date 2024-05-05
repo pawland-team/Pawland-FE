@@ -1,17 +1,19 @@
-import { MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 import Image from 'next/image';
 import styled from 'styled-components';
 
 interface RoundedCancelButtonProps {
   selectedValue: string;
-  handleClick: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+  selectedName: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RoundedCancelButton = ({ selectedValue, handleClick }: RoundedCancelButtonProps) => {
+const RoundedCancelButton = ({ selectedName, selectedValue, handleChange }: RoundedCancelButtonProps) => {
   return (
-    <SRoundedCancelButton type='button' onClick={handleClick} id={selectedValue}>
-      <span>{selectedValue}</span>
+    <SRoundedCancelButton>
+      <input type='checkbox' name={selectedName} onChange={handleChange} id={selectedValue} />
+      <label>{selectedValue}</label>
       <Image src='/images/icon/button-close-icon.svg' width={18} height={18} alt='선택 삭제 아이콘' />
     </SRoundedCancelButton>
   );
@@ -19,7 +21,7 @@ const RoundedCancelButton = ({ selectedValue, handleClick }: RoundedCancelButton
 
 export { RoundedCancelButton };
 
-const SRoundedCancelButton = styled.button`
+const SRoundedCancelButton = styled.div`
   position: relative;
 
   display: flex;
@@ -32,7 +34,20 @@ const SRoundedCancelButton = styled.button`
   background-color: ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 60px;
 
-  span {
+  input {
+    cursor: pointer;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    appearance: none;
+  }
+
+  label {
     min-width: 59px;
 
     font-size: 1.6rem;

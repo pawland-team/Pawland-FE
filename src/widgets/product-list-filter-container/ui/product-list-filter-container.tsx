@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
@@ -8,24 +8,20 @@ import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
 
 const ProductListFilterContainer = () => {
-  const { initialValueList, selectedValues, giveAway, addGiveAwayValue, addSelectedValue, removeSelectedValue } =
-    useCheckedCategoryStore();
+  const { initialValueList, selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name);
-    // console.log(e.target.name);
     addSelectedValue(e.target.name, e.target.id, e.target.checked);
   };
 
   const handleGiveAwayChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    addGiveAwayValue('무료나눔', e.target.id, e.target.checked);
+    addSelectedValue('giveAway', e.target.id, e.target.checked);
     // addSelectedValue(e.target.id, e.target.checked, e.target.name);
   };
 
-  const handleRemoveCheckedValue = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+  const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
     // 이벤트 버블링 활용하였음. e.target하면 클릭된 요소가 찍혀서 원하는 텍스트만 가져오기 힘듦.
-    console.log(e.currentTarget.id);
-    removeSelectedValue(e.currentTarget.id);
+    removeSelectedValue(e.target.name, e.target.id);
   };
 
   return (
@@ -37,11 +33,11 @@ const ProductListFilterContainer = () => {
         <BorderCheckBox
           label='무료나눔'
           group='무료나눔'
-          isChecked={giveAway.isChecked}
+          isChecked={initialValueList.giveAway.data[0].isChecked}
           handleChangeCheckBox={handleGiveAwayChecked}
         />
       </div>
-      <SelectedFilterManageBox handleClick={handleRemoveCheckedValue} selectedValueList={selectedValues} />
+      <SelectedFilterManageBox handleChange={handleRemoveCheckedValue} selectedValueList={selectedValues} />
     </S.FilterContainer>
   );
 };

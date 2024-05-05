@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-export type CategoryItem = {
+// 어차피 post 보낼때는 value값만 파라미터 추가되는거 아님..? 아 region=** 이렇게 가야하넹
+
+export type CategoryItemList = {
   category: string;
   data: {
     value: string;
@@ -14,9 +16,10 @@ export interface CheckedCategoryState {
    * region/species/상품별 한꺼번에 관리
    */
   initialValueList: {
-    region: CategoryItem;
-    species: CategoryItem;
-    product: CategoryItem;
+    region: CategoryItemList;
+    species: CategoryItemList;
+    product: CategoryItemList;
+    giveAway: CategoryItemList;
   };
   /**
    * 선택된 값만 배열로 따로 관리
@@ -27,14 +30,6 @@ export interface CheckedCategoryState {
     isChecked: boolean;
   }[];
   /**
-   * 무료나눔
-   */
-  giveAway: {
-    group: string;
-    value: string;
-    isChecked: boolean;
-  };
-  /**
    * 소팅
    */
   sorting: '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
@@ -43,8 +38,8 @@ export interface CheckedCategoryState {
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
   addSelectedValue: (group: string, value: string, isChecked: boolean) => void;
-  addGiveAwayValue: (group: string, value: string, isChecked: boolean) => void;
-  removeSelectedValue: (value: string) => void;
+  // addGiveAwayValue: (group: string, value: string, isChecked: boolean) => void;
+  removeSelectedValue: (group: string, value: string) => void;
 }
 
 const initialValueList = {
@@ -88,20 +83,24 @@ const initialValueList = {
       { value: '그 외 상품', isChecked: false },
     ],
   },
+  giveAway: {
+    category: 'giveAway',
+    data: [
+      {
+        value: '무료나눔',
+        isChecked: false,
+      },
+    ],
+  },
 };
 
-const initialGiveAway = {
-  group: '무료나눔',
-  value: '무료나눔',
-  isChecked: false,
-};
+const initialSorting = '최신순';
 
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
     initialValueList,
     selectedValues: [],
-    sorting: '최신순' as const,
-    giveAway: initialGiveAway,
+    sorting: initialSorting,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -132,31 +131,9 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         };
       });
     },
-    addGiveAwayValue: (group, value, isChecked) => {
-      set((state) => {
-        // 무료나눔 체크박스의 checked 상태 값을 바꿔주는 역할
-        const updatedValue = state.giveAway.isChecked === isChecked ? !isChecked : isChecked;
-
-        // TODO: 중복되는 부분,,,,,,, 나중에 giveAway를 initialValueList안에 합쳐버리자
-        const isDuplicated = state.selectedValues.some((item) => item.value === value);
-        const shouldAddToSelectedValues = isChecked && !isDuplicated;
-        const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
-
-        return {
-          giveAway: { group, value, isChecked: updatedValue },
-          // shouldAddToSelectedValues 가 true라면 새로 들어온 값을 추가한다.
-          // false라면 필터링된 새로운 배열을 반환한다.
-          selectedValues: shouldAddToSelectedValues
-            ? [...state.selectedValues, { group, value, isChecked }]
-            : filteredSelectedValues,
-        };
-      });
-    },
     // 선택된 값 배열에서 제거
-    removeSelectedValue: (value) => {
+    removeSelectedValue: (group, value) => {
       set((state) => {
-        // TODO: 선택 해제 어캐함? 도라방스
-
         // 1. selectedValues map돌려서 selectedValues value값이랑 받아온 value값이랑 같은지 체크
         // 같으면 true 아니면 false 반환.
         const isValueExist = state.selectedValues.map((item) => item.value === value);
@@ -164,16 +141,19 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 2. 같다면 selectedValues에서 삭제 -> 여기까지는 문제 없이 해결 완료.
         const filterSelectedValue = state.selectedValues.filter((item) => item.value !== value);
 
-        // 3.  initialValueList[group] 체크해제 or 무료나눔 체크 해제 ㅁㅊ 근데 group을 어캐 알아내지??!?!?!?
+        // TODO: 3.  initialValueList에서 group, value일치하는 부분 isChecked false로 해제시키자. (이.제.진.짜.된.다.)
+        const updatedValues = state.initialValueList[group].data.map((item) =>
+          item.value === value ? { ...item, isChecked: false } : item,
+        );
 
         return {
-          // initialValueList: {
-          //   ...state.initialValueList,
-          //   [group]: {
-          //     category: group,
-          //     data: updatedValues,
-          //   },
-          // },
+          initialValueList: {
+            ...state.initialValueList,
+            [group]: {
+              category: group,
+              data: updatedValues,
+            },
+          },
           selectedValues: isValueExist ? filterSelectedValue : null,
         };
       });
