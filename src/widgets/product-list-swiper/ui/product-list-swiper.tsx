@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
-import { ProductCardItem } from '@entities/product/product-card-item/product-card-item';
+import { ProductCardItem } from '@entities/product-card/product-card-item/product-card-item';
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 import { RoundedArrowButton } from '@shared/ui/buttons';
 

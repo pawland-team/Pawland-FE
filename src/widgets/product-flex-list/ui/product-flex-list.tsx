@@ -1,4 +1,4 @@
-import { ProductFlexCardItem } from '@entities/product/product-flex-card-item/product-flex-card-item';
+import { ProductFlexCardItem } from '@entities/product-card/product-flex-card-item/product-flex-card-item';
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
 import * as S from './product-flex-list-style';
