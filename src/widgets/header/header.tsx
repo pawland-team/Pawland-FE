@@ -13,6 +13,11 @@ const Header = () => {
 
   const { data, status } = useGetUserInfo();
 
+  const { setUserInfo, clearUserInfo } = useUserStore((state) => ({
+    setUserInfo: state.setUserInfo,
+    clearUserInfo: state.clearUserInfo,
+  }));
+
   const handleClickLogin = () => {
     router.push('/login');
   };
