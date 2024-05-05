@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
-import { chatTextAreaMinMaxSize } from '@features/chat/constants/style';
+import { chatTextAreaMinMaxSize } from '@entities/chat/constants/style';
 
 import AirPlane from '@/public/images/icon/paper-airplane-unfilled-w24-h24.svg?component';
 
 export const ChatRoomFooter = styled.div<{ $textAreaChangedHeight: number }>`
+  position: absolute;
+  bottom: 0;
+
   flex-shrink: 0;
 
   width: 100%;
@@ -18,6 +21,7 @@ export const ChatRoomFooter = styled.div<{ $textAreaChangedHeight: number }>`
   max-height: 220px;
   padding: 16px 22px 20px 23px;
 
+  background-color: ${({ theme: { color } }) => color.white_FFFFFF};
   border-top: 2px solid ${({ theme: { color } }) => color.gray_F3F3F3};
 `;
 
