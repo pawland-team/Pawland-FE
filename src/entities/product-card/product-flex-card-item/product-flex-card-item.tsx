@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
 import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { Description, Thumbnail } from '@shared/ui/product';
 
 import * as S from './product-flex-card-item-style';
-import { Description } from '../ui/description';
-import { Thumbnail } from '../ui/thumbnail';
 
 interface ProductFlexCardItemProps {
   flexGap?: number;

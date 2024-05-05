@@ -1,3 +1,4 @@
+import { ProductDetailInfo } from '@entities/product-detail';
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 import { ScrollToButton } from '@shared/ui/buttons';
 import { ProductListSwiper } from '@widgets/product-list-swiper';
@@ -8,7 +9,9 @@ const ProductDetailPage = () => {
   return (
     <>
       <S.ProductDetailPage>
-        <S.ProductDetailArea>detail</S.ProductDetailArea>
+        <S.ProductDetailArea>
+          <ProductDetailInfo />
+        </S.ProductDetailArea>
         <S.RecentProductArea>
           <ProductListSwiper productList={mainListData} />
         </S.RecentProductArea>
