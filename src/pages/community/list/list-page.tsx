@@ -264,7 +264,7 @@ export const CommunityListPage = () => {
                     : '/images/icon/arrow-icon-gray.svg';
 
                   return (
-                    <Link href='/community/post-detail' key={item.id}>
+                    <Link href={`/community/post-detail/${item.id}`} key={item.id}>
                       <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
                         <S.ThumnailImageWrapper>
                           <Image src={item.imageThumbnail} alt='thumnail-image' fill />
