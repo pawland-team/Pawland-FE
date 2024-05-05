@@ -23,6 +23,16 @@ export interface CheckedCategoryState {
     giveAway: CategoryItemList;
   };
   /**
+   * 변경된 group 값이 저장되는 곳
+   */
+  updatedValueList: {
+    [index: string]: CategoryItemList;
+    region: CategoryItemList;
+    species: CategoryItemList;
+    product: CategoryItemList;
+    giveAway: CategoryItemList;
+  };
+  /**
    * 선택된 값만 배열로 따로 관리
    */
   selectedValues: {
@@ -101,12 +111,13 @@ const initialSorting = '최신순';
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
     initialValueList,
+    updatedValueList: initialValueList,
     selectedValues: [],
     sorting: initialSorting,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
-        const updatedValues = state.initialValueList[group].data.map((item) =>
+        const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked } : item,
         );
         // 현재 selectedValues 안에 value와 중복된 값이 있으면 true, 그렇지 않으면 false 반환
@@ -118,8 +129,8 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
 
         return {
-          initialValueList: {
-            ...state.initialValueList,
+          updatedValueList: {
+            ...state.updatedValueList,
             [group]: {
               category: group,
               data: updatedValues,
@@ -144,13 +155,13 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         const filterSelectedValue = state.selectedValues.filter((item) => item.value !== value);
 
         // 3.  initialValueList에서 group, value일치하는 부분 isChecked false로 해제시키자.
-        const updatedValues = state.initialValueList[group].data.map((item) =>
+        const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked: false } : item,
         );
 
         return {
-          initialValueList: {
-            ...state.initialValueList,
+          updatedValueList: {
+            ...state.updatedValueList,
             [group]: {
               category: group,
               data: updatedValues,
@@ -162,6 +173,8 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     },
 
     // 선택된 값 모두 초기화
-    clearSelectedValues: () => set({ initialValueList }),
+    clearSelectedValues: () => {
+      set({ updatedValueList: initialValueList });
+    },
   })),
 );

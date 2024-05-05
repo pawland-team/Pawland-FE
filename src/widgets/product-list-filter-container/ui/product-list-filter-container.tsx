@@ -8,7 +8,7 @@ import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
 
 const ProductListFilterContainer = () => {
-  const { initialValueList, selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
+  const { updatedValueList, selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
     addSelectedValue(e.target.name, e.target.id, e.target.checked);
@@ -27,13 +27,13 @@ const ProductListFilterContainer = () => {
   return (
     <S.FilterContainer>
       <div className='filter-select-container'>
-        <CheckboxSelectBox categoryList={initialValueList.region} handleChange={handleGroupCategoryValue} />
-        <CheckboxSelectBox categoryList={initialValueList.species} handleChange={handleGroupCategoryValue} />
-        <CheckboxSelectBox categoryList={initialValueList.product} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox categoryList={updatedValueList.region} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox categoryList={updatedValueList.species} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox categoryList={updatedValueList.product} handleChange={handleGroupCategoryValue} />
         <BorderCheckBox
           label='무료나눔'
           group='무료나눔'
-          isChecked={initialValueList.giveAway.data[0].isChecked}
+          isChecked={updatedValueList.giveAway.data[0].isChecked}
           handleChangeCheckBox={handleGiveAwayChecked}
         />
       </div>
