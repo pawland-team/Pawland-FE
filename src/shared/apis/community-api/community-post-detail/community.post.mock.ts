@@ -87,7 +87,7 @@ const mockCommunityPostDetail: CommunityPostDetailEntity[] = [
       {
         id: 4,
         content: '하지마십쇼. 경고드립니다.',
-        createdAt: '2024-05-5T07:00:00.000Z',
+        createdAt: '2024-04-18T07:00:00.000Z',
         author: {
           id: 3,
           nickname: '뉴진스혜인',

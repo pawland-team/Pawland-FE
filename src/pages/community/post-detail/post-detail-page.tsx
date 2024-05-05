@@ -117,7 +117,7 @@ export const CommunityPostDetailPage = () => {
           </S.ProfileImageWrapper>
           <S.ComentPostBox>
             <S.ComentTextareaBox>
-              <S.ProfileNickname>힙합페페</S.ProfileNickname>
+              <S.ProfileNickname>여기는 지금 로그인한 나의 닉네임이 들어갑니다.</S.ProfileNickname>
               <S.ComentTextarea placeholder='댓글을 입력해주세요.' />
             </S.ComentTextareaBox>
             <S.ComentPostButtonWrapper>
@@ -127,96 +127,37 @@ export const CommunityPostDetailPage = () => {
         </S.ComentBox>
 
         {/* 댓글 컴포넌트 */}
+        {comments.length > 0 &&
+          comments.map((comment) => (
+            <S.ComentBox key={comment.id}>
+              <S.ProfileImageWrapper>
+                <Image src={comment.author.profileImage} alt='profile-image' width={60} height={60} />
+              </S.ProfileImageWrapper>
+              <S.ComentPostBox>
+                <S.ComentTextareaBox>
+                  <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
+                  <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
+                  <S.Coment>{comment.content}</S.Coment>
+                </S.ComentTextareaBox>
 
-        <S.ComentBox>
-          <S.ProfileImageWrapper>
-            <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
-          </S.ProfileImageWrapper>
-          <S.ComentPostBox>
-            <S.ComentTextareaBox>
-              <S.ProfileNickname>키네틱플로우</S.ProfileNickname>
-              <S.PostDateText>2024.05.01</S.PostDateText>
-              <S.Coment>우리 사랑하지 말아요. 아직 잘 모르잖아요. 사실 조금은 두려운거야. 그대 미안해요.</S.Coment>
-            </S.ComentTextareaBox>
-
-            <S.ReplyBox>
-              <S.ReplyPostButtonWrapper>
-                <S.ReplyPostStatus>답글 0</S.ReplyPostStatus>
-              </S.ReplyPostButtonWrapper>
-
-              <S.ReplyWrapper>
-                <S.ProfileImageWrapper>
-                  <Image src='/images/test/test-image2.png' alt='test-image2' width={60} height={60} />
-                </S.ProfileImageWrapper>
-
-                <S.ComentPostBox>
-                  <S.ProfileNickname>힙합페페</S.ProfileNickname>
-                  <S.ComentTextarea placeholder='답글을 입력해주세요.' />
-
-                  <S.ComentPostButtonWrapper>
-                    <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
-                  </S.ComentPostButtonWrapper>
-                </S.ComentPostBox>
-              </S.ReplyWrapper>
-            </S.ReplyBox>
-          </S.ComentPostBox>
-        </S.ComentBox>
-
-        {/* 답글 컴포넌트 */}
-        <S.ComentBox>
-          <S.ProfileImageWrapper>
-            <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
-          </S.ProfileImageWrapper>
-          <S.ComentPostBox>
-            <S.ComentTextareaBox>
-              <S.ProfileNickname>키네틱플로우</S.ProfileNickname>
-              <S.PostDateText>2024.05.01</S.PostDateText>
-              <S.Coment>늦은 밤 비가 내려와, 널 데려와 젖은 기억 끝에 뒤척여</S.Coment>
-            </S.ComentTextareaBox>
-            <S.ReplyBox>
-              <S.ReplyPostButtonWrapper>
-                <S.ReplyPostStatus>답글 2</S.ReplyPostStatus>
-              </S.ReplyPostButtonWrapper>
-
-              <S.ReplyWrapper>
-                <S.ProfileImageWrapper>
-                  <Image src='/images/test/test-image2.png' alt='test-image2' width={60} height={60} />
-                </S.ProfileImageWrapper>
-
-                <S.ComentPostBox>
-                  <S.ProfileNickname>힙합페페</S.ProfileNickname>
-                  <S.PostDateText>2024.05.01</S.PostDateText>
-                  <S.Coment>암쏘쏘리 벗알러뷰 다거짓말</S.Coment>
-                </S.ComentPostBox>
-              </S.ReplyWrapper>
-
-              <S.ReplyWrapper>
-                <S.ProfileImageWrapper>
-                  <Image src='/images/test/test-image2.png' alt='test-image2' width={60} height={60} />
-                </S.ProfileImageWrapper>
-
-                <S.ComentPostBox>
-                  <S.ProfileNickname>힙합페페</S.ProfileNickname>
-                  <S.PostDateText>2024.05.01</S.PostDateText>
-                  <S.Coment>이야 몰랐어 이제야 알았어 니가 필요해</S.Coment>
-                </S.ComentPostBox>
-              </S.ReplyWrapper>
-
-              <S.ReplyWrapper>
-                <S.ProfileImageWrapper>
-                  <Image src='/images/test/test-image2.png' alt='test-image2' width={60} height={60} />
-                </S.ProfileImageWrapper>
-                <S.ComentPostBox>
-                  <S.ProfileNickname>힙합페페</S.ProfileNickname>
-                  <S.ComentTextarea placeholder='답글을 입력해주세요.' />
-                  <S.ComentPostButtonWrapper>
-                    <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
-                  </S.ComentPostButtonWrapper>
-                </S.ComentPostBox>
-              </S.ReplyWrapper>
-            </S.ReplyBox>
-          </S.ComentPostBox>
-        </S.ComentBox>
+                {/* 대댓글 영역 */}
+                {comment.reply.length > 0 &&
+                  comment.reply[0].id !== null &&
+                  comment.reply.map((reply) => (
+                    <S.ReplyWrapper key={reply.id}>
+                      <S.ProfileImageWrapper>
+                        <Image src={reply.author.profileImage} alt='reply-profile-image' width={60} height={60} />
+                      </S.ProfileImageWrapper>
+                      <S.ComentPostBox>
+                        <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                        <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
+                        <S.Coment>{reply.content}</S.Coment>
+                      </S.ComentPostBox>
+                    </S.ReplyWrapper>
+                  ))}
+              </S.ComentPostBox>
+            </S.ComentBox>
+          ))}
       </S.CommentArea>
     </S.PostDetailPage>
   );
