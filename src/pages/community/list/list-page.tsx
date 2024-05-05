@@ -1,9 +1,12 @@
 import { MouseEvent, useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import * as S from './list-page-style';
+
+const communityListQueryKey = 'communityList';
 
 type RegionItem = {
   id: number;
@@ -27,6 +30,18 @@ export const CommunityListPage = () => {
     event.stopPropagation();
     setIsOpenRegion((prev) => !prev);
   };
+
+  const fetchCommunityList = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/list`);
+    const data = await response.json();
+
+    return data;
+  };
+
+  const { data: communityList, isLoading } = useQuery({
+    queryKey: [communityListQueryKey],
+    queryFn: fetchCommunityList,
+  });
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
@@ -228,32 +243,36 @@ export const CommunityListPage = () => {
             </S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>
-            <Link href='/community/post-detail'>
-              <S.ItemBox
-                onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
-                onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
-              >
-                <S.ThumnailImageWrapper>
-                  <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
-                </S.ThumnailImageWrapper>
-                <S.TextContentsWrapper>
-                  <S.ItemRegiontext>지역</S.ItemRegiontext>
-                  <S.ItemTitleText>제목제목제목제목제목</S.ItemTitleText>
-                  <S.ItemSubTextBox>
-                    <S.ItemSubText>닉네임</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>2024.05.03</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>댓글 100</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>추천 100</S.ItemSubText>
-                  </S.ItemSubTextBox>
-                </S.TextContentsWrapper>
-                <S.ArrowIconWrapper>
-                  <Image src={iconSrc} alt='arrow-icon' fill />
-                </S.ArrowIconWrapper>
-              </S.ItemBox>
-            </Link>
+            {isLoading
+              ? '로딩중'
+              : communityList.map((item) => (
+                  <Link href='/community/post-detail' key={item.id}>
+                    <S.ItemBox
+                      onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
+                      onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
+                    >
+                      <S.ThumnailImageWrapper>
+                        <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+                      </S.ThumnailImageWrapper>
+                      <S.TextContentsWrapper>
+                        <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
+                        <S.ItemTitleText>{item.title}</S.ItemTitleText>
+                        <S.ItemSubTextBox>
+                          <S.ItemSubText>{item.writerInfo.nickname}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>댓글 {item.commentCount}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
+                        </S.ItemSubTextBox>
+                      </S.TextContentsWrapper>
+                      <S.ArrowIconWrapper>
+                        <Image src={iconSrc} alt='arrow-icon' fill />
+                      </S.ArrowIconWrapper>
+                    </S.ItemBox>
+                  </Link>
+                ))}
           </S.ItemListArea>
         </S.ContentsArea>
       </S.MainArea>
