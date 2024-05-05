@@ -9,6 +9,7 @@ import { CheckDropDownBox } from '../ui/check-drop-down-box';
 import { SelectBox } from '../ui/select-box';
 
 interface CheckboxSelectBoxProps {
+  selectBoxCategory: string;
   categoryList: CategoryItemList;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -21,12 +22,9 @@ interface CheckboxSelectBoxProps {
  *
  */
 
-const CheckboxSelectBox = ({ categoryList, handleChange }: CheckboxSelectBoxProps) => {
+const CheckboxSelectBox = ({ selectBoxCategory, categoryList, handleChange }: CheckboxSelectBoxProps) => {
   const dropDownRef = useRef(null);
   const [isSelectOpened, setIsSelectOpened] = useState(false);
-  // const { addSelectedValue } = useCheckedCategoryStore();
-
-  // const [isChecked, setIsChecked] = useState(false);
 
   useOutsideClick(dropDownRef, isSelectOpened, setIsSelectOpened);
 
@@ -36,11 +34,7 @@ const CheckboxSelectBox = ({ categoryList, handleChange }: CheckboxSelectBoxProp
 
   return (
     <S.CheckboxSelectBoxStyle ref={dropDownRef}>
-      <SelectBox
-        handleClick={handleClickOpenSelectBox}
-        isOpened={isSelectOpened}
-        selectedName={categoryList.category}
-      />
+      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isSelectOpened} selectedName={selectBoxCategory} />
       {isSelectOpened && (
         <CheckDropDownBox width='290px' ariaLabelledBy={categoryList.category}>
           {categoryList?.data.map((checkbox) => (

@@ -16,7 +16,6 @@ const ProductListFilterContainer = () => {
 
   const handleGiveAwayChecked = (e: ChangeEvent<HTMLInputElement>) => {
     addSelectedValue('giveAway', e.target.id, e.target.checked);
-    // addSelectedValue(e.target.id, e.target.checked, e.target.name);
   };
 
   const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,9 +26,21 @@ const ProductListFilterContainer = () => {
   return (
     <S.FilterContainer>
       <div className='filter-select-container'>
-        <CheckboxSelectBox categoryList={updatedValueList.region} handleChange={handleGroupCategoryValue} />
-        <CheckboxSelectBox categoryList={updatedValueList.species} handleChange={handleGroupCategoryValue} />
-        <CheckboxSelectBox categoryList={updatedValueList.product} handleChange={handleGroupCategoryValue} />
+        <CheckboxSelectBox
+          categoryList={updatedValueList.region}
+          selectBoxCategory='지역별'
+          handleChange={handleGroupCategoryValue}
+        />
+        <CheckboxSelectBox
+          categoryList={updatedValueList.species}
+          selectBoxCategory='동물별'
+          handleChange={handleGroupCategoryValue}
+        />
+        <CheckboxSelectBox
+          categoryList={updatedValueList.product}
+          selectBoxCategory='상품별'
+          handleChange={handleGroupCategoryValue}
+        />
         <BorderCheckBox
           label='무료나눔'
           group='무료나눔'
