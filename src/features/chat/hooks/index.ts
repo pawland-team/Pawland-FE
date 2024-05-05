@@ -1,1 +1,1 @@
-export { useChatFormTextareaSizeControl } from './use-chat-form-textarea-size-control';
+export { useChatFormTextareaSizeControl } from '../../../entities/chat/hooks/use-chat-form-textarea-size-control';
