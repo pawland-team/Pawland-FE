@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PostDetailPage = styled.main`
+const PostDetailPage = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,6 +62,11 @@ const HeaderTitle = styled.h1`
   font-weight: 700;
 `;
 
+const HeaderSpanWrapper = styled.div`
+  display: flex;
+  gap: 14px;
+`;
+
 const HeaderDate = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
@@ -71,7 +76,17 @@ const HeaderDate = styled.span`
 const CommunityStatusBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+`;
+
+const EditBox = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
 `;
 
 const StatusText = styled.span`
@@ -121,7 +136,7 @@ const RecommendButtonBox = styled.div`
   margin-top: 56px;
 `;
 
-const RecommendButton = styled.button`
+const RecommendButton = styled.button<{ isLiked: boolean }>`
   cursor: pointer;
 
   width: 174px;
@@ -129,8 +144,10 @@ const RecommendButton = styled.button`
 
   font-size: 1.6rem;
   font-weight: 700;
+  color: ${({ isLiked }) => (isLiked ? 'white' : '#000000')};
 
-  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  background-color: ${({ isLiked }) => (isLiked ? '#43ADFF' : 'white')};
+  border: ${({ isLiked }) => (isLiked ? '1px solid #43ADFF' : '1px solid #000000')};
   border-radius: 54px;
 
   &:hover {
@@ -319,7 +336,10 @@ export {
   HeaderTitleBox,
   RegionSpan,
   HeaderTitle,
+  HeaderSpanWrapper,
   HeaderDate,
+  FlexBox,
+  EditBox,
   CommunityStatusBox,
   StatusText,
   Divider,
