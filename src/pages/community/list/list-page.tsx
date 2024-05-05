@@ -280,6 +280,8 @@ export const CommunityListPage = () => {
                             <S.ItemSubText>댓글 {item.commentCount}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>조회 {item.views}</S.ItemSubText>
                           </S.ItemSubTextBox>
                         </S.TextContentsWrapper>
                         <S.ArrowIconWrapper>
