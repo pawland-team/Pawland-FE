@@ -267,7 +267,7 @@ export const CommunityListPage = () => {
                     <Link href='/community/post-detail' key={item.id}>
                       <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
                         <S.ThumnailImageWrapper>
-                          <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+                          <Image src={item.imageThumbnail} alt='thumnail-image' fill />
                         </S.ThumnailImageWrapper>
                         <S.TextContentsWrapper>
                           <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
