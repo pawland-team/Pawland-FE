@@ -42,7 +42,7 @@ const mockCommunityPostDetail: CommunityPostDetailEntity = {
   ],
 };
 
-export const CommunityListHandlers = [
+export const CommunityPostDetailHandlers = [
   rest.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/list`, (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockCommunityPostDetail));
   }),
