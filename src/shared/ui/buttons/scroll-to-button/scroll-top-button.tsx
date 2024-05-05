@@ -7,8 +7,8 @@ const ScrollToButton = () => {
 
   return (
     <S.ScrollToButtonBox>
-      <RoundedArrowButton direction='up' handleClick={handleClickToTop} />
-      <RoundedArrowButton handleClick={handleClickToBottom} />
+      <RoundedArrowButton ButtonSize={36} arrowSize={18} direction='up' handleClick={handleClickToTop} />
+      <RoundedArrowButton ButtonSize={36} arrowSize={18} handleClick={handleClickToBottom} />
     </S.ScrollToButtonBox>
   );
 };
