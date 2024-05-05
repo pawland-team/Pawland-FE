@@ -5,6 +5,7 @@ export interface CommunityPostDetailEntity {
   imageThumbnail: string; // 썸네일 이미지
   region: string; // 지역
   views: number; // 조회수
+  createdAt: string; // 게시글 작성 날짜
   author: {
     id: number; // userId (작성자 id)
     nickname: string; // 닉네임

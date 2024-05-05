@@ -1,19 +1,53 @@
 import { useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+import { CommunityPostDetailEntity } from '@shared/apis/community-api/community-post-detail';
 
 import * as S from './post-detail-page-style';
 
 export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
+
+  const fetchCommunityPostDetail = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/post-detail/${id}`);
+    const data = await response.json();
+
+    return data;
+  };
+
+  const { data: communityPostDetail, isLoading } = useQuery<CommunityPostDetailEntity, Error>({
+    queryKey: [communityPostDetailQueryKey, id],
+    queryFn: fetchCommunityPostDetail,
+    enabled: !!id,
+  });
+
+  if (isLoading || !communityPostDetail) return <div>Loading...</div>;
+
+  const {
+    title,
+    content,
+    imageThumbnail,
+    region,
+    author,
+    commentsCount,
+    recommendationCount,
+    views,
+    comments,
+    createdAt,
+  } = communityPostDetail;
 
   return (
     <S.PostDetailPage>
@@ -27,21 +61,21 @@ export const CommunityPostDetailPage = () => {
         </S.HeaderButtonBox>
 
         <S.HeaderTitleBox>
-          <S.RegionSpan>서울</S.RegionSpan>
-          <S.HeaderTitle>안녕하세요. 고민이 있어요. 들어주세요.</S.HeaderTitle>
+          <S.RegionSpan>{region}</S.RegionSpan>
+          <S.HeaderTitle>{title}</S.HeaderTitle>
           <S.HeaderSpanWrapper>
-            <S.HeaderDate>닉네임</S.HeaderDate>
-            <S.HeaderDate>2024.05.01</S.HeaderDate>
+            <S.HeaderDate>{author.nickname}</S.HeaderDate>
+            <S.HeaderDate>{new Date(createdAt).toLocaleDateString()}</S.HeaderDate>
           </S.HeaderSpanWrapper>
         </S.HeaderTitleBox>
 
         <S.CommunityStatusBox>
           <S.FlexBox>
-            <S.StatusText>댓글 100</S.StatusText>
+            <S.StatusText>댓글 {commentsCount}</S.StatusText>
             <S.Divider />
-            <S.StatusText>추천 100</S.StatusText>
+            <S.StatusText>추천 {recommendationCount}</S.StatusText>
             <S.Divider />
-            <S.StatusText>조회수 100</S.StatusText>
+            <S.StatusText>조회수 {views}</S.StatusText>
           </S.FlexBox>
           <S.EditBox>
             <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
@@ -52,15 +86,8 @@ export const CommunityPostDetailPage = () => {
 
       <S.ContentsArea>
         <S.Contents>
-          <S.ContentsParagraph>몽환의숲</S.ContentsParagraph>
-          <Image src='/images/test/test-image2.png' alt='test-image2' width={800} height={600} />
-
-          <S.ContentsParagraph>이 새벽을 비추는 초생달 오감보다 생생한 육감의 세계로 보내주는</S.ContentsParagraph>
-          <S.ContentsParagraph>푸르고 투명한 파랑새 술 취한 몸이 잠든 이 거릴 휘젓고 다니다 만나는</S.ContentsParagraph>
-          <S.ContentsParagraph>마지막 신호등이 뿜는 붉은 신호를 따라 회색 거리를 걸어서</S.ContentsParagraph>
-          <S.ContentsParagraph>
-            가다 보니 좀 낯설어 보이는 그녀가 보인적 없던 눈물로 나를 반겨 태양보다 뜨거워진 나 그녀의 가슴에 안겨
-          </S.ContentsParagraph>
+          {imageThumbnail && <Image src={imageThumbnail} alt='thumbnail' width={800} height={600} />}
+          <S.ContentsParagraph>{content}</S.ContentsParagraph>
         </S.Contents>
 
         <S.RecommendButtonBox>

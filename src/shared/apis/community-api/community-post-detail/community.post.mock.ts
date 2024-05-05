@@ -10,6 +10,7 @@ const mockCommunityPostDetail: CommunityPostDetailEntity[] = [
     imageThumbnail: 'https://image.xportsnews.com/contents/images/upload/article/2023/0406/mb_1680732112382330.jpg',
     region: '서울',
     views: 942,
+    createdAt: '2024-03-17T07:00:00.000Z',
     author: {
       id: 1,
       nickname: '캡틴이치돌',
@@ -51,6 +52,7 @@ const mockCommunityPostDetail: CommunityPostDetailEntity[] = [
       'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
     region: '부산',
     views: 2,
+    createdAt: '2024-04-17T07:00:00.000Z',
     author: {
       id: 2,
       nickname: '바람이',
