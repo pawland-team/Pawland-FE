@@ -1,6 +1,8 @@
-import * as S from './dropdown-button-style';
-import Image from 'next/image';
 import { useState } from 'react';
+
+import Image from 'next/image';
+
+import * as S from './dropdown-button-style';
 
 interface DropdownButtonProps {
   dropdownItems: string[];

@@ -1,5 +1,5 @@
-import { ProductCardItem } from '../../entities/product/product-card-item/index';
 import * as S from './wish-list-style';
+import { ProductCardItem } from '../../entities/product/product-card-item/index';
 
 export const WishList = () => {
   return (

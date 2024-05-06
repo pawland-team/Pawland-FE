@@ -1,9 +1,10 @@
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 
 export const EditPage = styled.div`
   padding-bottom: 130px;
 `;
+
 export const PageTitle = styled.div`
   margin-top: 126px;
   margin-left: 366px;

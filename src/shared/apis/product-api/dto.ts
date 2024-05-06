@@ -2,6 +2,12 @@ import { UserEntity } from '../user-api';
 
 type SaleState = 'selling' | 'canceled' | 'completed';
 
+export enum SaleStateEnum {
+  selling = '판매중',
+  canceled = '판매취소',
+  completed = '판매완료',
+}
+
 type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
 
 type Region =

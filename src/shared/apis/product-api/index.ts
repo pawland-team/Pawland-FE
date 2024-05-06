@@ -1,1 +1,1 @@
-export type { ProductInfoEntity } from './dto';
+export * from './dto';

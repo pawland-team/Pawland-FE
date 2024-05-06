@@ -28,10 +28,12 @@ export const MenuButton = styled.button<MenuButtonProps>`
     background-color: ${({ theme }) => theme.color.blue_43ADFF};
   }
 `;
+
 export const FirstMenuButton = styled(MenuButton)`
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 `;
+
 export const LastMenuButton = styled(MenuButton)`
   border-right: 0;
   border-top-right-radius: 10px;

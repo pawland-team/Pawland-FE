@@ -1,5 +1,6 @@
-import * as S from './tap-menu-bar-style';
 import { useState } from 'react';
+
+import * as S from './tap-menu-bar-style';
 
 export const TapMenuBar = () => {
   const [activeButton, setActiveButton] = useState('written');

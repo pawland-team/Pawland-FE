@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 
-import StyledThemeProvider from './styled-theme-provider';
-import TanstackQueryProvider from './tanstack-query-provider';
+import { StyledThemeProvider } from './styled-theme-provider';
+import { TanstackQueryProvider } from './tanstack-query-provider';
 
 type LibConfigProvidersProps = PropsWithChildren;
 

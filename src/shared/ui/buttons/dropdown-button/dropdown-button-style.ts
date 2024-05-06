@@ -24,6 +24,7 @@ export const DropdownButton = styled.div<DropdownButtonStyleProps>`
   cursor: pointer;
   align-items: center;
 `;
+
 export const SelectedMenu = styled.div<DropdownButtonStyleProps>`
   font-size: ${(props) => props.$selectedFontSize};
   font-weight: 600;

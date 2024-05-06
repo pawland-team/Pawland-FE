@@ -1,5 +1,6 @@
-import Image from '../../../../node_modules/next/image';
-import Link from '../../../../node_modules/next/link';
+import Image from 'next/image';
+import Link from 'next/link';
+
 import * as S from './edit-profile-button-style';
 
 export const EditProfileButton = () => {

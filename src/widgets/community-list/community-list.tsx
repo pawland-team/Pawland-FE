@@ -1,7 +1,7 @@
-import { TapMenuBar } from '../tap-menu-bar/tap-menu-bar';
-import { DropdownButton } from '../../shared/ui/buttons/index';
 import * as S from './community-list-style';
 import { CommunityPostItem } from '../../entities/community-post-item/community-post-item';
+import { DropdownButton } from '../../shared/ui/buttons/index';
+import { TapMenuBar } from '../tap-menu-bar/tap-menu-bar';
 
 export const CommunityList = () => {
   return (

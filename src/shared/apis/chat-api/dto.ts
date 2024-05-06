@@ -1,13 +1,36 @@
 import { ProductInfoEntity } from '@shared/apis/product-api';
 import { UserEntity } from '@shared/apis/user-api';
 
-export type ChatRoomResponse = Array<{
+export type WebSocketChatResponse = ChatContent;
+
+/**
+ * websocket Chat 응답 시
+ * http 응답 시
+ */
+export type HTTPChatResponse = {
+  nextCursor: string;
+  hasNext: boolean;
+  messageList: ChatContent[];
+};
+
+/**
+ * Request 때는 messageId가 필요없다.
+ */
+export interface ChatContent {
+  /**
+   * user Id
+   */
+  sender: number;
+  message: string;
+  messageId: number;
+  messageTime: Date;
+  // 나중에 추가(메시지 delete 기능)
+  // invisibleTo: string[]; // 유저 아이디 리스트
+}
+
+export type ChatRoomListResponse = Array<{
   roomId: number;
-  opponentUser: {
-    id: UserEntity['id'];
-    nickname: UserEntity['nickname'];
-    profileImage: UserEntity['profileImage'];
-  };
+  opponentUser: Pick<UserEntity, 'id' | 'nickname' | 'profileImage'>;
   productInfo: {
     id: ProductInfoEntity['id'];
     seller: Omit<UserEntity, 'email' | 'userIntroduce' | 'stars' | 'loginType'>;
@@ -15,20 +38,14 @@ export type ChatRoomResponse = Array<{
     price: ProductInfoEntity['price'];
     saleState: ProductInfoEntity['saleState'];
     imageThumbnail: ProductInfoEntity['imageThumbnail'];
-    purchaser: number | null;
+    purchaser: UserEntity['id'] | null;
   };
+  lastMessage: ChatContent;
 }>;
 
-type ChatType = 'ENTER' | 'CHAT' | 'PREVIOUS' | 'LEAVE';
+export type ChatType = 'ENTER' | 'CHAT' | 'PREVIOUS' | 'LEAVE';
 
-interface ChatContent {
-  message: string;
-  messageId: number;
-  messageTime: Date | string;
-}
-
-export interface ChatEntity {
-  type: ChatType;
-  sender: UserEntity['id'];
-  content: ChatContent;
-}
+/**
+ * websocket Chat 요청 시
+ */
+export type ChatRequest = Omit<ChatContent, 'messageId'>;
