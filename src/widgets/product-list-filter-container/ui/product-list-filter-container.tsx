@@ -11,11 +11,19 @@ const ProductListFilterContainer = () => {
   const { updatedValueList, selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
-    addSelectedValue(e.target.name, e.target.id, e.target.checked);
+    const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
+
+    if (value) {
+      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+    }
   };
 
   const handleGiveAwayChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    addSelectedValue('giveAway', e.target.id, e.target.checked);
+    const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
+
+    if (value) {
+      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+    }
   };
 
   const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,8 +50,9 @@ const ProductListFilterContainer = () => {
           handleChange={handleGroupCategoryValue}
         />
         <BorderCheckBox
-          label='무료나눔'
-          group='무료나눔'
+          label='free'
+          group='giveAway'
+          value='무료나눔'
           isChecked={updatedValueList.giveAway.data[0].isChecked}
           handleChangeCheckBox={handleGiveAwayChecked}
         />
