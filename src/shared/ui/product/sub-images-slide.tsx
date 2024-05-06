@@ -53,7 +53,8 @@ const SubImagesSlide = ({ imagesList, selectedIndex, setSelectedIndex }: SubImag
         loop={false}
       >
         {imagesList.map((item, index) => (
-          <SwiperSlide key={item}>
+          // eslint-disable-next-line react/no-array-index-key
+          <SwiperSlide key={item + index}>
             <SSubImageBox
               className={index === selectedIndex ? 'active' : ''}
               role='button'
