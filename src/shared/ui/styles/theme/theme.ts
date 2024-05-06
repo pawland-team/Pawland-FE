@@ -12,6 +12,7 @@ export const theme = {
     yellow_FFB904: '#FFB904',
     red_F5511D: '#F5511D',
     red_FFC2AF: '#FFC2AF',
+    blue_2087D6: '#2087D6',
     blue_43ADFF: '#43ADFF',
 
     gray_9E9E9E: '#9E9E9E',

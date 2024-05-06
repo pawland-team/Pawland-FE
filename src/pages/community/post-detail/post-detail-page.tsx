@@ -7,6 +7,11 @@ import * as S from './post-detail-page-style';
 
 export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <S.PostDetailPage>
@@ -22,15 +27,24 @@ export const CommunityPostDetailPage = () => {
         <S.HeaderTitleBox>
           <S.RegionSpan>서울</S.RegionSpan>
           <S.HeaderTitle>안녕하세요. 고민이 있어요. 들어주세요.</S.HeaderTitle>
-          <S.HeaderDate>2024.05.01</S.HeaderDate>
+          <S.HeaderSpanWrapper>
+            <S.HeaderDate>닉네임</S.HeaderDate>
+            <S.HeaderDate>2024.05.01</S.HeaderDate>
+          </S.HeaderSpanWrapper>
         </S.HeaderTitleBox>
 
         <S.CommunityStatusBox>
-          <S.StatusText>수정</S.StatusText>
-          <S.Divider />
-          <S.StatusText>댓글 100</S.StatusText>
-          <S.Divider />
-          <S.StatusText>추천 100</S.StatusText>
+          <S.FlexBox>
+            <S.StatusText>댓글 100</S.StatusText>
+            <S.Divider />
+            <S.StatusText>추천 100</S.StatusText>
+            <S.Divider />
+            <S.StatusText>조회수 100</S.StatusText>
+          </S.FlexBox>
+          <S.EditBox>
+            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+            <S.StatusText>수정하기</S.StatusText>
+          </S.EditBox>
         </S.CommunityStatusBox>
       </S.HeaderArea>
 
@@ -48,10 +62,15 @@ export const CommunityPostDetailPage = () => {
         </S.Contents>
 
         <S.RecommendButtonBox>
-          <S.RecommendButton onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+          <S.RecommendButton
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            onClick={handleLike}
+            isLiked={isLiked}
+          >
             <S.LikeIconWrapper>
               <Image
-                src={isHover ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
+                src={isHover || isLiked ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
                 alt='like-icon'
                 fill
               />

@@ -7,7 +7,7 @@ import { theme } from '@shared/ui/styles/theme';
 
 type StyldThemeProviderProps = PropsWithChildren;
 
-const StyledThemeProvider = ({ children }: StyldThemeProviderProps) => {
+export const StyledThemeProvider = ({ children }: StyldThemeProviderProps) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -15,5 +15,3 @@ const StyledThemeProvider = ({ children }: StyldThemeProviderProps) => {
     </ThemeProvider>
   );
 };
-
-export default StyledThemeProvider;

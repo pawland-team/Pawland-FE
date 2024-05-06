@@ -4,6 +4,12 @@ export type SaleState = 'selling' | 'canceled' | 'completed';
 
 export type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
 
+export enum SaleStateEnum {
+  selling = '판매중',
+  canceled = '판매취소',
+  completed = '판매완료',
+}
+
 export type Region =
   | '서울'
   | '부산'

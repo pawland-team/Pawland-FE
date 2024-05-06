@@ -4,6 +4,8 @@ import { useModalList } from './useModalList';
 
 export type { ModalComponent, ModalComponentForList, ModalComponentProps, ModalComponentPropsForList } from './types';
 
+export { useToggle } from './useToggle';
+
 export { useToggleModal } from './useToggleModal';
 
 export { default as ModalProvider } from './provider/ModalProvider';
