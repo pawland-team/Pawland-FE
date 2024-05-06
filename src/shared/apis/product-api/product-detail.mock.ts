@@ -24,7 +24,7 @@ export const mockProductDetailInfo: ProductDetailType = {
     '/images/test/test-image2.png',
   ],
   description:
-    "<img src='/images/mock/product-card-test-image.png' alt='test image' width='200'/><br/><br/>보이시죠. 우리 강아지가 이 마법같은 장난감 가지고 놀다가<br/><br/>5kg가 빠져버렸어요. 누군가 이 사악한 장난감을 가져가주세요. 제발~<br/><br/><br/><br/><img width='400' src='/images/test/test-image1.png' alt='test'/><br/><br/><img width='400' src='/images/test/test-image2.png' alt='테스트' />",
+    "<img src='/images/mock/product-card-test-image.png' alt='test image' width='200'/><br/><br/>보이시죠. 우리 강아지가 이 마법같은 장난감 가지고 놀다가<br/><br/>5kg가 빠져버렸어요. 누군가 이 사악한 장난감을 가져가주세요. 제발~<br/><br/><br/><br/><img width='400' src='/images/test/test-image1.png' alt='test'/><br/><br/><img width='400' src='/images/test/test-image2.png' alt='테스트' /><br/><br/>보이시죠. 우리 강아지가 이 마법같은 장난감 가지고 놀다가<br/><br/>5kg가 빠져버렸어요. 누군가 이 사악한 장난감을 가져가주세요. 제발~<br/><br/>",
   createdAt: '2024.05.06',
   saleState: 'selling',
   seller: {
