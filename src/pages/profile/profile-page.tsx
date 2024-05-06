@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
 import * as S from './profile-page-style';
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
@@ -35,7 +36,7 @@ export const ProfilePage = () => {
       case 'register':
         return <RegisteredProductList />;
       case 'wish':
-        return <WishList />;
+        return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
