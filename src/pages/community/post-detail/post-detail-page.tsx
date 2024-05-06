@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { useGetUserInfo } from '@entities/user/hooks';
 import { CommunityPostDetailEntity } from '@shared/apis/community-api/community-post-detail';
 
 import * as S from './post-detail-page-style';
@@ -14,6 +15,7 @@ export const CommunityPostDetailPage = () => {
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+  const { data } = useGetUserInfo();
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
@@ -119,11 +121,11 @@ export const CommunityPostDetailPage = () => {
       <S.CommentArea>
         <S.ComentBox>
           <S.ProfileImageWrapper>
-            <Image src='/images/test/test-image1.png' alt='test-image1' fill />
+            <Image src={data?.profileImage} alt='my profile image' fill />
           </S.ProfileImageWrapper>
           <S.ComentPostBox>
             <S.ComentTextareaBox>
-              <S.ProfileNickname>여기는 지금 로그인한 나의 닉네임이 들어갑니다.</S.ProfileNickname>
+              <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
               <S.ComentTextarea placeholder='댓글을 입력해주세요.' />
             </S.ComentTextareaBox>
             <S.ComentPostButtonWrapper>
@@ -169,10 +171,10 @@ export const CommunityPostDetailPage = () => {
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>
-                    <Image src='/images/test/test-image1.png' alt='test-image1' fill />
+                    <Image src={data?.profileImage} alt='my profile image' fill />
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
-                    <S.ProfileNickname>여기는 지금 로그인한 나의 닉네임이 들어갑니다.</S.ProfileNickname>
+                    <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
                     <S.ComentTextarea placeholder='답글을 입력해주세요.' />
                     <S.ComentPostButtonWrapper>
                       <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
