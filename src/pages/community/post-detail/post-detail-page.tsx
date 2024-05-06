@@ -140,7 +140,7 @@ export const CommunityPostDetailPage = () => {
                   <S.Coment>{comment.content}</S.Coment>
                 </S.ComentTextareaBox>
 
-                {/* 대댓글 영역 */}
+                {/* 대댓글 컴포넌트 */}
                 {comment.reply.length > 0 &&
                   comment.reply[0].id !== null &&
                   comment.reply.map((reply) => (
@@ -155,6 +155,20 @@ export const CommunityPostDetailPage = () => {
                       </S.ComentPostBox>
                     </S.ReplyWrapper>
                   ))}
+                <S.EmptySpace />
+                {/* 대댓글 입력 컴포넌트 */}
+                <S.ReplyWrapper>
+                  <S.ProfileImageWrapper>
+                    <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+                  </S.ProfileImageWrapper>
+                  <S.ComentPostBox>
+                    <S.ProfileNickname>여기는 지금 로그인한 나의 닉네임이 들어갑니다.</S.ProfileNickname>
+                    <S.ComentTextarea placeholder='답글을 입력해주세요.' />
+                    <S.ComentPostButtonWrapper>
+                      <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
+                    </S.ComentPostButtonWrapper>
+                  </S.ComentPostBox>
+                </S.ReplyWrapper>
               </S.ComentPostBox>
             </S.ComentBox>
           ))}

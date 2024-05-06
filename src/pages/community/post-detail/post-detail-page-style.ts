@@ -327,6 +327,10 @@ const ReplyDivider = styled.div`
   border-top: 1px solid ${({ theme }) => theme.color.gray_F9F9F9};
 `;
 
+const EmptySpace = styled.div`
+  height: 20px;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -367,4 +371,5 @@ export {
   ReplyPostButton,
   ReplyPostStatus,
   ReplyDivider,
+  EmptySpace,
 };

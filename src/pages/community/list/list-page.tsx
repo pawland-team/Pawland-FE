@@ -239,7 +239,6 @@ export const CommunityListPage = () => {
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
-              {/* 최신순 조회수순 추천순 댓글순 내가쓴글 */}
               {isOpenFilter && (
                 <>
                   <S.DropDownBox>

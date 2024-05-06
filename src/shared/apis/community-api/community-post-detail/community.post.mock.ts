@@ -45,20 +45,120 @@ const mockCommunityPostDetail: CommunityPostDetailEntity[] = [
   },
 
   {
-    id: 2,
+    id: 1,
     title: '너를 위해 구웠지',
-    content: '테스트22222222222222',
+    content: '테스트랍니다? ㅎㅎ ',
     imageThumbnail:
       'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
     region: '부산',
     views: 2,
+    createdAt: '2024-03-17T07:00:00.000Z',
+    author: {
+      id: 1,
+      nickname: '바람이',
+    },
+    recommendationCount: 2,
+    commentsCount: 2,
+    comments: [
+      {
+        id: 0,
+        content: '답글 좀 달아주세요 ㅋㅋ',
+        createdAt: '2024-03-17T07:00:00.000Z',
+        author: {
+          id: 2,
+          nickname: '바람이',
+          profileImage:
+            'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
+        },
+        reply: [
+          {
+            id: 0,
+            content: '네 달아드렸습니다.',
+            createdAt: '2024-03-18T07:00:00.000Z',
+            author: {
+              id: 3,
+              nickname: '뉴진스혜인',
+              profileImage:
+                'https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/nn/2022/08/12/202208120935035510_1.jpg',
+            },
+          },
+          {
+            id: 1,
+            content: '감사합니다 ㅋㅋ 수고하세요 ㅋㅋ',
+            createdAt: '2024-03-19T07:00:00.000Z',
+            author: {
+              id: 2,
+              nickname: '바람이',
+              profileImage:
+                'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
+            },
+          },
+        ],
+      },
+      {
+        id: 0,
+        content: '항상 행복하세요.',
+        createdAt: '2024-03-20T07:00:00.000Z',
+        author: {
+          id: 1,
+          nickname: '캡틴이치돌',
+          profileImage: 'https://image.xportsnews.com/contents/images/upload/article/2023/0406/mb_1680732112382330.jpg',
+        },
+        reply: [
+          {
+            id: 0,
+            content: '안녕하세요?',
+            createdAt: '2024-03-21T07:00:00.000Z',
+            author: {
+              id: 3,
+              nickname: '뉴진스혜인',
+              profileImage:
+                'https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/nn/2022/08/12/202208120935035510_1.jpg',
+            },
+          },
+        ],
+      },
+      {
+        id: 0,
+        content: '퍼가요~^^',
+        createdAt: '2024-03-21T07:00:00.000Z',
+        author: {
+          id: 3,
+          nickname: '뉴진스혜인',
+          profileImage:
+            'https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/nn/2022/08/12/202208120935035510_1.jpg',
+        },
+        reply: [
+          {
+            id: null,
+            content: '',
+            createdAt: '',
+            author: {
+              id: null,
+              nickname: '',
+              profileImage: '',
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 2,
+    title: 'ㅋㅋ 안녕',
+    content: '테스트22222222222222',
+    imageThumbnail:
+      'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
+    region: '대구',
+    views: 32,
     createdAt: '2024-04-17T07:00:00.000Z',
     author: {
       id: 2,
       nickname: '바람이',
     },
-    recommendationCount: 2,
-    commentsCount: 2,
+    recommendationCount: 3,
+    commentsCount: 3,
     comments: [
       {
         id: 3,
