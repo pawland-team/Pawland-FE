@@ -7,7 +7,7 @@ import * as S from './post-page-style';
 
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
-  const { register, handleSubmit, watch, setValue, reset } = useForm();
+  const { register, handleSubmit, watch, reset } = useForm();
 
   const onSubmit = (data) => {
     const formData = new FormData();
