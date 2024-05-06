@@ -1,4 +1,4 @@
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -7,7 +7,6 @@ import { Header } from '@widgets/header';
 
 import 'react-toastify/dist/ReactToastify.css';
 import * as S from './layout-style';
-import { Loading } from './loading';
 
 interface LayoutProps {
   children: ReactNode;
@@ -21,9 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
       <>
         <S.LayoutPage>
           <Header />
-          <Suspense fallback={<Loading />}>
-            <main>{children}</main>
-          </Suspense>
+          <main>{children}</main>
           <Footer />
           <S.StyledToastContainer
             position='bottom-center' // 알람 위치 지정
@@ -37,12 +34,6 @@ const Layout = ({ children }: LayoutProps) => {
       </>
     );
   }
-
-  return (
-    <Suspense fallback={<Loading />}>
-      <main>{children}</main>
-    </Suspense>
-  );
 };
 
 export { Layout };
