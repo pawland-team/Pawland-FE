@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { set } from 'lodash';
 import Image from 'next/image';
 
 import * as S from './post-page-style';
 
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
+  const [thumbnailPreview, setThumbnailPreview] = useState('');
   const { register, handleSubmit, watch, reset } = useForm();
 
   const onSubmit = (data) => {
@@ -32,6 +34,14 @@ export const CommunityPostPage = () => {
 
   const handleRegionSelect = (region: string) => {
     setSelectedRegion(region);
+  };
+
+  const handleThumbnailChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setThumbnailPreview(URL.createObjectURL(file));
+    }
   };
 
   const regionList = [
@@ -129,9 +139,19 @@ export const CommunityPostPage = () => {
                 <Image src='/images/icon/upload-file-icon.svg' alt='upload-icon' fill />
               </S.UploadIconWrapper>
               <S.UploadSpan>이미지 업로드</S.UploadSpan>
-              <S.HideInput id='thumnail-upload' type='file' {...register('thumbnail', { required: true })} />
+              <S.HideInput
+                id='thumnail-upload'
+                type='file'
+                {...register('thumbnail', { required: true })}
+                onChange={handleThumbnailChange}
+              />
             </S.UploadLabel>
           </S.ThumnailUploadBox>
+          {thumbnailPreview && (
+            <div>
+              <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
+            </div>
+          )}
         </S.PostThumnailImageArea>
       </form>
     </S.PostPage>
