@@ -1,16 +1,45 @@
-import { useState } from 'react';
-
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 import * as S from './edit-page-style';
-import { CommonButton } from '../../../shared/ui/buttons/index';
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
 
 export const EditPage = () => {
-  const [nickname, setNickname] = useState('닉네임');
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  const [nickname, setNickname] = useState(data?.nickname);
+  const [description, setDescription] = useState(data?.userDesc);
+  const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
+  const [isChanged, setIsChanged] = useState(false);
 
-  const [description, setDescription] = useState(
-    '안녕하세요 반가워요 쿨거래 원해요~~  강아지 고양이 사랑합니다!!! 두부랑 토리 강아지 두 마리 엄마입니당!!!',
-  );
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(URL.createObjectURL(file));
+      setIsChanged(true);
+    }
+  };
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+    setIsChanged(true);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+    setIsChanged(true);
+  };
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setUserInfo(data);
+    }
+  }, [data, status]);
+
+  const handleSaveProfile = () => {
+    setIsChanged(false);
+  };
 
   return (
     <>
@@ -24,32 +53,29 @@ export const EditPage = () => {
         <S.EditPage>
           <S.PageTitle>프로필</S.PageTitle>
           <S.InfoContainer>
-            <S.ProfileImage src='/images/mock/profileImage.png' alt='프로필 이미지' width={200} height={200} />
+            <S.ProfileImage
+              src={selectedFile ? selectedFile : undefined}
+              alt='프로필 이미지'
+              width={200}
+              height={200}
+            />
             <S.EditButtonArea>
-              <S.ImageEditButton>바꾸기</S.ImageEditButton>
+              <S.ImageEditButton htmlFor='fileUpload'>바꾸기</S.ImageEditButton>
+              <S.FileUploadInput id='fileUpload' type='file' accept='image/*' onChange={handleFileChange} />
+
               <S.ImageEditButton>삭제</S.ImageEditButton>
             </S.EditButtonArea>
             <S.InputArea>
               <S.InputItem>
                 <S.Label htmlFor='name'>닉네임</S.Label>
-                <div>
-                  <S.NicknameInput
-                    type='text'
-                    id='name'
-                    name='nickname'
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                  />
-                  <CommonButton
-                    borderRadius={'4px'}
-                    backgroundColor={'#43ADFF'}
-                    maxWidth={'65px'}
-                    fontSize={'1.2rem'}
-                    padding={'6px 10px'}
-                  >
-                    변경하기
-                  </CommonButton>
-                </div>
+
+                <S.NicknameInput
+                  type='text'
+                  id='name'
+                  name='nickname'
+                  value={nickname}
+                  onChange={handleNicknameChange}
+                />
               </S.InputItem>
 
               <S.InputItem>
@@ -58,19 +84,8 @@ export const EditPage = () => {
                   id='description'
                   name='description'
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={handleDescriptionChange}
                 />
-                <S.SaveButtonArea>
-                  <CommonButton
-                    borderRadius={'4px'}
-                    backgroundColor={'#43ADFF'}
-                    maxWidth={'65px'}
-                    fontSize={'1.2rem'}
-                    padding={'6px 10px'}
-                  >
-                    저장하기
-                  </CommonButton>
-                </S.SaveButtonArea>
               </S.InputItem>
             </S.InputArea>
             <S.LoginInfoArea>
@@ -80,6 +95,9 @@ export const EditPage = () => {
 
             <S.BigButtonArea>
               <S.BigButton>비밀번호 변경하기</S.BigButton>
+              <S.SaveButton $isActive={isChanged} onClick={handleSaveProfile}>
+                프로필 저장하기
+              </S.SaveButton>
               <S.BigButton>로그아웃</S.BigButton>
               <S.UnregisterButton>회원탈퇴</S.UnregisterButton>
             </S.BigButtonArea>

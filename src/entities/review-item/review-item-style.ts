@@ -12,21 +12,9 @@ export const ReviewItem = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray_F3F3F3};
   border-radius: 6px;
 
-  div {
-    display: flex;
-    align-items: center;
-  }
-
   .user-profile {
     border: 1px solid ${({ theme }) => theme.color.gray_9E9E9E};
     border-radius: 50%;
-  }
-
-  span {
-    margin-left: 16px;
-    font-size: 1.2rem;
-    line-height: 28px;
-    color: ${({ theme }) => theme.color.gray_BDBDBD};
   }
 
   .check-icon {
@@ -34,7 +22,25 @@ export const ReviewItem = styled.div`
   }
 
   .content {
-    margin-left: 38px;
     font-size: 1.2rem;
+    line-height: 28px;
   }
+`;
+
+export const UserInfoArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Nickname = styled.span`
+  margin-left: 16px;
+  font-size: 1.2rem;
+  line-height: 28px;
+  color: ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+export const ContentArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 40px;
 `;
