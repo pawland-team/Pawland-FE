@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
 import Head from 'next/head';
-import { UserInfoArea } from '../../widgets/my-info-area/my-info-area';
-import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
-import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
+
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
 import * as S from './profile-page-style';
 import { MyRegisteredProductList } from '../../widgets/my-registered-product-list/my-registered-product-list';
@@ -13,7 +12,9 @@ import { MyCommunityList } from '../../widgets/my-community-list/my-community-li
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { useEffect } from 'react';
+import { MyInfoArea } from '@widgets/my-info-area';
+import { UserLoginInfoArea } from '@widgets/user-login-info-area';
+import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 
 interface ActiveButtonState {
   activeButton: string;
@@ -56,7 +57,7 @@ export const ProfilePage = () => {
       <main>
         <S.ProfilePage>
           <S.UserInfoContainer>
-            <UserInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
+            <MyInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
             <UserLoginInfoArea />
           </S.UserInfoContainer>
           <S.ListContainer>

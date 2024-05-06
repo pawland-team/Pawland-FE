@@ -3,15 +3,15 @@ import Image from 'next/image';
 import { EditProfileButton } from '../../features/button/edit-profile-button/edit-profile-button';
 import Link from 'next/link';
 
-interface UserInfoProps {
+interface MyInfoProps {
   imageSrc?: string;
   nickname?: string;
   description?: string;
 }
 
-const UserInfoArea = ({ imageSrc, nickname, description }: UserInfoProps) => {
+const MyInfoArea = ({ imageSrc, nickname, description }: MyInfoProps) => {
   return (
-    <S.UserInfoArea>
+    <S.MyInfoArea>
       <div>
         <S.ProfileImage src={imageSrc} alt='프로필 이미지' width={120} height={120} />
         <EditProfileButton />
@@ -24,8 +24,8 @@ const UserInfoArea = ({ imageSrc, nickname, description }: UserInfoProps) => {
       </S.UserNicknameArea>
       <S.UserIntroduce>{description}</S.UserIntroduce>
       <S.Line />
-    </S.UserInfoArea>
+    </S.MyInfoArea>
   );
 };
 
-export { UserInfoArea };
+export { MyInfoArea };

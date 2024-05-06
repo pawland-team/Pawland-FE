@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const UserInfoArea = styled.div`
+export const MyInfoArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

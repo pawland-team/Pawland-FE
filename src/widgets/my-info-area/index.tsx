@@ -1,1 +1,1 @@
-export { UserInfoArea } from './my-info-area';
+export { MyInfoArea } from './my-info-area';
