@@ -8,16 +8,19 @@ import * as S from './post-page-style';
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [thumbnailPreview, setThumbnailPreview] = useState('');
+  const [thumbnailFile, setThumbnailFile] = useState(null);
   const { register, handleSubmit, watch, reset } = useForm();
 
   const onSubmit = (data) => {
+    console.log('form submitted', data);
+
     if (!selectedRegion) {
       alert('지역을 선택해주세요.');
 
       return;
     }
 
-    if (!data.thumbnail || data.thumbnail.length === 0) {
+    if (!thumbnailFile) {
       alert('썸네일 이미지를 선택해주세요.');
 
       return;
@@ -27,7 +30,7 @@ export const CommunityPostPage = () => {
     formData.append('title', data.title);
     formData.append('content', data.content);
     formData.append('region', selectedRegion);
-    formData.append('thumbnail', data.thumbnail[0]);
+    formData.append('thumbnail', thumbnailFile);
 
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
       method: 'POST',
@@ -40,9 +43,9 @@ export const CommunityPostPage = () => {
         alert('게시물이 성공적으로 업로드되었습니다.');
         reset();
         setThumbnailPreview('');
+        setThumbnailFile(null);
       })
       .catch((error) => alert(`오류 발생: ${error.message}`));
-    console.log(data);
   };
 
   const handleRegionSelect = (region: string) => {
@@ -54,6 +57,7 @@ export const CommunityPostPage = () => {
 
     if (file) {
       setThumbnailPreview(URL.createObjectURL(file));
+      setThumbnailFile(file);
     }
   };
 
@@ -152,12 +156,7 @@ export const CommunityPostPage = () => {
                 <Image src='/images/icon/upload-file-icon.svg' alt='upload-icon' fill />
               </S.UploadIconWrapper>
               <S.UploadSpan>이미지 업로드</S.UploadSpan>
-              <S.HideInput
-                id='thumnail-upload'
-                type='file'
-                {...register('thumbnail', { required: true })}
-                onChange={handleThumbnailChange}
-              />
+              <S.HideInput id='thumnail-upload' type='file' onChange={handleThumbnailChange} />
               {thumbnailPreview && (
                 <div>
                   <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
