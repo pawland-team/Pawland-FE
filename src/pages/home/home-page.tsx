@@ -2,13 +2,13 @@ import { FormEvent, useRef } from 'react';
 
 import Head from 'next/head';
 
+import { mainBannerData } from '@pages/home/lib/main-banner-data';
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/category-list';
-import { MainbannerSwiper } from '@widgets/main-banner-swiper';
-import { mainBannerData } from '@widgets/main-banner-swiper/lib/main-banner-data';
+import { MainProductList } from '@widgets/main-product-list';
 
 import * as S from './home-page-style';
-import { MainProductList } from './ui/main-product-list';
+import { MainBannerSwiper } from './ui/main-banner-swiper';
 
 export const HomePage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export const HomePage = () => {
       </Head>
       <S.HomePage>
         <S.SwiperArea>
-          <MainbannerSwiper mainBannerList={mainBannerData} />
+          <MainBannerSwiper mainBannerList={mainBannerData} />
         </S.SwiperArea>
         <S.InputArea>
           <SearchInput

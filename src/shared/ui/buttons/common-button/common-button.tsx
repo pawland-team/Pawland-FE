@@ -13,10 +13,14 @@ interface CommonButtonProps {
   fontColor?: string;
   padding?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  disabled?: boolean;
+  borderColor?: string;
+  borderWidth?: string;
 }
 
 /**
  * - 단위까지 다 적어주세요
+ * - borderColor, borderWidth 둘 다 넣어줬을 때에만 border생김
  * @param children button 안에 들어갈 요소
  * @param handleClick onClick 이벤트
  * @param borderRadius default 6px
@@ -27,6 +31,9 @@ interface CommonButtonProps {
  * @param fontWeight default 400
  * @param backgroundColor default #000
  * @param type default 'button'
+ * @param disabled default false
+ * @param borderColor example '#43ADFF'
+ * @param borderWidth example '2px'
  */
 
 const CommonButton = ({
@@ -40,6 +47,9 @@ const CommonButton = ({
   fontWeight = '400',
   type = 'button',
   padding = '10px 0',
+  disabled = false,
+  borderColor,
+  borderWidth,
 }: CommonButtonProps) => {
   return (
     <S.CommonButton
@@ -52,6 +62,9 @@ const CommonButton = ({
       $fontSize={fontSize}
       $fontWeight={fontWeight}
       $padding={padding}
+      $borderColor={borderColor}
+      $borderWidth={borderWidth}
+      disabled={disabled}
     >
       {children}
     </S.CommonButton>
