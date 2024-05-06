@@ -34,7 +34,7 @@ export const mockProductDetailInfo: ProductDetailType = {
     nickname: 'Mr Gildong',
     email: 'oootest@NavContainer.co',
     userIntroduce: '안냐세요',
-    stars: 5,
+    stars: 4.5,
     loginType: '카카오',
   },
   productCondition: 'used',

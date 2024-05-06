@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { StarRatingResult } from '@entities/star-rating-result/number-to-star';
 import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
 import { CommonButton } from '@shared/ui/buttons';
 import { CategoryTree, ProductInteractionButtonsBox, RateStar } from '@shared/ui/product';
@@ -35,6 +36,7 @@ const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
               <p>{detailInfo.seller.nickname}</p>
             </Link>
             <RateStar rate={detailInfo.seller.stars} />
+            <StarRatingResult number={detailInfo.seller.stars} />
           </div>
           <S.DivideLine />
           <h3>{formatPrice(detailInfo.price)}</h3>
