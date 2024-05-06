@@ -28,8 +28,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: '서울',
-    group: '지역',
-    checked: false,
+    label: 'dog',
+    group: 'species',
+    value: '강아지',
+    isChecked: false,
+    handleChangeCheckBox: (e) => console.log(e),
   },
 };
