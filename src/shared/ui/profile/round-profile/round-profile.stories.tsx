@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 import { RoundProfile } from './round-profile';
+import mockbird from '../../../../public/images/mock/bird-w64-h64.png';
 
 const meta = {
   title: 'atoms/profile/RoundProfile',
