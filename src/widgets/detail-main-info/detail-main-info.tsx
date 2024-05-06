@@ -1,17 +1,18 @@
 import { ProductDetailImages, ProductDetailInfo } from '@entities/product-detail';
+import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
 
 import * as S from './detail-main-info-style';
 
 interface DetailMainInfoAreaProps {
-  SubImagesList: string[];
+  detailInfo: ProductDetailType;
 }
 
-const DetailMainInfo = ({ SubImagesList }: DetailMainInfoAreaProps) => {
+const DetailMainInfo = ({ detailInfo }: DetailMainInfoAreaProps) => {
   return (
     <>
       <S.MainInfoSection>
-        <ProductDetailImages SubImagesList={SubImagesList} ThumbnailSrc='/images/mock/product-card-test-image.png' />
-        <ProductDetailInfo />
+        <ProductDetailImages SubImagesList={detailInfo.imageUrls} ThumbnailSrc={detailInfo.imageThumbnail} />
+        <ProductDetailInfo detailInfo={detailInfo} />
       </S.MainInfoSection>
     </>
   );

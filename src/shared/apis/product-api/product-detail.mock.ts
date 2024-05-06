@@ -1,6 +1,12 @@
-import { rest } from 'msw';
+// import { rest } from 'msw';
 
-const mockProductDetailInfo = {
+import { ProductInfoEntity } from './dto';
+
+export interface ProductDetailType extends ProductInfoEntity {
+  isWished: boolean;
+}
+
+export const mockProductDetailInfo: ProductDetailType = {
   id: 1,
   category: 'toy',
   price: 0,
@@ -8,8 +14,7 @@ const mockProductDetailInfo = {
   region: '서울',
   species: 'dog',
   views: 20,
-  imageThumbnail:
-    'https://mblogthumb-phinf.pstatic.net/MjAyMzExMDRfMzIg/MDAxNjk5MDg2MzgwMjUy.lJyAk6Jbofs0JCpCTJ_0i083P10f11VJO13QJC_Fo30g.nQQBaD5VI1MAuSRGSlRfN02Xt5Tj_ZcJmTIdO5NHpBQg.JPEG.ghkdwjdtka/download.jpg?type=w800',
+  imageThumbnail: '/images/mock/product-card-test-image.png',
   imageUrls: [
     '/images/mock/product-card-test-image.png',
     '/images/test/test-image1.png',
@@ -30,10 +35,11 @@ const mockProductDetailInfo = {
     loginType: '카카오',
   },
   productCondition: 'used',
+  isWished: false,
 };
 
-export const userHandlers = [
-  rest.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/my-info`, (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockProductDetailInfo));
-  }),
-];
+// export const userHandlers = [
+//   rest.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/1`, (_req, res, ctx) => {
+//     return res(ctx.status(200), ctx.json(mockProductDetailInfo));
+//   }),
+// ];

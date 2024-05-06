@@ -1,12 +1,17 @@
 import { useRouter } from 'next/router';
 
+import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
 import { CommonButton } from '@shared/ui/buttons';
 import { CategoryTree, ProductInteractionButtonsBox, RateStar } from '@shared/ui/product';
 import { formatPrice } from '@shared/utils/price';
 
 import * as S from './product-detail-info-style';
 
-const ProductDetailInfo = () => {
+interface ProductDetailInfoProps {
+  detailInfo: ProductDetailType;
+}
+
+const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
   const router = useRouter();
 
   const handleClickToChat = () => {
@@ -17,18 +22,18 @@ const ProductDetailInfo = () => {
     <S.ProductDetailInfoArea>
       <div>
         <S.SubInfoContainer>
-          <CategoryTree region='서울' species='강아지' />
-          <ProductInteractionButtonsBox />
+          <CategoryTree region={detailInfo.region} species={detailInfo.species} category={detailInfo.category} />
+          <ProductInteractionButtonsBox isWished={detailInfo.isWished} />
         </S.SubInfoContainer>
         <S.MainInfoContainer>
-          <time>2024.12.10</time>
-          <h2>제목 홍길동이 파는</h2>
+          <time>{detailInfo.createdAt}</time>
+          <h2>{detailInfo.productName}</h2>
           <div className='seller-info-box'>
-            <p>홍길동이</p>
-            <RateStar rate={4} />
+            <p>{detailInfo.seller.nickname}</p>
+            <RateStar rate={detailInfo.seller.stars} />
           </div>
           <S.DivideLine />
-          <h3>{formatPrice(3000)}</h3>
+          <h3>{formatPrice(detailInfo.price)}</h3>
         </S.MainInfoContainer>
       </div>
       <S.ButtonContainer>

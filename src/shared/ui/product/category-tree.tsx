@@ -3,22 +3,22 @@ import styled from 'styled-components';
 interface CategoryTreeProps {
   region?: string;
   species?: string;
-  productType?: string;
+  category?: string;
 }
 
-const CategoryTree = ({ region, species, productType }: CategoryTreeProps) => {
-  if (region && species) {
+const CategoryTree = ({ region, species, category }: CategoryTreeProps) => {
+  if (region && species && category) {
     return (
       <CategoryTreeBox>
-        {region} &gt; {species}
+        {region} &gt; {species} &gt; {category}
       </CategoryTreeBox>
     );
   }
 
-  if (region && species && productType) {
+  if (region && species) {
     return (
       <CategoryTreeBox>
-        {region} &gt; {species} &gt; {productType}
+        {region} &gt; {species}
       </CategoryTreeBox>
     );
   }
