@@ -7,6 +7,7 @@ import { GetUserInfoResponse } from '@shared/apis/user-api';
 interface UserStoreState {
   setUserInfo: (userInfo: GetUserInfoResponse) => void;
   userInfo?: GetUserInfoResponse;
+  clearUserInfo: () => void;
 }
 
 /**
@@ -16,6 +17,7 @@ export const useUserStore = createWithEqualityFn<UserStoreState>()(
   devtools(
     (set) => ({
       setUserInfo: (userInfo) => set({ userInfo }),
+      clearUserInfo: () => set({ userInfo: undefined }),
     }),
     {
       enabled: process.env.NODE_ENV === 'development',

@@ -1,10 +1,10 @@
-import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
 import * as S from './transaction-item-style';
-import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
 import { GoDetailButton } from '../../features/button/go-detail-button/go-detail-button';
-import { ReviewItem } from '../review-item/review-item';
-import { ReviewWritingArea } from '../../widgets/review-writing-area/review-writing-area';
+import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
 import { formatPrice } from '../../shared/utils/price/index';
+import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
+import { ReviewWritingArea } from '../../widgets/review-writing-area/review-writing-area';
+import { ReviewItem } from '../review-item/review-item';
 
 export const TransactionItem = () => {
   return (

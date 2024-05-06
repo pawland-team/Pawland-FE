@@ -11,6 +11,18 @@ interface Size {
   height?: string;
 }
 
+interface NumericSizeLimit {
+  minWidth?: number;
+  minHeight?: number;
+  maxWidth?: number;
+  maxHeight?: number;
+}
+
+interface NumericSize extends NumericSizeLimit {
+  width?: number;
+  height?: number;
+}
+
 export type DesktopFirstResponsiveUtility<T extends NonNullable<unknown>> =
   | T
   | { onDesktop: T; onTablet?: T; onMobile?: T };
@@ -38,4 +50,9 @@ export type ResponsiveBooleanUtility = DesktopFirstResponsiveUtility<boolean>;
 export type ResponsiveSizeProperties<
   KnownSizeProperty extends
     DropPrimitiveTypeFromResponsiveStyleUtility<Size> = DropPrimitiveTypeFromResponsiveStyleUtility<Size>,
+> = KnownSizeProperty;
+
+export type ResponsiveNumericSizeProperties<
+  KnownSizeProperty extends
+    DropPrimitiveTypeFromResponsiveStyleUtility<NumericSize> = DropPrimitiveTypeFromResponsiveStyleUtility<NumericSize>,
 > = KnownSizeProperty;

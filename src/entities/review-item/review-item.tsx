@@ -1,6 +1,7 @@
-import Link from 'next/link';
-import * as S from './review-item-style';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import * as S from './review-item-style';
 
 export const ReviewItem = () => {
   return (

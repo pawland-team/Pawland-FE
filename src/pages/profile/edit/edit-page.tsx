@@ -1,11 +1,13 @@
-import Head from 'next/head';
 import { useState } from 'react';
-import { CommonButton } from '../../../shared/ui/buttons/index';
+
+import Head from 'next/head';
 
 import * as S from './edit-page-style';
+import { CommonButton } from '../../../shared/ui/buttons/index';
 
 export const EditPage = () => {
   const [nickname, setNickname] = useState('닉네임');
+
   const [description, setDescription] = useState(
     '안녕하세요 반가워요 쿨거래 원해요~~  강아지 고양이 사랑합니다!!! 두부랑 토리 강아지 두 마리 엄마입니당!!!',
   );

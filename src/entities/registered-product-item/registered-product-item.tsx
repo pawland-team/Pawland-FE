@@ -1,9 +1,10 @@
+import Link from 'next/link';
+
+import * as S from './registered-product-item-style';
 import { DropdownButton } from '../../shared/ui/buttons/dropdown-button/dropdown-button';
 import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
-import * as S from './registered-product-item-style';
-import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
 import { formatPrice } from '../../shared/utils/price/index';
-import Link from 'next/link';
+import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
 
 export const RegisteredProductItem = () => {
   return (

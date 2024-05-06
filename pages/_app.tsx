@@ -3,12 +3,11 @@ import Head from 'next/head';
 import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
-import { LibConfigProviders } from '@app/providers';
+import { MultiProvider, StyledThemeProvider, TanstackQueryProvider } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 
 import type { AppProps } from 'next/app';
 
-// import '@app/styles/global.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -27,16 +26,20 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel='icon' type='image/svg+xml' href='/next.svg' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
-      <LibConfigProviders>
-        <ModalListProvider>
-          <HydrationBoundary state={pageProps.dehydratedState}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </HydrationBoundary>
+      <MultiProvider
+        providers={[
+          <StyledThemeProvider key='styled' />,
+          <TanstackQueryProvider key='tanstack' />,
+          <ModalListProvider key='modalList' />,
+        ]}
+      >
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
           <ModalList />
-        </ModalListProvider>
-      </LibConfigProviders>
+        </HydrationBoundary>
+      </MultiProvider>
     </>
   );
 }
