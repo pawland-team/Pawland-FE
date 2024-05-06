@@ -1,9 +1,9 @@
-import { StaticImageData } from 'next/image';
+// import { StaticImageData } from 'next/image';
 
 export interface MainBannerArray {
   id: number;
   title: string;
   description: string;
-  imageSrc: StaticImageData;
+  imageSrc: string;
   buttonText?: string;
 }
