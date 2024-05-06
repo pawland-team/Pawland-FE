@@ -12,13 +12,12 @@ export const DetailArticleArea = styled.article`
 
 export const RecentProductArea = styled.section`
   width: 95%;
-  max-width: 1340px;
+  max-width: 1194px;
   margin: 0 auto;
-`;
 
-export const DivideLine = styled.div`
-  width: 100%;
-  height: 1px;
-  margin: 77px 0;
-  background-color: ${({ theme }) => theme.color.gray_BDBDBD};
+  h3 {
+    margin-bottom: 60px;
+    font-size: 2.8rem;
+    font-weight: 600;
+  }
 `;

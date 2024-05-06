@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { DivideLineE0E0E0 } from '@shared/ui/styles/utills/divide-line';
+
 export const ProductDetailInfoArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,10 +66,8 @@ export const MainInfoContainer = styled.div`
 `;
 
 export const DivideLine = styled.div`
-  width: 100%;
-  height: 1px;
+  ${DivideLineE0E0E0}
   margin: 20px 0;
-  background-color: #e0e0e0;
 `;
 
 export const ButtonContainer = styled.div`

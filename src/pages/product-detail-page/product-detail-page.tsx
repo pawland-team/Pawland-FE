@@ -21,9 +21,9 @@ const ProductDetailPage = () => {
       <S.ProductDetailPage>
         <S.DetailArticleArea>
           <DetailMainInfo detailInfo={mockProductDetailInfo} />
-          <S.DivideLine />
         </S.DetailArticleArea>
         <S.RecentProductArea>
+          <h3>최신상품</h3>
           <ProductListSwiper productList={mainListData} />
         </S.RecentProductArea>
       </S.ProductDetailPage>
