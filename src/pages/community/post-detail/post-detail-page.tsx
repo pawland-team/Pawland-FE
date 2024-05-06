@@ -121,7 +121,7 @@ export const CommunityPostDetailPage = () => {
       <S.CommentArea>
         <S.ComentBox>
           <S.ProfileImageWrapper>
-            <Image src={data?.profileImage} alt='my profile image' fill />
+            {data?.profileImage && <Image src={data?.profileImage} alt='my profile image' fill />}
           </S.ProfileImageWrapper>
           <S.ComentPostBox>
             <S.ComentTextareaBox>
@@ -171,7 +171,7 @@ export const CommunityPostDetailPage = () => {
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>
-                    <Image src={data?.profileImage} alt='my profile image' fill />
+                    {data?.profileImage && <Image src={data?.profileImage} alt='my profile image' fill />}
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
                     <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
