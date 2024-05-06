@@ -1,22 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-export const middleware = (request: NextRequest) => {
-  const ACCESS_TOKEN = 'custom access token key';
-
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('Authorization', `Bearer ${ACCESS_TOKEN}`);
-
-  const testHeaders = new Headers(request.headers);
-  testHeaders.set('test', 'test');
-
-  return NextResponse.next({
-    // new response header
-    headers: testHeaders,
-    request: {
-      // new request headers
-      headers: requestHeaders,
-    },
-  });
+export const middleware = (_request: NextRequest) => {
+  // const { cookies, headers } = request;
+  // console.log(cookies);
+  // console.log(headers);
+  // const ACCESS_TOKEN = 'custom access token key';
+  // const requestHeaders = new Headers(request.headers);
+  // requestHeaders.set('Authorization', `Bearer ${ACCESS_TOKEN}`);
+  // const testHeaders = new Headers(request.headers);
+  // testHeaders.set('test', 'test');
+  // return NextResponse.next({
+  //   // new response header
+  //   headers: testHeaders,
+  //   request: {
+  //     // new request headers
+  //     headers: requestHeaders,
+  //   },
+  // });
 };
 
 export const config = {

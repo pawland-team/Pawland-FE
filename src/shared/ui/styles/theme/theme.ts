@@ -1,36 +1,27 @@
+import * as blockSize from '../block-size';
 import { zIndex } from '../z-index';
 
 export const theme = {
+  font: {
+    imcre: `'Imcre-Soojin', sans-serif`,
+  },
   color: {
     black_000000: '#000000',
-    black_171717: '#171717',
-    black_333236: '#333236',
-    black_4B4B4B: '#4B4B4B',
-
-    gray_787486: '#787486',
-    gray_9FA6B2: '#9FA6B2',
-    gray_D9D9D9: '#D9D9D9',
-    gray_EEEEEE: '#EEEEEE',
-    gray_FAFAFA: '#FAFAFA',
-
     white_FFFFFF: '#FFFFFF',
 
-    violet_5534DA: '#5534DA',
-    violet_F1EFFD: '#F1EFFD',
+    yellow_FFB904: '#FFB904',
+    red_F5511D: '#F5511D',
+    red_FFC2AF: '#FFC2AF',
+    blue_2087D6: '#2087D6',
+    blue_43ADFF: '#43ADFF',
 
-    red_D6173A: '#D6173A',
-
-    green_7AC555: '#7AC555',
-
-    orange_FFA500: '#FFA500',
-
-    blue_76A6EA: '#76A5EA',
-
-    pink_E876EA: '#E876EA',
-
-    purple_760DDE: '#760DDE',
+    gray_9E9E9E: '#9E9E9E',
+    gray_BDBDBD: '#BDBDBD',
+    gray_F3F3F3: '#F3F3F3',
+    gray_F9F9F9: '#F9F9F9',
   },
   zIndex,
+  blockSize,
 } as const;
 
 export type CustomTheme = typeof theme;

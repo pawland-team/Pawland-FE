@@ -4,6 +4,7 @@ const nextConfig = {
   compiler: {
     styledComponents: {
       ssr: true,
+      displayName: true,
     },
     removeConsole: process.env.NODE_ENV === 'production',
   },
@@ -27,6 +28,15 @@ const nextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'midcon-bucket.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+      },
+    ],
   },
 };
 

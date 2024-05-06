@@ -1,5 +1,5 @@
-export { type User } from './dto';
+export type { UserEntity, GetUserInfoResponse } from './dto';
 
-export { getUserInfoApi } from './get-user-info-api';
+export { getUserInfo } from './get-user-info-api';
 
-export { userHandlers } from './user.mock';
+export * from './user.mock';

@@ -4,10 +4,14 @@
     "plugin/no-unsupported-browser-features": [
       true,
       {
-        "severity": "warning"
+        "severity": "warning",
+        "ignore": ["css-nesting"],
+        "ignorePartialSupport": true
       }
     ],
-    "property-no-vendor-prefix": null
+    "property-no-vendor-prefix": null,
+    "media-query-no-invalid": null,
+    "font-family-no-missing-generic-family-keyword": null
   },
   "plugins": ["stylelint-no-unsupported-browser-features"],
   "overrides": [
