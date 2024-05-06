@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import Link from 'next/link';
 
+import { useOutsideClick } from '@shared/hooks/use-outside-click';
 import { AvatarImage } from '@shared/ui/avatar-image';
 
 import * as S from './nickname-with-avatar-style';
@@ -12,14 +13,17 @@ interface NicknameWithAvatarProps {
 }
 
 const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => {
+  const dropDownRef = useRef(null);
+
   const [isOpened, setIsOpened] = useState(false);
+  useOutsideClick(dropDownRef, isOpened, setIsOpened);
 
   const handleClickAvatar = () => {
     setIsOpened((prev) => !prev);
   };
 
   return (
-    <S.NicknameWithAvatar>
+    <S.NicknameWithAvatar ref={dropDownRef}>
       <S.NickNameImageBox onClick={handleClickAvatar}>
         <p>{nickname}</p>
         <AvatarImage imageSrc={imageSrc} />
