@@ -35,7 +35,7 @@ export const ProfilePage = () => {
       case 'register':
         return <MyRegisteredProductList />;
       case 'wish':
-        return <WishList />;
+        return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
