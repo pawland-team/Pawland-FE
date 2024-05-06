@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { CommonButton } from '../../../shared/ui/buttons/index';
 
 import * as S from './edit-page-style';
 import { useGetUserInfo } from '@entities/user/hooks';
@@ -12,20 +11,35 @@ export const EditPage = () => {
   const [nickname, setNickname] = useState(data?.nickname);
   const [description, setDescription] = useState(data?.userDesc);
   const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
+  const [isChanged, setIsChanged] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(URL.createObjectURL(file));
+      setIsChanged(true);
     }
   };
-  console.log(selectedFile);
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+    setIsChanged(true);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+    setIsChanged(true);
+  };
 
   useEffect(() => {
     if (status === 'success' && data) {
       setUserInfo(data);
     }
   }, [data, status]);
+
+  const handleSaveProfile = () => {
+    setIsChanged(false);
+  };
 
   return (
     <>
@@ -55,7 +69,7 @@ export const EditPage = () => {
                   id='name'
                   name='nickname'
                   value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
+                  onChange={handleNicknameChange}
                 />
               </S.InputItem>
 
@@ -65,7 +79,7 @@ export const EditPage = () => {
                   id='description'
                   name='description'
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={handleDescriptionChange}
                 />
               </S.InputItem>
             </S.InputArea>
@@ -76,7 +90,9 @@ export const EditPage = () => {
 
             <S.BigButtonArea>
               <S.BigButton>비밀번호 변경하기</S.BigButton>
-              <S.BigButton>프로필 저장하기</S.BigButton>
+              <S.SaveButton $isActive={isChanged} onClick={handleSaveProfile}>
+                프로필 저장하기
+              </S.SaveButton>
               <S.BigButton>로그아웃</S.BigButton>
               <S.UnregisterButton>회원탈퇴</S.UnregisterButton>
             </S.BigButtonArea>

@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import Image from 'next/image';
+
+interface ButtonProps {
+  $isActive?: boolean;
+}
 
 export const EditPage = styled.div`
   padding-bottom: 130px;
@@ -131,6 +134,20 @@ export const BigButtonArea = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 300px;
+`;
+
+export const SaveButton = styled.button<ButtonProps>`
+  width: 378px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ $isActive, theme }) => ($isActive ? theme.color.white_FFFFFF : theme.color.gray_9E9E9E)};
+
+  background-color: ${({ $isActive, theme }) => $isActive && theme.color.blue_43ADFF};
+  border: 1px solid ${({ $isActive, theme }) => ($isActive ? theme.color.blue_43ADFF : theme.color.gray_BDBDBD)};
+  border-radius: 37px;
 `;
 
 export const BigButton = styled.button`
