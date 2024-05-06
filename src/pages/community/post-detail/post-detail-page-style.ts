@@ -200,9 +200,14 @@ const ComentBox = styled.div`
 `;
 
 const ProfileImageWrapper = styled.div`
+  position: relative;
+
   overflow: hidden;
+  flex-shrink: 0;
+
   width: 60px;
   height: 60px;
+
   border-radius: 50%;
 `;
 
@@ -331,6 +336,12 @@ const EmptySpace = styled.div`
   height: 20px;
 `;
 
+const ContentImageWrapper = styled.div`
+  position: relative;
+  width: 800px;
+  height: 600px;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -372,4 +383,5 @@ export {
   ReplyPostStatus,
   ReplyDivider,
   EmptySpace,
+  ContentImageWrapper,
 };

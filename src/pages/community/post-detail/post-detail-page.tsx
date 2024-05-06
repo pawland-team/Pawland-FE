@@ -86,7 +86,13 @@ export const CommunityPostDetailPage = () => {
 
       <S.ContentsArea>
         <S.Contents>
-          {imageThumbnail && <Image src={imageThumbnail} alt='thumbnail' width={800} height={600} />}
+          {imageThumbnail && (
+            <>
+              <S.ContentImageWrapper>
+                <Image src={imageThumbnail} alt='thumbnail' objectFit='contain' fill />
+              </S.ContentImageWrapper>
+            </>
+          )}
           <S.ContentsParagraph>{content}</S.ContentsParagraph>
         </S.Contents>
 
@@ -113,7 +119,7 @@ export const CommunityPostDetailPage = () => {
       <S.CommentArea>
         <S.ComentBox>
           <S.ProfileImageWrapper>
-            <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+            <Image src='/images/test/test-image1.png' alt='test-image1' fill />
           </S.ProfileImageWrapper>
           <S.ComentPostBox>
             <S.ComentTextareaBox>
@@ -131,7 +137,7 @@ export const CommunityPostDetailPage = () => {
           comments.map((comment) => (
             <S.ComentBox key={comment.id}>
               <S.ProfileImageWrapper>
-                <Image src={comment.author.profileImage} alt='profile-image' width={60} height={60} />
+                <Image src={comment.author.profileImage} alt='profile-image' fill />
               </S.ProfileImageWrapper>
               <S.ComentPostBox>
                 <S.ComentTextareaBox>
@@ -147,7 +153,7 @@ export const CommunityPostDetailPage = () => {
                     <>
                       <S.ReplyWrapper key={reply.id}>
                         <S.ProfileImageWrapper>
-                          <Image src={reply.author.profileImage} alt='reply-profile-image' width={60} height={60} />
+                          <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
                         </S.ProfileImageWrapper>
                         <S.ComentPostBox>
                           <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
@@ -161,7 +167,7 @@ export const CommunityPostDetailPage = () => {
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>
-                    <Image src='/images/test/test-image1.png' alt='test-image1' width={60} height={60} />
+                    <Image src='/images/test/test-image1.png' alt='test-image1' fill />
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
                     <S.ProfileNickname>여기는 지금 로그인한 나의 닉네임이 들어갑니다.</S.ProfileNickname>
