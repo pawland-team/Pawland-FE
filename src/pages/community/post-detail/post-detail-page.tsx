@@ -28,7 +28,7 @@ export const CommunityPostDetailPage = () => {
     return data;
   };
 
-  const { data: communityPostDetail, isLoading } = useQuery<CommunityPostDetailEntity, Error>({
+  const { data: communityPostDetail, isLoading } = useQuery<CommunityPostDetailEntity>({
     queryKey: [communityPostDetailQueryKey, id],
     queryFn: fetchCommunityPostDetail,
     enabled: !!id,
@@ -146,6 +146,7 @@ export const CommunityPostDetailPage = () => {
                   <S.Coment>{comment.content}</S.Coment>
                 </S.ComentTextareaBox>
                 <S.EmptySpace />
+
                 {/* 대댓글 컴포넌트 */}
                 {comment.reply.length > 0 &&
                   comment.reply[0].id !== null &&
@@ -164,6 +165,7 @@ export const CommunityPostDetailPage = () => {
                       <S.EmptySpace />
                     </>
                   ))}
+
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>

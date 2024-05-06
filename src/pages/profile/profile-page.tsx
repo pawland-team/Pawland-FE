@@ -1,32 +1,35 @@
+// import { useEffect } from 'react';
+
 import Head from 'next/head';
-import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
-import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
-import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
+
+// import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
 
 import * as S from './profile-page-style';
-import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
-import { WishList } from '../../widgets/wish-list/wish-list';
-import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
-import { CommunityList } from '../../widgets/community-list/community-list';
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
-import { useGetUserInfo } from '@entities/user/hooks';
-import { useUserStore } from '@entities/user/model';
-import { useEffect } from 'react';
+import { CommunityList } from '../../widgets/community-list/community-list';
+import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
+import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
+import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
+import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
+import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
+import { WishList } from '../../widgets/wish-list/wish-list';
 
 interface ActiveButtonState {
   activeButton: string;
 }
 
 export const ProfilePage = () => {
-  const { data, status } = useGetUserInfo();
-  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  // const { data, status } = useGetUserInfo();
+  // const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
   const activeButton = useActiveButtonStore((state: ActiveButtonState) => state.activeButton);
 
-  useEffect(() => {
-    if (status === 'success' && data) {
-      setUserInfo(data);
-    }
-  }, [data, status]);
+  // useEffect(() => {
+  //   if (status === 'success' && data) {
+  //     setUserInfo(data);
+  //   }
+  // }, [data, status]);
 
   const renderComponent = () => {
     switch (activeButton) {
@@ -42,6 +45,7 @@ export const ProfilePage = () => {
         return <RegisteredProductList />;
     }
   };
+
   return (
     <>
       <Head>
@@ -53,7 +57,11 @@ export const ProfilePage = () => {
       <main>
         <S.ProfilePage>
           <S.UserInfoContainer>
-            <UserInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
+            <UserInfoArea
+              imageSrc={userInfo?.profileImage}
+              nickname={userInfo?.nickname}
+              description={userInfo?.userDesc}
+            />
             <UserLoginInfoArea />
           </S.UserInfoContainer>
           <S.ListContainer>

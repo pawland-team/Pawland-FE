@@ -1,20 +1,24 @@
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-import * as S from './edit-page-style';
-import { useGetUserInfo } from '@entities/user/hooks';
+import Head from 'next/head';
+
+// import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
+import * as S from './edit-page-style';
+
 export const EditPage = () => {
-  const { data, status } = useGetUserInfo();
-  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
-  const [nickname, setNickname] = useState(data?.nickname);
-  const [description, setDescription] = useState(data?.userDesc);
-  const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
+  //   const { data, status } = useGetUserInfo();
+  //   const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
+  const [nickname, setNickname] = useState(userInfo?.nickname);
+  const [description, setDescription] = useState(userInfo?.userDesc);
+  const [selectedFile, setSelectedFile] = useState<string | null>(userInfo?.profileImage || null);
   const [isChanged, setIsChanged] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       setSelectedFile(URL.createObjectURL(file));
       setIsChanged(true);
@@ -32,10 +36,18 @@ export const EditPage = () => {
   };
 
   useEffect(() => {
-    if (status === 'success' && data) {
-      setUserInfo(data);
+    if (userInfo) {
+      setNickname(userInfo.nickname);
+      setDescription(userInfo.userDesc);
+      setSelectedFile(userInfo.profileImage);
     }
-  }, [data, status]);
+  }, [userInfo]);
+
+  // useEffect(() => {
+  //   if (status === 'success' && data) {
+  //     setUserInfo(data);
+  //   }
+  // }, [data, status]);
 
   const handleSaveProfile = () => {
     setIsChanged(false);
@@ -53,12 +65,7 @@ export const EditPage = () => {
         <S.EditPage>
           <S.PageTitle>프로필</S.PageTitle>
           <S.InfoContainer>
-            <S.ProfileImage
-              src={selectedFile ? selectedFile : undefined}
-              alt='프로필 이미지'
-              width={200}
-              height={200}
-            />
+            <S.ProfileImage src={selectedFile || undefined} alt='프로필 이미지' width={200} height={200} />
             <S.EditButtonArea>
               <S.ImageEditButton htmlFor='fileUpload'>바꾸기</S.ImageEditButton>
               <S.FileUploadInput id='fileUpload' type='file' accept='image/*' onChange={handleFileChange} />

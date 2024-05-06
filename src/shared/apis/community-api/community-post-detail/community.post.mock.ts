@@ -149,7 +149,7 @@ const mockCommunityPostDetail: CommunityPostDetailEntity[] = [
     title: 'ㅋㅋ 안녕',
     content: '테스트22222222222222',
     imageThumbnail:
-      'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/08/19/942e14c8-c3b8-4b81-805e-e21259442d27.jpg',
+      'https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/nn/2022/08/12/202208120935035510_1.jpg',
     region: '대구',
     views: 32,
     createdAt: '2024-04-17T07:00:00.000Z',

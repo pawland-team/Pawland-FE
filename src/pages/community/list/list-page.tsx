@@ -49,7 +49,7 @@ export const CommunityListPage = () => {
     return data;
   };
 
-  const { data: communityList, isLoading } = useQuery<CommunityPostListEntity[], Error>({
+  const { data: communityList, isLoading } = useQuery<CommunityPostListEntity[]>({
     queryKey: [communityListQueryKey],
     queryFn: fetchCommunityList,
   });
