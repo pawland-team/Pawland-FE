@@ -33,14 +33,22 @@ export const MainInfoContainer = styled.div`
   h2 {
     min-height: 80px;
     margin: 10px 0 20px;
+
     font-size: 32px;
     font-weight: 600;
+    word-break: break-all;
   }
 
   .seller-info-box {
     display: flex;
     gap: 14px;
     align-items: center;
+
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
 
     p {
       font-size: 1.6rem;

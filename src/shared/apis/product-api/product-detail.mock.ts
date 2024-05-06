@@ -19,6 +19,9 @@ export const mockProductDetailInfo: ProductDetailType = {
     '/images/mock/product-card-test-image.png',
     '/images/test/test-image1.png',
     '/images/test/test-image2.png',
+    '/images/banner/main-banner.png',
+    '/images/test/test-image1.png',
+    '/images/test/test-image2.png',
   ],
   description:
     "<img src='/images/mock/product-card-test-image.png' alt='test image'/><br/><br/>보이시죠. 우리 강아지가 이 마법같은 장난감 가지고 놀다가<br/><br/>5kg가 빠져버렸어요. 누군가 이 사악한 장난감을 가져가주세요. 제발~<br/><br/><br/><br/><img src='/images/test/test-image1.png' alt='test'/><br/><br/><img src='/images/test/test-image2.png' alt='테스트' />",
@@ -31,11 +34,11 @@ export const mockProductDetailInfo: ProductDetailType = {
     nickname: 'Mr Gildong',
     email: 'oootest@NavContainer.co',
     userIntroduce: '안냐세요',
-    stars: 0,
+    stars: 5,
     loginType: '카카오',
   },
   productCondition: 'used',
-  isWished: false,
+  isWished: true,
 };
 
 // export const userHandlers = [

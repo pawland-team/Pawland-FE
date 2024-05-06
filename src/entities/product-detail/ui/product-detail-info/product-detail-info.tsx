@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
@@ -29,7 +30,10 @@ const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
           <time>{detailInfo.createdAt}</time>
           <h2>{detailInfo.productName}</h2>
           <div className='seller-info-box'>
-            <p>{detailInfo.seller.nickname}</p>
+            {/* TODO : 유저 페이지로 이동될 수 있도록 */}
+            <Link href='/'>
+              <p>{detailInfo.seller.nickname}</p>
+            </Link>
             <RateStar rate={detailInfo.seller.stars} />
           </div>
           <S.DivideLine />
@@ -44,8 +48,11 @@ const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
           fontSize='24px'
           padding='16px'
           fontWeight='600'
+          disabled={detailInfo.saleState !== 'selling'}
         >
-          채팅하기
+          {detailInfo.saleState === 'selling' && '채팅하기'}
+          {detailInfo.saleState === 'canceled' && '판매취소'}
+          {detailInfo.saleState === 'completed' && '판매완료'}
         </CommonButton>
       </S.ButtonContainer>
     </S.ProductDetailInfoArea>

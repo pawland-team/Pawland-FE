@@ -32,7 +32,7 @@ const SubImagesSlide = ({ imagesList, selectedIndex, setSelectedIndex }: SubImag
 
   return (
     <SSubImagesSlideArea>
-      {imagesList.length > 4 && (
+      {imagesList.length > 5 && (
         <SNavigationUp>
           <RoundedArrowButton ButtonSize={36} disabled={isBeginning} handleClick={handlePrev} direction='up' />
         </SNavigationUp>
@@ -64,7 +64,7 @@ const SubImagesSlide = ({ imagesList, selectedIndex, setSelectedIndex }: SubImag
           </SwiperSlide>
         ))}
       </Swiper>
-      {imagesList.length > 4 && (
+      {imagesList.length > 5 && (
         <SNavigationDown>
           <RoundedArrowButton ButtonSize={36} disabled={isEnd} handleClick={handleNext} direction='down' />
         </SNavigationDown>
