@@ -11,7 +11,7 @@ export const CommunityPostPage = () => {
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const { register, handleSubmit, watch, reset } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log('form submitted', data);
 
     if (!selectedRegion) {
@@ -26,26 +26,61 @@ export const CommunityPostPage = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('content', data.content);
-    formData.append('region', selectedRegion);
-    formData.append('thumbnail', thumbnailFile);
+    try {
+      // 프리사인 URL 요청
+      const fileName = thumbnailFile.name;
 
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
-      method: 'POST',
-      body: formData,
-      credentials: 'include',
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error('게시물 업로드에 실패했습니다.');
+      const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName }),
+        credentials: 'include',
+      });
 
-        alert('게시물이 성공적으로 업로드되었습니다.');
-        reset();
-        setThumbnailPreview('');
-        setThumbnailFile(null);
-      })
-      .catch((error) => alert(`오류 발생: ${error.message}`));
+      if (!preSignedResponse.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
+
+      const preSignedData = await preSignedResponse.json();
+      const { presignedUrl } = preSignedData;
+
+      // 프리사인 URL로 파일 업로드
+      const uploadResponse = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: thumbnailFile,
+        headers: {
+          'Content-Type': thumbnailFile.type,
+        },
+      });
+
+      if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
+
+      // 업로드된 파일의 URL을 서버로 전송
+      const postData = {
+        title: data.title,
+        content: data.content,
+        region: selectedRegion,
+        thumbnail: presignedUrl,
+      };
+
+      const postResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+        credentials: 'include',
+      });
+
+      if (!postResponse.ok) throw new Error('게시물 업로드에 실패했습니다.');
+
+      alert('게시물이 성공적으로 업로드되었습니다.');
+      reset();
+      setThumbnailPreview('');
+      setThumbnailFile(null);
+    } catch (error) {
+      alert(`오류 발생: ${error.message}`);
+    }
   };
 
   const handleRegionSelect = (region: string) => {
@@ -58,6 +93,8 @@ export const CommunityPostPage = () => {
     if (file) {
       setThumbnailPreview(URL.createObjectURL(file));
       setThumbnailFile(file);
+    } else {
+      setThumbnailFile(null);
     }
   };
 
