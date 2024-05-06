@@ -1,8 +1,8 @@
 import { createGlobalStyle, css } from 'styled-components';
 
 import { pretendard } from './font/font';
-import resetCss from './reset';
 import './font/font-face/imcre-font-face.css';
+import resetCss from './reset';
 
 const GlobalStyle = createGlobalStyle`${css`
   ${resetCss}

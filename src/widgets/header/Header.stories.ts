@@ -17,13 +17,13 @@ export const LoggedOut: Story = {};
 // @see https://blog.mathpresso.com/msw%EB%A1%9C-api-%EB%AA%A8%ED%82%B9%ED%95%98%EA%B8%B0-2d8a803c3d5c
 LoggedOut.parameters = {
   msw: {
-    handlers: [...userHandlers],
+    handlers: [...userHandlersError],
   },
 };
 
 export const LoggedIn: Story = {};
 LoggedIn.parameters = {
   msw: {
-    handlers: [...userHandlersError],
+    handlers: [...userHandlers],
   },
 };

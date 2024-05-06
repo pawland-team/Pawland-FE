@@ -8,7 +8,7 @@ import { getQueryClient } from '@shared/lib/get-query-client';
 
 type ProviderProps = PropsWithChildren;
 
-export default function TanstackQueryProvider({ children }: ProviderProps) {
+export const TanstackQueryProvider = ({ children }: ProviderProps) => {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
@@ -23,7 +23,7 @@ export default function TanstackQueryProvider({ children }: ProviderProps) {
       </TextAligner>
     </QueryClientProvider>
   );
-}
+};
 
 const TextAligner = styled.div`
   font-size: 16px;

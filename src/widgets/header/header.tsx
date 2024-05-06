@@ -15,17 +15,28 @@ const Header = () => {
   const router = useRouter();
 
   const { data, status } = useGetUserInfo();
-  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+
+  const { setUserInfo, clearUserInfo } = useUserStore((state) => ({
+    setUserInfo: state.setUserInfo,
+    clearUserInfo: state.clearUserInfo,
+  }));
 
   const handleClickLogin = () => {
     router.push('/login');
   };
 
   useEffect(() => {
+    if (status === 'error') {
+      // TOOD: 보호할 페이지 구분 처리 해놔야 함.
+      console.error('유저 정보를 가져오는데 실패했습니다.');
+      clearUserInfo();
+      router.push('/login');
+    }
+
     if (status === 'success' && data) {
       setUserInfo(data);
     }
-  }, [data, status]);
+  }, [data, status, router, setUserInfo]);
 
   return (
     <>
