@@ -139,23 +139,25 @@ export const CommunityPostDetailPage = () => {
                   <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
                   <S.Coment>{comment.content}</S.Coment>
                 </S.ComentTextareaBox>
-
+                <S.EmptySpace />
                 {/* 대댓글 컴포넌트 */}
                 {comment.reply.length > 0 &&
                   comment.reply[0].id !== null &&
                   comment.reply.map((reply) => (
-                    <S.ReplyWrapper key={reply.id}>
-                      <S.ProfileImageWrapper>
-                        <Image src={reply.author.profileImage} alt='reply-profile-image' width={60} height={60} />
-                      </S.ProfileImageWrapper>
-                      <S.ComentPostBox>
-                        <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
-                        <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
-                        <S.Coment>{reply.content}</S.Coment>
-                      </S.ComentPostBox>
-                    </S.ReplyWrapper>
+                    <>
+                      <S.ReplyWrapper key={reply.id}>
+                        <S.ProfileImageWrapper>
+                          <Image src={reply.author.profileImage} alt='reply-profile-image' width={60} height={60} />
+                        </S.ProfileImageWrapper>
+                        <S.ComentPostBox>
+                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
+                          <S.Coment>{reply.content}</S.Coment>
+                        </S.ComentPostBox>
+                      </S.ReplyWrapper>
+                      <S.EmptySpace />
+                    </>
                   ))}
-                <S.EmptySpace />
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>
