@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Head from 'next/head';
 import { UserInfoArea } from '../../widgets/my-info-area/my-info-area';
 import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
@@ -33,7 +35,7 @@ export const ProfilePage = () => {
       case 'register':
         return <MyRegisteredProductList />;
       case 'wish':
-        return <WishList />;
+        return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
@@ -42,6 +44,7 @@ export const ProfilePage = () => {
         return <MyRegisteredProductList />;
     }
   };
+
   return (
     <>
       <Head>

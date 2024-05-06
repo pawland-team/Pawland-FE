@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CategoryArray } from '../lib/dto';
 import * as S from './category-list-style';
+import { CategoryArray } from '../lib/dto';
 
 interface CategoryListProps {
   categoryList: CategoryArray[];

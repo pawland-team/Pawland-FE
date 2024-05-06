@@ -1,6 +1,8 @@
 import { UserEntity } from '../user-api';
 
-type SaleState = 'selling' | 'canceled' | 'completed';
+export type SaleState = 'selling' | 'canceled' | 'completed';
+
+export type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
 
 export enum SaleStateEnum {
   selling = '판매중',
@@ -8,9 +10,7 @@ export enum SaleStateEnum {
   completed = '판매완료',
 }
 
-type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
-
-type Region =
+export type Region =
   | '서울'
   | '부산'
   | '대구'
@@ -30,12 +30,12 @@ type Region =
   | '제주'
   | '해외';
 
-type Species = 'dog' | 'cat' | 'etc';
+export type Species = 'dog' | 'cat' | 'etc';
 
 /**
  * 중고인지 여부
  */
-type ProductCondition = 'new' | 'used';
+export type ProductCondition = 'new' | 'used';
 
 /**
  * 상품 정보 entity
