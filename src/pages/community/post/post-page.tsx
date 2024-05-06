@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { set } from 'lodash';
 import Image from 'next/image';
 
 import * as S from './post-page-style';
@@ -12,24 +11,38 @@ export const CommunityPostPage = () => {
   const { register, handleSubmit, watch, reset } = useForm();
 
   const onSubmit = (data) => {
+    if (!selectedRegion) {
+      alert('지역을 선택해주세요.');
+
+      return;
+    }
+
+    if (!data.thumbnail || data.thumbnail.length === 0) {
+      alert('썸네일 이미지를 선택해주세요.');
+
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('content', data.content);
     formData.append('region', selectedRegion);
     formData.append('thumbnail', data.thumbnail[0]);
 
-    // API에 폼 데이터 전송
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
       method: 'POST',
       body: formData,
+      credentials: 'include',
     })
       .then((response) => {
         if (!response.ok) throw new Error('게시물 업로드에 실패했습니다.');
 
         alert('게시물이 성공적으로 업로드되었습니다.');
-        reset(); // 폼 초기화
+        reset();
+        setThumbnailPreview('');
       })
       .catch((error) => alert(`오류 발생: ${error.message}`));
+    console.log(data);
   };
 
   const handleRegionSelect = (region: string) => {
@@ -145,13 +158,13 @@ export const CommunityPostPage = () => {
                 {...register('thumbnail', { required: true })}
                 onChange={handleThumbnailChange}
               />
+              {thumbnailPreview && (
+                <div>
+                  <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
+                </div>
+              )}
             </S.UploadLabel>
           </S.ThumnailUploadBox>
-          {thumbnailPreview && (
-            <div>
-              <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
-            </div>
-          )}
         </S.PostThumnailImageArea>
       </form>
     </S.PostPage>
