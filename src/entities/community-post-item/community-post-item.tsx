@@ -4,7 +4,6 @@ import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/f
 import { GoDetailButton } from '../../features/button/go-detail-button/go-detail-button';
 import Link from 'next/link';
 import Image from 'next/image';
-import React from 'react';
 
 export const CommunityPostItem = () => {
   return (
