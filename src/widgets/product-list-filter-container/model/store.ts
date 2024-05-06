@@ -55,6 +55,7 @@ export interface CheckedCategoryState {
   // addGiveAwayValue: (group: string, value: string, isChecked: boolean) => void;
   removeSelectedValue: (group: string, value: string) => void;
   changeSelectedSortingValue: (value: SortingValueType) => void;
+  clearSelectedValues: () => void;
 }
 
 const initialValueList = {
@@ -179,7 +180,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
 
     // 선택된 값 모두 초기화
     clearSelectedValues: () => {
-      set({ updatedValueList: initialValueList });
+      set({ updatedValueList: initialValueList, selectedValues: [] });
     },
 
     // sorting value 값 변경하기

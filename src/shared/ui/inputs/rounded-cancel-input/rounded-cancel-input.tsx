@@ -3,25 +3,25 @@ import { ChangeEvent } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-interface RoundedCancelButtonProps {
+interface RoundedCancelInputProps {
   selectedValue: string;
   selectedName: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RoundedCancelButton = ({ selectedName, selectedValue, handleChange }: RoundedCancelButtonProps) => {
+const RoundedCancelInput = ({ selectedName, selectedValue, handleChange }: RoundedCancelInputProps) => {
   return (
-    <SRoundedCancelButton>
+    <SRoundedCancelInput>
       <input type='checkbox' name={selectedName} onChange={handleChange} id={selectedValue} />
       <label>{selectedValue}</label>
       <Image src='/images/icon/button-close-icon.svg' width={18} height={18} alt='선택 삭제 아이콘' />
-    </SRoundedCancelButton>
+    </SRoundedCancelInput>
   );
 };
 
-export { RoundedCancelButton };
+export { RoundedCancelInput };
 
-const SRoundedCancelButton = styled.div`
+const SRoundedCancelInput = styled.div`
   position: relative;
 
   display: flex;
