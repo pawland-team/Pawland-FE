@@ -1,17 +1,20 @@
-import Head from 'next/head';
-import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
-import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
-import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
+import { useEffect } from 'react';
 
-import * as S from './profile-page-style';
-import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
-import { WishList } from '../../widgets/wish-list/wish-list';
-import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
-import { CommunityList } from '../../widgets/community-list/community-list';
-import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
+import Head from 'next/head';
+
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { useEffect } from 'react';
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+
+import * as S from './profile-page-style';
+import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
+import { CommunityList } from '../../widgets/community-list/community-list';
+import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
+import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
+import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
+import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
+import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
+import { WishList } from '../../widgets/wish-list/wish-list';
 
 interface ActiveButtonState {
   activeButton: string;
@@ -33,7 +36,7 @@ export const ProfilePage = () => {
       case 'register':
         return <RegisteredProductList />;
       case 'wish':
-        return <WishList />;
+        return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
@@ -42,6 +45,7 @@ export const ProfilePage = () => {
         return <RegisteredProductList />;
     }
   };
+
   return (
     <>
       <Head>

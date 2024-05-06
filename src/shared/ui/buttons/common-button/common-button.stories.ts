@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: '버튼입니다.',
+    children: '로그인/회원가입',
     borderRadius: '6px',
     backgroundColor: '#000',
     maxWidth: '100%',
@@ -23,5 +23,38 @@ export const Default: Story = {
     fontColor: '#fff',
     padding: '10px 0',
     type: 'button',
+    disabled: false,
+  },
+};
+
+export const WithBorder: Story = {
+  args: {
+    children: '상품 설명 더보기',
+    borderRadius: '6px',
+    backgroundColor: '#fff',
+    maxWidth: '100%',
+    fontWeight: '700',
+    fontSize: '1.8rem',
+    fontColor: '#43ADFF',
+    padding: '23px 0',
+    borderColor: '#43ADFF',
+    borderWidth: '2px',
+    type: 'button',
+    disabled: false,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: '판매완료',
+    borderRadius: '6px',
+    backgroundColor: '#BDBDBD',
+    maxWidth: '100%',
+    fontWeight: '700',
+    fontSize: '2.4rem',
+    fontColor: '#fff',
+    padding: '18px 0',
+    type: 'button',
+    disabled: true,
   },
 };

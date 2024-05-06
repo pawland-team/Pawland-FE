@@ -1,18 +1,18 @@
-import * as S from './wish-list-style';
-import { ProductCardItem } from '../../entities/product/product-card-item/index';
+import { ProductFlexCardItem } from '@entities/product-card';
+import { mainProductInfo } from '@shared/apis/main-list-api/dto';
 
-export const WishList = () => {
+import * as S from './wish-list-style';
+
+interface WishListProps {
+  itemList: mainProductInfo[];
+}
+
+export const WishList = ({ itemList }: WishListProps) => {
   return (
     <S.WishList>
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
-      <ProductCardItem flexGap={16} cardNumberPerRow={3} />
+      {itemList.map((item) => (
+        <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />
+      ))}
     </S.WishList>
   );
 };
