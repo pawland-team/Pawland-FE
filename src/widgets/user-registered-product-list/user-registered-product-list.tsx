@@ -1,22 +1,12 @@
-import { ProductFlexCardItem } from '@entities/product-card';
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
-
 import * as S from './user-registered-product-list-style';
+import { ProductListSwiper } from '@widgets/product-list-swiper';
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
-interface UserRegisteredProductListProps {
-  itemList: mainProductInfo[];
-}
-
-export const UserRegisteredProductList = ({ itemList }: UserRegisteredProductListProps) => {
+export const UserRegisteredProductList = () => {
   return (
     <S.UserRegisteredProductList>
-      <S.Title>'닉네임'님의 등록상품</S.Title>
-      <S.Line />
-      <S.ProductList>
-        {itemList.map((item) => (
-          <ProductFlexCardItem key={item.id} item={item} flexGap={30} cardNumberPerRow={4} />
-        ))}
-      </S.ProductList>
+      <h3>'닉네임'님의 등록상품</h3>
+      <ProductListSwiper productList={mainListData} />
     </S.UserRegisteredProductList>
   );
 };
