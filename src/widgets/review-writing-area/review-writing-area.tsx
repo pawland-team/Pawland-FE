@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import * as S from './review-writing-area-style';
-import { StarRating } from '../../features/star-rating/star-rating';
-import { CommonButton } from '../../shared/ui/buttons/index';
+import { StarRating } from '@features/star-rating';
+import { CommonButton } from '@shared/ui/buttons';
 
 export const ReviewWritingArea = () => {
   const [review, setReview] = useState('');
