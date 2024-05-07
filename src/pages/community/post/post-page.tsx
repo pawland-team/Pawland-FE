@@ -3,6 +3,9 @@ import { FieldValues, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
 
+import { useModalList } from '@shared/hooks/use-modal';
+import { PostModal } from '@shared/ui/modal/post-modal';
+
 import * as S from './post-page-style';
 
 interface FormData extends FieldValues {
@@ -15,18 +18,31 @@ export const CommunityPostPage = () => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
+  const { openModalList } = useModalList();
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
 
     if (!selectedRegion) {
-      alert('지역을 선택해주세요.');
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['post-modal'],
+        props: {
+          content: '지역을 선택해주세요.',
+        },
+      });
 
       return;
     }
 
     if (!thumbnailFile) {
-      alert('썸네일 이미지를 선택해주세요.');
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['post-modal'],
+        props: {
+          content: '썸네일 이미지를 선택해주세요.',
+        },
+      });
 
       return;
     }
@@ -85,14 +101,26 @@ export const CommunityPostPage = () => {
 
       if (!postResponse.ok) throw new Error('게시물 업로드에 실패했습니다.');
 
-      alert('게시물이 성공적으로 업로드되었습니다.');
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['post-modal'],
+        props: {
+          content: '게시물이 성공적으로 업로드 되었습니다.',
+        },
+      });
       reset();
       setSelectedRegion('');
       setThumbnailPreview('');
       setThumbnailFile(null);
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
-      alert(`오류 발생: ${errorMessage}`);
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['post-modal'],
+        props: {
+          content: `오류 발생: ${errorMessage}`,
+        },
+      });
     }
   };
 
