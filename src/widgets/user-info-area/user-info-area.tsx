@@ -3,6 +3,10 @@ import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './user-info-area-style';
 
+import { EditProfileButton } from '@features/button/edit-profile-button';
+
+import * as S from './user-info-area-style';
+
 interface UserInfoProps {
   userData: UserEntity;
 }

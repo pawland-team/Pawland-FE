@@ -5,6 +5,8 @@ import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 
 import * as S from './review-item-style';
 
+import * as S from './review-item-style';
+
 export const ReviewItem = () => {
   return (
     <Link href='/'>
