@@ -1,9 +1,11 @@
-import * as S from './community-post-item-style';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { GoDetailButton } from '@features/button/go-detail-button';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
-import { GoDetailButton } from '@features/button/go-detail-button';
+
+import * as S from './community-post-item-style';
 
 export const CommunityPostItem = () => {
   return (

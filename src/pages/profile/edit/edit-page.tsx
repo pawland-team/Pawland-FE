@@ -1,9 +1,11 @@
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-import * as S from './edit-page-style';
+import Head from 'next/head';
+
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
+
+import * as S from './edit-page-style';
 
 export const EditPage = () => {
   const { data, status } = useGetUserInfo();
@@ -15,6 +17,7 @@ export const EditPage = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       setSelectedFile(URL.createObjectURL(file));
       setIsChanged(true);
@@ -53,12 +56,7 @@ export const EditPage = () => {
         <S.EditPage>
           <S.PageTitle>프로필</S.PageTitle>
           <S.InfoContainer>
-            <S.ProfileImage
-              src={selectedFile ? selectedFile : undefined}
-              alt='프로필 이미지'
-              width={200}
-              height={200}
-            />
+            <S.ProfileImage src={selectedFile || undefined} alt='프로필 이미지' width={200} height={200} />
             <S.EditButtonArea>
               <S.ImageEditButton htmlFor='fileUpload'>바꾸기</S.ImageEditButton>
               <S.FileUploadInput id='fileUpload' type='file' accept='image/*' onChange={handleFileChange} />
