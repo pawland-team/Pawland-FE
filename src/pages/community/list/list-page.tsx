@@ -60,6 +60,10 @@ export const CommunityListPage = () => {
     if (response.status === 401) {
       throw new Error('인증 실패: 로그인 정보가 유효하지 않습니다.');
     }
+
+    if (!response.ok) {
+      throw new Error('데이터를 불러오는 데 실패했습니다.');
+    }
   };
 
   const { data: communityList, isLoading } = useQuery({
