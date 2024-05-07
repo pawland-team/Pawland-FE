@@ -4,8 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CommunityPostListEntity } from '@shared/apis/community-api/community-list';
-
 import * as S from './list-page-style';
 
 const communityListQueryKey = 'communityList';
@@ -27,6 +25,9 @@ export const CommunityListPage = () => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
 
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
 
   const handleMouseEnter = (id: number) => {
@@ -42,17 +43,33 @@ export const CommunityListPage = () => {
     setIsOpenRegion((prev) => !prev);
   };
 
-  const fetchCommunityList = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/list`);
-    const data = await response.json();
+  const fetchCommunityList = async (page: number, selectedRegions: string[], selectedFilter: string) => {
+    const region = selectedRegions.length ? selectedRegions.join(',') : '';
+    const orderBy = selectedFilter;
 
-    return data;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${orderBy}`,
+      {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (response.status === 401) {
+      throw new Error('인증 실패: 로그인 정보가 유효하지 않습니다.');
+    }
   };
 
-  const { data: communityList, isLoading } = useQuery<CommunityPostListEntity[]>({
-    queryKey: [communityListQueryKey],
-    queryFn: fetchCommunityList,
+  const { data: communityList, isLoading } = useQuery({
+    queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter],
+    queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter),
   });
+
+  const totalPages = communityList?.totalPages ?? 1;
+  const isLastPage = page >= totalPages;
+  const isFirstPage = page <= 1;
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
@@ -83,6 +100,10 @@ export const CommunityListPage = () => {
     event.stopPropagation();
     setSelectedFilter(filterName);
     setIsOpenFilter((prev) => !prev);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
   const RegionDropDownList: RegionItem[] = [
@@ -194,7 +215,7 @@ export const CommunityListPage = () => {
             <S.SearchIconWrapper>
               <Image src='/images/icon/search-icon.svg' alt='search-icon' fill />
             </S.SearchIconWrapper>
-            <S.SearchBar placeholder='제목을 검색해주세요.' />
+            <S.SearchBar placeholder='제목을 검색해주세요.' value={searchQuery} onChange={handleSearch} />
           </S.SearchBarContainer>
           <S.NewPostButton>
             <S.PostButtonIconWrapper>
@@ -291,6 +312,18 @@ export const CommunityListPage = () => {
                   );
                 })}
           </S.ItemListArea>
+          <div>
+            <button type='button' onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={isFirstPage}>
+              이전 페이지
+            </button>
+            <button
+              type='button'
+              onClick={() => setPage((prev) => (!isLastPage ? prev + 1 : prev))}
+              disabled={isLastPage}
+            >
+              다음 페이지
+            </button>
+          </div>
         </S.ContentsArea>
       </S.MainArea>
     </S.CommunityListPage>

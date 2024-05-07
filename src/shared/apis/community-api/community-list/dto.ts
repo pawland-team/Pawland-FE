@@ -32,3 +32,59 @@ export interface CommunityPostListEntity {
     nickname: string; // 닉네임
   };
 }
+
+export interface CommunityEntity {
+  totalPages: 0;
+  totalElements: 0;
+  size: 0;
+  content: [
+    {
+      id: 0;
+      title: 'string';
+      content: 'string';
+      thumbnail: 'string';
+      region: 'string';
+      views: 0;
+      author: {
+        id: 0;
+        email: 'string';
+        nickname: 'string';
+      };
+      comments: [
+        {
+          id: 0;
+          author: {
+            id: 0;
+            email: 'string';
+            nickname: 'string';
+          };
+          content: 'string';
+          replies: ['string'];
+          recommendCount: 0;
+        },
+      ];
+    },
+  ];
+  number: 0;
+  sort: {
+    empty: true;
+    sorted: true;
+    unsorted: true;
+  };
+  numberOfElements: 0;
+  pageable: {
+    offset: 0;
+    sort: {
+      empty: true;
+      sorted: true;
+      unsorted: true;
+    };
+    pageSize: 0;
+    paged: true;
+    pageNumber: 0;
+    unpaged: true;
+  };
+  first: true;
+  last: true;
+  empty: true;
+}
