@@ -56,12 +56,15 @@ export const CommunityPostPage = () => {
 
       if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
 
+      const s3BucketBaseUrl = 'https://midcon-bucket.s3.ap-northeast-2.amazonaws.com/';
+      const thumbnailUrl = `${s3BucketBaseUrl}${fileName}`;
+
       // 업로드된 파일의 URL을 서버로 전송
       const postData = {
         title: data.title,
         content: data.content,
         region: selectedRegion,
-        thumbnail: presignedUrl,
+        thumbnail: thumbnailUrl,
       };
 
       console.log('postData:', postData);
