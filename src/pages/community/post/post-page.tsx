@@ -90,8 +90,9 @@ export const CommunityPostPage = () => {
       setSelectedRegion('');
       setThumbnailPreview('');
       setThumbnailFile(null);
-    } catch (error) {
-      alert(`오류 발생: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
+      alert(`오류 발생: ${errorMessage}`);
     }
   };
 
