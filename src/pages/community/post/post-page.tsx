@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
 
 import * as S from './post-page-style';
 
-export const CommunityPostPage = () => {
-  const [selectedRegion, setSelectedRegion] = useState('');
-  const [thumbnailPreview, setThumbnailPreview] = useState('');
-  const [thumbnailFile, setThumbnailFile] = useState(null);
-  const { register, handleSubmit, watch, reset } = useForm();
+interface FormData extends FieldValues {
+  title: string;
+  content: string;
+}
 
-  const onSubmit = async (data) => {
+export const CommunityPostPage = () => {
+  const [selectedRegion, setSelectedRegion] = useState<string>('');
+  const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const { register, handleSubmit, watch, reset } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
 
     if (!selectedRegion) {
@@ -43,7 +48,7 @@ export const CommunityPostPage = () => {
       if (!preSignedResponse.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
 
       const preSignedData = await preSignedResponse.json();
-      const { presignedUrl } = preSignedData;
+      const { presignedUrl }: { presignedUrl: string } = preSignedData;
 
       // 프리사인 URL로 파일 업로드
       const uploadResponse = await fetch(presignedUrl, {
@@ -94,8 +99,8 @@ export const CommunityPostPage = () => {
     setSelectedRegion(region);
   };
 
-  const handleThumbnailChange = (e) => {
-    const file = e.target.files[0];
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (file) {
       setThumbnailPreview(URL.createObjectURL(file));
