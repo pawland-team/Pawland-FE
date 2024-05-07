@@ -1,7 +1,9 @@
-import Link from 'next/link';
-import * as S from './review-item-style';
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { StarRatingResult } from '@entities/star-rating-result/number-to-star';
+
+import * as S from './review-item-style';
 
 export const ReviewItem = () => {
   return (
