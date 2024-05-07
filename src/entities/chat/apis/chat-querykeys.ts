@@ -7,7 +7,7 @@ export const chatQueryKeys = {
   chatRoomList: () => [...chatQueryKeys.all(), 'chatRoomList'],
   // chatRoomList가 무효화되면 chatRoom을 새로 불러오는 것이므로
   // chatRoom에 담겨있는 채팅 리스트를 불러오는 previousChatList도 무효화되어야 한다.
-  previousChatList: () => [...chatQueryKeys.chatRoomList(), 'previousChatList'],
+  previousChatList: (roomId: number) => [...chatQueryKeys.chatRoomList(), 'previousChatList', roomId],
 };
 
 export const chatQuery = {
@@ -36,8 +36,9 @@ export const chatQuery = {
       Readonly<ReturnType<typeof chatQueryKeys.previousChatList>>,
       string
     >({
-      queryKey: chatQueryKeys.previousChatList(),
       // enabled option 덕분에 roomId가 undefined일 때는 쿼리가 실행되지 않음.
+      // ! 문제점: 쿼리는 생성됨 (["chat","chatRoomList","previousChatList",null])
+      queryKey: chatQueryKeys.previousChatList(roomId!),
       queryFn: ({ pageParam }) => getPreviousChatList({ cursorId: pageParam, roomId: roomId! }),
       initialPageParam: '',
       getNextPageParam: (lastPage) => {

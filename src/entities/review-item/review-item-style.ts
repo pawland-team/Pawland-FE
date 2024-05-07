@@ -38,6 +38,7 @@ export const Nickname = styled.span`
   line-height: 28px;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
+
 export const ContentArea = styled.div`
   display: flex;
   flex-direction: column;

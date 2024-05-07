@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
 import { useGetUserInfo } from '@entities/user/hooks';
-import { useUserStore } from '@entities/user/model';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './header-style';
@@ -16,27 +13,9 @@ const Header = () => {
 
   const { data, status } = useGetUserInfo();
 
-  const { setUserInfo, clearUserInfo } = useUserStore((state) => ({
-    setUserInfo: state.setUserInfo,
-    clearUserInfo: state.clearUserInfo,
-  }));
-
   const handleClickLogin = () => {
     router.push('/login');
   };
-
-  useEffect(() => {
-    if (status === 'error') {
-      // TOOD: 보호할 페이지 구분 처리 해놔야 함.
-      console.error('유저 정보를 가져오는데 실패했습니다.');
-      clearUserInfo();
-      router.push('/login');
-    }
-
-    if (status === 'success' && data) {
-      setUserInfo(data);
-    }
-  }, [data, status, router, setUserInfo]);
 
   return (
     <>

@@ -1,10 +1,11 @@
+import { ReviewItem } from '@entities/review-item';
+import { GoDetailButton } from '@features/button/go-detail-button';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
-import * as S from './transaction-item-style';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
-import { GoDetailButton } from '@features/button/go-detail-button';
 import { ReviewWritingArea } from '@widgets/review-writing-area';
-import { ReviewItem } from '@entities/review-item';
+
+import * as S from './transaction-item-style';
 
 export const TransactionItem = () => {
   return (

@@ -1,7 +1,9 @@
-import { EditProfileButton } from '@features/button/edit-profile-button';
-import * as S from './user-info-area-style';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { EditProfileButton } from '@features/button/edit-profile-button';
+
+import * as S from './user-info-area-style';
 
 interface UserInfoProps {
   imageSrc?: string;

@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
-import * as S from './registered-product-item-style';
-import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { DropdownButton } from '@shared/ui/buttons';
-import { formatDateShorter } from '@shared/utils/time';
+import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
+import { formatDateShorter } from '@shared/utils/time';
+
+import * as S from './registered-product-item-style';
 
 export const RegisteredProductItem = () => {
   return (
