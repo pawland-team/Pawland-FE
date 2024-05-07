@@ -21,6 +21,6 @@ export const DropDownMenu = styled.ul`
   position: absolute;
   top: 120%;
   right: 0;
-
   ${dropDownMenuStyle}
+  width: 120px;
 `;
