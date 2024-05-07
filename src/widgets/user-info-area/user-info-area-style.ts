@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styled from 'styled-components';
 
 export const UserInfoArea = styled.div`
@@ -8,7 +7,7 @@ export const UserInfoArea = styled.div`
   width: 100%;
 `;
 
-export const ProfileImage = styled(Image)`
+export const ProfileImage = styled.img`
   position: relative;
   border: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
   border-radius: 50%;
@@ -16,6 +15,7 @@ export const ProfileImage = styled(Image)`
 
 export const UserNicknameArea = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 20px;
 
   div {

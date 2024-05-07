@@ -1,4 +1,10 @@
+import { useEffect } from 'react';
+
 import Head from 'next/head';
+
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
+import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
 import * as S from './profile-page-style';
 import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
@@ -15,14 +21,22 @@ interface ActiveButtonState {
 }
 
 export const ProfilePage = () => {
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
   const activeButton = useActiveButtonStore((state: ActiveButtonState) => state.activeButton);
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setUserInfo(data);
+    }
+  }, [data, status]);
 
   const renderComponent = () => {
     switch (activeButton) {
       case 'register':
         return <RegisteredProductList />;
       case 'wish':
-        return <WishList />;
+        return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
@@ -43,7 +57,7 @@ export const ProfilePage = () => {
       <main>
         <S.ProfilePage>
           <S.UserInfoContainer>
-            <UserInfoArea />
+            <UserInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
             <UserLoginInfoArea />
           </S.UserInfoContainer>
           <S.ListContainer>

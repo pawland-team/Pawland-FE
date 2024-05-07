@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import mockbird from '@/public/images/mock/bird-w64-h64.png';
+// import mockbird from '@/public/images/mock/bird-w64-h64.png';
 
 import { RoundProfile } from './round-profile';
 
@@ -24,7 +24,7 @@ const meta = {
   },
   args: {
     onClick: fn(),
-    src: mockbird,
+    src: '/images/mock/bird-w64-h64.png',
   },
 } satisfies Meta<typeof RoundProfile>;
 

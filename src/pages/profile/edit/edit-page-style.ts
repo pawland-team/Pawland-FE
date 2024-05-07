@@ -1,5 +1,8 @@
-import Image from 'next/image';
 import styled from 'styled-components';
+
+interface ButtonProps {
+  $isActive?: boolean;
+}
 
 export const EditPage = styled.div`
   padding-bottom: 130px;
@@ -33,7 +36,12 @@ export const EditButtonArea = styled.div`
   margin-top: 21px;
 `;
 
-export const ImageEditButton = styled.button`
+export const ImageEditButton = styled.label`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+
   width: 50px;
 
   font-size: 1.4rem;
@@ -43,7 +51,11 @@ export const ImageEditButton = styled.button`
   border-bottom: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-export const ProfileImage = styled(Image)`
+export const FileUploadInput = styled.input`
+  display: none;
+`;
+
+export const ProfileImage = styled.img`
   position: relative;
   border: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};
   border-radius: 50%;
@@ -123,6 +135,20 @@ export const BigButtonArea = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 300px;
+`;
+
+export const SaveButton = styled.button<ButtonProps>`
+  width: 378px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ $isActive, theme }) => ($isActive ? theme.color.white_FFFFFF : theme.color.gray_9E9E9E)};
+
+  background-color: ${({ $isActive, theme }) => $isActive && theme.color.blue_43ADFF};
+  border: 1px solid ${({ $isActive, theme }) => ($isActive ? theme.color.blue_43ADFF : theme.color.gray_BDBDBD)};
+  border-radius: 37px;
 `;
 
 export const BigButton = styled.button`
