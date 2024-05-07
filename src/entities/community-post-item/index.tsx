@@ -1,1 +1,1 @@
-export { CommunityPostItem } from './community-post-item';
+export { UserCommunityPostItem } from './user-community-post-item';

@@ -1,5 +1,5 @@
 import * as S from './my-community-list-style';
-import { CommunityPostItem } from '../../entities/community-post-item/community-post-item';
+import { CommunityPostItem } from '../../entities/community-post-item/user-community-post-item';
 import { DropdownButton } from '../../shared/ui/buttons/index';
 import { TapMenuBar } from '../tap-menu-bar/tap-menu-bar';
 
