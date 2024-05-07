@@ -1,6 +1,6 @@
+import { DropdownButton } from '@shared/ui/buttons';
 import * as S from './transaction-history-list-style';
-import { TransactionItem } from '../../entities/transaction-item/transaction-item';
-import { DropdownButton } from '../../shared/ui/buttons/index';
+import { TransactionItem } from '@entities/transaction-item';
 
 export const TransactionHistoryList = () => {
   return (

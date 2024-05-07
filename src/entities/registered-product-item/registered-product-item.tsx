@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
 import * as S from './registered-product-item-style';
-import { DropdownButton } from '../../shared/ui/buttons/dropdown-button/dropdown-button';
-import { SmallThumbnail } from '../../shared/ui/thumbnails/small-thumbnail/small-thumbnail';
-import { formatPrice } from '../../shared/utils/price/index';
-import { formatDateShorter } from '../../shared/utils/time/format-date-shorter/format-date-shorter';
+import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
+import { DropdownButton } from '@shared/ui/buttons';
+import { formatDateShorter } from '@shared/utils/time';
+import { formatPriceToKoStyle } from '@shared/utils/price';
 
 export const RegisteredProductItem = () => {
   return (
@@ -28,7 +28,7 @@ export const RegisteredProductItem = () => {
           </div>
           <div className='text-area'>
             <span className='create-date'>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
-            <p className='price'>{formatPrice(30000)}원</p>
+            <p className='price'>{formatPriceToKoStyle(30000)}</p>
           </div>
         </S.ItemInfoArea>
       </S.RegisteredProductItem>
