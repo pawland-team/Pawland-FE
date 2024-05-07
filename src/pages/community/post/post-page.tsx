@@ -29,6 +29,7 @@ export const CommunityPostPage = () => {
     try {
       // 프리사인 URL 요청
       const fileName = thumbnailFile.name;
+      console.log('fileName:', fileName);
 
       const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
         method: 'POST',
@@ -63,6 +64,8 @@ export const CommunityPostPage = () => {
         thumbnail: presignedUrl,
       };
 
+      console.log('postData:', postData);
+
       const postResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, {
         method: 'POST',
         headers: {
@@ -76,6 +79,7 @@ export const CommunityPostPage = () => {
 
       alert('게시물이 성공적으로 업로드되었습니다.');
       reset();
+      setSelectedRegion('');
       setThumbnailPreview('');
       setThumbnailFile(null);
     } catch (error) {

@@ -194,15 +194,21 @@ export const LoginPage = () => {
               <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
             </S.SocialLoginWrapper>
             <S.SocialLoginWrapper>
-              <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='/images/social-media/naver-logo.svg' alt='naver-logo-icon' />
-              </S.SocialIconWrapper>
-              <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='/images/social-media/kakao-logo.svg' alt='kakao-logo-icon' />
-              </S.SocialIconWrapper>
-              <S.SocialIconWrapper>
-                <S.SocialLoginLogo fill src='/images/social-media/google-logo.svg' alt='google-logo-icon' />
-              </S.SocialIconWrapper>
+              <Link href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=9NjBfBE6YM2diWzMy19n&redirect_uri=https://midcon.store/api/auth/oauth2/naver&state=1234'>
+                <S.SocialIconWrapper>
+                  <S.SocialLoginLogo fill src='/images/social-media/naver-logo.svg' alt='naver-logo-icon' />
+                </S.SocialIconWrapper>
+              </Link>
+              <Link href='https://kauth.kakao.com/oauth/authorize?client_id=b88ca4129b6dcc848a022469f3d6ae1c&redirect_uri=https://midcon.store/api/auth/oauth2/kakao&response_type=code&prompt=login'>
+                <S.SocialIconWrapper>
+                  <S.SocialLoginLogo fill src='/images/social-media/kakao-logo.svg' alt='kakao-logo-icon' />
+                </S.SocialIconWrapper>
+              </Link>
+              <Link href='https://accounts.google.com/o/oauth2/v2/auth?client_id=241400103028-mj55qqtl4gv96o35fdavqm6fngb68ske.apps.googleusercontent.com&redirect_uri=https://midcon.store/api/auth/oauth2/google&response_type=code&scope=email profile'>
+                <S.SocialIconWrapper>
+                  <S.SocialLoginLogo fill src='/images/social-media/google-logo.svg' alt='google-logo-icon' />
+                </S.SocialIconWrapper>
+              </Link>
             </S.SocialLoginWrapper>
           </S.SocialLoginContainer>
         </S.LoginPageContainer>
