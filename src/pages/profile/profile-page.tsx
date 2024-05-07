@@ -5,16 +5,16 @@ import Head from 'next/head';
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+import { useActiveButtonStore } from '@shared/store/use-active-button-store';
+import { CommunityList } from '@widgets/community-list';
+import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
+import { RegisteredProductList } from '@widgets/registered-product-list';
+import { TransactionHistoryList } from '@widgets/transaction-history-list';
+import { UserInfoArea } from '@widgets/user-info-area';
+import { UserLoginInfoArea } from '@widgets/user-login-info-area';
+import { WishList } from '@widgets/wish-list';
 
 import * as S from './profile-page-style';
-import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
-import { CommunityList } from '../../widgets/community-list/community-list';
-import { ProfilePageMenuBar } from '../../widgets/profile-page-menu-bar/profile-page-menu-bar';
-import { RegisteredProductList } from '../../widgets/registered-product-list/registered-product-list';
-import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
-import { UserInfoArea } from '../../widgets/user-info-area/user-info-area';
-import { UserLoginInfoArea } from '../../widgets/user-login-info-area/user-login-info-area';
-import { WishList } from '../../widgets/wish-list/wish-list';
 
 interface ActiveButtonState {
   activeButton: string;
