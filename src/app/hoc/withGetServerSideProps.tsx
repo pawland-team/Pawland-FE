@@ -16,6 +16,7 @@ export const withGetServerSideProps = (getServerSideProps: GetServerSideProps) =
     //   process.env.NODE_ENV === 'development' ? `http://localhost:${process.env.PORT}` : process.env.DEPLOY_SERVER_URL,
     // ).pathname;
 
+    // cookie에 담긴 토큰의 이름이 jwt임
     console.log(context.req.cookies.jwt); // undefined
     console.log(context.req.headers.cookie); // undefined
     console.log(context.req.headers['set-cookie']); // undefined
