@@ -1,6 +1,7 @@
 import { LogoutButton } from '@features/button/logout-button';
-import * as S from './user-login-info-area-style';
 import { RegisterProductButton } from '@features/button/register-product-button';
+
+import * as S from './user-login-info-area-style';
 
 export const UserLoginInfoArea = () => {
   return (

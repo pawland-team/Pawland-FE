@@ -1,7 +1,8 @@
-import { TapMenuBar } from '@widgets/tap-menu-bar';
-import * as S from './community-list-style';
-import { DropdownButton } from '@shared/ui/buttons';
 import { CommunityPostItem } from '@entities/community-post-item';
+import { DropdownButton } from '@shared/ui/buttons';
+import { TapMenuBar } from '@widgets/tap-menu-bar';
+
+import * as S from './community-list-style';
 
 export const CommunityList = () => {
   return (
