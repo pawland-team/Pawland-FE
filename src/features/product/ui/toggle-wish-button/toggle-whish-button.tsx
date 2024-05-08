@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import Image from 'next/image';
 
+import { useGetUserInfo } from '@entities/user/hooks';
 import { usePostMakeWishedMutation } from '@features/product/hooks';
 import { usePostCancelWishedMutation } from '@features/product/hooks/use-post-cancel-wished-mutation';
 
@@ -27,9 +28,15 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
   const [isWishedChange, setIsWishedChange] = useState(initialIsWished);
   const { mutate: makeWishedMutate } = usePostMakeWishedMutation();
   const { mutate: cancelWishedMutate } = usePostCancelWishedMutation();
+  const { data: userData } = useGetUserInfo();
 
   const handleClickToggleWishButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (!userData || userData === undefined) {
+      // TODO: 로그인 페이지로 보내부려
+      return alert('로그인하세요');
+    }
 
     if (!isWishedChange) {
       makeWishedMutate(id, {
