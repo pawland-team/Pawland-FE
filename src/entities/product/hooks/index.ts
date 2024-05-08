@@ -1,1 +1,1 @@
-export { useGetMainProductList } from './use-get-main-product-list.query';
+export * from './use-get-main-product-list.query';

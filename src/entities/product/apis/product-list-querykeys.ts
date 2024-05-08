@@ -1,16 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getProductDetail, getProductList, getProductSearchList } from '@shared/apis/product-api';
-
-interface SearchListParam {
-  page: number;
-  size: number;
-  region: string;
-  species: string;
-  category: string;
-  isFree: boolean;
-  orderBy: string;
-}
+import { SearchListParam } from '@shared/apis/product-api/get-product-search-list-api';
 
 export const productQueryKeys = {
   all: () => ['product'],

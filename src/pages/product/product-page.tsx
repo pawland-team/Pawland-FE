@@ -1,12 +1,12 @@
 import { FormEvent, MouseEvent, useRef, useState } from 'react';
 
-import { ProductFlexList } from '@entities/product/ui';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
 import { ProductListFilterContainer } from '@widgets/product-list-filter-container';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 import { SortingValueType } from '@widgets/product-list-filter-container/model/store';
+import { ProductSearchResultList } from '@widgets/product-search-result-list';
 
 import * as S from './product-page-style';
 
@@ -16,7 +16,6 @@ const ProductPage = () => {
   const { sorting, changeSelectedSortingValue } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-  const { data, isLoading } = useGet(8);
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,7 +60,7 @@ const ProductPage = () => {
         />
       </S.SelectBoxArea>
       <S.CardListArea>
-        <ProductFlexList listData={mainListData} />
+        <ProductSearchResultList />
       </S.CardListArea>
     </S.ProductPage>
   );
