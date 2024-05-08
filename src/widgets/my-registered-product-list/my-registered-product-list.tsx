@@ -1,4 +1,4 @@
-import { RegisteredProductItem } from '@entities/registered-product-item';
+import { RegisteredProductItem } from '@entities/profile/registered-product-item/ui';
 import { DropdownButton } from '@shared/ui/buttons';
 
 import * as S from './my-registered-product-list-style';

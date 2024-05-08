@@ -1,4 +1,4 @@
-import { TransactionItem } from '@entities/transaction-item';
+import { TransactionItem } from '@entities/profile/transaction-item/ui';
 import { DropdownButton } from '@shared/ui/buttons';
 
 import * as S from './transaction-history-list-style';

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { StarRatingResult } from '@entities/star-rating-result/number-to-star';
+import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 
 import * as S from './review-item-style';
 

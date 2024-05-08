@@ -11,7 +11,7 @@ export const RegisteredProductItem = () => {
   return (
     <Link href='/'>
       <S.RegisteredProductItem>
-        <SmallThumbnail />
+        <SmallThumbnail imageUrl={''} />
         <S.ItemInfoArea>
           <div>
             <DropdownButton

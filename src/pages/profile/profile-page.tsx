@@ -5,9 +5,9 @@ import Head from 'next/head';
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
-import { TransactionHistoryList } from '@widgets/transaction-history-list';
-import { UserLoginInfoArea } from '@widgets/user-login-info-area';
-import { WishList } from '@widgets/wish-list';
+import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
+import { MyLoginInfoArea } from '@widgets/my-login-info-area';
+import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
 import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
@@ -60,7 +60,7 @@ export const ProfilePage = () => {
         <S.ProfilePage>
           <S.UserInfoContainer>
             <MyInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
-            <UserLoginInfoArea />
+            <MyLoginInfoArea />
           </S.UserInfoContainer>
           <S.ListContainer>
             <ProfilePageMenuBar />

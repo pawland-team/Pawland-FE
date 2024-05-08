@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { StarRatingResult } from '@entities/star-rating-result/number-to-star';
+import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
 import { CommonButton } from '@shared/ui/buttons';
 import { CategoryTree, ProductInteractionButtonsBox, RateStar } from '@shared/ui/product';

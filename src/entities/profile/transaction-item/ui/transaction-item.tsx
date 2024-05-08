@@ -1,9 +1,9 @@
-import { ReviewItem } from '@entities/review-item';
+import { ReviewItem } from '@entities/profile/review-item/ui';
 import { GoDetailButton } from '@features/button/go-detail-button';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
-import { ReviewWritingArea } from '@widgets/review-writing-area';
+import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './transaction-item-style';
 
@@ -11,7 +11,7 @@ export const TransactionItem = () => {
   return (
     <S.TransactionItem>
       <S.ProductArea>
-        <SmallThumbnail />
+        <SmallThumbnail imageUrl='' />
         <S.ItemInfoArea>
           <span className='saleSate'>판매완료</span>
           <div>
