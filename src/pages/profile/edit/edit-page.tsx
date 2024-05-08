@@ -80,7 +80,7 @@ export const EditPage = () => {
         console.log(nickname, description, selectedFile);
       }
     } catch (error) {
-      console.error('프로필 저장 실패:', error.message);
+      console.error('프로필 저장 실패:', error);
     }
   };
 

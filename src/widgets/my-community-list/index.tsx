@@ -1,1 +1,1 @@
-export { CommunityList } from './my-community-list';
+export { MyCommunityList } from './my-community-list';

@@ -1,1 +1,1 @@
-export { RegisteredProductList } from './my-registered-product-list';
+export { MyRegisteredProductList } from './my-registered-product-list';
