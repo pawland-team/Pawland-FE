@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { ProductListItemDto } from '@shared/apis/main-list-api/dto';
 import { Description, Thumbnail } from '@shared/ui/product';
 
 import * as S from './product-flex-card-item-style';
@@ -8,7 +8,7 @@ import * as S from './product-flex-card-item-style';
 interface ProductFlexCardItemProps {
   flexGap?: number;
   cardNumberPerRow?: number;
-  item: mainProductInfo;
+  item: ProductListItemDto;
 }
 
 /**

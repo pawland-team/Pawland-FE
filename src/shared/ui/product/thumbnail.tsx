@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { ProductListItemDto } from '@shared/apis/main-list-api/dto';
 
 import { WishItemButton } from './whish-item-button';
 
 interface ThumbnailProps {
-  item: mainProductInfo;
+  item: ProductListItemDto;
 }
 
 const Thumbnail = ({ item }: ThumbnailProps) => {
@@ -18,10 +18,10 @@ const Thumbnail = ({ item }: ThumbnailProps) => {
         placeholder='blur'
         blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHhTPQAGYgJ5cH4fHAAAAABJRU5ErkJggg=='
         className='thumbnail-image'
-        src={item.imageThumbnail}
-        alt={`${item.productName} 상품의 대표 이미지`}
+        src={item.thumbnailImage}
+        alt={`${item.name} 상품의 대표 이미지`}
       />
-      <WishItemButton isWished={item.isWished} />
+      <WishItemButton isWished={item.wished} />
     </SProductThumbnaile>
   );
 };
