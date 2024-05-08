@@ -64,12 +64,17 @@ export const CommunityListPage = () => {
     if (!response.ok) {
       throw new Error('데이터를 불러오는 데 실패했습니다.');
     }
+
+    return response.json();
   };
 
-  const { data: communityList, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter],
     queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter),
+    select: (data) => data.content,
   });
+
+  const communityList = data ?? [];
 
   const totalPages = communityList?.totalPages ?? 1;
   const isLastPage = page >= totalPages;
