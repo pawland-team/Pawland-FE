@@ -19,8 +19,26 @@ export const CommunityPostDetailPage = () => {
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
-  const handleLike = () => {
+  const handleLike = async () => {
     setIsLiked(!isLiked);
+
+    const url = isLiked
+      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/cancel/${id}`
+      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ postId: id }),
+    });
+
+    if (!response.ok) {
+      console.error('Failed to toggle recommendation', await response.text());
+      setIsLiked(!isLiked);
+    }
   };
 
   const fetchCommunityPostDetail = async () => {

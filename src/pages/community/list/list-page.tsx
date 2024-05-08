@@ -292,7 +292,6 @@ export const CommunityListPage = () => {
             {isLoading
               ? '로딩중'
               : communityList?.map((item) => {
-                  console.log(item);
                   const isHovered = hoveredItemId === item.id;
 
                   const arrowIconSrc = isHovered
