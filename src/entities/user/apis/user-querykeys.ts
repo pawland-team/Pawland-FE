@@ -11,10 +11,10 @@ export const userQuery = {
     queryOptions({
       queryKey: userQueryKeys.all(),
       queryFn: getUserInfo,
-      refetchOnMount: false,
+      refetchOnMount: true,
       retry: 1,
-      // 1시간
-      gcTime: 1000 * 60 * 60,
-      staleTime: 1000 * 60 * 60,
+      // 24시간
+      gcTime: 1000 * 60 * 60 * 24,
+      staleTime: 1000 * 60 * 60 * 24,
     }),
 };

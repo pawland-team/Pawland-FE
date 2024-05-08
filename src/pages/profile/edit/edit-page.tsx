@@ -2,18 +2,17 @@ import { useEffect, useState } from 'react';
 
 import Head from 'next/head';
 
-// import { useGetUserInfo } from '@entities/user/hooks';
+import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
 
 export const EditPage = () => {
-  //   const { data, status } = useGetUserInfo();
-  //   const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
-  const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
-  const [nickname, setNickname] = useState(userInfo?.nickname);
-  const [description, setDescription] = useState(userInfo?.userDesc);
-  const [selectedFile, setSelectedFile] = useState<string | null>(userInfo?.profileImage || null);
+  const { data, status } = useGetUserInfo();
+  const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
+  const [nickname, setNickname] = useState(data?.nickname);
+  const [description, setDescription] = useState(data?.userDesc);
+  const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
   const [isChanged, setIsChanged] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,18 +35,10 @@ export const EditPage = () => {
   };
 
   useEffect(() => {
-    if (userInfo) {
-      setNickname(userInfo.nickname);
-      setDescription(userInfo.userDesc);
-      setSelectedFile(userInfo.profileImage);
+    if (status === 'success' && data) {
+      setUserInfo(data);
     }
-  }, [userInfo]);
-
-  // useEffect(() => {
-  //   if (status === 'success' && data) {
-  //     setUserInfo(data);
-  //   }
-  // }, [data, status]);
+  }, [data, status]);
 
   const handleSaveProfile = () => {
     setIsChanged(false);

@@ -35,6 +35,26 @@ export const CommonCheckBoxContainer = styled.div`
 
     &.checked {
       background-color: ${({ theme }) => theme.color.blue_43ADFF};
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        top: -1px;
+        left: 3px;
+        transform-origin: bottom left;
+        transform: rotate(45deg);
+
+        display: block;
+
+        box-sizing: border-box;
+        width: 6px;
+        height: 10px;
+
+        border-color: #fff;
+        border-style: solid;
+        border-width: 0 2px 2px 0;
+      }
     }
 
     img {

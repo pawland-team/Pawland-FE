@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
@@ -10,41 +10,24 @@ export interface DropDownBoxDto {
 }
 
 interface DropDownBoxProps {
-  dropdownList: DropDownBoxDto[];
-  selectedName?: string;
-  setSelectedSortingName?: Dispatch<SetStateAction<string | undefined>>;
-  setIsOpened: Dispatch<SetStateAction<boolean>>;
+  children: ReactNode;
+  width?: string;
 }
 
-const DropDownBox = ({ dropdownList, selectedName, setSelectedSortingName, setIsOpened }: DropDownBoxProps) => {
-  const handleClickName = (e: MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-
-    if (setSelectedSortingName) {
-      setSelectedSortingName(target.innerHTML);
-    }
-
-    setIsOpened(false);
-  };
-
-  return (
-    <StyleDropDownBox>
-      {dropdownList.map((list) => (
-        <li key={list.id}>
-          <button onClick={handleClickName} type='button' className={selectedName === list.name ? 'selected' : ''}>
-            {list.name}
-          </button>
-        </li>
-      ))}
-    </StyleDropDownBox>
-  );
+const DropDownBox = ({ children, width = '100%' }: DropDownBoxProps) => {
+  return <SDropDownBox $width={width}>{children}</SDropDownBox>;
 };
 
 export { DropDownBox };
 
-const StyleDropDownBox = styled.ul`
+interface SDropDownBoxProps {
+  $width: string;
+}
+
+const SDropDownBox = styled.ul<SDropDownBoxProps>`
   ${dropDownMenuStyle}
   position: absolute;
   top: 100%;
   left: 0;
+  width: ${(props) => props.$width};
 `;

@@ -6,10 +6,11 @@ export type ZIndexObject = {
 
 export type ZIndex<T extends ZIndexObject> = Readonly<T>;
 
-export const zIndex: ZIndex<{ root: 1; floatingButton: 2; header: 3; sidebar: 4; modal: 5 }> = {
+export const zIndex: ZIndex<{ root: 1; floatingButton: 2; header: 3; sidebar: 4; modal: 5; pageLoader: 6 }> = {
   root: 1,
   floatingButton: 2,
   header: 3,
   sidebar: 4,
   modal: 5,
+  pageLoader: 6,
 };
