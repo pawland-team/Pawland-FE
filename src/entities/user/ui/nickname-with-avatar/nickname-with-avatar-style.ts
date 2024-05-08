@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { dropDownMenuStyle } from '../../shared/ui/styles/utills/drop-down-menu';
+import { dropDownMenuStyle } from '@shared/ui/styles/utills';
 
 export const NicknameWithAvatar = styled.div`
   cursor: pointer;
