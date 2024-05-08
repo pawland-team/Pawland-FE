@@ -18,6 +18,65 @@ type FilterItem = {
   name: string;
 };
 
+type Author = {
+  id: number;
+  email: string;
+  nickname: string;
+};
+
+type Comment = [
+  {
+    id: number;
+    author: Author;
+    content: 'string';
+    replies: string[];
+    recommendCount: number;
+  },
+];
+
+type Post = {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  region: string;
+  views: number;
+  author: Author;
+  comments: Comment[];
+  createdAt: string;
+};
+
+type Pageable = {
+  pageNumber: number;
+  pageSize: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+};
+
+type ApiResponse = {
+  content: Post[];
+  pageable: Pageable;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+};
+
 export const CommunityListPage = () => {
   const [isOpenRegion, setIsOpenRegion] = useState<boolean>(false);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
@@ -43,7 +102,11 @@ export const CommunityListPage = () => {
     setIsOpenRegion((prev) => !prev);
   };
 
-  const fetchCommunityList = async (page: number, selectedRegions: string[], selectedFilter: string) => {
+  const fetchCommunityList = async (
+    page: number,
+    selectedRegions: string[],
+    selectedFilter: string,
+  ): Promise<ApiResponse> => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
 
     const response = await fetch(
@@ -67,13 +130,12 @@ export const CommunityListPage = () => {
     return response.json();
   };
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<ApiResponse>({
     queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter],
     queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter),
-    select: (data) => data.content,
   });
 
-  const communityList = data || [];
+  const communityList = data?.content || [];
   const totalPages = data?.totalPages || 0;
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
@@ -143,7 +205,7 @@ export const CommunityListPage = () => {
 
   const selectedRegionNames: string[] = selectedRegions;
 
-  function isValidHttpUrl(string) {
+  function isValidHttpUrl(string: string) {
     let url;
 
     try {
@@ -226,6 +288,7 @@ export const CommunityListPage = () => {
             {isLoading
               ? '로딩중'
               : communityList?.map((item) => {
+                  console.log(item);
                   const isHovered = hoveredItemId === item.id;
 
                   const arrowIconSrc = isHovered
@@ -250,7 +313,7 @@ export const CommunityListPage = () => {
                             <S.ItemSubDivider />
                             <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
+                            <S.ItemSubText>추천 {item.comments.recommendCount}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>조회 {item.views}</S.ItemSubText>
                           </S.ItemSubTextBox>
