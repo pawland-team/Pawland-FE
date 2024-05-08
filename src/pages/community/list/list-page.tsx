@@ -74,11 +74,8 @@ export const CommunityListPage = () => {
     select: (data) => data.content,
   });
 
-  const communityList = data ?? [];
-
-  const totalPages = communityList?.totalPages ?? 1;
-  const isLastPage = page >= totalPages;
-  const isFirstPage = page <= 1;
+  const communityList = data || [];
+  const totalPages = data?.totalPages || 0;
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
@@ -254,15 +251,12 @@ export const CommunityListPage = () => {
                 })}
           </S.ItemListArea>
           <div>
-            <button type='button' onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={isFirstPage}>
-              이전 페이지
+            <button type='button' onClick={() => setPage((prev) => prev - 1)} disabled={page === 1}>
+              이전
             </button>
-            <button
-              type='button'
-              onClick={() => setPage((prev) => (!isLastPage ? prev + 1 : prev))}
-              disabled={isLastPage}
-            >
-              다음 페이지
+            <span>{page}</span>
+            <button type='button' onClick={() => setPage((prev) => prev + 1)} disabled={page === totalPages}>
+              다음
             </button>
           </div>
         </S.ContentsArea>
