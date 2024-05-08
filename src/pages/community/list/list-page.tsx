@@ -296,17 +296,17 @@ export const CommunityListPage = () => {
                     <Link href={`/community/post-detail/${item.id}`} key={item.id}>
                       <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
                         <S.ThumnailImageWrapper>
-                          <Image src={item.imageThumbnail} alt='thumnail-image' fill />
+                          <Image src={item.thumbnail} alt='thumbnail-image' fill />
                         </S.ThumnailImageWrapper>
                         <S.TextContentsWrapper>
                           <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
                           <S.ItemTitleText>{item.title}</S.ItemTitleText>
                           <S.ItemSubTextBox>
-                            <S.ItemSubText>{item.writerInfo.nickname}</S.ItemSubText>
+                            <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
+                            <S.ItemSubText>{item.createdAt}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>댓글 {item.commentCount}</S.ItemSubText>
+                            <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>추천 {item.recommendationCount}</S.ItemSubText>
                             <S.ItemSubDivider />
