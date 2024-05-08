@@ -22,7 +22,7 @@ export const productQueryKeys = {
   productDetail: (id: number) => [...productQueryKeys.all(), id],
 };
 
-export const producQuery = {
+export const productQuery = {
   all: () =>
     queryOptions({
       queryKey: productQueryKeys.all(),
