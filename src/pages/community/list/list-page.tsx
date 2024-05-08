@@ -45,10 +45,9 @@ export const CommunityListPage = () => {
 
   const fetchCommunityList = async (page: number, selectedRegions: string[], selectedFilter: string) => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
-    const orderBy = selectedFilter;
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${orderBy}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${selectedFilter}`,
       {
         credentials: 'include',
         headers: {
@@ -144,6 +143,18 @@ export const CommunityListPage = () => {
 
   const selectedRegionNames: string[] = selectedRegions;
 
+  function isValidHttpUrl(string) {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  }
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -221,11 +232,13 @@ export const CommunityListPage = () => {
                     ? '/images/icon/arrow-icon-blue.svg'
                     : '/images/icon/arrow-icon-gray.svg';
 
+                  const thumbnailUrl = isValidHttpUrl(item.thumbnail) ? item.thumbnail : '/images/test/test-image2.png';
+
                   return (
                     <Link href={`/community/post-detail/${item.id}`} key={item.id}>
                       <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
                         <S.ThumnailImageWrapper>
-                          <Image src={item.thumbnail} alt='thumbnail-image' fill />
+                          <Image src={thumbnailUrl} alt='thumbnail-image' fill />
                         </S.ThumnailImageWrapper>
                         <S.TextContentsWrapper>
                           <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
