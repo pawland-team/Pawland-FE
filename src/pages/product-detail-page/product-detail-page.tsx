@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import { useGetMainProductList } from '@entities/product/hooks';
 import { mockProductDetailInfo } from '@shared/apis/product-api';
 import { ScrollToButton } from '@shared/ui/buttons';
@@ -11,6 +13,9 @@ const ProductDetailPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Pawland :: 상품 상세</title>
+      </Head>
       <S.ProductDetailPage>
         <S.DetailArticleArea>
           <DetailMainInfo detailInfo={mockProductDetailInfo} />
