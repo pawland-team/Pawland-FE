@@ -4,14 +4,15 @@ import { LinkCopyButton } from './link-copy-button';
 import { WishItemButton } from './whish-item-button';
 
 interface ProductInteractionButtonsBoxProps {
+  id: number;
   isWished: boolean;
 }
 
-const ProductInteractionButtonsBox = ({ isWished }: ProductInteractionButtonsBoxProps) => {
+const ProductInteractionButtonsBox = ({ id, isWished }: ProductInteractionButtonsBoxProps) => {
   return (
     <ProductInteractionButtonsStyle>
       <LinkCopyButton />
-      <WishItemButton isWished={isWished} width={21} height={18} />
+      <WishItemButton id={id} initialIsWished={isWished} width={21} height={18} />
     </ProductInteractionButtonsStyle>
   );
 };

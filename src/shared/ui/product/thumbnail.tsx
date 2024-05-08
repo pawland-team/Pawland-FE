@@ -21,7 +21,7 @@ const Thumbnail = ({ item }: ThumbnailProps) => {
         src={item.thumbnailImage === undefined ? '/images/product/default-card-thumbnail.png' : item.thumbnailImage}
         alt={`${item.name} 상품의 대표 이미지`}
       />
-      <WishItemButton isWished={item.wished} />
+      <WishItemButton id={item.id} initialIsWished={item.wished} />
     </SProductThumbnaile>
   );
 };

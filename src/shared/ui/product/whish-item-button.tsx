@@ -1,9 +1,14 @@
 import { MouseEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Image from 'next/image';
 
+import { usePostMakeWishedMutation } from './hooks';
+import { usePostCancelWishedMutation } from './hooks/use-post-cancel-wished-mutation';
+
 interface WishItemButtonProps {
-  isWished: boolean;
+  id: number;
+  initialIsWished: boolean;
   /**
    * 버튼 너비 : default 42
    */
@@ -18,11 +23,28 @@ interface WishItemButtonProps {
  * 찜 버튼
  */
 
-const WishItemButton = ({ isWished, width = 42, height = 35 }: WishItemButtonProps) => {
-  const [isWishedChange, setIsWishedChange] = useState(isWished);
+const WishItemButton = ({ id, initialIsWished, width = 42, height = 35 }: WishItemButtonProps) => {
+  const [isWishedChange, setIsWishedChange] = useState(initialIsWished);
+  const { mutate: makeWishedMutate } = usePostMakeWishedMutation();
+  const { mutate: cancelWishedMutate } = usePostCancelWishedMutation();
 
   const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (!isWishedChange) {
+      makeWishedMutate(id, {
+        onSuccess: () => {
+          return toast.success('찜 상품에 등록되었습니다.');
+        },
+      });
+    } else {
+      cancelWishedMutate(id, {
+        onSuccess: () => {
+          return toast.success('찜 상품에서 삭제되었습니다.');
+        },
+      });
+    }
+
     setIsWishedChange((prev) => !prev);
   };
 

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Loading } from '@app/layout/loading';
 import { ProductFlexList } from '@entities/product-flex-list';
 import { useGetMainProductList } from '@entities/product-flex-list/hooks';
 
@@ -11,7 +12,15 @@ import * as S from './main-product-list-style';
  */
 
 const MainProductList = () => {
-  const { data } = useGetMainProductList(8);
+  const { data, isLoading } = useGetMainProductList(8);
+
+  if (isLoading) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
 
   return (
     <S.ProductListArea>
