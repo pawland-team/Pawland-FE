@@ -1,4 +1,5 @@
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+
 import * as S from './star-style';
 
 interface StarInputProps {

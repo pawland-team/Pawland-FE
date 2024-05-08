@@ -1,6 +1,7 @@
+import { RegisteredProductItem } from '@entities/registered-product-item';
+import { DropdownButton } from '@shared/ui/buttons';
+
 import * as S from './my-registered-product-list-style';
-import { RegisteredProductItem } from '../../entities/registered-product-item/registered-product-item';
-import { DropdownButton } from '../../shared/ui/buttons/index';
 
 export const MyRegisteredProductList = () => {
   return (

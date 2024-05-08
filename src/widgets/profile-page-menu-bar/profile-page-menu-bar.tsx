@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { useActiveButtonStore } from '@shared/store/use-active-button-store';
+
 import * as S from './profile-page-menu-bar-style';
-import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
 
 interface ActiveButtonState {
   activeButton: string;

@@ -3,18 +3,18 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 
 import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+import { useActiveButtonStore } from '@shared/store/use-active-button-store';
+import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
+import { TransactionHistoryList } from '@widgets/transaction-history-list';
+import { UserLoginInfoArea } from '@widgets/user-login-info-area';
+import { WishList } from '@widgets/wish-list';
 
 import * as S from './profile-page-style';
-import { MyRegisteredProductList } from '../../widgets/my-registered-product-list/my-registered-product-list';
-import { WishList } from '../../widgets/wish-list/wish-list';
-import { TransactionHistoryList } from '../../widgets/transaction-history-list/transaction-history-list';
-import { MyCommunityList } from '../../widgets/my-community-list/my-community-list';
-import { useActiveButtonStore } from '../../shared/store/use-active-button-store/use-active-button-store';
+import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
+import { MyCommunityList } from '@widgets/my-community-list/my-community-list';
+import { MyInfoArea } from '@widgets/my-info-area';
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { MyInfoArea } from '@widgets/my-info-area';
-import { UserLoginInfoArea } from '@widgets/user-login-info-area';
-import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 
 interface ActiveButtonState {
   activeButton: string;
@@ -45,6 +45,8 @@ export const ProfilePage = () => {
         return <MyRegisteredProductList />;
     }
   };
+
+  console.log(data);
 
   return (
     <>
