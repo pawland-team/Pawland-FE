@@ -187,7 +187,7 @@ export const SignupPage = () => {
     }
 
     return () => clearInterval(timerInterval.current as NodeJS.Timeout);
-  }, [emailVerified, timer]);
+  }, [emailVerified, timer, openModalList]);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await fetch(`${BASE_URL}/api/auth/signup`, {
