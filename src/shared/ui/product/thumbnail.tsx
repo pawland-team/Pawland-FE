@@ -18,7 +18,7 @@ const Thumbnail = ({ item }: ThumbnailProps) => {
         placeholder='blur'
         blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHhTPQAGYgJ5cH4fHAAAAABJRU5ErkJggg=='
         className='thumbnail-image'
-        src={item.thumbnailImage}
+        src={item.thumbnailImage === undefined ? '/images/product/default-card-thumbnail.png' : item.thumbnailImage}
         alt={`${item.name} 상품의 대표 이미지`}
       />
       <WishItemButton isWished={item.wished} />
