@@ -1,8 +1,8 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useAddTodoMutation } from '../hooks/use-add-todo.mutation';
-import { AddTodoButton } from './add-todo-button';
-import { AddTodoFormFieldset, AddTodoFormFieldsetData } from './add-todo-form-fieldset';
+import { useAddTodoMutation } from '../../hooks/use-add-todo.mutation';
+import { AddTodoButton } from '../add-todo-button/add-todo-button';
+import { AddTodoFormFieldset, AddTodoFormFieldsetData } from '../add-todo-form-fieldset/add-todo-form-fieldset';
 
 export const AddTodoForm = () => {
   const { mutate } = useAddTodoMutation();
