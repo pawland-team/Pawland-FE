@@ -109,15 +109,18 @@ export const CommunityListPage = () => {
   ): Promise<ApiResponse> => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${selectedFilter}`,
-      {
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${selectedFilter}`;
+
+    if (selectedFilter === '내가 쓴 글') {
+      url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/my-post?page=${page}`;
+    }
+
+    const response = await fetch(url, {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (response.status === 401) {
       throw new Error('인증 실패: 로그인 정보가 유효하지 않습니다.');
@@ -177,7 +180,8 @@ export const CommunityListPage = () => {
     { id: 13, name: '충남' },
     { id: 14, name: '전남' },
     { id: 15, name: '경남' },
-    { id: 16, name: '해외' },
+    { id: 16, name: '부산' },
+    { id: 17, name: '해외' },
   ];
 
   const FilterDropDownList: FilterItem[] = [
@@ -313,7 +317,7 @@ export const CommunityListPage = () => {
                             <S.ItemSubDivider />
                             <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>추천 {item.comments.recommendCount}</S.ItemSubText>
+                            <S.ItemSubText>추천 {item.comments.recommendCount || 0}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>조회 {item.views}</S.ItemSubText>
                           </S.ItemSubTextBox>
