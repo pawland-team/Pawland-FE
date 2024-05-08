@@ -83,26 +83,13 @@ export const CommunityListPage = () => {
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
 
-    if (regionName === '전체') {
-      // 전체 버튼을 클릭한 경우, 다른 모든 체크박스를 해제합니다.
-      setSelectedRegions(selectedRegions.includes('전체') ? [] : ['전체']);
-    } else {
-      // 다른 버튼을 클릭한 경우, 전체 버튼을 해제합니다.
-      setSelectedRegions((prev) => {
-        if (prev.includes('전체')) {
-          // 전체 버튼이 체크되어 있었다면, 전체 버튼을 제외하고 현재 버튼을 체크합니다.
-          return [regionName];
-        }
+    setSelectedRegions((prev) => {
+      if (prev.includes(regionName)) {
+        return prev.filter((name) => name !== regionName);
+      }
 
-        if (prev.includes(regionName)) {
-          // 현재 버튼이 이미 체크되어 있다면, 현재 버튼을 해제합니다.
-          return prev.filter((name) => name !== regionName);
-        }
-
-        // 그렇지 않다면, 현재 버튼을 체크합니다.
-        return [...prev, regionName];
-      });
-    }
+      return [...prev, regionName];
+    });
   };
 
   const handleFilterSelect = (event: MouseEvent<HTMLDivElement>, filterName: string) => {
@@ -116,78 +103,23 @@ export const CommunityListPage = () => {
   };
 
   const RegionDropDownList: RegionItem[] = [
-    {
-      id: 0,
-      name: '전체',
-    },
-    {
-      id: 1,
-      name: '대구',
-    },
-    {
-      id: 2,
-      name: '광주',
-    },
-    {
-      id: 3,
-      name: '울산',
-    },
-    {
-      id: 4,
-      name: '경기',
-    },
-    {
-      id: 5,
-      name: '충북',
-    },
-    {
-      id: 6,
-      name: '전북',
-    },
-    {
-      id: 7,
-      name: '경북',
-    },
-    {
-      id: 8,
-      name: '제주',
-    },
-    {
-      id: 9,
-      name: '서울',
-    },
-    {
-      id: 10,
-      name: '인천',
-    },
-    {
-      id: 11,
-      name: '대전',
-    },
-    {
-      id: 12,
-      name: '세종',
-    },
-    {
-      id: 13,
-      name: '강원',
-    },
-    {
-      id: 14,
-      name: '충남',
-    },
-    {
-      id: 15,
-      name: '전남',
-    },
-    {
-      id: 16,
-      name: '경남',
-    },
-    {
-      id: 17,
-      name: '해외',
-    },
+    { id: 0, name: '대구' },
+    { id: 1, name: '광주' },
+    { id: 2, name: '울산' },
+    { id: 3, name: '경기' },
+    { id: 4, name: '충북' },
+    { id: 5, name: '전북' },
+    { id: 6, name: '경북' },
+    { id: 7, name: '제주' },
+    { id: 8, name: '서울' },
+    { id: 9, name: '인천' },
+    { id: 10, name: '대전' },
+    { id: 11, name: '세종' },
+    { id: 12, name: '강원' },
+    { id: 13, name: '충남' },
+    { id: 14, name: '전남' },
+    { id: 15, name: '경남' },
+    { id: 16, name: '해외' },
   ];
 
   const FilterDropDownList: FilterItem[] = [
