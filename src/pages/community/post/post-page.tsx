@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { useModalList } from '@shared/hooks/use-modal';
 import { PostModal } from '@shared/ui/modal/post-modal';
@@ -19,6 +20,7 @@ export const CommunityPostPage = () => {
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const { openModalList } = useModalList();
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
@@ -106,6 +108,9 @@ export const CommunityPostPage = () => {
         modalKey: ['post-modal'],
         props: {
           content: '게시물이 성공적으로 업로드 되었습니다.',
+          onClose: () => {
+            router.push('/community/list');
+          },
         },
       });
       reset();
