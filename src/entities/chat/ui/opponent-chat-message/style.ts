@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import { messageMaxWidthWithController } from '@entities/chat/constants/style';
+import { MESSAGE_MAX_WIDTH_WITH_CONTROLLER } from '@entities/chat/constants/style';
 
 export * from '../my-chat-message/style';
 
@@ -28,7 +28,7 @@ export const SenderAndMessageBox = styled.div`
   }) => {
     const w = parseInt(width.replace('px', ''), 10);
 
-    return `${w * Number(messageMaxWidthWithController / w)}px`;
+    return `${w * Number(MESSAGE_MAX_WIDTH_WITH_CONTROLLER / w)}px`;
   }};
   padding-top: 4px;
 `;
