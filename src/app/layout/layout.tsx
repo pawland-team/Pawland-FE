@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { Footer } from '@widgets/footer';
+import { Footer } from '@shared/ui/footer';
 import { Header } from '@widgets/header';
 
 import 'react-toastify/dist/ReactToastify.css';
