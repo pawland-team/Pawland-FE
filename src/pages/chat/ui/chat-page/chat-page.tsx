@@ -7,7 +7,7 @@ import { useChatFormTextareaSizeControl, useGetChatRoomList } from '@entities/ch
 import { useChatStore } from '@entities/chat/model';
 import { ChatRoom, ChatRoomPreview } from '@entities/chat/ui';
 import { useUserStore } from '@entities/user/model';
-import { SendChatForm } from '@features/chat/ui/send-chat-form/send-chat-form';
+import { SendChatForm } from '@features/send-chat/ui';
 
 import * as S from './style';
 
@@ -21,7 +21,7 @@ export const ChatPage = () => {
   }));
 
   const { changedTextAreaHeight, ...sizeControlRest } = useChatFormTextareaSizeControl({
-    // id가 undefined면 DOM 렌더링 하지 않도록 함.
+    // id가 undefined면 DOM 렌더링 하지 않도록 해놨음(return null).
     // DOM 렌더링 안 되면 ref에 node가 담기지 않기 때문에 size 조절이 안 됨. -> id를 dependencyList에 추가
     dependencyListForObserver: [id],
     sizes: {
