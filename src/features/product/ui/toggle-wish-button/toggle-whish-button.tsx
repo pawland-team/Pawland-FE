@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 
 import Image from 'next/image';
 
-import { usePostMakeWishedMutation } from './hooks';
-import { usePostCancelWishedMutation } from './hooks/use-post-cancel-wished-mutation';
+import { usePostMakeWishedMutation } from '@features/product/hooks';
+import { usePostCancelWishedMutation } from '@features/product/hooks/use-post-cancel-wished-mutation';
 
-interface WishItemButtonProps {
+interface ToggleWishButtonProps {
   id: number;
   initialIsWished: boolean;
   /**
@@ -23,12 +23,12 @@ interface WishItemButtonProps {
  * 찜 버튼
  */
 
-const WishItemButton = ({ id, initialIsWished, width = 42, height = 35 }: WishItemButtonProps) => {
+const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: ToggleWishButtonProps) => {
   const [isWishedChange, setIsWishedChange] = useState(initialIsWished);
   const { mutate: makeWishedMutate } = usePostMakeWishedMutation();
   const { mutate: cancelWishedMutate } = usePostCancelWishedMutation();
 
-  const handleClickWishButton = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleClickToggleWishButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (!isWishedChange) {
@@ -50,7 +50,7 @@ const WishItemButton = ({ id, initialIsWished, width = 42, height = 35 }: WishIt
 
   return (
     <>
-      <button type='button' onClick={handleClickWishButton}>
+      <button type='button' onClick={handleClickToggleWishButton}>
         {isWishedChange ? (
           <Image src='/images/button/wish-button-on.png' alt='찜하기 취소' width={width} height={height} />
         ) : (
@@ -61,4 +61,4 @@ const WishItemButton = ({ id, initialIsWished, width = 42, height = 35 }: WishIt
   );
 };
 
-export { WishItemButton };
+export { ToggleWishButton };

@@ -10,10 +10,11 @@ import { formatPrice } from '@shared/utils/price';
 import * as S from './product-detail-info-style';
 
 interface ProductDetailInfoProps {
+  id: number;
   detailInfo: ProductDetailType;
 }
 
-const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
+const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
   const router = useRouter();
 
   const handleClickToChat = () => {
@@ -25,7 +26,7 @@ const ProductDetailInfo = ({ detailInfo }: ProductDetailInfoProps) => {
       <div>
         <S.SubInfoContainer>
           <CategoryTree region={detailInfo.region} species={detailInfo.species} category={detailInfo.category} />
-          <ProductInteractionButtonsBox isWished={detailInfo.isWished} />
+          <ProductInteractionButtonsBox id={id} isWished={detailInfo.isWished} />
         </S.SubInfoContainer>
         <S.MainInfoContainer>
           <time>{detailInfo.createdAt}</time>

@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { ProductListItemDto } from '@shared/apis/product-api';
 import { Description, Thumbnail } from '@shared/ui/product';
 
 import * as S from './product-card-item-style';
 
 interface ProductCardItemProps {
-  item: mainProductInfo;
+  item: ProductListItemDto;
 }
 
 /**

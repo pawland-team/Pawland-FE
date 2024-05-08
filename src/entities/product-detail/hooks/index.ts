@@ -1,1 +1,1 @@
-export { useGetProductDetail } from './use-get-product-detail.query';
+export { useGetProductDetail } from '../../product/hooks/use-get-product-detail.query';

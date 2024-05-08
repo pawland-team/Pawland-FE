@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
+import { mainListData } from '@shared/apis/product-list-api/main-list-mock';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
 import { CommunityList } from '@widgets/community-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';

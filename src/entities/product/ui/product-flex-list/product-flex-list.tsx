@@ -1,5 +1,5 @@
-import { ProductFlexCardItem } from '@entities/product-card/product-flex-card-item/product-flex-card-item';
-import { ProductListItemDto } from '@shared/apis/main-list-api/dto';
+import { ProductFlexCardItem } from '@entities/product/ui/product-flex-card-item/product-flex-card-item';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
 import * as S from './product-flex-list-style';
 

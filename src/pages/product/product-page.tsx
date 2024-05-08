@@ -8,7 +8,7 @@ import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/
 import { SortingValueType } from '@widgets/product-list-filter-container/model/store';
 
 import * as S from './product-page-style';
-import { CardListWithSortingBox } from './ui/card-list-with-sorting-box';
+import { CardListWithSearchResult } from './ui/card-list-with-search-result';
 
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -60,7 +60,7 @@ const ProductPage = () => {
         />
       </S.SelectBoxArea>
       <S.CardListArea>
-        <CardListWithSortingBox />
+        <CardListWithSearchResult />
       </S.CardListArea>
     </S.ProductPage>
   );

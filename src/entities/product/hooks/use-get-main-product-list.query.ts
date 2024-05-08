@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { productListQuery } from '../apis';
+import { producQuery } from '../apis';
 
 export const useGetMainProductList = (size: number) => {
-  return useQuery({ ...productListQuery.mainList(size) });
+  return useQuery({ ...producQuery.mainList(size) });
 };

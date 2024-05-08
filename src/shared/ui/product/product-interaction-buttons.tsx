@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { LinkCopyButton } from './link-copy-button';
-import { WishItemButton } from './whish-item-button';
+import { LinkCopyButton } from '@features/button/link-copy-button';
+import { ToggleWishButton } from '@features/product/ui';
 
 interface ProductInteractionButtonsBoxProps {
   id: number;
@@ -12,7 +12,7 @@ const ProductInteractionButtonsBox = ({ id, isWished }: ProductInteractionButton
   return (
     <ProductInteractionButtonsStyle>
       <LinkCopyButton />
-      <WishItemButton id={id} initialIsWished={isWished} width={21} height={18} />
+      <ToggleWishButton id={id} initialIsWished={isWished} width={21} height={18} />
     </ProductInteractionButtonsStyle>
   );
 };

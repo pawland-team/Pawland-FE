@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Loading } from '@app/layout/loading';
-import { ProductFlexList } from '@entities/product-flex-list';
-import { useGetMainProductList } from '@entities/product-flex-list/hooks';
+import { useGetMainProductList } from '@entities/product/hooks';
+import { ProductFlexList } from '@entities/product/ui';
 
 import * as S from './main-product-list-style';
 

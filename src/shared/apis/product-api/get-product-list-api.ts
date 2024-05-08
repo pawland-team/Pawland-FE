@@ -7,7 +7,7 @@ import { clientWithTokenApi } from '../instance';
  * - size 지정해야함
  */
 
-export const getMainProductList = async (size: number) => {
+export const getProductList = async (size: number) => {
   const response = await clientWithTokenApi.get<ProductListDto>(`/api/product?page=1&size=${size}`);
 
   return response.data;

@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ProductListItemDto } from '@shared/apis/main-list-api/dto';
-
-import { WishItemButton } from './whish-item-button';
+import { ToggleWishButton } from '@features/product/ui';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
 interface ThumbnailProps {
   item: ProductListItemDto;
@@ -21,7 +20,7 @@ const Thumbnail = ({ item }: ThumbnailProps) => {
         src={item.thumbnailImage === undefined ? '/images/product/default-card-thumbnail.png' : item.thumbnailImage}
         alt={`${item.name} 상품의 대표 이미지`}
       />
-      <WishItemButton id={item.id} initialIsWished={item.wished} />
+      <ToggleWishButton id={item.id} initialIsWished={item.wished} />
     </SProductThumbnaile>
   );
 };
