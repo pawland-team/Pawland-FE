@@ -1,1 +1,1 @@
-export * from './product-list-querykeys';
+export * from './product-querykeys';
