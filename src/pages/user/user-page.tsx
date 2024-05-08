@@ -2,7 +2,6 @@ import { UserInfoArea } from '@widgets/user-info-area';
 import * as S from './user-page-style';
 import { UserRegisteredProductList } from '@widgets/user-registered-product-list';
 import { UserReviewList } from '@widgets/user-review-list';
-import { UserWrittenReviewList } from '@widgets/user-written-review-list';
 import { UserCommunityList } from '@widgets/user-community-list';
 
 export const UserPage = () => {
@@ -15,7 +14,6 @@ export const UserPage = () => {
       />
       <UserRegisteredProductList />
       <UserReviewList />
-      <UserWrittenReviewList />
       <UserCommunityList />
     </S.UserPage>
   );
