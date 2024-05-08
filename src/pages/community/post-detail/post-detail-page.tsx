@@ -13,6 +13,7 @@ import * as S from './post-detail-page-style';
 export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [commentText, setCommentText] = useState('');
   const router = useRouter();
   const { id } = router.query;
   const { data } = useGetUserInfo();
@@ -38,6 +39,27 @@ export const CommunityPostDetailPage = () => {
     if (!response.ok) {
       console.error('Failed to toggle recommendation', await response.text());
       setIsLiked(!isLiked);
+    }
+  };
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ postId: id, content: commentText }),
+    });
+
+    if (response.ok) {
+      setCommentText('');
+    } else {
+      console.error('Failed to submit comment', await response.text());
     }
   };
 
@@ -141,13 +163,17 @@ export const CommunityPostDetailPage = () => {
           <S.ProfileImageWrapper>
             {data?.profileImage && <Image src={data?.profileImage} alt='my profile image' fill />}
           </S.ProfileImageWrapper>
-          <S.ComentPostBox>
+          <S.ComentPostBox onSubmit={handleCommentSubmit}>
             <S.ComentTextareaBox>
               <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
-              <S.ComentTextarea placeholder='댓글을 입력해주세요.' />
+              <S.ComentTextarea
+                placeholder='댓글을 입력해주세요.'
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+              />
             </S.ComentTextareaBox>
             <S.ComentPostButtonWrapper>
-              <S.ComentPostButton>댓글 등록하기</S.ComentPostButton>
+              <S.ComentPostButton type='submit'>댓글 등록하기</S.ComentPostButton>
             </S.ComentPostButtonWrapper>
           </S.ComentPostBox>
         </S.ComentBox>

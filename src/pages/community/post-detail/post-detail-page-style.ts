@@ -223,7 +223,7 @@ const PostDateText = styled.span`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const ComentPostBox = styled.div`
+const ComentPostBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
