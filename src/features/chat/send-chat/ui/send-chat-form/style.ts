@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { chatTextAreaMinMaxSize } from '@entities/chat/constants/style';
+import { CHAT_TEXTAREA_SIZE } from '@entities/chat/constants/style';
 
 import AirPlane from '@/public/images/icon/paper-airplane-unfilled-w24-h24.svg?component';
 
@@ -55,11 +55,11 @@ export const ChatTextArea = styled.textarea<{ $textAreaCurrentHeight: number }>`
 
   width: 100%;
   max-width: 438px; /* 디자인 수정 450px -> 438px */
-  height: ${chatTextAreaMinMaxSize.onDesktop.height}px;
-  min-height: ${chatTextAreaMinMaxSize.onDesktop.minHeight}px;
+  height: ${CHAT_TEXTAREA_SIZE.onDesktop.height}px;
+  min-height: ${CHAT_TEXTAREA_SIZE.onDesktop.minHeight}px;
 
   /* max-height: 100%; */
-  max-height: ${chatTextAreaMinMaxSize.onDesktop.maxHeight}px;
+  max-height: ${CHAT_TEXTAREA_SIZE.onDesktop.maxHeight}px;
 
   font-size: 1.6rem;
   font-weight: 400;
