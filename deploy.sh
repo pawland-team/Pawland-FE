@@ -6,5 +6,7 @@ cd /home/ubuntu/Pawland-FE
 git pull origin main
 nvm install
 nvm use
+npm install --timeout=600000 --no-audit
 npm run build
 pm2 restart next_app
+# sudo systemctl restart nginx
