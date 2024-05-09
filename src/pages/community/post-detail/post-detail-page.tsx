@@ -64,7 +64,13 @@ export const CommunityPostDetailPage = () => {
   };
 
   const fetchCommunityPostDetail = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/post-detail/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/post-detail/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
     const data = await response.json();
 
     return data;
