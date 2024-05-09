@@ -34,6 +34,9 @@ export const SNoProductBox = styled.div`
     font-size: 1.4rem;
     font-weight: 400;
     color: ${({ theme }) => theme.color.blue_43ADFF};
-    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
