@@ -1,5 +1,4 @@
-import { ProductDetailImages, ProductDetailInfo } from '@entities/product-detail';
-import { ProductDetailContent } from '@entities/product-detail/ui/product-detail-content';
+import { ProductDetailContent, ProductDetailImages, ProductDetailInfo } from '@entities/product/ui';
 import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
 
 import * as S from './detail-main-info-style';
@@ -14,7 +13,7 @@ const DetailMainInfo = ({ detailInfo }: DetailMainInfoAreaProps) => {
       <S.MainInfoSection>
         <div className='info-container'>
           <ProductDetailImages SubImagesList={detailInfo.imageUrls} ThumbnailSrc={detailInfo.imageThumbnail} />
-          <ProductDetailInfo detailInfo={detailInfo} />
+          <ProductDetailInfo id={detailInfo.id} detailInfo={detailInfo} />
         </div>
         <S.DivideLine />
         <div className='content-container'>

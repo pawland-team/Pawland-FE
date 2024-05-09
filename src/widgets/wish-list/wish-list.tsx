@@ -1,10 +1,10 @@
-import { ProductFlexCardItem } from '@entities/product-card';
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { ProductFlexCardItem } from '@entities/product/ui';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
 import * as S from './wish-list-style';
 
 interface WishListProps {
-  itemList: mainProductInfo[];
+  itemList: ProductListItemDto[];
 }
 
 export const WishList = ({ itemList }: WishListProps) => {
