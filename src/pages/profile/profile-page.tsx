@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import Head from 'next/head';
 
-import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
