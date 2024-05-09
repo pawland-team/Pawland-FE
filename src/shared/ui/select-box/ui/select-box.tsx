@@ -1,19 +1,21 @@
 import { MouseEvent } from 'react';
 
-import Image from 'next/image';
 import styled from 'styled-components';
+
+import { gray9E9E9EArrowDownIcon, gray9E9E9EArrowUpIcon } from '@shared/ui/styles/icon/arrow-icon';
 
 interface SelectBoxProps {
   selectedName?: string;
   handleClick: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
   isOpened: boolean;
+  className?: string;
 }
 
-const SelectBox = ({ selectedName, handleClick, isOpened = false }: SelectBoxProps) => {
+const SelectBox = ({ selectedName, handleClick, isOpened = false, className }: SelectBoxProps) => {
   return (
-    <SSelectBox type='button' onClick={handleClick} $isOpened={isOpened}>
+    <SSelectBox type='button' onClick={handleClick} $isOpened={isOpened} className={className || ''}>
       <span>{selectedName}</span>
-      <Image alt='화살표 아이콘' src='/images/icon/arrow-down-icon-9E9E9E.svg' width={15} height={15} />
+      <div className='arrow-icon-box' />
     </SSelectBox>
   );
 };
@@ -46,11 +48,39 @@ const SSelectBox = styled.button<SSelectBoxType>`
     text-align: center;
   }
 
-  ${(props) => {
-    if (props.$isOpened) {
-      return `img {transform: rotate(180deg)}`;
+  .arrow-icon-box {
+    position: relative;
+    display: block;
+    width: 15px;
+    height: 15px;
+
+    &::after {
+      content: '';
+      ${(props) => {
+        if (props.$isOpened) {
+          return gray9E9E9EArrowUpIcon;
+        }
+
+        return gray9E9E9EArrowDownIcon;
+      }};
+    }
+  }
+
+  &.active {
+    border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
+
+    span {
+      color: ${({ theme }) => theme.color.blue_43ADFF};
     }
 
-    return '';
-  }}
+    img {
+      fill: ${({ theme }) => theme.color.blue_43ADFF};
+    }
+
+    .arrow-icon-box {
+      &::after {
+        border-color: ${({ theme }) => theme.color.blue_43ADFF};
+      }
+    }
+  }
 `;
