@@ -106,10 +106,11 @@ export const CommunityListPage = () => {
     page: number,
     selectedRegions: string[],
     selectedFilter: string,
+    searchQuery: string,
   ): Promise<ApiResponse> => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
 
-    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&region=${region}&orderBy=${selectedFilter}`;
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&content=${searchQuery}&region=${region}&orderBy=${selectedFilter}`;
 
     if (selectedFilter === '내가 쓴 글') {
       url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/my-post?page=${page}`;
@@ -134,8 +135,8 @@ export const CommunityListPage = () => {
   };
 
   const { data, isLoading } = useQuery<ApiResponse>({
-    queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter],
-    queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter),
+    queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter, searchQuery],
+    queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter, searchQuery),
   });
 
   const communityList = data?.content || [];
@@ -171,7 +172,7 @@ export const CommunityListPage = () => {
     setIsOpenFilter((prev) => !prev);
   };
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
@@ -242,7 +243,7 @@ export const CommunityListPage = () => {
             <S.SearchIconWrapper>
               <Image src='/images/icon/search-icon.svg' alt='search-icon' fill />
             </S.SearchIconWrapper>
-            <S.SearchBar placeholder='제목을 검색해주세요.' value={searchQuery} onChange={handleSearch} />
+            <S.SearchBar placeholder='제목을 검색해주세요.' value={searchQuery} onChange={handleSearchChange} />
           </S.SearchBarContainer>
           <S.NewPostButton>
             <S.PostButtonIconWrapper>
