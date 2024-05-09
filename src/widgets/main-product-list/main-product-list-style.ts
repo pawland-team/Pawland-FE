@@ -21,26 +21,3 @@ export const ProductListArea = styled.section`
     }
   }
 `;
-
-export const NoProductBox = styled.div`
-  display: block;
-  padding: 100px 0;
-  text-align: center;
-
-  p {
-    margin-top: 35px;
-    font-size: 1.8rem;
-    color: ${({ theme }) => theme.color.gray_9E9E9E};
-  }
-
-  a {
-    display: block;
-
-    margin-top: 12px;
-
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: ${({ theme }) => theme.color.blue_43ADFF};
-    text-decoration: underline;
-  }
-`;

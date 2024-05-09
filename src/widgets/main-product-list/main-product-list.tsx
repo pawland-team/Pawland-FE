@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { Loading } from '@app/layout/loading';
 import { useGetMainProductList } from '@entities/product/hooks';
 import { ProductFlexList } from '@entities/product/ui';
+import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './main-product-list-style';
 
@@ -24,13 +24,7 @@ const MainProductList = () => {
 
   return (
     <S.ProductListArea>
-      {data?.content.length === 0 && (
-        <S.NoProductBox>
-          <Image src='/images/no-product/no-product.svg' alt='상품 없음' width={178} height={98} />
-          <p>아직 등록된 상품이 없습니다.</p>
-          <Link href='/'>상품 등록을 해보세요!</Link>
-        </S.NoProductBox>
-      )}
+      {data?.content.length === 0 && <NoProductBox />}
       {data && data?.content.length > 0 && (
         <>
           <div className='product-title-box'>
