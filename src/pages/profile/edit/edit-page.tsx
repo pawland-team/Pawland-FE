@@ -6,13 +6,13 @@ import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
-import { useMutation } from '@tanstack/react-query';
+// import { useMutation } from '@tanstack/react-query';
 
-interface FormData {
-  nickname: string;
-  description: string;
-  selectedFile: string | null;
-}
+// interface FormData {
+//   nickname: string;
+//   description: string;
+//   selectedFile: string | null;
+// }
 
 export const EditPage = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
