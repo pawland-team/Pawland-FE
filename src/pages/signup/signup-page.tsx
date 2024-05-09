@@ -56,29 +56,28 @@ export const SignupPage = () => {
     setShowPasswordConfirmation(!showPasswordConfirmation);
   };
 
-  // 닉네임 중복 체크 아직 백엔드 구현 안 됨
-  // const dupCheckNickname = async (nickname) => {
-  //   if (!nickname) {
-  //     return;
-  //   }
+  const dupCheckNickname = async (nickname: string) => {
+    if (!nickname) {
+      return;
+    }
 
-  //   const response = await fetch(`${BASE_URL}/api/auth/nickname-dupcheck`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       nickname,
-  //     }),
-  //   });
+    const response = await fetch(`${BASE_URL}/api/auth/nickname-dupcheck`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nickname,
+      }),
+    });
 
-  //   if (response.status === 400) {
-  //     setError('nickname', {
-  //       type: 'manual',
-  //       message: '이미 사용 중인 닉네임입니다.',
-  //     });
-  //   }
-  // };
+    if (response.status === 400) {
+      setError('nickname', {
+        type: 'manual',
+        message: '이미 사용 중인 닉네임입니다.',
+      });
+    }
+  };
 
   const dupCheckEmail = async (email: string): Promise<void> => {
     if (!email) {
@@ -250,8 +249,7 @@ export const SignupPage = () => {
                   value: /^[가-힣a-zA-Z0-9]{2,10}$/,
                   message: '* 한글, 영문, 숫자만 입력 가능합니다.',
                 },
-                // 아직 백엔드 구현 안 됨
-                // onBlur: (e) => dupCheckNickname(e.target.value),
+                onBlur: (e) => dupCheckNickname(e.target.value),
               })}
             />
           </S.SignupPageInputContainer>
