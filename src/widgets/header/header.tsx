@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { NicknameWithAvatar } from '@entities/nickname-with-avatar';
 import { useGetUserInfo } from '@entities/user/hooks';
+import { NicknameWithAvatar } from '@entities/user/ui';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './header-style';

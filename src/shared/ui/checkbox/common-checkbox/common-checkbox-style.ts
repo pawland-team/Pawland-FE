@@ -56,12 +56,5 @@ export const CommonCheckBoxContainer = styled.div`
         border-width: 0 2px 2px 0;
       }
     }
-
-    img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 `;
