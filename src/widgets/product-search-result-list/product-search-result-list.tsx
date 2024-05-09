@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-
-import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
 import { NoProductBox } from '@shared/ui/error';
@@ -20,11 +17,7 @@ const ProductSearchResultList = () => {
     orderBy: '',
   };
 
-  const { data, isError, isLoading } = useGetSearchResultList(initialParams);
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  const { data, isError } = useGetSearchResultList(initialParams);
 
   if (isError) {
     return <p>에러 발생!</p>;

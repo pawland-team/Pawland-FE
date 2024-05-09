@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { Loading } from '@app/layout/loading';
 import { useGetMainProductList } from '@entities/product/hooks';
 import { ProductFlexList } from '@entities/product/ui';
 import { NoProductBox } from '@shared/ui/error';
@@ -12,15 +11,7 @@ import * as S from './main-product-list-style';
  */
 
 const MainProductList = () => {
-  const { data, isLoading } = useGetMainProductList(8);
-
-  if (isLoading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  const { data } = useGetMainProductList(8);
 
   return (
     <S.ProductListArea>
