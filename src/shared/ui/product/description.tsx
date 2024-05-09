@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-import { mainProductInfo } from '@shared/apis/main-list-api/dto';
+import { ProductListItemDto } from '@shared/apis/product-api';
 import { textLineClamp2 } from '@shared/ui/styles/utills';
 import { formatPrice } from '@shared/utils/price';
 
 interface DescriptionProps {
-  item: mainProductInfo;
+  item: ProductListItemDto;
 }
 
 const Description = ({ item }: DescriptionProps) => {
   return (
     <SProductDescription>
-      <h4>{item.productName}</h4>
+      <h4>{item.name}</h4>
       <div className='text-group'>
         <p className='price'>{formatPrice(item.price, false)}</p>
-        <span className='view'>조회수 {item.views}</span>
+        <span className='view'>조회수 {item.view}</span>
       </div>
     </SProductDescription>
   );
