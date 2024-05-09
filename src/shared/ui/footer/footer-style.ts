@@ -20,6 +20,10 @@ export const UpperContainer = styled.div`
     position: relative;
     width: 279px;
     height: 78px;
+
+    img {
+      object-fit: contain;
+    }
   }
 
   .nav-box {
