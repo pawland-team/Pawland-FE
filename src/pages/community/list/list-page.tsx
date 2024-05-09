@@ -312,7 +312,7 @@ export const CommunityListPage = () => {
                           <S.ItemSubTextBox>
                             <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>{item.createdAt}</S.ItemSubText>
+                            <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
