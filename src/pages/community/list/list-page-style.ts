@@ -289,11 +289,14 @@ const ArrowIconWrapper = styled.div`
 
 const PaginationWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 32px;
   align-items: center;
   justify-content: center;
 
   margin-top: 13px;
+
+  font-size: 1.8rem;
+  color: ${({ theme }) => theme.color.blue_43ADFF};
 `;
 
 export {
