@@ -3,14 +3,14 @@ import { ResponsiveNumericSizeProperties } from '@shared/interface/style';
 /**
  * unit: px
  */
-export const messageMaxWidth = 275;
+export const MESSAGE_MAX_WIDTH = 275;
 
-export const messageMaxWidthWithController = 362;
+export const MESSAGE_MAX_WIDTH_WITH_CONTROLLER = 362;
 
 /**
  * unit: px
  */
-export const chatTextAreaMinMaxSize: ResponsiveNumericSizeProperties<{
+export const CHAT_TEXTAREA_SIZE: ResponsiveNumericSizeProperties<{
   onDesktop: {
     height: 28;
     minHeight: 28;

@@ -7,7 +7,7 @@ import { useActiveButtonStore } from '@shared/store/use-active-button-store';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
 import { MyLoginInfoArea } from '@widgets/my-login-info-area';
-import { WishList } from '@widgets/my-wish-list';
+// import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
 import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
@@ -35,8 +35,9 @@ export const ProfilePage = () => {
     switch (activeButton) {
       case 'register':
         return <MyRegisteredProductList />;
-      case 'wish':
-        return <WishList itemList={mainListData} />;
+      // mainListData가 사라지고 props가 너무 많이 바뀌어서,, 이 부분은 api 불러오실 때 활성화 해야할 것 같습니당 ㅜㅜ
+      // case 'wish':
+      //   return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
