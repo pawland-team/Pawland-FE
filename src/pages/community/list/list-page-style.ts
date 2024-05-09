@@ -4,11 +4,11 @@ const CommunityListPage = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 126px;
 `;
 
 const MainArea = styled.section`
   width: 1197px;
-  margin-top: 126px;
 `;
 
 const HeaderArea = styled.section`
@@ -92,7 +92,7 @@ const ContentsArea = styled.section`
   justify-content: center;
 
   width: 100%;
-  margin-bottom: 126px;
+  margin-bottom: 80px;
 `;
 
 const CategoryArea = styled.section`
@@ -290,7 +290,10 @@ const ArrowIconWrapper = styled.div`
 const PaginationWrapper = styled.div`
   display: flex;
   gap: 10px;
+  align-items: center;
   justify-content: center;
+
+  margin-top: 13px;
 `;
 
 export {
