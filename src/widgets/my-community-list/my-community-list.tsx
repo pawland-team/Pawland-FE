@@ -10,7 +10,7 @@ export const MyCommunityList = () => {
   const { data, status } = useGetmyCommunityList(1);
 
   if (status === 'success') {
-    const listData = data?.content;
+    const listData: MyCommunityPostEntity[] = data?.content;
 
     return (
       <S.CommunityList>
@@ -23,7 +23,7 @@ export const MyCommunityList = () => {
             iconPath={'images/icon/arrow-down-icon-gray.svg'}
           />
         </div>
-        {listData.map((item: MyCommunityPostEntity) => (
+        {listData.map((item) => (
           <CommunityPostItem key={item.id} item={item} />
         ))}
       </S.CommunityList>

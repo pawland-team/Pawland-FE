@@ -13,7 +13,6 @@ interface CommunityPostItemProps {
 }
 
 export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
-  console.log(item.thumbnail);
   return (
     <Link href='/'>
       <S.CommunityPostItem>

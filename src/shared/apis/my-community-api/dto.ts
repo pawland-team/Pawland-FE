@@ -10,6 +10,10 @@ export interface MyCommunityPostEntity {
   recommendationCount: number;
 }
 
+export interface MyCommunityListEntity {
+  content: MyCommunityPostEntity[];
+}
+
 export type MyCommunityListResponse = Array<{
   id: number;
   title: string;
