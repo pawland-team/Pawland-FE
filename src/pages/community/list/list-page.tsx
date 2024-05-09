@@ -342,15 +342,15 @@ export const CommunityListPage = () => {
                   );
                 })}
           </S.ItemListArea>
-          <div>
+          <S.PaginationWrapper>
             <button type='button' onClick={handlePrevPage} disabled={page === 1}>
-              이전
+              &lt;
             </button>
             <span>{page}</span>
             <button type='button' onClick={handleNextPage} disabled={page >= totalPages}>
-              다음
+              &gt;
             </button>
-          </div>
+          </S.PaginationWrapper>
         </S.ContentsArea>
       </S.MainArea>
     </S.CommunityListPage>

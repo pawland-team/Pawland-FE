@@ -287,6 +287,12 @@ const ArrowIconWrapper = styled.div`
   }
 `;
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+`;
+
 export {
   CommunityListPage,
   MainArea,
@@ -317,4 +323,5 @@ export {
   ItemSubText,
   ItemSubDivider,
   DownArrowIconWrapper,
+  PaginationWrapper,
 };
