@@ -9,7 +9,7 @@ interface ChatConfirmModalPrpos {
   modalFooter: ReactNode;
 }
 
-export const ChatConfirmModal: ModalComponentForList<ChatConfirmModalPrpos> = ({
+export const ConfirmModalFrame: ModalComponentForList<ChatConfirmModalPrpos> = ({
   modalRef,
   modalMessage,
   modalFooter,
