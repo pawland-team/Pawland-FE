@@ -4,7 +4,6 @@ import Head from 'next/head';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
 import { CommunityList } from '@widgets/community-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
@@ -12,7 +11,7 @@ import { RegisteredProductList } from '@widgets/registered-product-list';
 import { TransactionHistoryList } from '@widgets/transaction-history-list';
 import { UserInfoArea } from '@widgets/user-info-area';
 import { UserLoginInfoArea } from '@widgets/user-login-info-area';
-import { WishList } from '@widgets/wish-list';
+// import { WishList } from '@widgets/wish-list';
 
 import * as S from './profile-page-style';
 
@@ -35,8 +34,9 @@ export const ProfilePage = () => {
     switch (activeButton) {
       case 'register':
         return <RegisteredProductList />;
-      case 'wish':
-        return <WishList itemList={mainListData} />;
+      // mainListData가 사라지고 props가 너무 많이 바뀌어서,, 이 부분은 api 불러오실 때 활성화 해야할 것 같습니당 ㅜㅜ
+      // case 'wish':
+      //   return <WishList itemList={mainListData} />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
