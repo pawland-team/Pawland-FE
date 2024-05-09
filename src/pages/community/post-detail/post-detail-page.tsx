@@ -42,7 +42,7 @@ export const CommunityPostDetailPage = () => {
     }
   };
 
-  const handleCommentSubmit = async (event) => {
+  const handleCommentSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment`;

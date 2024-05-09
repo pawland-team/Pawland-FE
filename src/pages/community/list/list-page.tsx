@@ -139,7 +139,19 @@ export const CommunityListPage = () => {
   });
 
   const communityList = data?.content || [];
-  const totalPages = data?.totalPages || 0;
+  const totalPages = data?.totalPages || 1;
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
@@ -316,7 +328,7 @@ export const CommunityListPage = () => {
                             <S.ItemSubDivider />
                             <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>추천 {item.comments.recommendCount || 0}</S.ItemSubText>
+                            {/* <S.ItemSubText>추천 {item.comments.recommendCount || 0}</S.ItemSubText> */}
                             <S.ItemSubDivider />
                             <S.ItemSubText>조회 {item.views}</S.ItemSubText>
                           </S.ItemSubTextBox>
@@ -330,11 +342,11 @@ export const CommunityListPage = () => {
                 })}
           </S.ItemListArea>
           <div>
-            <button type='button' onClick={() => setPage((prev) => prev - 1)} disabled={page === 1}>
+            <button type='button' onClick={handlePrevPage} disabled={page === 1}>
               이전
             </button>
             <span>{page}</span>
-            <button type='button' onClick={() => setPage((prev) => prev + 1)} disabled={page === totalPages}>
+            <button type='button' onClick={handleNextPage} disabled={page >= totalPages}>
               다음
             </button>
           </div>
