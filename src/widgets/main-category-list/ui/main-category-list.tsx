@@ -15,7 +15,7 @@ interface CategoryListProps {
 const CategoryList = ({ categoryList }: CategoryListProps) => {
   const { addSelectedValue, clearSelectedValues } = useCheckedCategoryStore();
 
-  const handleClickLink = (e: MouseEvent<Element, MouseEvent>, group: string) => {
+  const handleClickLink = (e: MouseEvent<HTMLAnchorElement>, group: string) => {
     clearSelectedValues();
     const selectedKeyword = e.currentTarget.querySelector('p')?.innerText;
 
