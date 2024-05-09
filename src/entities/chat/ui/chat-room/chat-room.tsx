@@ -80,7 +80,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
   const { openModalList, closeModalList } = useModalList();
 
   const handleConfirmTransaction = async () => {
-    const Modal = await import('../chat-confirm-modal').then((module) => module.ChatConfirmModal);
+    const Modal = await import('@shared/ui/modal/confirm-modal-frame').then((module) => module.ConfirmModalFrame);
 
     const modalKey: ModalKey = ['chat-confirm-modal'];
 
@@ -108,7 +108,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
   };
 
   const openNotifyMessageDeleteModal = async () => {
-    const Modal = await import('../chat-confirm-modal').then((module) => module.ChatConfirmModal);
+    const Modal = await import('@shared/ui/modal/confirm-modal-frame').then((module) => module.ConfirmModalFrame);
 
     const modalKey: ModalKey = ['confirm-message-delete-modal'];
 
@@ -131,7 +131,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
   };
 
   const handleDeleteMessage = async () => {
-    const Modal = await import('../chat-confirm-modal').then((module) => module.ChatConfirmModal);
+    const Modal = await import('@shared/ui/modal/confirm-modal-frame').then((module) => module.ConfirmModalFrame);
 
     const modalKey: ModalKey = ['chat-message-delete-modal'];
 
