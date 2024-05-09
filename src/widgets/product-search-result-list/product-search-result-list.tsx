@@ -26,8 +26,6 @@ const ProductSearchResultList = () => {
 
   if (data) {
     if (data.content.length === 0) {
-      console.log(data?.content.length);
-
       return <NoProductBox />;
     }
 
