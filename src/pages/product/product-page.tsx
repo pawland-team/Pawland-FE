@@ -1,5 +1,6 @@
 import { FormEvent, MouseEvent, useRef, useState } from 'react';
 
+// import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import { SearchInput } from '@shared/ui/inputs';
@@ -11,6 +12,13 @@ import { SortingValueType } from '@widgets/product-list-filter-container/model/s
 import { ProductSearchResultList } from '@widgets/product-search-result-list';
 
 import * as S from './product-page-style';
+
+// component내부에 비동기 로직이 있다면? loading 처리를 resolve 상태 전까지 해준다.
+// resolve 되면, dynamic이 완성된 컴포넌트를 렌더링한다
+// const ProductSearchResultList = dynamic(
+//   () => import('@widgets/product-search-result-list').then((module) => module.ProductSearchResultList),
+//   { ssr: false, suspense: true, loading: () => <Loading /> },
+// );
 
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
