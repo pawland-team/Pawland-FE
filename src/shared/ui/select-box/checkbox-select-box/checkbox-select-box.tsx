@@ -38,9 +38,9 @@ const CheckboxSelectBox = ({ selectBoxCategory, categoryList, handleChange }: Ch
       {isSelectOpened && (
         <CheckDropDownBox width='290px' ariaLabelledBy={categoryList.category}>
           {categoryList?.data.map((checkbox) => (
-            <li key={checkbox.label}>
+            <li key={checkbox.value}>
               <CommonCheckBox
-                label={checkbox.label}
+                label={checkbox.value}
                 value={checkbox.value}
                 isChecked={checkbox.isChecked}
                 group={categoryList.category}

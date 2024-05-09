@@ -14,7 +14,7 @@ const ProductListFilterContainer = () => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
-      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+      addSelectedValue(e.target.name, value, e.target.checked);
     }
   };
 
@@ -22,7 +22,7 @@ const ProductListFilterContainer = () => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
-      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+      addSelectedValue(e.target.name, value, e.target.checked);
     }
   };
 
