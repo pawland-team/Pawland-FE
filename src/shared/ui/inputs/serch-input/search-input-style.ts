@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { inputContainer, inputReset } from '@shared/ui/styles/utills';
+import { inputContainer, inputReset } from '@shared/ui/styles/utils';
 
 interface SearchInputBoxStyle {
   $maxWidth: string;
