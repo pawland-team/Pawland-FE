@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { DivideLineBDBDBD } from '@shared/ui/styles/utills/divide-line';
+import { DivideLineBDBDBD } from '@shared/ui/styles/utils/divide-line';
 
 export const MainInfoSection = styled.section`
   margin-bottom: 80px;

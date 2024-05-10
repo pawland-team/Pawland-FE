@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 
 import { Client } from '@stomp/stompjs';
 
-import { chatTextAreaMinMaxSize } from '@entities/chat/constants/style';
+import { CHAT_TEXTAREA_SIZE } from '@entities/chat/constants/style';
 import { useChatFormTextareaSizeControl, useGetChatRoomList } from '@entities/chat/hooks';
 import { useChatStore } from '@entities/chat/model';
 import { ChatRoom, ChatRoomPreview } from '@entities/chat/ui';
 import { useUserStore } from '@entities/user/model';
-import { SendChatForm } from '@features/send-chat/ui';
+import { SendChatForm } from '@features/chat/send-chat/ui';
 
 import * as S from './style';
 
@@ -26,9 +26,9 @@ export const ChatPage = () => {
     dependencyListForObserver: [id],
     sizes: {
       onDesktop: {
-        height: chatTextAreaMinMaxSize.onDesktop.height,
-        minHeight: chatTextAreaMinMaxSize.onDesktop.minHeight,
-        maxHeight: chatTextAreaMinMaxSize.onDesktop.maxHeight,
+        height: CHAT_TEXTAREA_SIZE.onDesktop.height,
+        minHeight: CHAT_TEXTAREA_SIZE.onDesktop.minHeight,
+        maxHeight: CHAT_TEXTAREA_SIZE.onDesktop.maxHeight,
       },
     },
   });
