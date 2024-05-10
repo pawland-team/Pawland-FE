@@ -111,7 +111,7 @@ export const CommunityPostDetailPage = () => {
   const handleCommentSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${id}`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/post/${id}`;
 
     const response = await fetch(url, {
       method: 'POST',
