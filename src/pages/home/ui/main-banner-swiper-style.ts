@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SwiperPaginationReset } from '@shared/ui/styles/utills';
+import { SwiperPaginationReset } from '@shared/ui/styles/utils';
 
 export const mainBannerSwiperBox = styled.div`
   position: relative;

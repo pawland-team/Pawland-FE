@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
-import { checkDropDownBoxStyle } from '@shared/ui/styles/utills/drop-down-menu';
+import { checkDropDownBoxStyle } from '@shared/ui/styles/utils/drop-down-menu';
 
 interface CheckDropDownBoxProps {
   children: ReactNode;

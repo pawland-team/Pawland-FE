@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren, useEffect } from 'react';
+import { ComponentType, PropsWithChildren, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -20,7 +20,7 @@ import { useUserStore } from '@entities/user/model';
  *
  * 일부 컴포넌트만을 보호하려면 {@link UseGetAndSetUserInfo} 훅을 사용해야 한다.
  */
-export const withAuth = (Component: FunctionComponent<PropsWithChildren>) => {
+export const withAuth = (Component: ComponentType<PropsWithChildren>) => {
   const ProtectedComponent = (props: PropsWithChildren) => {
     const router = useRouter();
     const { data, status } = useGetUserInfo();
