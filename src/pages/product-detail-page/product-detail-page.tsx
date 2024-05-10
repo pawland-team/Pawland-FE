@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
 import { useGetMainProductList } from '@entities/product/hooks';
-import { mockProductDetailInfo } from '@shared/apis/product-api';
 import { ScrollToButton } from '@shared/ui/buttons';
 import { DetailMainInfo } from '@widgets/detail-main-info';
 import { ProductListSwiper } from '@widgets/product-list-swiper';
@@ -18,7 +17,7 @@ const ProductDetailPage = () => {
       </Head>
       <S.ProductDetailPage>
         <S.DetailArticleArea>
-          <DetailMainInfo detailInfo={mockProductDetailInfo} />
+          <DetailMainInfo />
         </S.DetailArticleArea>
         {recentProductListData && (
           <S.RecentProductArea>
