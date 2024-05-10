@@ -60,6 +60,8 @@ export const CommunityPostDetailPage = () => {
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const handleLike = async () => {
+    if (isLiked) return;
+
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
 
     try {
@@ -167,6 +169,19 @@ export const CommunityPostDetailPage = () => {
       });
 
       if (response.ok) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? {
+                  ...comment,
+                  replies: [
+                    ...comment.replies,
+                    { id: Date.now(), author: userData, content: replyContent, createdAt: new Date().toISOString() },
+                  ],
+                }
+              : comment,
+          ),
+        );
         setReplyTexts((prev) => ({
           ...prev,
           [commentId]: '',
