@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { messageMaxWidth, messageMaxWidthWithController } from '@entities/chat/constants/style';
+import { MESSAGE_MAX_WIDTH, MESSAGE_MAX_WIDTH_WITH_CONTROLLER } from '@entities/chat/constants/style';
 
 // Gray-9E9E9E
 import MeatballsMenu from '@/public/images/icon/meatballs-menu-filled-9E9E9E-w24-h24.svg?component';
@@ -69,7 +69,7 @@ export const MessageLineBox = styled.div`
   }) => {
     const w = parseInt(width.replace('px', ''), 10);
 
-    return `${w * Number(messageMaxWidthWithController / w)}px`;
+    return `${w * Number(MESSAGE_MAX_WIDTH_WITH_CONTROLLER / w)}px`;
   }};
 
   &:hover :where(${MeatballMenuButton}, ${MessageTime}) {
@@ -105,7 +105,7 @@ export const MessageText = styled.pre`
   }) => {
     const w = parseInt(width.replace('px', ''), 10);
 
-    return `${w * Number(messageMaxWidth / w)}px`;
+    return `${w * Number(MESSAGE_MAX_WIDTH / w)}px`;
   }};
   height: fit-content;
   padding: 6px 20px;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { DivideLineE0E0E0 } from '@shared/ui/styles/utills/divide-line';
+import { DivideLineE0E0E0 } from '@shared/ui/styles/utils/divide-line';
 
 export const ProductDetailInfoArea = styled.div`
   display: flex;
