@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
+import { useModalList } from '@shared/hooks/use-modal';
+import { PostModal } from '@shared/ui/modal/post-modal';
 
 import * as S from './post-detail-page-style';
 
@@ -44,6 +46,7 @@ export const CommunityPostDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const { data } = useGetUserInfo();
+  const { openModalList } = useModalList();
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
@@ -66,7 +69,13 @@ export const CommunityPostDetailPage = () => {
       }
     } catch (error) {
       console.error('Error recommending the post:', error);
-      alert('추천 처리 중 오류가 발생했습니다.');
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['recommend-modal'],
+        props: {
+          content: '추천 처리 중 오류가 발생했습니다.',
+        },
+      });
     }
   };
 
@@ -89,7 +98,13 @@ export const CommunityPostDetailPage = () => {
       }
     } catch (error) {
       console.error('Error cancelling the recommendation:', error);
-      alert('추천 취소 처리 중 오류가 발생했습니다.');
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['recommend-modal'],
+        props: {
+          content: '추천 취소 처리 중 오류가 발생했습니다.',
+        },
+      });
     }
   };
 
