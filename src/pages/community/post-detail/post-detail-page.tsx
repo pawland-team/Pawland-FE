@@ -39,7 +39,6 @@ type Post = {
 };
 
 export const CommunityPostDetailPage = () => {
-  const [isHover, setIsHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [commentText, setCommentText] = useState('');
   const router = useRouter();
@@ -194,28 +193,19 @@ export const CommunityPostDetailPage = () => {
         <S.RecommendButtonBox>
           {isLiked ? (
             <S.LikeButton type='button' onClick={handleUnlike}>
-              추천 취소하기
+              <S.LikeIconWrapper>
+                <Image src='/images/icon/like-icon-hover.svg' alt='like-icon' fill />
+              </S.LikeIconWrapper>
+              추천취소
             </S.LikeButton>
           ) : (
             <S.UnlikeButton type='button' onClick={handleLike}>
+              <S.LikeIconWrapper>
+                <Image src='/images/icon/like-icon-default.svg' alt='like-icon' fill />
+              </S.LikeIconWrapper>
               추천하기
             </S.UnlikeButton>
           )}
-          {/* <S.RecommendButton
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-            onClick={handleLike}
-            isLiked={isLiked}
-          >
-            <S.LikeIconWrapper>
-              <Image
-                src={isHover || isLiked ? '/images/icon/like-icon-hover.svg' : '/images/icon/like-icon-default.svg'}
-                alt='like-icon'
-                fill
-              />
-            </S.LikeIconWrapper>
-            <S.LikeButtonText>추천해요!</S.LikeButtonText>
-          </S.RecommendButton> */}
         </S.RecommendButtonBox>
       </S.ContentsArea>
 
