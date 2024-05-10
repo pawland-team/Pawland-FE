@@ -17,11 +17,18 @@ type Author = {
   nickname: string;
 };
 
+type Replies = {
+  id: number;
+  author: Author;
+  content: string;
+  createdAt: string;
+};
+
 type Comment = {
   id: number;
   author: Author;
   content: string;
-  replies: string[];
+  replies: Replies[];
   recommendCount: number;
   createdAt: string;
 };
