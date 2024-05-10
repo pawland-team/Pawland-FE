@@ -177,3 +177,27 @@ export const EditPage = () => {
     </>
   );
 };
+
+[
+  {
+    roomId: 0,
+    opponentUser: {
+      id: 0,
+      nickname: 'string',
+      profileImage: 'string',
+    },
+    productInfo: {
+      id: 0,
+      seller: {
+        id: 0,
+        nickname: 'string',
+        profileImage: 'string',
+      },
+      productName: 'string',
+      price: 0,
+      saleState: 'string',
+      purchaser: 0,
+      imageThumbnail: 'string',
+    },
+  },
+];

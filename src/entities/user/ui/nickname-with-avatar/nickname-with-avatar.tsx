@@ -31,7 +31,7 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
       {isOpened && (
         <S.DropDownMenu role='navigation' className='dropdown-menu'>
           <li>
-            <Link href='/'>프로필</Link>
+            <Link href='/profile'>프로필</Link>
           </li>
           <li>
             <Link href='/'>상품 등록</Link>
