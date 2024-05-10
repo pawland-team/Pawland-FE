@@ -24,15 +24,14 @@ type Author = {
   nickname: string;
 };
 
-type Comment = [
-  {
-    id: number;
-    author: Author;
-    content: 'string';
-    replies: string[];
-    recommendCount: number;
-  },
-];
+type Comment = {
+  id: number;
+  author: Author;
+  content: string;
+  replies: string[];
+  recommendCount: number;
+  createdAt: string;
+};
 
 type Post = {
   id: number;
@@ -45,6 +44,7 @@ type Post = {
   comments: Comment[];
   createdAt: string;
   recommendCount: number;
+  recommend: boolean;
 };
 
 type Pageable = {

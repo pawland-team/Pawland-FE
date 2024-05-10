@@ -6,9 +6,37 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
-import { CommunityPostDetailEntity } from '@shared/apis/community-api/community-post-detail';
 
 import * as S from './post-detail-page-style';
+
+type Author = {
+  id: number;
+  email: string;
+  nickname: string;
+};
+
+type Comment = {
+  id: number;
+  author: Author;
+  content: string;
+  replies: string[];
+  recommendCount: number;
+  createdAt: string;
+};
+
+type Post = {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  region: string;
+  views: number;
+  author: Author;
+  comments: Comment[];
+  createdAt: string;
+  recommendCount: number;
+  recommend: boolean;
+};
 
 export const CommunityPostDetailPage = () => {
   const [isHover, setIsHover] = useState(false);
@@ -77,7 +105,7 @@ export const CommunityPostDetailPage = () => {
     return data;
   };
 
-  const { data: communityPostDetail, isLoading } = useQuery<CommunityPostDetailEntity>({
+  const { data: communityPostDetail, isLoading } = useQuery<Post>({
     queryKey: [communityPostDetailQueryKey, id],
     queryFn: fetchCommunityPostDetail,
     enabled: !!id,
@@ -85,18 +113,7 @@ export const CommunityPostDetailPage = () => {
 
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
-  const {
-    title,
-    content,
-    imageThumbnail,
-    region,
-    author,
-    commentsCount,
-    recommendationCount,
-    views,
-    comments,
-    createdAt,
-  } = communityPostDetail;
+  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, views } = communityPostDetail;
 
   return (
     <S.PostDetailPage>
@@ -120,9 +137,9 @@ export const CommunityPostDetailPage = () => {
 
         <S.CommunityStatusBox>
           <S.FlexBox>
-            <S.StatusText>댓글 {commentsCount || 0}</S.StatusText>
+            <S.StatusText>댓글 {comments.length}</S.StatusText>
             <S.Divider />
-            <S.StatusText>추천 {recommendationCount || 0}</S.StatusText>
+            <S.StatusText>추천 {recommendCount}</S.StatusText>
             <S.Divider />
             <S.StatusText>조회수 {views}</S.StatusText>
           </S.FlexBox>
@@ -135,10 +152,10 @@ export const CommunityPostDetailPage = () => {
 
       <S.ContentsArea>
         <S.Contents>
-          {imageThumbnail && (
+          {thumbnail && (
             <>
               <S.ContentImageWrapper>
-                <Image src={imageThumbnail} alt='thumbnail' objectFit='contain' fill />
+                <Image src={thumbnail} alt='thumbnail' objectFit='contain' fill />
               </S.ContentImageWrapper>
             </>
           )}
@@ -189,9 +206,9 @@ export const CommunityPostDetailPage = () => {
         {comments?.length > 0 &&
           comments.map((comment) => (
             <S.ComentBox key={comment.id}>
-              <S.ProfileImageWrapper>
+              {/* <S.ProfileImageWrapper>
                 <Image src={comment.author.profileImage} alt='profile-image' fill />
-              </S.ProfileImageWrapper>
+              </S.ProfileImageWrapper> */}
               <S.ComentPostBox>
                 <S.ComentTextareaBox>
                   <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
@@ -201,9 +218,8 @@ export const CommunityPostDetailPage = () => {
                 <S.EmptySpace />
 
                 {/* 대댓글 컴포넌트 */}
-                {comment.reply.length > 0 &&
-                  comment.reply[0].id !== null &&
-                  comment.reply.map((reply) => (
+                {comment.replies.length > 0 &&
+                  comment.replies.map((reply) => (
                     <>
                       <S.ReplyWrapper key={reply.id}>
                         <S.ProfileImageWrapper>
