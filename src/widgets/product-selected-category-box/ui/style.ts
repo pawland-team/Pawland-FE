@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SelectedFilterManageBoxStyle = styled.div`
+export const SelectedCategoryBoxStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
