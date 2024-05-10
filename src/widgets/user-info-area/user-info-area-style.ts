@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const UserInfoArea = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 37px;
   align-items: center;
-  width: 100%;
+  justify-content: center;
 `;
 
 export const ProfileImage = styled.img`
@@ -13,15 +14,20 @@ export const ProfileImage = styled.img`
   border-radius: 50%;
 `;
 
-export const UserNicknameArea = styled.div`
+export const TextArea = styled.div`
+  width: 272px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+`;
+
+export const UserNickname = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
 
-  div {
-    font-size: 2.8rem;
-    line-height: 38px;
-  }
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 38px;
 `;
 
 export const UserIntroduce = styled.div`
@@ -29,17 +35,49 @@ export const UserIntroduce = styled.div`
 
   width: 100%;
   max-height: 3 * 1.5em;
-  margin-top: 16px;
 
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 28px;
-  text-align: center;
   text-overflow: ellipsis;
 `;
+export const RatingArea = styled.div`
+  width: 540px;
+  height: 200px;
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  display: flex;
+  padding: 42px 37px;
+  border-radius: 12px;
+  margin-left: 107px;
+`;
 
-export const Line = styled.hr`
-  width: 100%;
-  margin-top: 40px;
-  border: 0.6px solid ${({ theme }) => theme.color.gray_BDBDBD};
+export const Rating = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 233px;
+  border-right: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+
+export const Review = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 233px;
+  gap: 15px;
+`;
+
+export const Title = styled.span`
+  font-size: 3rem;
+  font-weight: 300;
+  color: ${({ theme }) => theme.color.gray_BDBDBD};
+`;
+
+export const Number = styled.span`
+  font-size: 5rem;
+  font-weight: 300;
+  color: ${({ theme }) => theme.color.black_000000};
 `;
