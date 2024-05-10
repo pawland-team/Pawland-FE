@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { ProductListItemDto } from '@shared/apis/product-api';
-import { textLineClamp2 } from '@shared/ui/styles/utills';
+import { textLineClamp2 } from '@shared/ui/styles/utils';
 import { formatPrice } from '@shared/utils/price';
 
 interface DescriptionProps {
