@@ -193,13 +193,13 @@ export const CommunityPostDetailPage = () => {
 
         <S.RecommendButtonBox>
           {isLiked ? (
-            <button type='button' onClick={handleUnlike}>
+            <S.LikeButton type='button' onClick={handleUnlike}>
               추천 취소하기
-            </button>
+            </S.LikeButton>
           ) : (
-            <button type='button' onClick={handleLike}>
+            <S.UnlikeButton type='button' onClick={handleLike}>
               추천하기
-            </button>
+            </S.UnlikeButton>
           )}
           {/* <S.RecommendButton
             onMouseEnter={() => setIsHover(true)}

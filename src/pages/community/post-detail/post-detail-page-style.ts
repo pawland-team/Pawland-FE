@@ -136,7 +136,7 @@ const RecommendButtonBox = styled.div`
   margin-top: 56px;
 `;
 
-const RecommendButton = styled.button<{ isLiked: boolean }>`
+const LikeButton = styled.button`
   cursor: pointer;
 
   width: 174px;
@@ -144,10 +144,31 @@ const RecommendButton = styled.button<{ isLiked: boolean }>`
 
   font-size: 1.6rem;
   font-weight: 700;
-  color: ${({ isLiked }) => (isLiked ? 'white' : '#000000')};
+  color: ${({ theme }) => theme.color.black_000000};
 
-  background-color: ${({ isLiked }) => (isLiked ? '#43ADFF' : 'white')};
-  border: ${({ isLiked }) => (isLiked ? '1px solid #43ADFF' : '1px solid #000000')};
+  background-color: ${({ theme }) => theme.color.blue_43ADFF};
+  border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
+  border-radius: 54px;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.black_000000};
+    background-color: ${({ theme }) => theme.color.white_FFFFFF};
+    border: 1px solid ${({ theme }) => theme.color.black_000000};
+  }
+`;
+
+const UnlikeButton = styled.button`
+  cursor: pointer;
+
+  width: 174px;
+  height: 48px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.black_000000};
+
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
   border-radius: 54px;
 
   &:hover {
@@ -362,7 +383,8 @@ export {
   Contents,
   ContentsParagraph,
   RecommendButtonBox,
-  RecommendButton,
+  LikeButton,
+  UnlikeButton,
   LikeIconWrapper,
   LikeButtonText,
   CommentArea,
