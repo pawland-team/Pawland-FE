@@ -26,6 +26,10 @@ export const SelectedCategoryBoxStyle = styled.div`
       font-size: 1.4rem;
       line-height: 1.5;
       color: #808080;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `;
