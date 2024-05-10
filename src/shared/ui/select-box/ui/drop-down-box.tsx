@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
-import { dropDownMenuStyle } from '../../styles/utills/drop-down-menu';
+import { dropDownMenuStyle } from '../../styles/utils/drop-down-menu';
 
 export interface DropDownBoxDto {
   id: number;
