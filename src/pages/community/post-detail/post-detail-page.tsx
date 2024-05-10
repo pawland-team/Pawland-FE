@@ -50,6 +50,7 @@ type Post = {
 export const CommunityPostDetailPage = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [replyTexts, setReplyTexts] = useState({});
   const router = useRouter();
   const { id } = router.query;
   const { data } = useGetUserInfo();
@@ -133,6 +134,43 @@ export const CommunityPostDetailPage = () => {
       setCommentText('');
     } else {
       console.error('Failed to submit comment', await response.text());
+    }
+  };
+
+  const handleReplyChange = (commentId, text) => {
+    setReplyTexts((prev) => ({
+      ...prev,
+      [commentId]: text,
+    }));
+  };
+
+  const submitReply = async (commentId) => {
+    const replyContent = replyTexts[commentId];
+
+    if (!replyContent) return;
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ content: replyContent }),
+      });
+
+      if (response.ok) {
+        setReplyTexts((prev) => ({
+          ...prev,
+          [commentId]: '',
+        }));
+      } else {
+        throw new Error('Failed to submit reply');
+      }
+    } catch (error) {
+      console.error('Error submitting reply:', error);
     }
   };
 
@@ -292,9 +330,15 @@ export const CommunityPostDetailPage = () => {
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
                     <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
-                    <S.ComentTextarea placeholder='답글을 입력해주세요.' />
+                    <S.ComentTextarea
+                      placeholder='답글을 입력해주세요.'
+                      value={replyTexts[comment.id] || ''}
+                      onChange={(e) => handleReplyChange(comment.id, e.target.value)}
+                    />
                     <S.ComentPostButtonWrapper>
-                      <S.ReplyPostButton>답글 등록하기</S.ReplyPostButton>
+                      <S.ReplyPostButton type='button' onClick={() => submitReply(comment.id)}>
+                        답글 등록하기
+                      </S.ReplyPostButton>
                     </S.ComentPostButtonWrapper>
                   </S.ComentPostBox>
                 </S.ReplyWrapper>
