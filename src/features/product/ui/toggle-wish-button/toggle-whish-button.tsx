@@ -2,10 +2,14 @@ import { MouseEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
+import { ButtonGroup, ModalMessage } from '@entities/chat/ui/chat-room/style';
 import { useGetUserInfo } from '@entities/user/hooks';
 import { usePostMakeWishedMutation } from '@features/product/hooks';
 import { usePostCancelWishedMutation } from '@features/product/hooks/use-post-cancel-wished-mutation';
+import useModalList from '@shared/hooks/use-modal';
+import { ModalKey } from '@shared/hooks/use-modal/types';
 
 interface ToggleWishButtonProps {
   id: number;
@@ -29,25 +33,48 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
   const { mutate: makeWishedMutate } = usePostMakeWishedMutation();
   const { mutate: cancelWishedMutate } = usePostCancelWishedMutation();
   const { data: userData } = useGetUserInfo();
+  const { openModalList, closeModalList } = useModalList();
 
-  const handleClickToggleWishButton = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleClickToggleWishButton = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const Modal = await import('@shared/ui/modal/confirm-modal-frame').then((module) => module.ConfirmModalFrame);
+    const modalKey: ModalKey = ['login-confirm-modal'];
+
+    const handleConfirm = () => {
+      closeModalList({ modalKey });
+    };
 
     if (!userData || userData === undefined) {
-      // TODO: 로그인 페이지로 보내부려
-      return alert('로그인하세요');
+      // login 상태가 아닐 때 , 로그인 하라는 모달 띄움
+      openModalList({
+        ModalComponent: Modal,
+        modalKey,
+        props: {
+          modalMessage: <ModalMessage>위시리스트에 담기 위해서는 로그인이 필요합니다</ModalMessage>,
+          modalFooter: (
+            <ButtonGroup>
+              <button type='button' onClick={() => closeModalList({ modalKey })}>
+                취소
+              </button>
+              <Link type='button' href={`/login`} onClick={handleConfirm}>
+                로그인하기
+              </Link>
+            </ButtonGroup>
+          ),
+        },
+      });
     }
 
     if (!isWishedChange) {
       makeWishedMutate(id, {
         onSuccess: () => {
-          return toast.success('찜 상품에 등록되었습니다.');
+          return toast.success('위시리스트에 등록되었습니다.');
         },
       });
     } else {
       cancelWishedMutate(id, {
         onSuccess: () => {
-          return toast.success('찜 상품에서 삭제되었습니다.');
+          return toast.success('위시리스트에서 삭제되었습니다.');
         },
       });
     }
