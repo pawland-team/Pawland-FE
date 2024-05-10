@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -48,12 +48,12 @@ type Post = {
 };
 
 export const CommunityPostDetailPage = () => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [commentText, setCommentText] = useState('');
-  const [replyTexts, setReplyTexts] = useState({});
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [commentText, setCommentText] = useState<string>('');
+  const [replyTexts, setReplyTexts] = useState<{ [key: number]: string }>({});
   const router = useRouter();
-  const { id } = router.query;
-  const { data } = useGetUserInfo();
+  const { id } = router.query as { id: string };
+  const { data: userData } = useGetUserInfo();
   const { openModalList } = useModalList();
 
   const communityPostDetailQueryKey = 'communityPostDetail';
@@ -116,7 +116,7 @@ export const CommunityPostDetailPage = () => {
     }
   };
 
-  const handleCommentSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleCommentSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/post/${id}`;
@@ -137,14 +137,14 @@ export const CommunityPostDetailPage = () => {
     }
   };
 
-  const handleReplyChange = (commentId, text) => {
+  const handleReplyChange = (commentId: number, text: string) => {
     setReplyTexts((prev) => ({
       ...prev,
       [commentId]: text,
     }));
   };
 
-  const submitReply = async (commentId) => {
+  const submitReply = async (commentId: number) => {
     const replyContent = replyTexts[commentId];
 
     if (!replyContent) return;
@@ -273,11 +273,11 @@ export const CommunityPostDetailPage = () => {
       <S.CommentArea>
         <S.ComentBox>
           <S.ProfileImageWrapper>
-            {data?.profileImage && <Image src={data?.profileImage} alt='my profile image' fill />}
+            {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
           </S.ProfileImageWrapper>
           <S.ComentPostBox onSubmit={handleCommentSubmit}>
             <S.ComentTextareaBox>
-              <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
+              <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
               <S.ComentTextarea
                 placeholder='댓글을 입력해주세요.'
                 value={commentText}
@@ -326,10 +326,10 @@ export const CommunityPostDetailPage = () => {
                 {/* 대댓글 입력 컴포넌트 */}
                 <S.ReplyWrapper>
                   <S.ProfileImageWrapper>
-                    {data?.profileImage && <Image src={data?.profileImage} alt='my profile image' fill />}
+                    {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
-                    <S.ProfileNickname>{data?.nickname}</S.ProfileNickname>
+                    <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
                     <S.ComentTextarea
                       placeholder='답글을 입력해주세요.'
                       value={replyTexts[comment.id] || ''}
