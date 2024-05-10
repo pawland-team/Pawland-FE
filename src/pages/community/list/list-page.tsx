@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -180,7 +180,7 @@ export const CommunityListPage = () => {
     setIsOpenFilter((prev) => !prev);
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 

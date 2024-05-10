@@ -329,17 +329,19 @@ export const CommunityPostDetailPage = () => {
                     {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
-                    <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
-                    <S.ComentTextarea
-                      placeholder='답글을 입력해주세요.'
-                      value={replyTexts[comment.id] || ''}
-                      onChange={(e) => handleReplyChange(comment.id, e.target.value)}
-                    />
-                    <S.ComentPostButtonWrapper>
-                      <S.ReplyPostButton type='button' onClick={() => submitReply(comment.id)}>
-                        답글 등록하기
-                      </S.ReplyPostButton>
-                    </S.ComentPostButtonWrapper>
+                    <form>
+                      <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
+                      <S.ComentTextarea
+                        placeholder='답글을 입력해주세요.'
+                        value={replyTexts[comment.id] || ''}
+                        onChange={(e) => handleReplyChange(comment.id, e.target.value)}
+                      />
+                      <S.ComentPostButtonWrapper>
+                        <S.ReplyPostButton type='button' onClick={() => submitReply(comment.id)}>
+                          답글 등록하기
+                        </S.ReplyPostButton>
+                      </S.ComentPostButtonWrapper>
+                    </form>
                   </S.ComentPostBox>
                 </S.ReplyWrapper>
               </S.ComentPostBox>
