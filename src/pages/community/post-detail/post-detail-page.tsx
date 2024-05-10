@@ -60,8 +60,6 @@ export const CommunityPostDetailPage = () => {
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const handleLike = async () => {
-    if (isLiked) return;
-
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
 
     try {
@@ -169,6 +167,7 @@ export const CommunityPostDetailPage = () => {
       });
 
       if (response.ok) {
+        // 백엔드에서 author에 profileImage 추가해주면 해결될 오류임
         setComments((prevComments) =>
           prevComments.map((comment) =>
             comment.id === commentId
@@ -321,6 +320,7 @@ export const CommunityPostDetailPage = () => {
           comments.map((comment) => (
             <S.ComentBox key={comment.id}>
               <S.ProfileImageWrapper>
+                {/* 백엔드에서 author에 profileImage 추가해주면 해결될 오류임 */}
                 <Image src={comment.author.profileImage} alt='profile-image' fill />
               </S.ProfileImageWrapper>
               <S.ComentPostBox>
@@ -337,6 +337,7 @@ export const CommunityPostDetailPage = () => {
                     <>
                       <S.ReplyWrapper key={reply.id}>
                         <S.ProfileImageWrapper>
+                          {/* 백엔드에서 author에 profileImage 추가해주면 해결될 오류임 */}
                           <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
                         </S.ProfileImageWrapper>
                         <S.ComentPostBox>
