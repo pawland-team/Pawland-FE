@@ -10,9 +10,10 @@ import * as S from './detail-main-info-style';
 const DetailMainInfo = () => {
   const router = useRouter();
   const PRODUCT_ID = Number(router.query.id);
-  const { data: productDetailData, isError: productDetailDataError } = useGetProductDetail(PRODUCT_ID);
+  const { data: productDetailData } = useGetProductDetail(PRODUCT_ID);
 
-  if (productDetailDataError || !productDetailData) {
+  // TODO: error 처리 필요할듯
+  if (!productDetailData) {
     router.push('/product');
 
     return toast.error('상품 데이터가 존재하지 않습니다. 다시 시도해 주세요.');
