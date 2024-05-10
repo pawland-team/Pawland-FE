@@ -44,6 +44,7 @@ type Post = {
   author: Author;
   comments: Comment[];
   createdAt: string;
+  recommendCount: number;
 };
 
 type Pageable = {
@@ -329,7 +330,7 @@ export const CommunityListPage = () => {
                             <S.ItemSubDivider />
                             <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            {/* <S.ItemSubText>추천 {item.comments.recommendCount || 0}</S.ItemSubText> */}
+                            <S.ItemSubText>추천 {item.recommendCount}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>조회 {item.views}</S.ItemSubText>
                           </S.ItemSubTextBox>

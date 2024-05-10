@@ -21,11 +21,12 @@ export const CommunityPostDetailPage = () => {
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const handleLike = async () => {
-    setIsLiked(!isLiked);
+    setIsLiked((prev) => !prev);
+    console.log('isLiked', isLiked);
 
     const url = isLiked
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/cancel/${id}`
-      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
+      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`
+      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/cancel/${id}`;
 
     const response = await fetch(url, {
       method: 'POST',
