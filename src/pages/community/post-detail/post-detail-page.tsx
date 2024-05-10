@@ -144,7 +144,8 @@ export const CommunityPostDetailPage = () => {
     }));
   };
 
-  const submitReply = async (commentId: number) => {
+  const submitReply = async (event: FormEvent<HTMLFormElement>, commentId: number) => {
+    event.preventDefault();
     const replyContent = replyTexts[commentId];
 
     if (!replyContent) return;
@@ -329,7 +330,7 @@ export const CommunityPostDetailPage = () => {
                     {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
                   </S.ProfileImageWrapper>
                   <S.ComentPostBox>
-                    <S.ReplyForm onClick={() => submitReply(comment.id)}>
+                    <S.ReplyForm onClick={(e) => submitReply(e, comment.id)}>
                       <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
                       <S.ComentTextarea
                         placeholder='답글을 입력해주세요.'
