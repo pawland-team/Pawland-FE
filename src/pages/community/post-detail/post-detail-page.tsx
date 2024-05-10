@@ -134,16 +134,15 @@ export const CommunityPostDetailPage = () => {
     enabled: !!id,
   });
 
-  if (isLoading || !communityPostDetail) return <div>Loading...</div>;
-
-  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, recommended, views } =
-    communityPostDetail;
-
   useEffect(() => {
-    if (recommended) {
+    if (communityPostDetail?.recommended) {
       setIsLiked(true);
     }
-  }, [recommended]);
+  }, [communityPostDetail?.recommended]);
+
+  if (isLoading || !communityPostDetail) return <div>Loading...</div>;
+
+  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, views } = communityPostDetail;
 
   return (
     <S.PostDetailPage>
