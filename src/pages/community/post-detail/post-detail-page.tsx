@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ type Post = {
   comments: Comment[];
   createdAt: string;
   recommendCount: number;
-  recommend: boolean;
+  recommended: boolean;
 };
 
 export const CommunityPostDetailPage = () => {
@@ -49,25 +49,48 @@ export const CommunityPostDetailPage = () => {
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const handleLike = async () => {
-    setIsLiked((prev) => !prev);
-    console.log('isLiked', isLiked);
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
 
-    const url = isLiked
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`
-      : `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/cancel/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ postId: id }),
-    });
+      if (response.ok) {
+        setIsLiked(true);
+      } else {
+        throw new Error('Failed to recommend the post.');
+      }
+    } catch (error) {
+      console.error('Error recommending the post:', error);
+      alert('추천 처리 중 오류가 발생했습니다.');
+    }
+  };
 
-    if (!response.ok) {
-      console.error('Failed to toggle recommendation', await response.text());
-      setIsLiked(!isLiked);
+  const handleUnlike = async () => {
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/cancel/${id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setIsLiked(false);
+      } else {
+        throw new Error('Failed to cancel the recommendation.');
+      }
+    } catch (error) {
+      console.error('Error cancelling the recommendation:', error);
+      alert('추천 취소 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -113,7 +136,14 @@ export const CommunityPostDetailPage = () => {
 
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
-  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, views } = communityPostDetail;
+  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, recommended, views } =
+    communityPostDetail;
+
+  useEffect(() => {
+    if (recommended) {
+      setIsLiked(true);
+    }
+  }, [recommended]);
 
   return (
     <S.PostDetailPage>
@@ -163,7 +193,16 @@ export const CommunityPostDetailPage = () => {
         </S.Contents>
 
         <S.RecommendButtonBox>
-          <S.RecommendButton
+          {isLiked ? (
+            <button type='button' onClick={handleUnlike}>
+              추천 취소하기
+            </button>
+          ) : (
+            <button type='button' onClick={handleLike}>
+              추천하기
+            </button>
+          )}
+          {/* <S.RecommendButton
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             onClick={handleLike}
@@ -177,7 +216,7 @@ export const CommunityPostDetailPage = () => {
               />
             </S.LikeIconWrapper>
             <S.LikeButtonText>추천해요!</S.LikeButtonText>
-          </S.RecommendButton>
+          </S.RecommendButton> */}
         </S.RecommendButtonBox>
       </S.ContentsArea>
 

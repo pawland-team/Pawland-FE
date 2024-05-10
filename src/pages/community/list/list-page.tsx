@@ -44,7 +44,7 @@ type Post = {
   comments: Comment[];
   createdAt: string;
   recommendCount: number;
-  recommend: boolean;
+  recommended: boolean;
 };
 
 type Pageable = {
