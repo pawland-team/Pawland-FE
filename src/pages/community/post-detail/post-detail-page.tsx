@@ -64,7 +64,7 @@ export const CommunityPostDetailPage = () => {
   };
 
   const fetchCommunityPostDetail = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/post-detail/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -112,16 +112,16 @@ export const CommunityPostDetailPage = () => {
           <S.RegionSpan>{region}</S.RegionSpan>
           <S.HeaderTitle>{title}</S.HeaderTitle>
           <S.HeaderSpanWrapper>
-            <S.HeaderDate>{author.nickname}</S.HeaderDate>
+            <S.HeaderDate>{author?.nickname}</S.HeaderDate>
             <S.HeaderDate>{new Date(createdAt).toLocaleDateString()}</S.HeaderDate>
           </S.HeaderSpanWrapper>
         </S.HeaderTitleBox>
 
         <S.CommunityStatusBox>
           <S.FlexBox>
-            <S.StatusText>댓글 {commentsCount}</S.StatusText>
+            <S.StatusText>댓글 {commentsCount || 0}</S.StatusText>
             <S.Divider />
-            <S.StatusText>추천 {recommendationCount}</S.StatusText>
+            <S.StatusText>추천 {recommendationCount || 0}</S.StatusText>
             <S.Divider />
             <S.StatusText>조회수 {views}</S.StatusText>
           </S.FlexBox>
@@ -185,7 +185,7 @@ export const CommunityPostDetailPage = () => {
         </S.ComentBox>
 
         {/* 댓글 컴포넌트 */}
-        {comments.length > 0 &&
+        {comments?.length > 0 &&
           comments.map((comment) => (
             <S.ComentBox key={comment.id}>
               <S.ProfileImageWrapper>
