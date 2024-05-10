@@ -74,7 +74,7 @@ export const CommunityPostDetailPage = () => {
   const handleCommentSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${id}`;
 
     const response = await fetch(url, {
       method: 'POST',
@@ -82,7 +82,7 @@ export const CommunityPostDetailPage = () => {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({ postId: id, content: commentText }),
+      body: JSON.stringify({ content: commentText }),
     });
 
     if (response.ok) {
@@ -221,14 +221,14 @@ export const CommunityPostDetailPage = () => {
                 {comment.replies.length > 0 &&
                   comment.replies.map((reply) => (
                     <>
-                      <S.ReplyWrapper key={reply.id}>
-                        <S.ProfileImageWrapper>
+                      <S.ReplyWrapper>
+                        {/* <S.ProfileImageWrapper>
                           <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
-                        </S.ProfileImageWrapper>
+                        </S.ProfileImageWrapper> */}
                         <S.ComentPostBox>
-                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
-                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
-                          <S.Coment>{reply.content}</S.Coment>
+                          {/* <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText> */}
+                          <S.Coment>{reply}</S.Coment>
                         </S.ComentPostBox>
                       </S.ReplyWrapper>
                       <S.EmptySpace />
