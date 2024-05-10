@@ -6,6 +6,7 @@ import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
+import { useRouter } from 'next/router';
 // import { useMutation } from '@tanstack/react-query';
 
 // interface FormData {
@@ -22,6 +23,8 @@ export const EditPage = () => {
   const [description, setDescription] = useState(data?.userDesc);
   const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
   const [isChanged, setIsChanged] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -73,6 +76,7 @@ export const EditPage = () => {
         const updatedUserInfo = await response.json();
         setUserInfo(updatedUserInfo);
         setIsChanged(false);
+        router.push('/profile');
         console.log(updatedUserInfo);
         console.log(nickname, description, selectedFile);
       } else {
@@ -176,27 +180,3 @@ export const EditPage = () => {
     </>
   );
 };
-
-[
-  {
-    roomId: 0,
-    opponentUser: {
-      id: 0,
-      nickname: 'string',
-      profileImage: 'string',
-    },
-    productInfo: {
-      id: 0,
-      seller: {
-        id: 0,
-        nickname: 'string',
-        profileImage: 'string',
-      },
-      productName: 'string',
-      price: 0,
-      saleState: 'string',
-      purchaser: 0,
-      imageThumbnail: 'string',
-    },
-  },
-];

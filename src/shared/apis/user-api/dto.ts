@@ -1,5 +1,3 @@
-type LoginType = '구글' | '네이버' | '카카오' | '일반';
-
 export interface UserEntity {
   /**
    * user Id
@@ -16,7 +14,7 @@ export interface UserEntity {
    * 0이면 아직 리뷰가 없는 상태
    */
   stars: number;
-  loginType: LoginType;
+  loginType: string;
 }
 
 export interface GetUserInfoResponse {
@@ -29,4 +27,5 @@ export interface GetUserInfoResponse {
    */
   userDesc: UserEntity['userIntroduce'];
   stars: UserEntity['stars'];
+  loginType: UserEntity['loginType'];
 }

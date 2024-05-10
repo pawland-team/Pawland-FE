@@ -60,7 +60,7 @@ export const ProfilePage = () => {
         <S.ProfilePage>
           <S.UserInfoContainer>
             <MyInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
-            <MyLoginInfoArea />
+            <MyLoginInfoArea loginType={data?.loginType} email={data?.email} />
           </S.UserInfoContainer>
           <S.ListContainer>
             <ProfilePageMenuBar />
