@@ -77,11 +77,8 @@ export const EditPage = () => {
         setUserInfo(updatedUserInfo);
         setIsChanged(false);
         router.push('/profile');
-        console.log(updatedUserInfo);
-        console.log(nickname, description, selectedFile);
       } else {
         console.error('프로필 저장 실패:', response.statusText);
-        console.log(nickname, description, selectedFile);
       }
     } catch (error) {
       console.error('프로필 저장 실패:', error);
