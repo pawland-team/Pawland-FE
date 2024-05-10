@@ -5,6 +5,7 @@ import { ProductListItemDto } from '@shared/apis/product-api';
 import { CommonButton } from '@shared/ui/buttons';
 import { CategoryTree, ProductInteractionButtonsBox } from '@shared/ui/product';
 import { formatPrice } from '@shared/utils/price';
+import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './product-detail-info-style';
 
@@ -28,7 +29,7 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
           <ProductInteractionButtonsBox id={id} isWished={detailInfo.wished} />
         </S.SubInfoContainer>
         <S.MainInfoContainer>
-          <time>{detailInfo.createAt}</time>
+          <time>{formatDateShorter(detailInfo.createAt)}</time>
           <h2>{detailInfo.name}</h2>
           <div className='seller-info-box'>
             {/* TODO : 유저 페이지로 이동될 수 있도록 */}
