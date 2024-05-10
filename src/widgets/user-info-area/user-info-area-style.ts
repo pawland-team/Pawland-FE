@@ -41,6 +41,15 @@ export const UserIntroduce = styled.div`
   line-height: 28px;
   text-overflow: ellipsis;
 `;
+export const RatingArea = styled.div`
+  width: 540px;
+  height: 200px;
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  display: flex;
+  padding: 42px 37px;
+  border-radius: 12px;
+  margin-left: 107px;
+`;
 
 export const RatingArea = styled.div`
   display: flex;

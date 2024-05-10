@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const ReviewItem = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  padding: 31px 36px;
+  margin-top: 36px;
+  margin-left: 128px;
+  padding: 13px 18px;
 
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
   border: 1px solid ${({ theme }) => theme.color.gray_F3F3F3};
   border-radius: 6px;
 
@@ -14,31 +17,31 @@ export const ReviewItem = styled.div`
     border-radius: 50%;
   }
 
+  .check-icon {
+    margin-left: 5px;
+  }
+
   .content {
-    font-size: 2.4rem;
+    font-size: 1.2rem;
     line-height: 28px;
   }
 `;
 
-export const TextContainer = styled.div`
+export const UserInfoArea = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 26px;
-  margin-left: 36px;
+  align-items: center;
 `;
 
 export const Nickname = styled.span`
-  margin-top: 14px;
-  font-size: 2.4rem;
+  margin-left: 16px;
+  font-size: 1.2rem;
   line-height: 28px;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
-export const Date = styled.span`
-  margin-top: 14px;
-  margin-left: 450px;
-
-  font-size: 2.4rem;
-  line-height: 28px;
-  color: ${({ theme }) => theme.color.gray_BDBDBD};
+export const ContentArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 40px;
 `;
