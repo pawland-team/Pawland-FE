@@ -256,9 +256,9 @@ export const CommunityPostDetailPage = () => {
         {comments?.length > 0 &&
           comments.map((comment) => (
             <S.ComentBox key={comment.id}>
-              {/* <S.ProfileImageWrapper>
+              <S.ProfileImageWrapper>
                 <Image src={comment.author.profileImage} alt='profile-image' fill />
-              </S.ProfileImageWrapper> */}
+              </S.ProfileImageWrapper>
               <S.ComentPostBox>
                 <S.ComentTextareaBox>
                   <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
@@ -271,14 +271,14 @@ export const CommunityPostDetailPage = () => {
                 {comment.replies.length > 0 &&
                   comment.replies.map((reply) => (
                     <>
-                      <S.ReplyWrapper>
-                        {/* <S.ProfileImageWrapper>
+                      <S.ReplyWrapper key={reply.id}>
+                        <S.ProfileImageWrapper>
                           <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
-                        </S.ProfileImageWrapper> */}
+                        </S.ProfileImageWrapper>
                         <S.ComentPostBox>
-                          {/* <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
-                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText> */}
-                          <S.Coment>{reply}</S.Coment>
+                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
+                          <S.Coment>{reply.content}</S.Coment>
                         </S.ComentPostBox>
                       </S.ReplyWrapper>
                       <S.EmptySpace />
