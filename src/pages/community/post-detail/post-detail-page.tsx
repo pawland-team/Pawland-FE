@@ -50,6 +50,7 @@ type Post = {
 export const CommunityPostDetailPage = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [commentText, setCommentText] = useState<string>('');
+  const [comments, setComments] = useState<Comment[]>([]);
   const [replyTexts, setReplyTexts] = useState<{ [key: number]: string }>({});
   const router = useRouter();
   const { id } = router.query as { id: string };
@@ -131,7 +132,10 @@ export const CommunityPostDetailPage = () => {
     });
 
     if (response.ok) {
+      const newComment = await response.json();
+      setComments((prevComments) => [...prevComments, newComment]);
       setCommentText('');
+      window.scrollTo(0, document.body.scrollHeight);
     } else {
       console.error('Failed to submit comment', await response.text());
     }
@@ -200,9 +204,15 @@ export const CommunityPostDetailPage = () => {
     }
   }, [communityPostDetail?.recommended]);
 
+  useEffect(() => {
+    if (communityPostDetail) {
+      setComments(communityPostDetail.comments);
+    }
+  }, [communityPostDetail]);
+
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
-  const { title, content, thumbnail, region, author, comments, createdAt, recommendCount, views } = communityPostDetail;
+  const { title, content, thumbnail, region, author, createdAt, recommendCount, views } = communityPostDetail;
 
   return (
     <S.PostDetailPage>
