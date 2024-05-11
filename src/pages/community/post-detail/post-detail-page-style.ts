@@ -139,29 +139,29 @@ const RecommendButtonBox = styled.div`
 const LikeButton = styled.button`
   cursor: pointer;
 
+  position: relative;
+
   width: 174px;
   height: 48px;
+  padding-left: 32px;
 
   font-size: 1.6rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.color.black_000000};
+  color: ${({ theme }) => theme.color.white_FFFFFF};
 
   background-color: ${({ theme }) => theme.color.blue_43ADFF};
   border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 54px;
-
-  &:hover {
-    color: ${({ theme }) => theme.color.black_000000};
-    background-color: ${({ theme }) => theme.color.white_FFFFFF};
-    border: 1px solid ${({ theme }) => theme.color.black_000000};
-  }
 `;
 
 const UnlikeButton = styled.button`
   cursor: pointer;
 
+  position: relative;
+
   width: 174px;
   height: 48px;
+  padding-left: 32px;
 
   font-size: 1.6rem;
   font-weight: 700;
@@ -170,12 +170,6 @@ const UnlikeButton = styled.button`
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid ${({ theme }) => theme.color.black_000000};
   border-radius: 54px;
-
-  &:hover {
-    color: ${({ theme }) => theme.color.white_FFFFFF};
-    background-color: ${({ theme }) => theme.color.blue_43ADFF};
-    border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
-  }
 `;
 
 const LikeIconWrapper = styled.div`
