@@ -18,6 +18,9 @@ interface FormValues {
 
 export const LoginPage = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID as string;
+  const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID as string;
+  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [rememberCredentials, setRememberCredentials] = useState<boolean>(false);
   const router = useRouter();
@@ -193,17 +196,23 @@ export const LoginPage = () => {
             <S.LoginPageBottomSpan>SNS 계정으로 간편 로그인/회원가입</S.LoginPageBottomSpan>
           </S.SocialLoginWrapper>
           <S.SocialLoginWrapper>
-            <Link href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=9NjBfBE6YM2diWzMy19n&redirect_uri=https://midcon.store/api/auth/oauth2/naver&state=1234'>
+            <Link
+              href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=https://midcon.store/api/auth/oauth2/naver&state=1234`}
+            >
               <S.SocialIconWrapper>
                 <S.SocialLoginLogo fill src='/images/social-media/naver-logo.svg' alt='naver-logo-icon' />
               </S.SocialIconWrapper>
             </Link>
-            <Link href='https://kauth.kakao.com/oauth/authorize?client_id=b88ca4129b6dcc848a022469f3d6ae1c&redirect_uri=https://midcon.store/api/auth/oauth2/kakao&response_type=code&prompt=login'>
+            <Link
+              href={`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=https://midcon.store/api/auth/oauth2/kakao&response_type=code&prompt=login`}
+            >
               <S.SocialIconWrapper>
                 <S.SocialLoginLogo fill src='/images/social-media/kakao-logo.svg' alt='kakao-logo-icon' />
               </S.SocialIconWrapper>
             </Link>
-            <Link href='https://accounts.google.com/o/oauth2/v2/auth?client_id=241400103028-mj55qqtl4gv96o35fdavqm6fngb68ske.apps.googleusercontent.com&redirect_uri=https://midcon.store/api/auth/oauth2/google&response_type=code&scope=email profile'>
+            <Link
+              href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=https://midcon.store/api/auth/oauth2/google&response_type=code&scope=email profile`}
+            >
               <S.SocialIconWrapper>
                 <S.SocialLoginLogo fill src='/images/social-media/google-logo.svg' alt='google-logo-icon' />
               </S.SocialIconWrapper>
