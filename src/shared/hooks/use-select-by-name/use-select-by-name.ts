@@ -1,5 +1,15 @@
 import { BaseSyntheticEvent, useEffect, useMemo } from 'react';
-import { DeepPartialSkipArrayKey, FieldValues, Path, PathValue, useFormContext, useWatch } from 'react-hook-form';
+import {
+  DeepPartialSkipArrayKey,
+  FieldValues,
+  Path,
+  PathValue,
+  UseFormClearErrors,
+  useFormContext,
+  UseFormSetError,
+  UseFormSetValue,
+  useWatch,
+} from 'react-hook-form';
 
 /**
  * @description
@@ -19,6 +29,8 @@ import { DeepPartialSkipArrayKey, FieldValues, Path, PathValue, useFormContext, 
  *   regexForTestingName: SPECIES_REGEX,
  * });
  * ```
+ *
+ * @default shouldValidate: true
  */
 export const useSelectByName = <
   TFieldValues extends FieldValues,
@@ -26,9 +38,11 @@ export const useSelectByName = <
 >({
   initialFieldValue,
   regexForTestingName,
+  shouldValidate = true,
 }: {
   initialFieldValue: TFieldValues;
   regexForTestingName: RegExp;
+  shouldValidate?: boolean;
 }): {
   /**
    * 필드 (obj)
@@ -40,6 +54,9 @@ export const useSelectByName = <
    * onClick, onChange, ... 등
    */
   handleChangeCheckBox: (e: EventType) => void;
+  setValue: UseFormSetValue<TFieldValues>;
+  setError: UseFormSetError<TFieldValues>;
+  clearErrors: UseFormClearErrors<TFieldValues>;
 } => {
   /**
    * obj 인자 프로퍼티명과 프로퍼티값이 변경될 때만 memoizedField를 업데이트한다.
@@ -52,8 +69,10 @@ export const useSelectByName = <
   const {
     formState: { isSubmitSuccessful },
     setValue,
-    control,
+    setError,
     reset,
+    clearErrors,
+    control,
   } = useFormContext<TFieldValues>();
 
   const fieldObj = useWatch({
@@ -76,7 +95,9 @@ export const useSelectByName = <
 
   // 초기값 설정
   useEffect(() => {
-    setValue(Object.keys(memoizedField)[0] as Path<TFieldValues>, memoizedField[Object.keys(memoizedField)[0]]);
+    setValue(Object.keys(memoizedField)[0] as Path<TFieldValues>, memoizedField[Object.keys(memoizedField)[0]], {
+      shouldValidate,
+    });
   }, [memoizedField]);
 
   // 제출 성공 시 초기화
@@ -93,5 +114,8 @@ export const useSelectByName = <
   return {
     fieldObj,
     handleChangeCheckBox,
+    setValue,
+    setError,
+    clearErrors,
   };
 };
