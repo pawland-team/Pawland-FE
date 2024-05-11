@@ -22,6 +22,7 @@ type Author = {
   id: number;
   email: string;
   nickname: string;
+  profileImage: string;
 };
 
 type Replies = {
