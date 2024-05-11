@@ -168,18 +168,11 @@ export const CommunityPostDetailPage = () => {
       });
 
       if (response.ok) {
-        // 백엔드에서 author에 profileImage 추가해주면 해결될 오류임
+        const newReply = await response.json();
+
         setComments((prevComments) =>
           prevComments.map((comment) =>
-            comment.id === commentId
-              ? {
-                  ...comment,
-                  replies: [
-                    ...comment.replies,
-                    { id: Date.now(), author: userData, content: replyContent, createdAt: new Date().toISOString() },
-                  ],
-                }
-              : comment,
+            comment.id === commentId ? { ...comment, replies: [...comment.replies, newReply] } : comment,
           ),
         );
         setReplyTexts((prev) => ({
