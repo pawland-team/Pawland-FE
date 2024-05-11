@@ -214,10 +214,10 @@ export const CommunityPostPage = () => {
           <S.TitleInputTitle>제목을 입력해주세요.</S.TitleInputTitle>
           <S.TitleInputBox>
             <S.TitleInput
-              placeholder='제목을 20자내로 작성해주세요.'
-              {...register('title', { required: true, maxLength: 20 })}
+              placeholder='제목을 40자내로 작성해주세요.'
+              {...register('title', { required: true, maxLength: 40 })}
             />
-            <S.TitleInputCounter>{watch('title', '').length}/20</S.TitleInputCounter>
+            <S.TitleInputCounter>{watch('title', '').length}/40</S.TitleInputCounter>
           </S.TitleInputBox>
         </S.TitleInputArea>
 
