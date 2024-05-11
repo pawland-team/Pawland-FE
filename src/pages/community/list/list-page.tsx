@@ -98,6 +98,12 @@ export const CommunityListPage = () => {
 
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
 
+  const calculateTotalComments = (comments: Comment[]) => {
+    return comments.reduce((total, comment) => {
+      return total + 1 + comment.replies.length;
+    }, 0);
+  };
+
   const handleMouseEnter = (id: number) => {
     setHoveredItemId(id);
   };
@@ -321,6 +327,7 @@ export const CommunityListPage = () => {
                     : '/images/icon/arrow-icon-gray.svg';
 
                   const thumbnailUrl = isValidHttpUrl(item.thumbnail) ? item.thumbnail : '/images/test/test-image2.png';
+                  const totalComments = calculateTotalComments(item.comments);
 
                   return (
                     <Link href={`/community/post-detail/${item.id}`} key={item.id}>
@@ -336,7 +343,7 @@ export const CommunityListPage = () => {
                             <S.ItemSubDivider />
                             <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
                             <S.ItemSubDivider />
-                            <S.ItemSubText>댓글 {item.comments.length}</S.ItemSubText>
+                            <S.ItemSubText>댓글 {totalComments}</S.ItemSubText>
                             <S.ItemSubDivider />
                             <S.ItemSubText>추천 {item.recommendCount}</S.ItemSubText>
                             <S.ItemSubDivider />
