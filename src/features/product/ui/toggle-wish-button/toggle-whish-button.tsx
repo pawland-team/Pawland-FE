@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { usePostMakeWishedMutation } from '@features/product/hooks';
 import { usePostCancelWishedMutation } from '@features/product/hooks/use-post-cancel-wished-mutation';
 import useModalList from '@shared/hooks/use-modal';
 import { ModalKey } from '@shared/hooks/use-modal/types';
+import { getQueryClient } from '@shared/lib/get-query-client';
 
 interface ToggleWishButtonProps {
   id: number;
@@ -34,6 +35,7 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
   const { mutate: cancelWishedMutate } = usePostCancelWishedMutation();
   const { data: userData } = useGetUserInfo();
   const { openModalList, closeModalList } = useModalList();
+  const queryClient = getQueryClient();
 
   const handleClickToggleWishButton = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -45,6 +47,7 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
     };
 
     if (!userData || userData === undefined) {
+      // ! 필수 : 로그인 상태 아닐 때 테스트 필요!!!
       // login 상태가 아닐 때 , 로그인 하라는 모달 띄움
       openModalList({
         ModalComponent: Modal,
@@ -68,19 +71,39 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
     if (!isWishedChange) {
       makeWishedMutate(id, {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['product'] });
+
           return toast.success('위시리스트에 등록되었습니다.');
+        },
+        onError: (error) => {
+          setIsWishedChange(isWishedChange);
+          console.log(error);
+
+          return toast.error('문제가 생겼습니다. 관리자에게 문의하세요.');
         },
       });
     } else {
       cancelWishedMutate(id, {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['product'] });
+
           return toast.success('위시리스트에서 삭제되었습니다.');
+        },
+        onError: (error) => {
+          setIsWishedChange(isWishedChange);
+          console.log(error);
+
+          return toast.error('문제가 생겼습니다. 관리자에게 문의하세요.');
         },
       });
     }
 
     setIsWishedChange((prev) => !prev);
   };
+
+  useEffect(() => {
+    setIsWishedChange(initialIsWished);
+  }, [initialIsWished]);
 
   return (
     <>
