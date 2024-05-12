@@ -71,7 +71,8 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
     if (!isWishedChange) {
       makeWishedMutate(id, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['product'] });
+          queryClient.invalidateQueries({ queryKey: ['product', id] });
+          setIsWishedChange((prev) => !prev);
 
           return toast.success('위시리스트에 등록되었습니다.');
         },
@@ -85,7 +86,8 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
     } else {
       cancelWishedMutate(id, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['product'] });
+          queryClient.invalidateQueries({ queryKey: ['product', id] });
+          setIsWishedChange((prev) => !prev);
 
           return toast.success('위시리스트에서 삭제되었습니다.');
         },
@@ -97,8 +99,6 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
         },
       });
     }
-
-    setIsWishedChange((prev) => !prev);
   };
 
   useEffect(() => {
