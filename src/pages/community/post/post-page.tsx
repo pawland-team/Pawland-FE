@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
@@ -19,14 +19,8 @@ export const CommunityPostPage = () => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
-  const { openModalList, closeModalList } = useModalList();
+  const { openModalList } = useModalList();
   const router = useRouter();
-
-  useEffect(() => {
-    return () => {
-      closeModalList({ modalKey: ['post-modal'] });
-    };
-  }, [closeModalList]);
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
