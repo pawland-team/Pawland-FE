@@ -1,9 +1,12 @@
-import { MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import * as S from './list-page-style';
+
+const communityListQueryKey = 'communityList';
 
 type RegionItem = {
   id: number;
@@ -15,42 +18,167 @@ type FilterItem = {
   name: string;
 };
 
+type Author = {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string;
+};
+
+type Replies = {
+  id: number;
+  author: Author;
+  content: string;
+  createdAt: string;
+};
+
+type Comment = {
+  id: number;
+  author: Author;
+  content: string;
+  replies: Replies[];
+  recommendCount: number;
+  createdAt: string;
+};
+
+type Post = {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  region: string;
+  views: number;
+  author: Author;
+  comments: Comment[];
+  createdAt: string;
+  recommendCount: number;
+  recommended: boolean;
+};
+
+type Pageable = {
+  pageNumber: number;
+  pageSize: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+};
+
+type ApiResponse = {
+  content: Post[];
+  pageable: Pageable;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+};
+
 export const CommunityListPage = () => {
-  const [iconSrc, setIconSrc] = useState<string>('/images/icon/arrow-icon-gray.svg');
   const [isOpenRegion, setIsOpenRegion] = useState<boolean>(false);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
 
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+
+  const calculateTotalComments = (comments: Comment[]) => {
+    return comments.reduce((total, comment) => {
+      return total + 1 + comment.replies.length;
+    }, 0);
+  };
+
+  const handleMouseEnter = (id: number) => {
+    setHoveredItemId(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItemId(null);
+  };
+
   const handleRegionSelect = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpenRegion((prev) => !prev);
   };
 
+  const fetchCommunityList = async (
+    page: number,
+    selectedRegions: string[],
+    selectedFilter: string,
+    searchQuery: string,
+  ): Promise<ApiResponse> => {
+    const region = selectedRegions.length ? selectedRegions.join(',') : '';
+
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&content=${searchQuery}&region=${region}&orderBy=${selectedFilter}`;
+
+    if (selectedFilter === '내가 쓴 글') {
+      url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/my-post?page=${page}`;
+    }
+
+    const response = await fetch(url, {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 401) {
+      throw new Error('인증 실패: 로그인 정보가 유효하지 않습니다.');
+    }
+
+    if (!response.ok) {
+      throw new Error('데이터를 불러오는 데 실패했습니다.');
+    }
+
+    return response.json();
+  };
+
+  const { data, isLoading } = useQuery<ApiResponse>({
+    queryKey: [communityListQueryKey, page, selectedRegions, selectedFilter, searchQuery],
+    queryFn: () => fetchCommunityList(page, selectedRegions, selectedFilter, searchQuery),
+  });
+
+  const communityList = data?.content || [];
+  const totalPages = data?.totalPages || 1;
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
+
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
 
-    if (regionName === '전체') {
-      // 전체 버튼을 클릭한 경우, 다른 모든 체크박스를 해제합니다.
-      setSelectedRegions(selectedRegions.includes('전체') ? [] : ['전체']);
-    } else {
-      // 다른 버튼을 클릭한 경우, 전체 버튼을 해제합니다.
-      setSelectedRegions((prev) => {
-        if (prev.includes('전체')) {
-          // 전체 버튼이 체크되어 있었다면, 전체 버튼을 제외하고 현재 버튼을 체크합니다.
-          return [regionName];
-        }
+    setSelectedRegions((prev) => {
+      if (prev.includes(regionName)) {
+        return prev.filter((name) => name !== regionName);
+      }
 
-        if (prev.includes(regionName)) {
-          // 현재 버튼이 이미 체크되어 있다면, 현재 버튼을 해제합니다.
-          return prev.filter((name) => name !== regionName);
-        }
-
-        // 그렇지 않다면, 현재 버튼을 체크합니다.
-        return [...prev, regionName];
-      });
-    }
+      return [...prev, regionName];
+    });
   };
 
   const handleFilterSelect = (event: MouseEvent<HTMLDivElement>, filterName: string) => {
@@ -59,79 +187,29 @@ export const CommunityListPage = () => {
     setIsOpenFilter((prev) => !prev);
   };
 
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   const RegionDropDownList: RegionItem[] = [
-    {
-      id: 0,
-      name: '전체',
-    },
-    {
-      id: 1,
-      name: '대구',
-    },
-    {
-      id: 2,
-      name: '광주',
-    },
-    {
-      id: 3,
-      name: '울산',
-    },
-    {
-      id: 4,
-      name: '경기',
-    },
-    {
-      id: 5,
-      name: '충북',
-    },
-    {
-      id: 6,
-      name: '전북',
-    },
-    {
-      id: 7,
-      name: '경북',
-    },
-    {
-      id: 8,
-      name: '제주',
-    },
-    {
-      id: 9,
-      name: '서울',
-    },
-    {
-      id: 10,
-      name: '인천',
-    },
-    {
-      id: 11,
-      name: '대전',
-    },
-    {
-      id: 12,
-      name: '세종',
-    },
-    {
-      id: 13,
-      name: '강원',
-    },
-    {
-      id: 14,
-      name: '충남',
-    },
-    {
-      id: 15,
-      name: '전남',
-    },
-    {
-      id: 16,
-      name: '경남',
-    },
-    {
-      id: 17,
-      name: '해외',
-    },
+    { id: 0, name: '대구' },
+    { id: 1, name: '광주' },
+    { id: 2, name: '울산' },
+    { id: 3, name: '경기' },
+    { id: 4, name: '충북' },
+    { id: 5, name: '전북' },
+    { id: 6, name: '경북' },
+    { id: 7, name: '제주' },
+    { id: 8, name: '서울' },
+    { id: 9, name: '인천' },
+    { id: 10, name: '대전' },
+    { id: 11, name: '세종' },
+    { id: 12, name: '강원' },
+    { id: 13, name: '충남' },
+    { id: 14, name: '전남' },
+    { id: 15, name: '경남' },
+    { id: 16, name: '부산' },
+    { id: 17, name: '해외' },
   ];
 
   const FilterDropDownList: FilterItem[] = [
@@ -159,6 +237,18 @@ export const CommunityListPage = () => {
 
   const selectedRegionNames: string[] = selectedRegions;
 
+  function isValidHttpUrl(string: string) {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  }
+
   return (
     <S.CommunityListPage>
       <S.MainArea>
@@ -168,7 +258,7 @@ export const CommunityListPage = () => {
             <S.SearchIconWrapper>
               <Image src='/images/icon/search-icon.svg' alt='search-icon' fill />
             </S.SearchIconWrapper>
-            <S.SearchBar placeholder='제목을 검색해주세요.' />
+            <S.SearchBar placeholder='제목을 검색해주세요.' value={searchQuery} onChange={handleSearchChange} />
           </S.SearchBarContainer>
           <S.NewPostButton>
             <S.PostButtonIconWrapper>
@@ -213,7 +303,6 @@ export const CommunityListPage = () => {
               <S.DownArrowIconWrapper>
                 <Image src='/images/icon/arrow-down-icon-gray.svg' alt='arrow-icon' fill />
               </S.DownArrowIconWrapper>
-              {/* 최신순 조회수순 추천순 댓글순 내가쓴글 */}
               {isOpenFilter && (
                 <>
                   <S.DropDownBox>
@@ -228,33 +317,56 @@ export const CommunityListPage = () => {
             </S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>
-            <Link href='/community/post-detail'>
-              <S.ItemBox
-                onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
-                onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
-              >
-                <S.ThumnailImageWrapper>
-                  <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
-                </S.ThumnailImageWrapper>
-                <S.TextContentsWrapper>
-                  <S.ItemRegiontext>지역</S.ItemRegiontext>
-                  <S.ItemTitleText>제목제목제목제목제목</S.ItemTitleText>
-                  <S.ItemSubTextBox>
-                    <S.ItemSubText>닉네임</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>2024.05.03</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>댓글 100</S.ItemSubText>
-                    <S.ItemSubDivider />
-                    <S.ItemSubText>추천 100</S.ItemSubText>
-                  </S.ItemSubTextBox>
-                </S.TextContentsWrapper>
-                <S.ArrowIconWrapper>
-                  <Image src={iconSrc} alt='arrow-icon' fill />
-                </S.ArrowIconWrapper>
-              </S.ItemBox>
-            </Link>
+            {isLoading
+              ? '로딩중'
+              : communityList?.map((item) => {
+                  const isHovered = hoveredItemId === item.id;
+
+                  const arrowIconSrc = isHovered
+                    ? '/images/icon/arrow-icon-blue.svg'
+                    : '/images/icon/arrow-icon-gray.svg';
+
+                  const thumbnailUrl = isValidHttpUrl(item.thumbnail) ? item.thumbnail : '/images/test/test-image2.png';
+                  const totalComments = calculateTotalComments(item.comments);
+
+                  return (
+                    <Link href={`/community/post-detail/${item.id}`} key={item.id}>
+                      <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
+                        <S.ThumnailImageWrapper>
+                          <Image src={thumbnailUrl} alt='thumbnail-image' fill />
+                        </S.ThumnailImageWrapper>
+                        <S.TextContentsWrapper>
+                          <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
+                          <S.ItemTitleText>{item.title}</S.ItemTitleText>
+                          <S.ItemSubTextBox>
+                            <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>댓글 {totalComments}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>추천 {item.recommendCount}</S.ItemSubText>
+                            <S.ItemSubDivider />
+                            <S.ItemSubText>조회 {item.views}</S.ItemSubText>
+                          </S.ItemSubTextBox>
+                        </S.TextContentsWrapper>
+                        <S.ArrowIconWrapper>
+                          <Image src={arrowIconSrc} alt='arrow-icon' fill />
+                        </S.ArrowIconWrapper>
+                      </S.ItemBox>
+                    </Link>
+                  );
+                })}
           </S.ItemListArea>
+          <S.PaginationWrapper>
+            <button type='button' onClick={handlePrevPage} disabled={page === 1}>
+              &lt;
+            </button>
+            <span>{page}</span>
+            <button type='button' onClick={handleNextPage} disabled={page >= totalPages}>
+              &gt;
+            </button>
+          </S.PaginationWrapper>
         </S.ContentsArea>
       </S.MainArea>
     </S.CommunityListPage>
