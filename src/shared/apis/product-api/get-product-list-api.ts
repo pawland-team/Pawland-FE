@@ -9,7 +9,7 @@ import { clientWithTokenApi } from '../instance';
  */
 
 export const getProductList = async (size: number) => {
-  const response = await clientWithTokenApi.get<ProductListDto>(`/api/product?page=1&size=${size}&orderBy='최신순`);
+  const response = await clientWithTokenApi.get<ProductListDto>(`/api/product?page=1&size=${size}&orderBy='최신순'`);
 
   return response.data;
 };
