@@ -41,6 +41,7 @@ export const UserIntroduce = styled.div`
   line-height: 28px;
   text-overflow: ellipsis;
 `;
+
 export const RatingArea = styled.div`
   display: flex;
 

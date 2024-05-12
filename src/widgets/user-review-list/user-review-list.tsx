@@ -1,6 +1,6 @@
-import * as S from './user-review-list-style';
-
 import { UserReviewItem } from '@entities/user/ui/user-review-item';
+
+import * as S from './user-review-list-style';
 
 export const UserReviewList = () => {
   return (
