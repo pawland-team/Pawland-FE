@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '*',
+      },
+      {
+        protocol: 'https',
+        hostname: '*',
+      },
+    ],
+  },
   compiler: {
     styledComponents: {
       ssr: true,
@@ -28,15 +40,6 @@ const nextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'midcon-bucket.s3.ap-northeast-2.amazonaws.com',
-        port: '',
-      },
-    ],
   },
 };
 
