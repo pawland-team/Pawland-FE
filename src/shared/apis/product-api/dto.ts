@@ -1,14 +1,26 @@
 import { UserEntity } from '../user-api';
 
-export type SaleState = 'selling' | 'canceled' | 'completed';
+export const CATEGORY = {
+  food: '사료',
+  toy: '장난감',
+  clothes: '옷',
+  accessory: '악세서리',
+  etc: '그 외',
+} as const;
 
-export type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
+export type CategoryDTO = typeof CATEGORY;
 
-export enum SaleStateEnum {
-  selling = '판매중',
-  canceled = '판매취소',
-  completed = '판매완료',
-}
+export type Category = keyof typeof CATEGORY;
+
+export const SALE_STATE = {
+  selling: '판매중',
+  canceled: '판매취소',
+  completed: '판매완료',
+} as const;
+
+export type SaleStateDTO = typeof SALE_STATE;
+
+export type SaleState = keyof typeof SALE_STATE;
 
 export type Region =
   | '서울'
@@ -30,7 +42,15 @@ export type Region =
   | '제주'
   | '해외';
 
-export type Species = 'dog' | 'cat' | 'etc';
+export const SPECIES = {
+  dog: '강아지',
+  cat: '고양이',
+  etc: '기타',
+} as const;
+
+export type SpeciesDTO = typeof SPECIES;
+
+export type Species = keyof typeof SPECIES;
 
 /**
  * 중고인지 여부
