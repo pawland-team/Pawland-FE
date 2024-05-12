@@ -86,7 +86,7 @@ export const CommunityPostPage = () => {
       if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
 
       const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
-      const thumbnailUrl = `${s3BucketBaseUrl}${fileName}`;
+      const thumbnailUrl = `${s3BucketBaseUrl}/${fileName}`;
 
       // 업로드된 파일의 URL을 서버로 전송
       const postData = {
