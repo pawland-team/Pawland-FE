@@ -1,3 +1,5 @@
+import { env } from 'process';
+
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
@@ -79,7 +81,7 @@ export const CommunityPostPage = () => {
 
       if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
 
-      const s3BucketBaseUrl = 'https://midcon-bucket.s3.ap-northeast-2.amazonaws.com/';
+      const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
       const thumbnailUrl = `${s3BucketBaseUrl}${fileName}`;
 
       // 업로드된 파일의 URL을 서버로 전송
