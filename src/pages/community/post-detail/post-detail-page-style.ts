@@ -136,25 +136,40 @@ const RecommendButtonBox = styled.div`
   margin-top: 56px;
 `;
 
-const RecommendButton = styled.button<{ isLiked: boolean }>`
+const LikeButton = styled.button`
   cursor: pointer;
+
+  position: relative;
 
   width: 174px;
   height: 48px;
+  padding-left: 32px;
 
   font-size: 1.6rem;
   font-weight: 700;
-  color: ${({ isLiked }) => (isLiked ? 'white' : '#000000')};
+  color: ${({ theme }) => theme.color.white_FFFFFF};
 
-  background-color: ${({ isLiked }) => (isLiked ? '#43ADFF' : 'white')};
-  border: ${({ isLiked }) => (isLiked ? '1px solid #43ADFF' : '1px solid #000000')};
+  background-color: ${({ theme }) => theme.color.blue_43ADFF};
+  border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
   border-radius: 54px;
+`;
 
-  &:hover {
-    color: ${({ theme }) => theme.color.white_FFFFFF};
-    background-color: ${({ theme }) => theme.color.blue_43ADFF};
-    border: 1px solid ${({ theme }) => theme.color.blue_43ADFF};
-  }
+const UnlikeButton = styled.button`
+  cursor: pointer;
+
+  position: relative;
+
+  width: 174px;
+  height: 48px;
+  padding-left: 32px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.black_000000};
+
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
+  border: 1px solid ${({ theme }) => theme.color.black_000000};
+  border-radius: 54px;
 `;
 
 const LikeIconWrapper = styled.div`
@@ -200,9 +215,14 @@ const ComentBox = styled.div`
 `;
 
 const ProfileImageWrapper = styled.div`
+  position: relative;
+
   overflow: hidden;
+  flex-shrink: 0;
+
   width: 60px;
   height: 60px;
+
   border-radius: 50%;
 `;
 
@@ -218,7 +238,7 @@ const PostDateText = styled.span`
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
-const ComentPostBox = styled.div`
+const ComentPostBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -327,6 +347,22 @@ const ReplyDivider = styled.div`
   border-top: 1px solid ${({ theme }) => theme.color.gray_F9F9F9};
 `;
 
+const EmptySpace = styled.div`
+  height: 20px;
+`;
+
+const ContentImageWrapper = styled.div`
+  position: relative;
+  width: 800px;
+  height: 600px;
+`;
+
+const ReplyForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -347,7 +383,8 @@ export {
   Contents,
   ContentsParagraph,
   RecommendButtonBox,
-  RecommendButton,
+  LikeButton,
+  UnlikeButton,
   LikeIconWrapper,
   LikeButtonText,
   CommentArea,
@@ -367,4 +404,7 @@ export {
   ReplyPostButton,
   ReplyPostStatus,
   ReplyDivider,
+  EmptySpace,
+  ContentImageWrapper,
+  ReplyForm,
 };
