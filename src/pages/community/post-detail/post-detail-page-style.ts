@@ -227,6 +227,7 @@ const ProfileImageWrapper = styled.div`
 `;
 
 const ProfileNickname = styled.span`
+  display: flex;
   font-size: 1.6rem;
   font-weight: 700;
   color: ${({ theme }) => theme.color.gray_9E9E9E};
@@ -243,6 +244,19 @@ const ComentPostBox = styled.form`
   flex-direction: column;
   gap: 10px;
   width: 100%;
+`;
+
+const ComentDeleteWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const ComentDeleteButton = styled.button`
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color.red_F5511D};
 `;
 
 const ComentTextareaBox = styled.div`
@@ -398,6 +412,8 @@ export {
   ComentTextarea,
   ComentPostButtonWrapper,
   ComentPostButton,
+  ComentDeleteButton,
+  ComentDeleteWrapper,
   ReplyBox,
   ReplyWrapper,
   ReplyPostButtonWrapper,
