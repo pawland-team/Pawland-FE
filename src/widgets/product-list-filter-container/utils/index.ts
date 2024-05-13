@@ -1,1 +1,1 @@
-export { AddQueryParam } from './addQueryParam';
+export { addSearchListQueryParam } from './makeQueryParam';

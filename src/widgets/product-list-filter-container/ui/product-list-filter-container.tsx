@@ -6,6 +6,7 @@ import { SelectedCategoryBox } from '@widgets/product-selected-category-box';
 
 import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
+import { addSearchListQueryParam } from '../utils';
 
 const ProductListFilterContainer = () => {
   const { updatedValueList, selectedValues, addSelectedValue, removeSelectedValue } = useCheckedCategoryStore();
@@ -15,6 +16,7 @@ const ProductListFilterContainer = () => {
 
     if (value) {
       addSelectedValue(e.target.name, value, e.target.checked);
+      addSearchListQueryParam(1, 12, e.target.name, value.toString());
     }
   };
 
@@ -23,6 +25,7 @@ const ProductListFilterContainer = () => {
 
     if (value) {
       addSelectedValue(e.target.name, value, e.target.checked);
+      addSearchListQueryParam(1, 12, e.target.name, value.toString());
     }
   };
 
@@ -51,9 +54,9 @@ const ProductListFilterContainer = () => {
         />
         <BorderCheckBox
           label='free'
-          group='giveAway'
+          group='isFree'
           value='무료나눔'
-          isChecked={updatedValueList.giveAway.data[0].isChecked}
+          isChecked={updatedValueList.isFree.data[0].isChecked}
           handleChangeCheckBox={handleGiveAwayChecked}
         />
       </div>

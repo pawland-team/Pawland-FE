@@ -1,3 +1,0 @@
-const AddQueryParam = () => {};
-
-export { AddQueryParam };

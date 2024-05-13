@@ -20,7 +20,7 @@ export interface CheckedCategoryState {
     region: CategoryItemList;
     species: CategoryItemList;
     product: CategoryItemList;
-    giveAway: CategoryItemList;
+    isFree: CategoryItemList;
   };
   /**
    * 변경된 group 값이 저장되는 곳
@@ -30,7 +30,7 @@ export interface CheckedCategoryState {
     region: CategoryItemList;
     species: CategoryItemList;
     product: CategoryItemList;
-    giveAway: CategoryItemList;
+    isFree: CategoryItemList;
   };
   /**
    * 선택된 값만 배열로 따로 관리
@@ -95,8 +95,8 @@ const initialValueList = {
       { value: '그 외 상품', isChecked: false },
     ],
   },
-  giveAway: {
-    category: 'giveAway',
+  isFree: {
+    category: 'isFree',
     data: [
       {
         value: '무료나눔',
@@ -108,6 +108,8 @@ const initialValueList = {
 
 const initialSorting = '최신순';
 
+const initialSearchParams = '/product?page=1&size=12';
+
 // TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
@@ -115,6 +117,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     updatedValueList: initialValueList,
     selectedValues: [],
     sorting: initialSorting,
+    searchParams: initialSearchParams,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -142,6 +145,8 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
           selectedValues: shouldAddToSelectedValues
             ? [...state.selectedValues, { group, value, isChecked }]
             : filteredSelectedValues,
+
+          // searchParam에 selectedValue를 넣어준다.
         };
       });
     },
