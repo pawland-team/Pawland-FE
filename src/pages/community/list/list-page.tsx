@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -94,9 +94,14 @@ export const CommunityListPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
 
   const [page, setPage] = useState<number>(1);
+  const [pageNumbers, setPageNumbers] = useState([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   const calculateTotalComments = (comments: Comment[]) => {
     return comments.reduce((total, comment) => {
@@ -157,17 +162,29 @@ export const CommunityListPage = () => {
   const communityList = data?.content || [];
   const totalPages = data?.totalPages || 1;
 
-  const handleNextPage = () => {
-    if (page < totalPages) {
-      setPage((prev) => prev + 1);
-    }
-  };
+  useEffect(() => {
+    const visiblePages = 5;
+    let startPage = page - 2;
 
-  const handlePrevPage = () => {
-    if (page > 1) {
-      setPage((prev) => prev - 1);
+    if (startPage < 1) {
+      startPage = 1;
     }
-  };
+
+    let endPage = startPage + visiblePages - 1;
+
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - visiblePages + 1);
+    }
+
+    const newPageNumbers = [];
+
+    for (let i = startPage; i <= endPage; i++) {
+      newPageNumbers.push(i);
+    }
+
+    setPageNumbers(newPageNumbers);
+  }, [page, totalPages]);
 
   const handleRegionCheckBox = (event: MouseEvent<HTMLInputElement>, regionName: string) => {
     event.stopPropagation();
@@ -359,11 +376,15 @@ export const CommunityListPage = () => {
                 })}
           </S.ItemListArea>
           <S.PaginationWrapper>
-            <button type='button' onClick={handlePrevPage} disabled={page === 1}>
+            <button type='button' onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
               &lt;
             </button>
-            <span>{page}</span>
-            <button type='button' onClick={handleNextPage} disabled={page >= totalPages}>
+            {pageNumbers.map((number) => (
+              <button type='button' key={number} onClick={() => handlePageChange(number)} disabled={number === page}>
+                {number}
+              </button>
+            ))}
+            <button type='button' onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
               &gt;
             </button>
           </S.PaginationWrapper>
