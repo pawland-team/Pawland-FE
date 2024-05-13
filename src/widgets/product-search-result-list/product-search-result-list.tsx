@@ -7,18 +7,18 @@ import { NoProductBox } from '@shared/ui/error';
  */
 
 const ProductSearchResultList = () => {
-  const initialParams = {
+  const searchInitialParams = {
     page: 1,
     size: 12,
-    region: '',
-    species: '',
-    category: '',
+    region: [],
+    species: [],
+    category: [],
     isFree: false,
     orderBy: '',
   };
 
-  const { data, isError } = useGetSearchResultList(initialParams);
-  // const { data, isError, isFetching, isLoading } = useGetSearchResultList(initialParams);
+  const { data, isError } = useGetSearchResultList(searchInitialParams);
+  // const { data, isError, isFetching, isLoading } = useGetSearchResultList(searchInitialParams);
 
   // console.log(`isFetching: ${isFetching}`);
   // console.log(`isLoading: ${isLoading}`);

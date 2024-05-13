@@ -4,9 +4,9 @@ import { clientWithTokenApi } from '../instance';
 export interface SearchListParam {
   page: number;
   size: number;
-  region: string;
-  species: string;
-  category: string;
+  region: string[];
+  species: string[];
+  category: string[];
   isFree: boolean;
   orderBy: string;
 }
