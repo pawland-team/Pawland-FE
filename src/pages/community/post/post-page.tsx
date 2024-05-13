@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useMemo, useRef, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import 'react-quill/dist/quill.snow.css';
@@ -17,18 +17,30 @@ interface FormData extends FieldValues {
   content: string;
 }
 
-const ReactQuill = dynamic(() => import('react-quill'), {
-  ssr: false,
-});
+// const ReactQuill = dynamic(() => import('react-quill'), {
+//   ssr: false,
+// });
+
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+
+    // eslint-disable-next-line react/display-name
+    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
+  },
+  {
+    ssr: false,
+  },
+);
 
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [quillValue, setQuillValue] = useState('');
-  const { register, handleSubmit, watch, reset } = useForm<FormData>();
+  const { register, handleSubmit, setValue, watch, reset } = useForm<FormData>();
   const { openModalList } = useModalList();
   const router = useRouter();
+  const quillRef = useRef<ReactQuill>(null);
 
   const formats = [
     'header',
@@ -38,30 +50,77 @@ export const CommunityPostPage = () => {
     'italic',
     'underline',
     'strike',
-    'align',
     'blockquote',
     'list',
     'bullet',
     'indent',
-    'background',
-    'color',
     'link',
     'image',
-    'video',
-    'width',
+    'color',
+    'background',
   ];
 
-  const modules = {
-    toolbar: {
-      container: [
-        ['link', 'image', 'video'],
-        [{ header: [1, 2, 3, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-      ],
-    },
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files ? input.files[0] : null;
+
+      if (file) {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fileName: file.name }),
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          alert('Failed to get the presigned URL');
+
+          return;
+        }
+
+        const { presignedUrl } = await response.json();
+
+        const uploadResponse = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+
+        if (!uploadResponse.ok) {
+          alert('Failed to upload the image');
+
+          return;
+        }
+
+        const imageUrl = presignedUrl.split('?')[0];
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+        editor.insertEmbed(range.index, 'image', imageUrl);
+      }
+    };
   };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: '1' }, { header: '2' }, { font: [] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image', 'video'],
+          ['clean'],
+          ['code-block'],
+        ],
+        handlers: { image: imageHandler },
+      },
+    }),
+    [],
+  );
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
@@ -126,7 +185,7 @@ export const CommunityPostPage = () => {
       // 업로드된 파일의 URL을 서버로 전송
       const postData = {
         title: data.title,
-        content: quillValue,
+        content: data.content,
         region: selectedRegion,
         thumbnail: thumbnailUrl,
       };
@@ -265,12 +324,12 @@ export const CommunityPostPage = () => {
         <S.TextEditorArea>
           <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
           <ReactQuill
-            placeholder='내용을 입력해주세요.'
+            forwardedRef={quillRef}
             theme='snow'
-            formats={formats}
+            value={watch('content')}
+            onChange={(content) => setValue('content', content)}
             modules={modules}
-            value={quillValue}
-            onChange={setQuillValue}
+            formats={formats}
           />
         </S.TextEditorArea>
 
