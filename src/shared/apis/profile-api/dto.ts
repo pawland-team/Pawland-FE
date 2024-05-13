@@ -24,3 +24,35 @@ export type MyCommunityListResponse = Array<{
   author: Pick<UserEntity, 'id' | 'email' | 'nickname'>;
   commentCount: number;
 }>;
+
+export interface MyProductEntity {
+  id: number;
+  status: string;
+  thumbnailUrl: string;
+  price: number;
+  name: string;
+  createdAt: string;
+}
+
+export interface MyProductListEntity {
+  content: MyProductEntity[];
+}
+
+export interface MyWishProductEntity {
+  id: number;
+  status: string;
+  thumbnailUrl: string;
+  price: number;
+  name: string;
+  createdAt: string;
+  wished: boolean;
+}
+
+export interface MyWishListEntity {
+  content: MyWishProductEntity[];
+}
+
+export interface getMyProductListParams {
+  page: number;
+  size: number;
+}

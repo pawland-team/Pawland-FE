@@ -6,7 +6,7 @@ import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './community-post-item-style';
-import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
+import { MyCommunityPostEntity } from '@shared/apis/profile-api';
 
 interface CommunityPostItemProps {
   item: MyCommunityPostEntity;

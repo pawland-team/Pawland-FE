@@ -1,13 +1,15 @@
-import { ReviewItem } from '@entities/profile/review-item/ui';
 import { GoDetailButton } from '@features/button/go-detail-button';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
-import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './transaction-item-style';
 
-export const TransactionItem = () => {
+interface TransactionItemProps {
+  reviewArea: React.ReactNode;
+}
+
+export const TransactionItem = ({ reviewArea }: TransactionItemProps) => {
   return (
     <S.TransactionItem>
       <S.ProductArea>
@@ -24,9 +26,7 @@ export const TransactionItem = () => {
           </div>
         </S.ItemInfoArea>
       </S.ProductArea>
-      <ReviewWritingArea />
-
-      <ReviewItem />
+      {reviewArea}
     </S.TransactionItem>
   );
 };
