@@ -33,7 +33,7 @@ const CategoryList = ({ categoryList }: CategoryListProps) => {
       {categoryList.map((category) => (
         <li key={category.id}>
           <Link
-            href={`/product?page=1&size=12&${category.group}="${category.name}"`}
+            href={`/product?page=1&size=12&${category.group}="${category.name}"&orderBy="최신순"`}
             onClick={(e) => handleClickLink(e, category.group)}
           >
             <Image width={100} height={100} src={category.imageSrc} alt={category.name} />
