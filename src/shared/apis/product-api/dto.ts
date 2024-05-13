@@ -334,7 +334,11 @@ export interface ProductListItemDto {
   /**
    * 상품 상세 이미지
    */
-  images: string[];
+  imageUrls: string[];
+  /**
+   * 상품 업로드 날짜
+   */
+  createAt: string;
   /**
    * 찜상태
    */
