@@ -10,6 +10,7 @@ export interface MyCommunityPostEntity {
   comments: [];
   commentCount: number;
   recommendCount: number;
+  createAt: string;
 }
 
 export interface MyCommunityListEntity {
@@ -27,18 +28,7 @@ export type MyCommunityListResponse = Array<{
   commentCount: number;
 }>;
 
-export interface MyProductEntity {
-  id: number;
-  status: string;
-  thumbnailUrl: string;
-  price: number;
-  name: string;
-  createdAt: string;
-}
-
-export interface MyProductListEntity {
-  content: MyProductEntity[];
-}
+export type MyProductListEntity = ProductListItemDto[];
 
 export interface MyWishProductEntity {
   id: number;
@@ -55,4 +45,5 @@ export type MyWishListEntity = ProductListItemDto[];
 export interface getMyProductListParams {
   page: number;
   size: number;
+  type: string;
 }

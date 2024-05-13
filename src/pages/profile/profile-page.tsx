@@ -14,8 +14,6 @@ import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
-import { MyWishListEntity, MyWishProductEntity } from '@shared/apis/profile-api';
-import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
 
 interface ActiveButtonState {
   activeButton: string;
@@ -36,7 +34,6 @@ export const ProfilePage = () => {
     switch (activeButton) {
       case 'register':
         return <MyRegisteredProductList />;
-      // mainListData가 사라지고 props가 너무 많이 바뀌어서,, 이 부분은 api 불러오실 때 활성화 해야할 것 같습니당 ㅜㅜ
       case 'wish':
         return <WishList />;
       case 'transaction':
@@ -47,8 +44,6 @@ export const ProfilePage = () => {
         return <MyRegisteredProductList />;
     }
   };
-
-  console.log(data);
 
   return (
     <>

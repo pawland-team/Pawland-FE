@@ -22,7 +22,7 @@ export const myCommunityQuery = {
 
 export const myProductQueryKeys = {
   all: () => ['myProductList'],
-  myProductList: ({ page, size }: getMyProductListParams) => [...myProductQueryKeys.all(), { page, size }],
+  myProductList: ({ page, size, type }: getMyProductListParams) => [...myProductQueryKeys.all(), { page, size, type }],
 };
 
 export const myProductQuery = {
@@ -31,10 +31,10 @@ export const myProductQuery = {
       queryKey: myProductQueryKeys.all(),
     }),
 
-  myProductList: ({ page, size }: getMyProductListParams) =>
+  myProductList: ({ page, size, type }: getMyProductListParams) =>
     queryOptions({
-      queryKey: myProductQueryKeys.myProductList({ page, size }),
-      queryFn: () => getMyProductList({ page, size }),
+      queryKey: myProductQueryKeys.myProductList({ page, size, type }),
+      queryFn: () => getMyProductList({ page, size, type }),
       staleTime: 3 * 60 * 1000,
     }),
 };
