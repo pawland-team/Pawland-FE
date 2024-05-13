@@ -1,7 +1,9 @@
-import * as S from './user-community-post-item-style';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+import * as S from './user-community-post-item-style';
 
 export const UserCommunityPostItem = () => {
   const [iconSrc, setIconSrc] = useState<string>('/images/icon/arrow-icon-gray.svg');

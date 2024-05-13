@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { GoDetailButton } from '@features/button/go-detail-button';
+import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './community-post-item-style';
-import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
 
 interface CommunityPostItemProps {
   item: MyCommunityPostEntity;

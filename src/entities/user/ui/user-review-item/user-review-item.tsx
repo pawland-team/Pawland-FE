@@ -1,8 +1,10 @@
-import Link from 'next/link';
-import * as S from './user-review-item-style';
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 import { formatDateShorter } from '@shared/utils/time';
+
+import * as S from './user-review-item-style';
 
 export const UserReviewItem = () => {
   return (

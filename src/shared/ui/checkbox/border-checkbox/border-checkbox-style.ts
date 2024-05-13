@@ -2,6 +2,8 @@
 
 import styled from 'styled-components';
 
+import { grayCheckIcon } from '@shared/ui/styles/icon';
+
 export const BorderCheckBoxContainer = styled.div`
   position: relative;
 
@@ -42,22 +44,7 @@ export const BorderCheckBoxContainer = styled.div`
 
     &::after {
       content: '';
-
-      position: absolute;
-      top: -4px;
-      left: 0;
-      transform-origin: bottom left;
-      transform: rotate(45deg);
-
-      display: block;
-
-      box-sizing: border-box;
-      width: 8px;
-      height: 14px;
-
-      border-color: ${({ theme }) => theme.color.gray_9E9E9E};
-      border-style: solid;
-      border-width: 0 2px 2px 0;
+      ${grayCheckIcon}
     }
 
     img {

@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { mainBannerData } from '@pages/home/lib/main-banner-data';
 import { SearchInput } from '@shared/ui/inputs';
-import { categoryData, CategoryList } from '@widgets/category-list';
+import { categoryData, CategoryList } from '@widgets/main-category-list';
 import { MainProductList } from '@widgets/main-product-list';
 
 import * as S from './home-page-style';

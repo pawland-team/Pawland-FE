@@ -15,10 +15,10 @@ export const ProfileImage = styled.img`
 `;
 
 export const TextArea = styled.div`
-  width: 272px;
   display: flex;
-  gap: 12px;
   flex-direction: column;
+  gap: 12px;
+  width: 272px;
 `;
 
 export const UserNickname = styled.div`
@@ -41,33 +41,39 @@ export const UserIntroduce = styled.div`
   line-height: 28px;
   text-overflow: ellipsis;
 `;
+
 export const RatingArea = styled.div`
+  display: flex;
+
   width: 540px;
   height: 200px;
-  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
-  display: flex;
-  padding: 42px 37px;
-  border-radius: 12px;
   margin-left: 107px;
+  padding: 42px 37px;
+
+  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  border-radius: 12px;
 `;
 
 export const Rating = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 15px;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+
   width: 233px;
+
   border-right: 1px solid ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
 export const Review = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 15px;
   align-items: center;
   justify-content: center;
+
   width: 233px;
-  gap: 15px;
 `;
 
 export const Title = styled.span`
