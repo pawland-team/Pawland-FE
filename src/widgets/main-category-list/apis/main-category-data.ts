@@ -44,7 +44,7 @@ export const categoryData: CategoryArray[] = [
   },
   {
     id: 7,
-    name: '기타',
+    name: '그외',
     group: 'product',
     imageSrc: '/images/icon/etc-icon.svg',
   },

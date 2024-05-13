@@ -32,7 +32,10 @@ const CategoryList = ({ categoryList }: CategoryListProps) => {
     <S.CategoryList>
       {categoryList.map((category) => (
         <li key={category.id}>
-          <Link href='/product' onClick={(e) => handleClickLink(e, category.group)}>
+          <Link
+            href={`/product?page=1&size=12&${category.group}="${category.name}"`}
+            onClick={(e) => handleClickLink(e, category.group)}
+          >
             <Image width={100} height={100} src={category.imageSrc} alt={category.name} />
             <p>{category.name}</p>
           </Link>
