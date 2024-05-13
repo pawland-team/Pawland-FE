@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { RoundedCancelInput } from '@shared/ui/inputs';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
-import * as S from './selected-filter-manage-box-style';
+import * as S from './style';
 
-interface SelectedFilterManageBoxProps {
+interface SelectedCategoryBoxProps {
   selectedValueList: {
     group: string;
     value: string;
@@ -16,7 +16,7 @@ interface SelectedFilterManageBoxProps {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SelectedFilterManageBox = ({ selectedValueList, handleChange }: SelectedFilterManageBoxProps) => {
+const SelectedCategoryBox = ({ selectedValueList, handleChange }: SelectedCategoryBoxProps) => {
   const { clearSelectedValues } = useCheckedCategoryStore();
 
   const handleClearSelectedValue = () => {
@@ -28,7 +28,7 @@ const SelectedFilterManageBox = ({ selectedValueList, handleChange }: SelectedFi
   }
 
   return (
-    <S.SelectedFilterManageBoxStyle role='group'>
+    <S.SelectedCategoryBoxStyle role='group'>
       <div className='input-list-box'>
         {selectedValueList.map((selected) => (
           <RoundedCancelInput
@@ -45,8 +45,8 @@ const SelectedFilterManageBox = ({ selectedValueList, handleChange }: SelectedFi
           <span>초기화</span>
         </button>
       </div>
-    </S.SelectedFilterManageBoxStyle>
+    </S.SelectedCategoryBoxStyle>
   );
 };
 
-export { SelectedFilterManageBox };
+export { SelectedCategoryBox };

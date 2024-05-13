@@ -1,4 +1,5 @@
 import { CommonButton } from '@shared/ui/buttons';
+
 import * as S from './user-info-area-style';
 
 interface UserInfoProps {

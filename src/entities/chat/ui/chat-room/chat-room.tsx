@@ -7,7 +7,6 @@ import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks/use-c
 import { useChatStore } from '@entities/chat/model';
 import { insertMessageGroupForDisplay } from '@entities/chat/utils/insert-message-group-for-display';
 import { useUserStore } from '@entities/user/model';
-import { SALE_STATE } from '@shared/apis/product-api';
 import { useInView } from '@shared/hooks/use-in-view';
 import { useModalList } from '@shared/hooks/use-modal';
 import { ModalKey } from '@shared/hooks/use-modal/types';
@@ -208,7 +207,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
             </S.RightAngleBracketLink>
           </S.ProductThumbnailBox>
           <S.ProductDesc>
-            <S.ProductSaleState>{SALE_STATE[saleState]}</S.ProductSaleState>
+            <S.ProductSaleState>{saleState}</S.ProductSaleState>
             <S.ProductName>{productName}</S.ProductName>
             <S.ProductPrice>{formatPriceToKoStyle(price)}</S.ProductPrice>
           </S.ProductDesc>
