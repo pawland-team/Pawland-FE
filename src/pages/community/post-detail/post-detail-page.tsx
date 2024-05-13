@@ -343,14 +343,14 @@ export const CommunityPostDetailPage = () => {
               </S.ProfileImageWrapper>
               <S.ComentPostBox>
                 <S.ComentTextareaBox>
-                  <div>
+                  <S.ComentDeleteWrapper>
                     <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
                     {comment.author.id === userData?.id && (
-                      <button type='button' onClick={() => handleDeleteComment(comment.id)}>
-                        삭제
-                      </button>
+                      <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                        X
+                      </S.ComentDeleteButton>
                     )}
-                  </div>
+                  </S.ComentDeleteWrapper>
                   <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
                   <S.Coment>{comment.content}</S.Coment>
                 </S.ComentTextareaBox>
