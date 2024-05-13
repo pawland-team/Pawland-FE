@@ -16,6 +16,8 @@ type Author = {
   email: string;
   nickname: string;
   profileImage: string;
+  star?: number;
+  reviewCount?: number;
 };
 
 type Replies = {
@@ -59,6 +61,12 @@ export const CommunityPostDetailPage = () => {
   const { openModalList } = useModalList();
 
   const communityPostDetailQueryKey = 'communityPostDetail';
+
+  const calculateTotalComments = (comments: Comment[]) => {
+    return comments.reduce((total, comment) => {
+      return total + 1 + comment.replies.length;
+    }, 0);
+  };
 
   const handleLike = async () => {
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/recommend/${id}`;
@@ -221,6 +229,7 @@ export const CommunityPostDetailPage = () => {
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
   const { title, content, thumbnail, region, author, createdAt, recommendCount, views } = communityPostDetail;
+  const totalComments = calculateTotalComments(comments);
 
   return (
     <S.PostDetailPage>
@@ -244,7 +253,7 @@ export const CommunityPostDetailPage = () => {
 
         <S.CommunityStatusBox>
           <S.FlexBox>
-            <S.StatusText>댓글 {comments.length}</S.StatusText>
+            <S.StatusText>댓글 {totalComments}</S.StatusText>
             <S.Divider />
             <S.StatusText>추천 {recommendCount}</S.StatusText>
             <S.Divider />
