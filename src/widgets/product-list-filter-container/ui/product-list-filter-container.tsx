@@ -76,6 +76,7 @@ const ProductListFilterContainer = () => {
     setSelectedSearchParams(initialSearchParam);
   };
 
+  // TODO: 이거 이렇게 해주는게 맞나..?????? 근데 이렇게 안해주면 클릭할 때 마다 url 반영이 바로바로 안됨.
   useEffect(() => {
     router.push(
       `/product?page=1&size=12&region=${searchParams.region}&species=${searchParams.species}&category=${searchParams.category}&isFree=${isFree}&orderBy=${sorting}`,
