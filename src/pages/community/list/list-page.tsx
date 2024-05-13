@@ -132,10 +132,26 @@ export const CommunityListPage = () => {
   ): Promise<ApiResponse> => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
 
-    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&content=${searchQuery}&region=${region}&orderBy=${selectedFilter}`;
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&content=${encodeURIComponent(searchQuery)}&region=${encodeURIComponent(region)}`;
 
-    if (selectedFilter === '내가 쓴 글') {
-      url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/my-post?page=${page}`;
+    switch (selectedFilter) {
+      case '내가 쓴 글':
+        url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/my-post?page=${page}`;
+        break;
+      case '최신순':
+        url += '&orderBy=new';
+        break;
+      case '조회순':
+        url += '&orderBy=view';
+        break;
+      case '추천순':
+        url += '&orderBy=recommend';
+        break;
+      case '댓글순':
+        url += '&orderBy=comment';
+        break;
+      default:
+        break;
     }
 
     const response = await fetch(url, {
