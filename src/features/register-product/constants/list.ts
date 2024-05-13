@@ -18,32 +18,16 @@ interface CreateBaseObject<Id, Name, Value> {
 
 const createList = <T extends Record<string, any>>(obj: T) => {
   return Object.keys(obj).map<CreateBaseObject<string, keyof T, T[keyof T]>>((key) => ({
-    // id는 딱히 key 안 따라가도 된다.
+    // 사실 id는 딱히 key 안 따라가도 된다.
     id: key,
     name: key,
     value: obj[key],
   }));
 };
 
-export const ANIMAL_SORT_LIST: Array<{ id: string; name: Species; value: SpeciesValue }> = Object.keys(SPECIES).map<{
-  id: string;
-  name: Species;
-  value: SpeciesValue;
-}>((species) => ({
-  id: species as string,
-  name: species as Species,
-  value: SPECIES[species as keyof typeof SPECIES],
-}));
+export const ANIMAL_SORT_LIST: Array<CreateBaseObject<string, Species, SpeciesValue>> = createList(SPECIES);
 
-export const CATEGORY_LIST: Array<{ id: string; name: Category; value: CategoryValue }> = Object.keys(CATEGORY).map<{
-  id: string;
-  name: Category;
-  value: CategoryValue;
-}>((category) => ({
-  id: category as string,
-  name: category as Category,
-  value: CATEGORY[category as keyof typeof CATEGORY],
-}));
+export const CATEGORY_LIST: Array<CreateBaseObject<string, Category, CategoryValue>> = createList(CATEGORY);
 
 /**
  * 18개의 지역을 담은 리스트
