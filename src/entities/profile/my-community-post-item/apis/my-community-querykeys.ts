@@ -1,5 +1,6 @@
-import { getMyCommunityList } from '@shared/apis/my-community-api';
 import { queryOptions } from '@tanstack/react-query';
+
+import { getMyCommunityList } from '@shared/apis/my-community-api';
 
 export const myCommunityQueryKeys = {
   all: () => ['myCommunityList'],

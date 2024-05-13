@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 
 import Head from 'next/head';
 
+import { useGetUserInfo } from '@entities/user/hooks';
+import { useUserStore } from '@entities/user/model';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
-import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
-import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
+import { MyCommunityList } from '@widgets/my-community-list/my-community-list';
+import { MyInfoArea } from '@widgets/my-info-area';
 import { MyLoginInfoArea } from '@widgets/my-login-info-area';
+import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
+import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
+import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 // import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
-import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
-import { MyCommunityList } from '@widgets/my-community-list/my-community-list';
-import { MyInfoArea } from '@widgets/my-info-area';
-import { useGetUserInfo } from '@entities/user/hooks';
-import { useUserStore } from '@entities/user/model';
 
 interface ActiveButtonState {
   activeButton: string;

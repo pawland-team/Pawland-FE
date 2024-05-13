@@ -30,6 +30,10 @@ const SubImagesSlide = ({ imagesList, selectedIndex, setSelectedIndex }: SubImag
     setSelectedIndex(index);
   };
 
+  if (imagesList.length === 0) {
+    return;
+  }
+
   return (
     <SSubImagesSlideArea>
       {imagesList.length > 5 && (
