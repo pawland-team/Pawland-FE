@@ -9,6 +9,7 @@ import { NoProductBox } from '@shared/ui/error';
 
 export const MyCommunityList = () => {
   const { data, status } = useGetmyCommunityList(1);
+  console.log(data);
 
   if (status === 'success') {
     const listData: MyCommunityPostEntity[] = data?.content;

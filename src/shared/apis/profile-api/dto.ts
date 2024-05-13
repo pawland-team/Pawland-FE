@@ -10,7 +10,7 @@ export interface MyCommunityPostEntity {
   comments: [];
   commentCount: number;
   recommendCount: number;
-  createAt: string;
+  createdAt: string;
 }
 
 export interface MyCommunityListEntity {

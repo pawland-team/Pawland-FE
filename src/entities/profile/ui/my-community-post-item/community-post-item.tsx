@@ -22,7 +22,7 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
             <h1>{item.title}</h1>
             <p>{item.content}</p>
             <div className='value-area'>
-              <span className='first-span'>{formatDateShorter(item.createAt)}</span>
+              <span className='first-span'>{formatDateShorter(item.createdAt)}</span>
               <span>{`댓글 ${item.comments.length} `}</span>
               <span>{`조회수 ${item.views} `}</span>
               <span className='last-span'>{`찜 ${item.recommendCount} `}</span>
