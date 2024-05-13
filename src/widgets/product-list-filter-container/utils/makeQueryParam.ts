@@ -8,7 +8,8 @@ const addSearchListQueryParam = (page: number, size: number, group: string, valu
   };
 
   if (group === 'region' || group === 'species' || group === 'category') {
-    (params[group] as string[]).push(value);
+    console.log(value);
+    (params[group] as string[]) = [...value];
   } else {
     params[group] = value;
   }

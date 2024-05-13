@@ -108,7 +108,7 @@ const initialValueList = {
 
 const initialSorting = '최신순';
 
-const initialSearchParams = '/product?page=1&size=12';
+const initialSearchParams = '/product?page=1&size=12&orderBy="최신순"';
 
 // TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(

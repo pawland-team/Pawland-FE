@@ -17,7 +17,7 @@ const Footer = () => {
             <h5>Category</h5>
             <ul>
               <li>
-                <Link href='/product?page=1&size=12'>All Products</Link>
+                <Link href='/product?page=1&size=12&orderBy="최신순"'>All Products</Link>
               </li>
               <li>
                 <Link href='/'>Food</Link>

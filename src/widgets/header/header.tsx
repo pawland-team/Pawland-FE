@@ -29,7 +29,7 @@ const Header = () => {
           <S.NavContainer>
             <ul>
               <li>
-                <Link href='/product?page=1&size=12'>중고거래</Link>
+                <Link href='/product?page=1&size=12&orderBy="최신순"'>중고거래</Link>
               </li>
               <li>
                 <Link href='/community/list'>커뮤니티</Link>
