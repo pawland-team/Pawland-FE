@@ -11,15 +11,16 @@ export const UserPage = () => {
   const router = useRouter();
   const USER_ID = Number(router.query.id);
 
-  const { data } = useGetOtherUserInfo(USER_ID);
-  console.log(data);
+  const { data, status } = useGetOtherUserInfo(USER_ID);
 
-  return (
-    <S.UserPage>
-      <UserInfoArea userData={data} />
-      <UserRegisteredProductList />
-      <UserReviewList />
-      <UserCommunityList />
-    </S.UserPage>
-  );
+  if (status === 'success') {
+    return (
+      <S.UserPage>
+        <UserInfoArea userData={data} />
+        <UserRegisteredProductList />
+        <UserReviewList />
+        <UserCommunityList />
+      </S.UserPage>
+    );
+  }
 };

@@ -6,7 +6,6 @@ export interface UserEntity {
   profileImage: string;
   nickname: string;
   email: string;
-  userIntroduce: string;
   userDesc: string;
 
   /**
@@ -28,7 +27,8 @@ export interface GetUserInfoResponse {
   /**
    * TODO: UserEntity에 적힌 userIntroduce랑 필드명이 다름.
    */
-  userDesc: UserEntity['userIntroduce'];
+  userDesc: UserEntity['userDesc'];
   stars: UserEntity['stars'];
   loginType: UserEntity['loginType'];
+  reviewCount: UserEntity['reviewCount'];
 }
