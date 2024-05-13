@@ -1,4 +1,4 @@
-import { getMyCommunityList, getMyProductList, getMyProductListParams } from '@shared/apis/profile-api';
+import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
 import { queryOptions } from '@tanstack/react-query';
 
 export const myCommunityQueryKeys = {
@@ -35,6 +35,25 @@ export const myProductQuery = {
     queryOptions({
       queryKey: myProductQueryKeys.myProductList({ page, size }),
       queryFn: () => getMyProductList({ page, size }),
+      staleTime: 3 * 60 * 1000,
+    }),
+};
+
+export const myWishListQueryKeys = {
+  all: () => ['myWishList'],
+  myWishList: () => [...myProductQueryKeys.all()],
+};
+
+export const myWishListQuery = {
+  all: () =>
+    queryOptions({
+      queryKey: myWishListQueryKeys.all(),
+    }),
+
+  myWishList: () =>
+    queryOptions({
+      queryKey: myWishListQueryKeys.myWishList(),
+      queryFn: () => getMyWishList(),
       staleTime: 3 * 60 * 1000,
     }),
 };

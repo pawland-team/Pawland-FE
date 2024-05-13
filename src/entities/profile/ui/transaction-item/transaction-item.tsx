@@ -22,7 +22,7 @@ export const TransactionItem = ({ reviewArea }: TransactionItemProps) => {
           </div>
           <div>
             <span>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
-            <GoDetailButton />
+            <GoDetailButton pageUrl='/' />
           </div>
         </S.ItemInfoArea>
       </S.ProductArea>

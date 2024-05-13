@@ -1,3 +1,4 @@
+import { ProductListItemDto } from '../product-api';
 import { UserEntity } from '../user-api';
 
 export interface MyCommunityPostEntity {
@@ -6,8 +7,9 @@ export interface MyCommunityPostEntity {
   content: string;
   thumbnail: string;
   views: number;
+  comments: [];
   commentCount: number;
-  recommendationCount: number;
+  recommendCount: number;
 }
 
 export interface MyCommunityListEntity {
@@ -48,9 +50,7 @@ export interface MyWishProductEntity {
   wished: boolean;
 }
 
-export interface MyWishListEntity {
-  content: MyWishProductEntity[];
-}
+export type MyWishListEntity = ProductListItemDto[];
 
 export interface getMyProductListParams {
   page: number;

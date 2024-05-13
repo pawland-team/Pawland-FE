@@ -4,6 +4,7 @@ import { StarRating } from '@features/star-rating';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './review-writing-area-style';
+import { ReviewItem } from '@entities/profile/ui';
 
 export const ReviewWritingArea = () => {
   const [review, setReview] = useState('');
