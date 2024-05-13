@@ -66,10 +66,13 @@ export const CommunityPostPage = () => {
       const file = input.files ? input.files[0] : null;
 
       if (file) {
+        const fileName = file.name;
+        console.log('콘텐츠 이미지 이름:', fileName);
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ fileName: file.name }),
+          body: JSON.stringify({ fileName }),
           credentials: 'include',
         });
 
@@ -79,12 +82,15 @@ export const CommunityPostPage = () => {
           return;
         }
 
-        const { presignedUrl } = await response.json();
+        const preSignedData = await response.json();
+        const { presignedUrl }: { presignedUrl: string } = preSignedData;
 
         const uploadResponse = await fetch(presignedUrl, {
           method: 'PUT',
           body: file,
-          headers: { 'Content-Type': 'multipart/form-data' },
+          headers: {
+            'Content-Type': file.type,
+          },
         });
 
         if (!uploadResponse.ok) {
@@ -93,9 +99,10 @@ export const CommunityPostPage = () => {
           return;
         }
 
-        const imageUrl = encodeURI(presignedUrl.split('?')[0]);
+        const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
+        const imageUrl = `${s3BucketBaseUrl}/${fileName}`;
         const editor = quillRef.current.getEditor();
-        const range = editor.getSelection();
+        const range = editor.getSelection(true);
         editor.insertEmbed(range.index, 'image', imageUrl);
       }
     };
@@ -148,7 +155,7 @@ export const CommunityPostPage = () => {
     try {
       // 프리사인 URL 요청
       const fileName = thumbnailFile.name;
-      console.log('fileName:', fileName);
+      console.log('썸네일 이미지 이름:', fileName);
 
       const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
         method: 'POST',
