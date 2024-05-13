@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
+export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은가격순' | '높은가격순';
 
 export type CategoryItemList = {
   group: string;

@@ -1,5 +1,9 @@
+import { useRouter } from 'next/router';
+
+import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
+import { SearchListParam } from '@shared/apis/product-api/get-product-search-list-api';
 import { NoProductBox } from '@shared/ui/error';
 
 /**
@@ -7,24 +11,26 @@ import { NoProductBox } from '@shared/ui/error';
  */
 
 const ProductSearchResultList = () => {
-  const searchInitialParams = {
-    page: 1,
-    size: 12,
-    region: [],
-    species: [],
-    category: [],
-    isFree: false,
-    orderBy: '최신순',
+  const router = useRouter();
+
+  const searchParams: SearchListParam = {
+    page: Number(router.query.page),
+    size: Number(router.query.size),
+    region: String(router.query.region),
+    species: String(router.query.species),
+    category: String(router.query.category),
+    isFree: String(router.query.isFree),
+    orderBy: String(router.query.orderBy),
   };
 
-  const { data, isError } = useGetSearchResultList(searchInitialParams);
-  // const { data, isError, isFetching, isLoading } = useGetSearchResultList(searchInitialParams);
+  const { data, isLoading } = useGetSearchResultList(searchParams);
 
   // console.log(`isFetching: ${isFetching}`);
   // console.log(`isLoading: ${isLoading}`);
 
-  if (isError) {
-    return <p>에러 발생!</p>;
+  // ? : 상품 결과 없을 때 그냥 빈 배열 보내주면 안되는건지?
+  if (isLoading) {
+    return <Loading />;
   }
 
   if (data) {

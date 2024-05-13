@@ -15,10 +15,10 @@ export const productListSortingData: DropDownBoxDto[] = [
   },
   {
     id: 3,
-    name: '낮은 가격순',
+    name: '낮은가격순',
   },
   {
     id: 4,
-    name: '높은 가격순',
+    name: '높은가격순',
   },
 ];

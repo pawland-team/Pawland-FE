@@ -15,16 +15,21 @@ interface selectedSearchParamsType {
   category: string[];
 }
 
-const initialSearchParam = {
-  region: [],
-  species: [],
-  category: [],
-};
-
 const ProductListFilterContainer = () => {
   const router = useRouter();
 
+  const initialSearchParam = {
+    region: [],
+    species: [],
+    category: [],
+  };
+
+  // const initialIsFree = false;
+  // const initialSortingValue = '최신순';
+
   const [selectedSearchParams, setSelectedSearchParams] = useState<selectedSearchParamsType>(initialSearchParam);
+  // const [isFreeChecked, setIsFreeChecked] = useState(initialIsFree);
+  // const [sortingValue, setSortingValue] = useState(initialSortingValue);
 
   const {
     updatedValueList,

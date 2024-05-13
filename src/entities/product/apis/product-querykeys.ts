@@ -32,6 +32,7 @@ export const productQuery = {
     queryOptions({
       queryKey: productQueryKeys.searchList({ page, size, region, species, category, isFree, orderBy }),
       queryFn: () => getProductSearchList({ page, size, region, species, category, isFree, orderBy }),
+      retry: false,
     }),
 
   productDetail: (id: number) =>
