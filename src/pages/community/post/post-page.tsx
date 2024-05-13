@@ -67,6 +67,7 @@ export const CommunityPostPage = () => {
     'image',
     'color',
     'background',
+    'video',
   ];
 
   const imageHandler = () => {
@@ -122,7 +123,7 @@ export const CommunityPostPage = () => {
           [{ size: ['small', false, 'large', 'huge'] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image'],
+          ['link', 'image', 'video'],
         ],
         handlers: { image: imageHandler },
       },
