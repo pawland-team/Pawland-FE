@@ -6,6 +6,7 @@ export const MyInfoArea = styled.div`
   align-items: center;
   width: 100%;
 `;
+
 export const ProfileImage = styled.img`
   position: relative;
   border: 2px solid ${({ theme }) => theme.color.gray_9E9E9E};

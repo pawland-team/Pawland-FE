@@ -13,10 +13,13 @@ import * as S from './main-product-list-style';
 const MainProductList = () => {
   const { data } = useGetMainProductList(8);
 
+  if (!data || data?.content.length === 0) {
+    return <NoProductBox />;
+  }
+
   return (
     <S.ProductListArea>
-      {data?.content.length === 0 && <NoProductBox />}
-      {data && data?.content.length > 0 && (
+      {data && (
         <>
           <div className='product-title-box'>
             <h3>최신 상품</h3>

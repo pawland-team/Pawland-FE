@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
-import { SelectedFilterManageBox } from '@widgets/selected-filter-manage-box';
+import { SelectedCategoryBox } from '@widgets/product-selected-category-box';
 
 import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
@@ -14,7 +14,7 @@ const ProductListFilterContainer = () => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
-      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+      addSelectedValue(e.target.name, value, e.target.checked);
     }
   };
 
@@ -22,7 +22,7 @@ const ProductListFilterContainer = () => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
-      addSelectedValue(e.target.name, value, e.target.id, e.target.checked);
+      addSelectedValue(e.target.name, value, e.target.checked);
     }
   };
 
@@ -57,7 +57,7 @@ const ProductListFilterContainer = () => {
           handleChangeCheckBox={handleGiveAwayChecked}
         />
       </div>
-      <SelectedFilterManageBox handleChange={handleRemoveCheckedValue} selectedValueList={selectedValues} />
+      <SelectedCategoryBox handleChange={handleRemoveCheckedValue} selectedValueList={selectedValues} />
     </S.FilterContainer>
   );
 };
