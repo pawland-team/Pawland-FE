@@ -50,10 +50,11 @@ export interface CheckedCategoryState {
    * 검색용 params
    */
   searchParams: {
-    [index: string]: string[];
+    [index: string]: string[] | boolean[];
     region: string[];
     species: string[];
     category: string[];
+    isFree: boolean[];
   };
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
@@ -123,6 +124,7 @@ const initialSearchParams = {
   region: [],
   species: [],
   category: [],
+  isFree: [false],
 };
 
 // TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
@@ -137,7 +139,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
         // 받아온 value값과 기존 value 값이 일치 (중복)한다면? 해당 값의 isChecked 상태를 바꿔줌.
-        // 값이 일치하지 않다면? 그대로 유지
+        // 값이 일치하지 않다면? 그대로 유지 (체크 false 유지)
         const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked } : item,
         );
@@ -149,8 +151,11 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 지금 현재 selectedValues 배열의 값과 들어온 값을 비교해서, 중복되지 않는 값만 새로운 배열에 담아 반환
         const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
 
-        // 값이 일치하는 값이 아니라, 일치 하지 않은 값만 담아서 배열 반환
-        // const updatedSearchParams = state.searchParams[group].filter((item) => item !== value);
+        // 현재 searchParams 안에 value와 중복된 값이 있으면 true, 그렇지 않으면 false 반환
+        // const isSearchParamDuplicated = state.searchParams[group].some((item) => item === value);
+        // checked가 true이며, isDuplicated가 false일 경우 = true 반환(즉, 중복된거도 없고 checked도 true인 상태)
+        // const shouldAddToSearchParam = isChecked && !isSearchParamDuplicated;
+        const updatedSearchParams = group !== 'isFree' ? [...state.searchParams[group], value] : [isChecked];
 
         return {
           updatedValueList: {
@@ -167,10 +172,10 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
             : filteredSelectedValues,
 
           // searchParam 업데이트
-          // searchParams: {
-          //   ...state.searchParams,
-          //   [group]: updatedSearchParams,
-          // },
+          searchParams: {
+            ...state.searchParams,
+            [group]: updatedSearchParams,
+          },
         };
       });
     },
@@ -204,7 +209,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
 
     // 선택된 값 모두 초기화
     clearSelectedValues: () => {
-      set({ updatedValueList: initialValueList, selectedValues: [] });
+      set({ updatedValueList: initialValueList, selectedValues: [], searchParams: initialSearchParams });
     },
 
     // sorting 셀렉트 박스 value 값 변경하기

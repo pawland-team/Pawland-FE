@@ -14,7 +14,7 @@ const ProductSearchResultList = () => {
     species: [],
     category: [],
     isFree: false,
-    orderBy: '',
+    orderBy: '최신순',
   };
 
   const { data, isError } = useGetSearchResultList(searchInitialParams);

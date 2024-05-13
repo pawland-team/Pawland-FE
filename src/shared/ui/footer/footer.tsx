@@ -2,10 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { PAWLAND_GITHUB } from '@shared/constants/link';
+import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
 import * as S from './footer-style';
 
 const Footer = () => {
+  const { clearSelectedValues } = useCheckedCategoryStore();
+
+  const handleClickLink = () => {
+    clearSelectedValues();
+  };
+
   return (
     <S.FooterArea>
       <S.UpperContainer className='upper-container'>
@@ -17,19 +24,29 @@ const Footer = () => {
             <h5>Category</h5>
             <ul>
               <li>
-                <Link href='/product?page=1&size=12&orderBy="최신순"'>All Products</Link>
+                <Link href='/product?page=1&size=12&orderBy="최신순"' onClick={handleClickLink}>
+                  All Products
+                </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="음식"&orderBy="최신순"'>Food</Link>
+                <Link href='/product?page=1&size=12&category="음식"&orderBy="최신순"' onClick={handleClickLink}>
+                  Food
+                </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="장난감"&orderBy="최신순"'>Toy</Link>
+                <Link href='/product?page=1&size=12&category="장난감"&orderBy="최신순"' onClick={handleClickLink}>
+                  Toy
+                </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="옷"&orderBy="최신순"'>clothes</Link>
+                <Link href='/product?page=1&size=12&category="옷"&orderBy="최신순"' onClick={handleClickLink}>
+                  clothes
+                </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="악세서리"&orderBy="최신순"'>Accessories</Link>
+                <Link href='/product?page=1&size=12&category="악세서리"&orderBy="최신순"' onClick={handleClickLink}>
+                  Accessories
+                </Link>
               </li>
             </ul>
           </div>

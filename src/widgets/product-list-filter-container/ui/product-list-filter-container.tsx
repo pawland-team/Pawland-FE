@@ -8,7 +8,6 @@ import { SelectedCategoryBox } from '@widgets/product-selected-category-box';
 
 import * as S from './product-list-filter-container-style';
 import { useCheckedCategoryStore } from '../model';
-import { addSearchListQueryParam } from '../utils';
 
 interface selectedSearchParamsType {
   region: string[];
@@ -27,10 +26,15 @@ const ProductListFilterContainer = () => {
 
   const [selectedSearchParams, setSelectedSearchParams] = useState<selectedSearchParamsType>(initialSearchParam);
 
-  const [isFreeParam, setIsFreeParam] = useState(false);
-
-  const { updatedValueList, selectedValues, addSelectedValue, removeSelectedValue, clearSelectedValues, sorting } =
-    useCheckedCategoryStore();
+  const {
+    updatedValueList,
+    selectedValues,
+    addSelectedValue,
+    removeSelectedValue,
+    searchParams,
+    clearSelectedValues,
+    sorting,
+  } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
@@ -38,27 +42,20 @@ const ProductListFilterContainer = () => {
     if (value) {
       // zustand로 관리중인데 나중에 지워야할수도...
       addSelectedValue(e.target.name, value, e.target.checked);
-      addSearchListQueryParam(1, 12, e.target.name, value.toString());
 
       // 검색 params로 넘겨줘야하는 값을 저장한다.
       setSelectedSearchParams({
         ...selectedSearchParams,
         [e.target.name]: [...selectedSearchParams[e.target.name as keyof selectedSearchParamsType], value],
       });
-
-      // selectedSearchParams 배열에 중복값이 있는지 체크
     }
   };
-
-  // console.log(selectedSearchParams);
 
   const handleGiveAwayChecked = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
       addSelectedValue(e.target.name, value, e.target.checked);
-      addSearchListQueryParam(1, 12, e.target.name, value.toString());
-      setIsFreeParam(e.target.checked);
     }
   };
 
@@ -69,15 +66,14 @@ const ProductListFilterContainer = () => {
 
   const handleClearSelectedValue = () => {
     clearSelectedValues();
-    setIsFreeParam(false);
     setSelectedSearchParams(initialSearchParam);
   };
 
   useEffect(() => {
     router.push(
-      `/product?page=1&size=12&region=${selectedSearchParams.region}&species=${selectedSearchParams.species}&category=${selectedSearchParams.category}&isFree=${isFreeParam}&orderBy=${sorting}`,
+      `/product?page=1&size=12&region=${searchParams.region}&species=${searchParams.species}&category=${searchParams.category}&isFree=${searchParams.isFree}&orderBy=${sorting}`,
     );
-  }, [selectedSearchParams, sorting, isFreeParam]);
+  }, [searchParams, sorting]);
 
   return (
     <S.FilterContainer>
