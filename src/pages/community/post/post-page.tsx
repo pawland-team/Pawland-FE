@@ -1,6 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+import 'react-quill/dist/quill.snow.css';
+
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -14,13 +17,51 @@ interface FormData extends FieldValues {
   content: string;
 }
 
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+});
+
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [quillValue, setQuillValue] = useState('');
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const { openModalList } = useModalList();
   const router = useRouter();
+
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'align',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'background',
+    'color',
+    'link',
+    'image',
+    'video',
+    'width',
+  ];
+
+  const modules = {
+    toolbar: {
+      container: [
+        ['link', 'image', 'video'],
+        [{ header: [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
+    },
+  };
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
@@ -85,7 +126,7 @@ export const CommunityPostPage = () => {
       // 업로드된 파일의 URL을 서버로 전송
       const postData = {
         title: data.title,
-        content: data.content,
+        content: quillValue,
         region: selectedRegion,
         thumbnail: thumbnailUrl,
       };
@@ -223,7 +264,14 @@ export const CommunityPostPage = () => {
 
         <S.TextEditorArea>
           <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
-          <textarea placeholder='내용을 입력해주세요.' {...register('content', { required: true })} />
+          <ReactQuill
+            placeholder='내용을 입력해주세요.'
+            theme='snow'
+            formats={formats}
+            modules={modules}
+            value={quillValue}
+            onChange={setQuillValue}
+          />
         </S.TextEditorArea>
 
         <S.PostThumnailImageArea>
