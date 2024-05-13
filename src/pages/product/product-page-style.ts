@@ -4,6 +4,7 @@ export const ProductPage = styled.div`
   width: 95%;
   max-width: 1194px;
   margin: 0 auto;
+  padding-bottom: 180px;
 `;
 
 export const SearchArea = styled.section`
@@ -46,5 +47,5 @@ export const SelectBoxArea = styled.section`
 `;
 
 export const CardListArea = styled.section`
-  margin: 0 0 80px;
+  position: relative;
 `;
