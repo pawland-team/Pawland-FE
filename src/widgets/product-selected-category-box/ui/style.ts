@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SelectedFilterManageBoxStyle = styled.div`
+export const SelectedCategoryBoxStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,6 +26,10 @@ export const SelectedFilterManageBoxStyle = styled.div`
       font-size: 1.4rem;
       line-height: 1.5;
       color: #808080;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `;
