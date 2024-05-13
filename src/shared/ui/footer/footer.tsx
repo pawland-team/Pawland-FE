@@ -20,16 +20,16 @@ const Footer = () => {
                 <Link href='/product?page=1&size=12&orderBy="최신순"'>All Products</Link>
               </li>
               <li>
-                <Link href='/'>Food</Link>
+                <Link href='/product?page=1&size=12&category="음식"&orderBy="최신순"'>Food</Link>
               </li>
               <li>
-                <Link href='/'>Toy</Link>
+                <Link href='/product?page=1&size=12&category="장난감"&orderBy="최신순"'>Toy</Link>
               </li>
               <li>
-                <Link href='/'>clothes</Link>
+                <Link href='/product?page=1&size=12&category="옷"&orderBy="최신순"'>clothes</Link>
               </li>
               <li>
-                <Link href='/'>Accessories</Link>
+                <Link href='/product?page=1&size=12&category="악세서리"&orderBy="최신순"'>Accessories</Link>
               </li>
             </ul>
           </div>
