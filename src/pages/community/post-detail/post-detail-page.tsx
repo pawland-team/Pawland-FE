@@ -16,6 +16,8 @@ type Author = {
   email: string;
   nickname: string;
   profileImage: string;
+  star?: number;
+  reviewCount?: number;
 };
 
 type Replies = {

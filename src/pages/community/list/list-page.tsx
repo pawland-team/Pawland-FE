@@ -23,6 +23,8 @@ type Author = {
   email: string;
   nickname: string;
   profileImage: string;
+  star?: number;
+  reviewCount?: number;
 };
 
 type Replies = {
@@ -94,12 +96,12 @@ export const CommunityListPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('최신순');
 
   const [page, setPage] = useState<number>(1);
-  const [pageNumbers, setPageNumbers] = useState([]);
+  const [pageNumbers, setPageNumbers] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
