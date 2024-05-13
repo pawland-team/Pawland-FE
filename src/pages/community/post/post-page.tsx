@@ -76,11 +76,7 @@ export const CommunityPostPage = () => {
           credentials: 'include',
         });
 
-        if (!response.ok) {
-          alert('Failed to get the presigned URL');
-
-          return;
-        }
+        if (!response.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
 
         const preSignedData = await response.json();
         const { presignedUrl }: { presignedUrl: string } = preSignedData;
@@ -93,11 +89,7 @@ export const CommunityPostPage = () => {
           },
         });
 
-        if (!uploadResponse.ok) {
-          alert('Failed to upload the image');
-
-          return;
-        }
+        if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
 
         const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
         const imageUrl = `${s3BucketBaseUrl}/${fileName}`;
