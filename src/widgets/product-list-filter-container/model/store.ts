@@ -50,12 +50,15 @@ export interface CheckedCategoryState {
    * 검색용 params
    */
   searchParams: {
-    [index: string]: string[] | boolean[];
+    [index: string]: string[];
     region: string[];
     species: string[];
     category: string[];
-    isFree: boolean[];
   };
+  /**
+   * isFree 검색용 params
+   */
+  isFreeSearchParam: boolean;
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
@@ -93,7 +96,7 @@ const initialValueList = {
     data: [
       { value: '강아지', label: '강아지', isChecked: false },
       { value: '고양이', label: '고양이', isChecked: false },
-      { value: '그 외 동물', label: '그외', isChecked: false },
+      { value: '그외', label: '그외', isChecked: false },
     ],
   },
   category: {
@@ -103,7 +106,7 @@ const initialValueList = {
       { value: '장난감', label: '장난감', isChecked: false },
       { value: '옷', label: '옷', isChecked: false },
       { value: '악세사리', label: '악세사리', isChecked: false },
-      { value: '그 외 상품', label: '그외', isChecked: false },
+      { value: '그외', label: '그외', isChecked: false },
     ],
   },
   isFree: {
@@ -124,8 +127,9 @@ const initialSearchParams = {
   region: [],
   species: [],
   category: [],
-  isFree: [false],
 };
+
+const initialIsFreeSearchParam = false;
 
 // TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
@@ -135,6 +139,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     selectedValues: [],
     sorting: initialSorting,
     searchParams: initialSearchParams,
+    isFreeSearchParam: initialIsFreeSearchParam,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -152,10 +157,11 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
 
         // 현재 searchParams 안에 value와 중복된 값이 있으면 true, 그렇지 않으면 false 반환
-        // const isSearchParamDuplicated = state.searchParams[group].some((item) => item === value);
-        // checked가 true이며, isDuplicated가 false일 경우 = true 반환(즉, 중복된거도 없고 checked도 true인 상태)
-        // const shouldAddToSearchParam = isChecked && !isSearchParamDuplicated;
-        const updatedSearchParams = group !== 'isFree' ? [...state.searchParams[group], value] : [isChecked];
+        const isSearchParamDuplicated = state.searchParams[group].some((item) => item === value);
+        // 그냥 기존 배열에 새로운 value 추가
+        const updatedSearchParams = [...state.searchParams[group], value];
+        // value 값과 중복되는 값은 제외하고 나머지 값들만 배열로 반환
+        const filteredSearchParams = updatedSearchParams.filter((item) => item !== value);
 
         return {
           updatedValueList: {
@@ -172,10 +178,9 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
             : filteredSelectedValues,
 
           // searchParam 업데이트
-          searchParams: {
-            ...state.searchParams,
-            [group]: updatedSearchParams,
-          },
+          searchParams: isSearchParamDuplicated
+            ? { ...state.searchParams, [group]: filteredSearchParams }
+            : { ...state.searchParams, [group]: updatedSearchParams },
         };
       });
     },

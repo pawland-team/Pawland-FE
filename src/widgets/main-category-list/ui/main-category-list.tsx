@@ -20,8 +20,8 @@ const CategoryList = ({ categoryList }: CategoryListProps) => {
     const selectedKeyword = e.currentTarget.querySelector('p')?.innerText;
 
     if (selectedKeyword) {
-      if (selectedKeyword === '기타') {
-        return addSelectedValue(group, '그 외 상품', true);
+      if (selectedKeyword === '그 외 상품') {
+        return addSelectedValue(group, '그외', true);
       }
 
       return addSelectedValue(group, selectedKeyword, true);

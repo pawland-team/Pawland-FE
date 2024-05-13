@@ -21,31 +21,31 @@ export const categoryData: CategoryArray[] = [
   {
     id: 3,
     name: '사료',
-    group: 'product',
+    group: 'category',
     imageSrc: '/images/icon/food-icon.svg',
   },
   {
     id: 4,
     name: '장난감',
-    group: 'product',
+    group: 'category',
     imageSrc: '/images/icon/toy-icon.svg',
   },
   {
     id: 5,
-    name: '악세서리',
-    group: 'product',
+    name: '악세사리',
+    group: 'category',
     imageSrc: '/images/icon/acc-icon.svg',
   },
   {
     id: 6,
     name: '옷',
-    group: 'product',
+    group: 'category',
     imageSrc: '/images/icon/clothes-icon.svg',
   },
   {
     id: 7,
-    name: '그외',
-    group: 'product',
+    name: '그 외 상품',
+    group: 'category',
     imageSrc: '/images/icon/etc-icon.svg',
   },
 ];
