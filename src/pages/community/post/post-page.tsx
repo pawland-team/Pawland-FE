@@ -118,11 +118,11 @@ export const CommunityPostPage = () => {
       toolbar: {
         container: [
           [{ header: '1' }, { header: '2' }, { font: [] }],
+          [{ color: [] }, { background: [] }],
+          [{ size: ['small', false, 'large', 'huge'] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image', 'video'],
-          ['clean'],
-          ['code-block'],
+          ['link', 'image'],
         ],
         handlers: { image: imageHandler },
       },
