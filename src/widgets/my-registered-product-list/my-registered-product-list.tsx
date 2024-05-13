@@ -13,7 +13,6 @@ export const MyRegisteredProductList = () => {
   };
 
   const { data, status } = useGetmyProductList(initialParams);
-  console.log(data, status);
 
   if (status === 'success') {
     return (

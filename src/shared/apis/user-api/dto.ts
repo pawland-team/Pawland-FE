@@ -7,6 +7,8 @@ export interface UserEntity {
   nickname: string;
   email: string;
   userIntroduce: string;
+  userDesc: string;
+
   /**
    * 판매자에 대한 별점 평균.
    * 초기값은 0
@@ -15,6 +17,7 @@ export interface UserEntity {
    */
   stars: number;
   loginType: string;
+  reviewCount: number;
 }
 
 export interface GetUserInfoResponse {
