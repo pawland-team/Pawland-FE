@@ -58,7 +58,7 @@ export interface CheckedCategoryState {
   /**
    * isFree 검색용 params
    */
-  isFreeSearchParam: boolean;
+  isFree: boolean;
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
@@ -66,6 +66,7 @@ export interface CheckedCategoryState {
   removeSelectedValue: (group: string, value: string) => void;
   changeSelectedSortingValue: (value: SortingValueType) => void;
   clearSelectedValues: () => void;
+  changeIsFree: (isChecked: boolean) => void;
 }
 
 const initialValueList = {
@@ -129,9 +130,8 @@ const initialSearchParams = {
   category: [],
 };
 
-const initialIsFreeSearchParam = false;
+const initialIsFree = false;
 
-// TODO: 중복되는 몇개의 코드들이 보이는데, 해당 코드는 리펙토링때 utils 함수로 해결봐보자.
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
     initialValueList,
@@ -139,7 +139,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     selectedValues: [],
     sorting: initialSorting,
     searchParams: initialSearchParams,
-    isFreeSearchParam: initialIsFreeSearchParam,
+    isFree: initialIsFree,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -148,11 +148,11 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked } : item,
         );
+
         // 현재 selectedValues 안에 value와 중복된 값이 있으면 true, 그렇지 않으면 false 반환
         const isDuplicated = state.selectedValues.some((item) => item.value === value);
         // checked가 true이며, isDuplicated가 false일 경우 = true 반환(즉, 중복된거도 없고 checked도 true인 상태)
         const shouldAddToSelectedValues = isChecked && !isDuplicated;
-
         // 지금 현재 selectedValues 배열의 값과 들어온 값을 비교해서, 중복되지 않는 값만 새로운 배열에 담아 반환
         const filteredSelectedValues = state.selectedValues.filter((item) => item.value !== value);
 
@@ -191,13 +191,16 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
         // 같으면 true 아니면 false 반환.
         const isValueExist = state.selectedValues.map((item) => item.value === value);
 
-        // 2. 같다면 selectedValues에서 삭제 -> 여기까지는 문제 없이 해결 완료.
+        // 2. 같다면 selectedValues에서 삭제
         const filterSelectedValue = state.selectedValues.filter((item) => item.value !== value);
 
         // 3.  initialValueList에서 group, value일치하는 부분 isChecked false로 해제시키자.
         const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked: false } : item,
         );
+
+        // 4. searchParams에서 group, value일치하는 부분 삭제
+        const filterSearchParams = state.searchParams[group].filter((item) => item !== value);
 
         return {
           updatedValueList: {
@@ -208,18 +211,32 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
             },
           },
           selectedValues: isValueExist ? filterSelectedValue : undefined,
+          searchParams: {
+            ...state.searchParams,
+            [group]: filterSearchParams,
+          },
         };
       });
     },
 
     // 선택된 값 모두 초기화
     clearSelectedValues: () => {
-      set({ updatedValueList: initialValueList, selectedValues: [], searchParams: initialSearchParams });
+      set({
+        updatedValueList: initialValueList,
+        selectedValues: [],
+        searchParams: initialSearchParams,
+        isFree: false,
+      });
     },
 
     // sorting 셀렉트 박스 value 값 변경하기
     changeSelectedSortingValue: (value: SortingValueType) => {
       set({ sorting: value });
+    },
+
+    // isFree 변경하기
+    changeIsFree: (isChecked: boolean) => {
+      set({ isFree: isChecked });
     },
   })),
 );

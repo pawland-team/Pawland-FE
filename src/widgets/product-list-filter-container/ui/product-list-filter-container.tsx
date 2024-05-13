@@ -33,6 +33,8 @@ const ProductListFilterContainer = () => {
     removeSelectedValue,
     searchParams,
     clearSelectedValues,
+    changeIsFree,
+    isFree,
     sorting,
   } = useCheckedCategoryStore();
 
@@ -55,7 +57,7 @@ const ProductListFilterContainer = () => {
     const value = e.currentTarget.parentNode?.querySelector('label')?.innerText;
 
     if (value) {
-      addSelectedValue(e.target.name, value, e.target.checked);
+      changeIsFree(!isFree);
     }
   };
 
@@ -71,9 +73,9 @@ const ProductListFilterContainer = () => {
 
   useEffect(() => {
     router.push(
-      `/product?page=1&size=12&region=${searchParams.region}&species=${searchParams.species}&category=${searchParams.category}&isFree=${searchParams.isFree}&orderBy=${sorting}`,
+      `/product?page=1&size=12&region=${searchParams.region}&species=${searchParams.species}&category=${searchParams.category}&isFree=${isFree}&orderBy=${sorting}`,
     );
-  }, [searchParams, sorting]);
+  }, [searchParams, sorting, isFree]);
 
   return (
     <S.FilterContainer>
@@ -97,7 +99,7 @@ const ProductListFilterContainer = () => {
           label='free'
           group='isFree'
           value='무료나눔'
-          isChecked={updatedValueList.isFree.data[0].isChecked}
+          isChecked={isFree}
           handleChangeCheckBox={handleGiveAwayChecked}
         />
       </div>
