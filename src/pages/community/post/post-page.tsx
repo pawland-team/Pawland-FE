@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, useMemo, useRef, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import 'react-quill/dist/quill.snow.css';
@@ -6,6 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { QuillOptionsStatic } from 'quill';
 
 import { useModalList } from '@shared/hooks/use-modal';
 import { PostModal } from '@shared/ui/modal/post-modal';
@@ -17,12 +18,23 @@ interface FormData extends FieldValues {
   content: string;
 }
 
-const ReactQuill = dynamic(
+interface ReactQuillProps {
+  theme: string;
+  value: string;
+  onChange: (content: string) => void;
+  modules?: QuillOptionsStatic['modules'];
+  formats: string[];
+  // 무슨 타입을 줘야될지 몰라서 임시로 any 설정했습니다
+  forwardedRef: React.Ref<any>;
+  style: React.CSSProperties;
+}
+
+const ReactQuill = dynamic<ReactQuillProps>(
   async () => {
     const { default: RQ } = await import('react-quill');
 
     // eslint-disable-next-line react/display-name
-    return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
+    return ({ forwardedRef, ...props }: ReactQuillProps) => <RQ ref={forwardedRef} {...props} />;
   },
   {
     ssr: false,
@@ -36,7 +48,8 @@ export const CommunityPostPage = () => {
   const { register, handleSubmit, setValue, watch, reset } = useForm<FormData>();
   const { openModalList } = useModalList();
   const router = useRouter();
-  const quillRef = useRef<ReactQuill>(null);
+  // 무슨 타입을 줘야될지 몰라서 임시로 any 설정했습니다
+  const quillRef = useRef<any>(null);
 
   const formats = [
     'header',
