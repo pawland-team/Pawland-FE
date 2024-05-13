@@ -1,10 +1,10 @@
+import { useGetmyCommunityList } from '@entities/profile/my-community-post-item/hooks';
+import { CommunityPostItem } from '@entities/profile/my-community-post-item/ui';
+import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
 import { DropdownButton } from '@shared/ui/buttons';
 import { TapMenuBar } from '@widgets/profile-page-tap-menu-bar';
 
 import * as S from './my-community-list-style';
-import { useGetmyCommunityList } from '@entities/profile/my-community-post-item/hooks';
-import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
-import { CommunityPostItem } from '@entities/profile/my-community-post-item/ui';
 
 export const MyCommunityList = () => {
   const { data, status } = useGetmyCommunityList(1);

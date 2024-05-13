@@ -1,4 +1,5 @@
 import { UserCommunityPostItem } from '@entities/user/ui/user-community-post-item';
+
 import * as S from './user-community-list-style';
 
 export const UserCommunityList = () => {
