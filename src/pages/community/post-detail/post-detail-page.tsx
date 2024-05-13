@@ -228,8 +228,9 @@ export const CommunityPostDetailPage = () => {
 
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
-  const { title, content, thumbnail, region, author, createdAt, recommendCount, views } = communityPostDetail;
+  const { title, content, region, author, createdAt, recommendCount, views } = communityPostDetail;
   const totalComments = calculateTotalComments(comments);
+  const htmlContent = content.replace(/\n/g, '<br />');
 
   return (
     <S.PostDetailPage>
@@ -268,14 +269,7 @@ export const CommunityPostDetailPage = () => {
 
       <S.ContentsArea>
         <S.Contents>
-          {thumbnail && (
-            <>
-              <S.ContentImageWrapper>
-                <Image src={thumbnail} alt='thumbnail' objectFit='contain' fill />
-              </S.ContentImageWrapper>
-            </>
-          )}
-          <S.ContentsParagraph>{content}</S.ContentsParagraph>
+          <S.ContentsParagraph dangerouslySetInnerHTML={{ __html: htmlContent }} />
         </S.Contents>
 
         <S.RecommendButtonBox>

@@ -17,10 +17,6 @@ interface FormData extends FieldValues {
   content: string;
 }
 
-// const ReactQuill = dynamic(() => import('react-quill'), {
-//   ssr: false,
-// });
-
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill');
@@ -97,7 +93,7 @@ export const CommunityPostPage = () => {
           return;
         }
 
-        const imageUrl = presignedUrl.split('?')[0];
+        const imageUrl = encodeURI(presignedUrl.split('?')[0]);
         const editor = quillRef.current.getEditor();
         const range = editor.getSelection();
         editor.insertEmbed(range.index, 'image', imageUrl);
@@ -330,6 +326,7 @@ export const CommunityPostPage = () => {
             onChange={(content) => setValue('content', content)}
             modules={modules}
             formats={formats}
+            style={{ height: '500px' }}
           />
         </S.TextEditorArea>
 
