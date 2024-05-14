@@ -3,8 +3,6 @@ import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.q
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './wish-list-style';
-import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
-import { NoProductBox } from '@shared/ui/error';
 
 export const WishList = () => {
   const { data, status } = useGetMyWishList();

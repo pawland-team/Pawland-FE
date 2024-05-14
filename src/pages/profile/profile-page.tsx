@@ -12,7 +12,6 @@ import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
 import { WishList } from '@widgets/my-wish-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
-import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
 
