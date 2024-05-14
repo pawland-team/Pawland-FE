@@ -24,9 +24,6 @@ const ProductSearchResultList = () => {
     content: String(router.query.content),
   };
 
-  console.log(router.query.region);
-  console.log(router.query.content);
-
   const { data, isLoading } = useGetSearchResultList(searchParams);
 
   // console.log(`isFetching: ${isFetching}`);

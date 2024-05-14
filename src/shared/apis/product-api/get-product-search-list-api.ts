@@ -36,7 +36,6 @@ export const getProductSearchList = async ({
       .join('&');
   };
   const params = serializedParams({ qs: { page, size, region, species, category, isFree, content, orderBy } });
-  console.log(params);
 
   const response = await clientWithTokenApi.get<ProductListDto>(`/api/product?${params}`, {
     // params: {
