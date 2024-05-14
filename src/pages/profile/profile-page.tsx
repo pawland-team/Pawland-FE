@@ -11,7 +11,7 @@ import { MyLoginInfoArea } from '@widgets/my-login-info-area';
 import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
-// import { WishList } from '@widgets/my-wish-list';
+import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
 
@@ -34,9 +34,8 @@ export const ProfilePage = () => {
     switch (activeButton) {
       case 'register':
         return <MyRegisteredProductList />;
-      // mainListData가 사라지고 props가 너무 많이 바뀌어서,, 이 부분은 api 불러오실 때 활성화 해야할 것 같습니당 ㅜㅜ
-      // case 'wish':
-      //   return <WishList itemList={mainListData} />;
+      case 'wish':
+        return <WishList />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
@@ -45,8 +44,6 @@ export const ProfilePage = () => {
         return <MyRegisteredProductList />;
     }
   };
-
-  console.log(data);
 
   return (
     <>
@@ -60,7 +57,7 @@ export const ProfilePage = () => {
         <S.ProfilePage>
           <S.UserInfoContainer>
             <MyInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
-            <MyLoginInfoArea />
+            <MyLoginInfoArea loginType={data?.loginType} email={data?.email} />
           </S.UserInfoContainer>
           <S.ListContainer>
             <ProfilePageMenuBar />
