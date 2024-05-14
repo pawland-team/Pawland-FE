@@ -7,7 +7,6 @@ import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './registered-product-item-style';
-import { ProductListItemDto } from '@shared/apis/product-api';
 
 interface RegisteredProductItemProps {
   item: ProductListItemDto;
