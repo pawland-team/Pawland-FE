@@ -9,9 +9,9 @@ interface SearchInputProps {
   maxWidth?: string;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   inputRef?: LegacyRef<HTMLInputElement>;
-  value: string;
+  value?: string;
   prevValue?: string;
-  handleClear: (e: MouseEvent<HTMLButtonElement>) => void;
+  handleClear?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const SearchInput = ({
