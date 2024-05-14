@@ -329,13 +329,17 @@ export const CommunityPostDetailPage = () => {
           <S.EditBox>
             {author.id === userData?.id && (
               <>
-                <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-                <S.StatusText>수정하기</S.StatusText>
-                <div>
-                  <button type='button' onClick={() => handleDeletePost()}>
+                <S.PostFunctionBox>
+                  <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                  <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
+                </S.PostFunctionBox>
+
+                <S.PostFunctionBox>
+                  <Image src='/images/icon/delete-icon.svg' alt='edit-icon' width={20} height={20} />
+                  <S.PostFunctionButton type='button' onClick={() => handleDeletePost()}>
                     삭제하기
-                  </button>
-                </div>
+                  </S.PostFunctionButton>
+                </S.PostFunctionBox>
               </>
             )}
           </S.EditBox>
