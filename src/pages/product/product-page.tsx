@@ -23,7 +23,7 @@ import * as S from './product-page-style';
 
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [keyword, setKeyword] = useState<string | undefined>('');
+  const [keyword, setKeyword] = useState<string>('');
   const { sorting, changeSelectedSortingValue, changeContent, content } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -31,7 +31,14 @@ const ProductPage = () => {
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setKeyword(inputRef.current?.value);
+    if (inputRef.current) setKeyword(inputRef.current?.value);
+  };
+
+  const handleClearInput = () => {
+    if (inputRef.current) inputRef.current.value = '';
+
+    changeContent('');
+    setKeyword('');
   };
 
   const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
@@ -61,7 +68,9 @@ const ProductPage = () => {
             inputRef={inputRef}
             maxWidth='940px'
             placeholder='원하시는 상품을 검색해보세요!'
-            content={content}
+            value={keyword}
+            prevValue={content}
+            handleClear={handleClearInput}
           />
           <S.SearchSortingContainer>
             {content !== '' && (
