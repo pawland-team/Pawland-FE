@@ -12,6 +12,7 @@ import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
 import { WishList } from '@widgets/my-wish-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
+import { WishList } from '@widgets/my-wish-list';
 
 import * as S from './profile-page-style';
 
@@ -35,7 +36,7 @@ export const ProfilePage = () => {
       case 'register':
         return <MyRegisteredProductList />;
       case 'wish':
-        return <WishList itemList={mainListData} />;
+        return <WishList />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
@@ -44,8 +45,6 @@ export const ProfilePage = () => {
         return <MyRegisteredProductList />;
     }
   };
-
-  console.log(data);
 
   return (
     <>
