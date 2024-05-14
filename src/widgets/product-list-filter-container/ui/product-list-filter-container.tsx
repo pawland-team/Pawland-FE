@@ -1,6 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-
-import { useRouter } from 'next/router';
+import { ChangeEvent, useState } from 'react';
 
 import { getQueryClient } from '@shared/lib/get-query-client';
 import { BorderCheckBox } from '@shared/ui/checkbox';
@@ -17,7 +15,6 @@ interface selectedSearchParamsType {
 }
 
 const ProductListFilterContainer = () => {
-  const router = useRouter();
   const queryClient = getQueryClient();
 
   const initialSearchParam = {
@@ -38,12 +35,9 @@ const ProductListFilterContainer = () => {
     selectedValues,
     addSelectedValue,
     removeSelectedValue,
-    searchParams,
     clearSelectedValues,
     changeIsFree,
     isFree,
-    sorting,
-    content,
   } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
