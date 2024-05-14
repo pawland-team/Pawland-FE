@@ -50,6 +50,11 @@ type Post = {
   recommended: boolean;
 };
 
+// 댓글, 답글 엔터로도 입력되게 해야됨
+// 댓글 수정 기능 구현해야됨
+// 게시글 삭제, 수정 기능 구현해야됨
+// 답글 수정, 삭제 기능은 아직 백엔드 미구현임
+
 export const CommunityPostDetailPage = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [commentText, setCommentText] = useState<string>('');
@@ -236,6 +241,35 @@ export const CommunityPostDetailPage = () => {
     enabled: !!id,
   });
 
+  const handleDeletePost = async () => {
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        router.push('/community/list');
+      } else {
+        throw new Error('Failed to delete the post.');
+      }
+    } catch (error) {
+      console.error('Error deleting the post:', error);
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['delete-modal'],
+        props: {
+          content: '게시글 삭제 중 오류가 발생했습니다.',
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     if (communityPostDetail?.recommended) {
       setIsLiked(true);
@@ -282,9 +316,19 @@ export const CommunityPostDetailPage = () => {
             <S.Divider />
             <S.StatusText>조회수 {views}</S.StatusText>
           </S.FlexBox>
+
           <S.EditBox>
-            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-            <S.StatusText>수정하기</S.StatusText>
+            {author.id === userData?.id && (
+              <>
+                <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                <S.StatusText>수정하기</S.StatusText>
+                <div>
+                  <button type='button' onClick={() => handleDeletePost()}>
+                    삭제하기
+                  </button>
+                </div>
+              </>
+            )}
           </S.EditBox>
         </S.CommunityStatusBox>
       </S.HeaderArea>
