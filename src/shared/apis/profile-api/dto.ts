@@ -11,11 +11,45 @@ export interface MyCommunityPostEntity {
   commentCount: number;
   recommendCount: number;
   createdAt: string;
+  region: string;
 }
 
 export interface MyCommunityListEntity {
   content: MyCommunityPostEntity[];
 }
+
+type Author = {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string;
+  star?: number;
+  reviewCount?: number;
+};
+
+type Comment = {
+  id: number;
+  author: Author;
+  content: string;
+  recommendCount: number;
+  createdAt: string;
+};
+
+export interface UserCommunityPostEntity {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  region: string;
+  views: number;
+  author: Author;
+  comments: Comment[];
+  createdAt: string;
+  recommendCount: number;
+  recommended: boolean;
+}
+
+export type UserCommunityListEntity = UserCommunityPostEntity[];
 
 export type MyCommunityListResponse = Array<{
   id: number;

@@ -20,7 +20,7 @@ export const UserPage = () => {
         <UserInfoArea userData={data} />
         <UserRegisteredProductList userId={USER_ID} />
         <UserReviewList />
-        <UserCommunityList />
+        <UserCommunityList userId={USER_ID} />
       </S.UserPage>
     );
   }

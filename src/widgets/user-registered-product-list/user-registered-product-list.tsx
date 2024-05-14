@@ -5,7 +5,11 @@ import { ProductListSwiper } from '@widgets/product-list-swiper';
 import { getUserProductListParams } from '@shared/apis/user-api/dto';
 // import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 
-export const UserRegisteredProductList = ({ userId }: number) => {
+interface UserRegisteredProductListProps {
+  userId: number;
+}
+
+export const UserRegisteredProductList = ({ userId }: UserRegisteredProductListProps) => {
   const initialParams = {
     page: 1,
     size: 4,
@@ -13,7 +17,6 @@ export const UserRegisteredProductList = ({ userId }: number) => {
   };
 
   const { data, status } = useGetUserProductList(initialParams);
-  console.log(data?.length);
 
   if (status === 'success') {
     return (

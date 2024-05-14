@@ -38,3 +38,19 @@ export interface getUserProductListParams {
   size: number;
   userId: number;
 }
+
+export interface getUserCommunityListParams {
+  page: number;
+  userId: number;
+}
+
+export interface UserReviewEntity {
+  reviewerId: number;
+  reviewerNickName: string;
+  reviewerProfileImage: string;
+  star: number;
+  content: string;
+  createAt: string;
+}
+
+export type UserReviewListEntity = UserReviewEntity[];

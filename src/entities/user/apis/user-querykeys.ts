@@ -2,8 +2,9 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { getUserInfo } from '@shared/apis/user-api';
 import { getOtherUserInfo } from '@shared/apis/user-api/get-other-user-info-api';
-import { getUserProductListParams } from '@shared/apis/user-api/dto';
+import { getUserCommunityListParams, getUserProductListParams } from '@shared/apis/user-api/dto';
 import { getUserProductList } from '@shared/apis/user-api/get-user-product-list-api';
+import { getUserCommunityList } from '@shared/apis/user-api/get-user-community-list-api';
 
 export const userQueryKeys = {
   all: () => ['user'],
@@ -49,6 +50,28 @@ export const userProductQuery = {
     queryOptions({
       queryKey: userProductQueryKeys.userProductList({ page, size, userId }),
       queryFn: () => getUserProductList({ page, size, userId }),
+      staleTime: 3 * 60 * 1000,
+    }),
+};
+
+export const userCommunityQueryKeys = {
+  all: () => ['userCommunityList'],
+  userCommunityList: ({ page, userId }: getUserCommunityListParams) => [
+    ...userCommunityQueryKeys.all(),
+    { page, userId },
+  ],
+};
+
+export const userCommunityQuery = {
+  all: () =>
+    queryOptions({
+      queryKey: userCommunityQueryKeys.all(),
+    }),
+
+  userCommunityList: ({ page, userId }: getUserCommunityListParams) =>
+    queryOptions({
+      queryKey: userCommunityQueryKeys.userCommunityList({ page, userId }),
+      queryFn: () => getUserCommunityList({ page, userId }),
       staleTime: 3 * 60 * 1000,
     }),
 };
