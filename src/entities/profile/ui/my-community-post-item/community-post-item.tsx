@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { GoDetailButton } from '@features/button/go-detail-button';
-import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './community-post-item-style';
+import { MyCommunityPostEntity } from '@shared/apis/profile-api';
 
 interface CommunityPostItemProps {
   item: MyCommunityPostEntity;
@@ -14,7 +14,7 @@ interface CommunityPostItemProps {
 
 export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
   return (
-    <Link href='/'>
+    <Link href={`/community/post-detail/${item.id}`}>
       <S.CommunityPostItem>
         <SmallThumbnail imageUrl={item.thumbnail} />
         <S.ItemInfoArea>
@@ -22,10 +22,10 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
             <h1>{item.title}</h1>
             <p>{item.content}</p>
             <div className='value-area'>
-              <span className='first-span'>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
-              <span>{`댓글 ${item.commentCount} `}</span>
+              <span className='first-span'>{formatDateShorter(item.createdAt)}</span>
+              <span>{`댓글 ${item.comments.length} `}</span>
               <span>{`조회수 ${item.views} `}</span>
-              <span className='last-span'>{`찜 ${item.recommendationCount} `}</span>
+              <span className='last-span'>{`찜 ${item.recommendCount} `}</span>
             </div>
           </div>
           <div className='button-area'>
@@ -38,7 +38,7 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
                 alt='연필 아이콘'
               />
             </Link>
-            <GoDetailButton />
+            <GoDetailButton pageUrl={`/community/post-detail/${item.id}`} />
           </div>
         </S.ItemInfoArea>
       </S.CommunityPostItem>

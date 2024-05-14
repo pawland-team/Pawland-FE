@@ -1,3 +1,4 @@
+import { ProductListItemDto } from '../product-api';
 import { UserEntity } from '../user-api';
 
 export interface MyCommunityPostEntity {
@@ -6,8 +7,10 @@ export interface MyCommunityPostEntity {
   content: string;
   thumbnail: string;
   views: number;
+  comments: [];
   commentCount: number;
-  recommendationCount: number;
+  recommendCount: number;
+  createdAt: string;
 }
 
 export interface MyCommunityListEntity {
@@ -24,3 +27,23 @@ export type MyCommunityListResponse = Array<{
   author: Pick<UserEntity, 'id' | 'email' | 'nickname'>;
   commentCount: number;
 }>;
+
+export type MyProductListEntity = ProductListItemDto[];
+
+export interface MyWishProductEntity {
+  id: number;
+  status: string;
+  thumbnailUrl: string;
+  price: number;
+  name: string;
+  createdAt: string;
+  wished: boolean;
+}
+
+export type MyWishListEntity = ProductListItemDto[];
+
+export interface getMyProductListParams {
+  page: number;
+  size: number;
+  type: string;
+}

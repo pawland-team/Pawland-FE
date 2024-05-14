@@ -1,18 +1,17 @@
 import { ProductFlexCardItem } from '@entities/product/ui';
-import { ProductListItemDto } from '@shared/apis/product-api';
 
 import * as S from './wish-list-style';
+import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
+import { NoProductBox } from '@shared/ui/error';
 
-interface WishListProps {
-  itemList: ProductListItemDto[];
-}
-
-export const WishList = ({ itemList }: WishListProps) => {
-  return (
-    <S.WishList>
-      {itemList.map((item) => (
-        <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />
-      ))}
-    </S.WishList>
-  );
+export const WishList = () => {
+  const { data, status } = useGetMyWishList();
+  if (status === 'success') {
+    return (
+      <S.WishList>
+        {data?.length === 0 && <NoProductBox />}
+        {data?.map((item) => <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />)}
+      </S.WishList>
+    );
+  }
 };

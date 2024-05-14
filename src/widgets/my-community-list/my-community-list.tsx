@@ -1,13 +1,15 @@
-import { useGetmyCommunityList } from '@entities/profile/my-community-post-item/hooks';
-import { CommunityPostItem } from '@entities/profile/my-community-post-item/ui';
-import { MyCommunityPostEntity } from '@shared/apis/my-community-api';
 import { DropdownButton } from '@shared/ui/buttons';
 import { TapMenuBar } from '@widgets/profile-page-tap-menu-bar';
 
 import * as S from './my-community-list-style';
+import { useGetmyCommunityList } from '@entities/profile/hooks';
+import { MyCommunityPostEntity } from '@shared/apis/profile-api';
+import { CommunityPostItem } from '@entities/profile/ui/my-community-post-item';
+import { NoProductBox } from '@shared/ui/error';
 
 export const MyCommunityList = () => {
   const { data, status } = useGetmyCommunityList(1);
+  console.log(data);
 
   if (status === 'success') {
     const listData: MyCommunityPostEntity[] = data?.content;
@@ -23,6 +25,8 @@ export const MyCommunityList = () => {
             iconPath={'images/icon/arrow-down-icon-gray.svg'}
           />
         </div>
+        {data?.content.length === 0 && <NoProductBox />}
+
         {listData.map((item) => (
           <CommunityPostItem key={item.id} item={item} />
         ))}
