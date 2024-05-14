@@ -18,8 +18,8 @@ export interface SearchListParam {
  */
 
 export const getProductSearchList = async ({
-  page = 1,
-  size = 12,
+  page,
+  size,
   region,
   species,
   category,

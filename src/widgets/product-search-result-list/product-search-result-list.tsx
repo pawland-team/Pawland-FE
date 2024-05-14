@@ -10,11 +10,11 @@ import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/
  */
 
 const ProductSearchResultList = () => {
-  const { searchParams, isFree, sorting, content, page, size } = useCheckedCategoryStore();
+  const { searchParams, isFree, sorting, content, pagingStatus } = useCheckedCategoryStore();
 
   const newSearchParams: SearchListParam = {
-    page,
-    size,
+    page: pagingStatus.page,
+    size: pagingStatus.size,
     region: String(searchParams.region),
     species: String(searchParams.species),
     category: String(searchParams.category),

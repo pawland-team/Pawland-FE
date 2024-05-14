@@ -64,13 +64,16 @@ export interface CheckedCategoryState {
    */
   content: string;
   /**
-   * 페이지네이션 용 현재 페이지
+   * 페이지네이션 용
+   * - page : 현재 페이지
+   * - size : 한 페이지당 보여지는 카드 갯수
+   * - totlaItemCount : 리스트가 가지는 모든 카드 갯수
    */
-  page: number;
-  /**
-   * 한 페이지당 보여지는 카드 갯수
-   */
-  size: number;
+  pagingStatus: {
+    page: number;
+    size: number;
+    totalItemCount: number;
+  };
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
@@ -80,8 +83,7 @@ export interface CheckedCategoryState {
   clearSelectedValues: () => void;
   changeIsFree: (isChecked: boolean) => void;
   changeContent: (value: string) => void;
-  changePage: (page: number) => void;
-  changeSize: (size: number) => void;
+  changePagingStatus: (page: number, size: number, totalItemCount: number) => void;
 }
 
 const initialValueList = {
@@ -146,9 +148,7 @@ const initialSearchParams = {
 };
 
 const initialIsFree = false;
-
-const initialPage = 1;
-const initialSize = 12;
+const initialPagingStatus = { page: 1, size: 12, totalItemCount: 0 };
 
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
@@ -159,8 +159,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     searchParams: initialSearchParams,
     isFree: initialIsFree,
     content: '',
-    page: initialPage,
-    size: initialSize,
+    pagingStatus: initialPagingStatus,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -264,12 +263,14 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
       set({ content: value });
     },
     // 페이지 변경
-    changePage: (page: number) => {
-      set({ page });
-    },
-    // 사이즈 변경
-    changeSize: (size: number) => {
-      set({ size });
+    changePagingStatus: (page: number, size: number, totalItemCount: number) => {
+      set({
+        pagingStatus: {
+          page,
+          size,
+          totalItemCount,
+        },
+      });
     },
   })),
 );
