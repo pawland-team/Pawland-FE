@@ -2,7 +2,6 @@ import { UserEntity } from '@shared/apis/user-api';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './user-info-area-style';
-import { UserEntity } from '@shared/apis/user-api';
 
 import { EditProfileButton } from '@features/button/edit-profile-button';
 
