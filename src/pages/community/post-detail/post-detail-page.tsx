@@ -157,6 +157,28 @@ export const CommunityPostDetailPage = () => {
     }));
   };
 
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
+      } else {
+        throw new Error('Failed to delete comment');
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   const submitReply = async (event: FormEvent<HTMLFormElement>, commentId: number) => {
     event.preventDefault();
     const replyContent = replyTexts[commentId];
@@ -228,8 +250,9 @@ export const CommunityPostDetailPage = () => {
 
   if (isLoading || !communityPostDetail) return <div>Loading...</div>;
 
-  const { title, content, thumbnail, region, author, createdAt, recommendCount, views } = communityPostDetail;
+  const { title, content, region, author, createdAt, recommendCount, views } = communityPostDetail;
   const totalComments = calculateTotalComments(comments);
+  const htmlContent = content.replace(/\n/g, '<br />');
 
   return (
     <S.PostDetailPage>
@@ -268,14 +291,7 @@ export const CommunityPostDetailPage = () => {
 
       <S.ContentsArea>
         <S.Contents>
-          {thumbnail && (
-            <>
-              <S.ContentImageWrapper>
-                <Image src={thumbnail} alt='thumbnail' objectFit='contain' fill />
-              </S.ContentImageWrapper>
-            </>
-          )}
-          <S.ContentsParagraph>{content}</S.ContentsParagraph>
+          <S.ContentsParagraph dangerouslySetInnerHTML={{ __html: htmlContent }} />
         </S.Contents>
 
         <S.RecommendButtonBox>
@@ -327,7 +343,14 @@ export const CommunityPostDetailPage = () => {
               </S.ProfileImageWrapper>
               <S.ComentPostBox>
                 <S.ComentTextareaBox>
-                  <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
+                  <S.ComentDeleteWrapper>
+                    <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
+                    {comment.author.id === userData?.id && (
+                      <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                        X
+                      </S.ComentDeleteButton>
+                    )}
+                  </S.ComentDeleteWrapper>
                   <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
                   <S.Coment>{comment.content}</S.Coment>
                 </S.ComentTextareaBox>
