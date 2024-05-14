@@ -7,6 +7,7 @@ import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './registered-product-item-style';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
 interface RegisteredProductItemProps {
   item: ProductListItemDto;
@@ -16,11 +17,7 @@ export const RegisteredProductItem = ({ item }: RegisteredProductItemProps) => {
   return (
     <Link href={`/product/${item.id}`}>
       <S.RegisteredProductItem>
-<<<<<<<< HEAD:src/entities/profile/ui/registered-product-item/registered-product-item.tsx
         <SmallThumbnail imageUrl={item.thumbnailUrl} />
-========
-        <SmallThumbnail imageUrl={''} />
->>>>>>>> 7cc1cd6 (Feat: 프로필페이지 커뮤니티 리스트 api 연동, 유저페이지 ui, 폴더구조 변경 ):src/entities/profile/registered-product-item/ui/registered-product-item.tsx
         <S.ItemInfoArea>
           <div>
             <DropdownButton
