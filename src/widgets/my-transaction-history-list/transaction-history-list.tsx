@@ -1,7 +1,8 @@
-import { TransactionItem } from '@entities/profile/transaction-item/ui';
 import { DropdownButton } from '@shared/ui/buttons';
 
 import * as S from './transaction-history-list-style';
+import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
+import { ReviewItem, TransactionItem } from '@entities/profile/ui';
 
 export const TransactionHistoryList = () => {
   return (
@@ -14,7 +15,8 @@ export const TransactionHistoryList = () => {
           iconPath={'images/icon/arrow-down-icon-gray.svg'}
         />
       </div>
-      <TransactionItem />
+      <TransactionItem reviewArea={<ReviewItem />} />
+      <TransactionItem reviewArea={<ReviewWritingArea />} />
     </S.TransactionHistoryList>
   );
 };

@@ -6,12 +6,17 @@ import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './registered-product-item-style';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
-export const RegisteredProductItem = () => {
+interface RegisteredProductItemProps {
+  item: ProductListItemDto;
+}
+
+export const RegisteredProductItem = ({ item }: RegisteredProductItemProps) => {
   return (
-    <Link href='/'>
+    <Link href={`/product/${item.id}`}>
       <S.RegisteredProductItem>
-        <SmallThumbnail imageUrl={''} />
+        <SmallThumbnail imageUrl={item.thumbnailUrl} />
         <S.ItemInfoArea>
           <div>
             <DropdownButton
@@ -25,11 +30,11 @@ export const RegisteredProductItem = () => {
               fontColor='#000000'
               selectedFontSize='1.4rem'
             />
-            <h1>뽁뽁이 뼈다귀</h1>
+            <h1>{item.name}</h1>
           </div>
           <div className='text-area'>
-            <span className='create-date'>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
-            <p className='price'>{formatPriceToKoStyle(30000)}</p>
+            <span className='create-date'>{formatDateShorter(item.createAt)}</span>
+            <p className='price'>{formatPriceToKoStyle(item.price)}</p>
           </div>
         </S.ItemInfoArea>
       </S.RegisteredProductItem>
