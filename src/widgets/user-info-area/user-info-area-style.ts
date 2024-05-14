@@ -54,18 +54,6 @@ export const RatingArea = styled.div`
   border-radius: 12px;
 `;
 
-export const RatingArea = styled.div`
-  display: flex;
-
-  width: 540px;
-  height: 200px;
-  margin-left: 107px;
-  padding: 42px 37px;
-
-  background-color: ${({ theme }) => theme.color.gray_F9F9F9};
-  border-radius: 12px;
-`;
-
 export const Rating = styled.div`
   display: flex;
   flex-direction: column;
