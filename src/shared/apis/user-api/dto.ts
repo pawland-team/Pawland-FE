@@ -39,12 +39,19 @@ export interface getUserProductListParams {
   userId: number;
 }
 
+export interface getUserReviewListParams {
+  page: number;
+  size: number;
+  userId: number;
+}
+
 export interface getUserCommunityListParams {
   page: number;
   userId: number;
 }
 
 export interface UserReviewEntity {
+  reviewId: number;
   reviewerId: number;
   reviewerNickName: string;
   reviewerProfileImage: string;
