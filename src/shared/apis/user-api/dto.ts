@@ -32,3 +32,9 @@ export interface GetUserInfoResponse {
   loginType: UserEntity['loginType'];
   reviewCount: UserEntity['reviewCount'];
 }
+
+export interface getUserProductListParams {
+  page: number;
+  size: number;
+  userId: number;
+}
