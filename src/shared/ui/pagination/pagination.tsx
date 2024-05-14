@@ -8,7 +8,7 @@ import * as S from './style';
 const Pagination = ({ totalCount, itemsPerPage = 8, pagesPerGroup = 5 }: usePaginateParams) => {
   const {
     changePage,
-    currentPage,
+    // currentPage,
     currentPageGroup,
     canJumpToPreviousPageGroup,
     jumpToPreviousPageGroup,
