@@ -9,15 +9,20 @@ interface SearchInputProps {
   maxWidth?: string;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   inputRef?: LegacyRef<HTMLInputElement>;
+  content?: string;
 }
 
-const SearchInput = ({ handleSubmit, inputRef, placeholder, maxWidth = '100%' }: SearchInputProps) => {
+const SearchInput = ({ handleSubmit, inputRef, placeholder, maxWidth = '100%', content }: SearchInputProps) => {
   return (
     <>
       <S.SearchInputBox $maxWidth={maxWidth}>
         <form onSubmit={handleSubmit}>
           <Image width={19} height={19} src='/images/icon/search-icon.svg' alt='검색 아이콘' />
-          <input ref={inputRef} type='text' placeholder={placeholder} />
+          {content ? (
+            <input ref={inputRef} type='text' placeholder={placeholder} defaultValue={content} />
+          ) : (
+            <input ref={inputRef} type='text' placeholder={placeholder} />
+          )}
         </form>
       </S.SearchInputBox>
     </>

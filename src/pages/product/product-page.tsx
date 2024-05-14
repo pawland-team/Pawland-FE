@@ -24,7 +24,7 @@ import * as S from './product-page-style';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string | undefined>('');
-  const { sorting, changeSelectedSortingValue, changeContent } = useCheckedCategoryStore();
+  const { sorting, changeSelectedSortingValue, changeContent, content } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
@@ -61,11 +61,12 @@ const ProductPage = () => {
             inputRef={inputRef}
             maxWidth='940px'
             placeholder='원하시는 상품을 검색해보세요!'
+            content={content}
           />
           <S.SearchSortingContainer>
-            {keyword !== '' && (
+            {content !== '' && (
               <h2>
-                <strong>{`‘${keyword}‘`}</strong>에 대한 검색결과입니다.
+                <strong>{`‘${content}‘`}</strong>에 대한 검색결과입니다.
               </h2>
             )}
           </S.SearchSortingContainer>
