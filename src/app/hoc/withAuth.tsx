@@ -45,10 +45,12 @@ export const withAuth = (Component: ComponentType<PropsWithChildren>) => {
     }, [router, data, status, clearUserInfo, setUserInfo]);
 
     if (status === 'pending') {
+      // TODO: 로딩 스피너 추가
       return <div>Loading...</div>;
     }
 
     if (status === 'error') {
+      // TODO: 에러 페이지 추가
       return null;
     }
 

@@ -5,6 +5,9 @@ export const clientWithTokenApi = axios.create({
   timeout: 3000,
   timeoutErrorMessage: '요청 시간이 3초 이상 초과되었습니다. 다시 시도해주세요.',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 clientWithTokenApi.interceptors.request.use(null, (error) => {

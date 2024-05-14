@@ -55,7 +55,7 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
         >
           {detailInfo.status === '판매중' && '채팅하기'}
           {detailInfo.status === '판매취소' && '판매취소'}
-          {detailInfo.status === '판매완료' && '판매완료'}
+          {detailInfo.status === '판매 완료' && '판매완료'}
         </CommonButton>
       </S.ButtonContainer>
     </S.ProductDetailInfoArea>

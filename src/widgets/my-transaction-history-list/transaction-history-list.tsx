@@ -1,8 +1,8 @@
+import { ReviewItem, TransactionItem } from '@entities/profile/ui';
 import { DropdownButton } from '@shared/ui/buttons';
+import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './transaction-history-list-style';
-import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
-import { ReviewItem, TransactionItem } from '@entities/profile/ui';
 
 export const TransactionHistoryList = () => {
   return (
