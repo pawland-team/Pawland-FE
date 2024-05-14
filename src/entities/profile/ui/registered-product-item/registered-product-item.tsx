@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
+import { ProductListItemDto } from '@shared/apis/product-api';
 import { DropdownButton } from '@shared/ui/buttons';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './registered-product-item-style';
-import { ProductListItemDto } from '@shared/apis/product-api';
 
 interface RegisteredProductItemProps {
   item: ProductListItemDto;

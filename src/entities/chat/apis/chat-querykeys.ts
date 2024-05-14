@@ -42,9 +42,9 @@ export const chatQuery = {
       queryFn: ({ pageParam }) => getPreviousChatList({ cursorId: pageParam, roomId: roomId! }),
       initialPageParam: '',
       getNextPageParam: (lastPage) => {
-        const { nextCursor, hasNext } = lastPage;
+        const { nextCursor } = lastPage;
 
-        if (nextCursor && hasNext) {
+        if (nextCursor) {
           return nextCursor;
         }
 
@@ -52,12 +52,12 @@ export const chatQuery = {
         return undefined;
       },
       // 메시지를 삭제하지 않는 이상 무효화할 필요가 없음.
-      // 10분
-      staleTime: 1000 * 60 * 10,
+      staleTime: Infinity,
       // 1시간
       gcTime: 1000 * 60 * 60,
       enabled: roomId !== undefined,
       placeholderData: keepPreviousData,
       maxPages: 1,
+      refetchOnWindowFocus: false,
     }),
 };

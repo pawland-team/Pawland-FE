@@ -10,8 +10,8 @@ import { MyInfoArea } from '@widgets/my-info-area';
 import { MyLoginInfoArea } from '@widgets/my-login-info-area';
 import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
 import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
-import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 import { WishList } from '@widgets/my-wish-list';
+import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
 
 import * as S from './profile-page-style';
 
