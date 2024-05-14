@@ -33,12 +33,11 @@ const SearchInput = ({
           ) : (
             <input ref={inputRef} type='text' placeholder={placeholder} />
           )}
-          {(value && value.length > 0) ||
-            (prevValue && (
-              <button onClick={handleClear} type='button'>
-                <Image width={19} height={19} src='/images/icon/close-icon.svg' alt='검색 초기화' />
-              </button>
-            ))}
+          {(value && value.length > 0) || prevValue ? (
+            <button onClick={handleClear} type='button'>
+              <Image width={19} height={19} src='/images/icon/close-icon.svg' alt='검색 초기화' />
+            </button>
+          ) : null}
         </form>
       </S.SearchInputBox>
     </>
