@@ -1,14 +1,18 @@
 import { UserEntity } from '../user-api';
 
-export type SaleState = 'selling' | 'canceled' | 'completed';
+export const CATEGORY = {
+  food: '사료',
+  toy: '장난감',
+  clothes: '옷',
+  accessory: '악세서리',
+  etc: '그 외',
+} as const;
 
-export type Category = 'food' | 'toy' | 'clothes' | 'accessory' | 'etc';
+export type CategoryDTO = typeof CATEGORY;
 
-export enum SaleStateEnum {
-  selling = '판매중',
-  canceled = '판매취소',
-  completed = '판매완료',
-}
+export type Category = keyof typeof CATEGORY;
+
+export type SALE_STATE = '판매중' | '판매취소' | '판매완료';
 
 export type Region =
   | '서울'
@@ -30,12 +34,20 @@ export type Region =
   | '제주'
   | '해외';
 
-export type Species = 'dog' | 'cat' | 'etc';
+export const SPECIES = {
+  dog: '강아지',
+  cat: '고양이',
+  etc: '기타',
+} as const;
+
+export type SpeciesDTO = typeof SPECIES;
+
+export type Species = keyof typeof SPECIES;
 
 /**
  * 중고인지 여부
  */
-export type ProductCondition = 'new' | 'used';
+export type ProductCondition = '새상품' | '중고';
 
 /**
  * 상품 정보 entity
@@ -57,7 +69,7 @@ export interface ProductInfoEntity {
   /**
    * 상품 이름
    */
-  productName: string;
+  name: string;
   /**
    * 상품이 등록된 지역
    */
@@ -69,11 +81,11 @@ export interface ProductInfoEntity {
   /**
    * 상품 조회수
    */
-  views: number;
+  view: number;
   /**
    * 대표 이미지
    */
-  imageThumbnail: string;
+  thumbnailImage: string;
   /**
    * contents 필드의 내용에서 추출된 이미지들(상품 설명 내용에 포함된 이미지들)
    */
@@ -81,7 +93,7 @@ export interface ProductInfoEntity {
   /**
    * 상품 소개글(내용 + 이미지) string HTML 형태로
    */
-  description: string;
+  content: string;
   /**
    * 판매자 정보. 판매자 === 상품 판매글 작성자. User Entity 참고
    */
@@ -93,11 +105,11 @@ export interface ProductInfoEntity {
   /**
    * 판매중/판매취소/판매완료
    */
-  saleState: SaleState;
+  status: SALE_STATE;
   /**
    * 중고/새 상품 여부
    */
-  productCondition: ProductCondition;
+  condition: ProductCondition;
 }
 
 export interface ProductListItemDto {
@@ -148,15 +160,21 @@ export interface ProductListItemDto {
   /**
    * 판매 상태
    */
-  status: SaleState;
+  status: SALE_STATE;
   /**
    * 상품 썸네일
    */
   thumbnailImage: string;
+  thumbnailUrl: string;
+
   /**
    * 상품 상세 이미지
    */
-  images: string[];
+  imageUrls: string[];
+  /**
+   * 상품 업로드 날짜
+   */
+  createAt: string;
   /**
    * 찜상태
    */

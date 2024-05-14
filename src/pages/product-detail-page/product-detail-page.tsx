@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
+import { Loading } from '@app/layout/loading';
 import { useGetMainProductList } from '@entities/product/hooks';
-import { mockProductDetailInfo } from '@shared/apis/product-api';
+import { useGetProductDetail } from '@entities/product/hooks/use-get-product-detail.query';
 import { ScrollToButton } from '@shared/ui/buttons';
 import { DetailMainInfo } from '@widgets/detail-main-info';
 import { ProductListSwiper } from '@widgets/product-list-swiper';
@@ -9,7 +11,15 @@ import { ProductListSwiper } from '@widgets/product-list-swiper';
 import * as S from './product-detail-page-style';
 
 const ProductDetailPage = () => {
-  const { data: recentProductListData } = useGetMainProductList(8);
+  const router = useRouter();
+  const PRODUCT_ID = Number(router.query.id);
+
+  const { data: recentProductListData, isLoading: recentProductLoading } = useGetMainProductList(8);
+  const { data: productDetailData, isLoading: productDetailLoading } = useGetProductDetail(PRODUCT_ID);
+
+  if (recentProductLoading || productDetailLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -18,7 +28,7 @@ const ProductDetailPage = () => {
       </Head>
       <S.ProductDetailPage>
         <S.DetailArticleArea>
-          <DetailMainInfo detailInfo={mockProductDetailInfo} />
+          {productDetailData && <DetailMainInfo itemData={productDetailData} />}
         </S.DetailArticleArea>
         {recentProductListData && (
           <S.RecentProductArea>
