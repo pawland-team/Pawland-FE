@@ -1,5 +1,3 @@
-type LoginType = '구글' | '네이버' | '카카오' | '일반';
-
 export interface UserEntity {
   /**
    * user Id
@@ -8,7 +6,8 @@ export interface UserEntity {
   profileImage: string;
   nickname: string;
   email: string;
-  userIntroduce: string;
+  userDesc: string;
+
   /**
    * 판매자에 대한 별점 평균.
    * 초기값은 0
@@ -16,8 +15,8 @@ export interface UserEntity {
    * 0이면 아직 리뷰가 없는 상태
    */
   stars: number;
-  loginType: LoginType;
-  // reviewCount: number;
+  loginType: string;
+  reviewCount: number;
 }
 
 export interface GetUserInfoResponse {
@@ -28,6 +27,8 @@ export interface GetUserInfoResponse {
   /**
    * TODO: UserEntity에 적힌 userIntroduce랑 필드명이 다름.
    */
-  userDesc: UserEntity['userIntroduce'];
+  userDesc: UserEntity['userDesc'];
   stars: UserEntity['stars'];
+  loginType: UserEntity['loginType'];
+  reviewCount: UserEntity['reviewCount'];
 }

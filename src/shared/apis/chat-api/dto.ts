@@ -34,10 +34,10 @@ export type ChatRoomListResponse = Array<{
   productInfo: {
     id: ProductInfoEntity['id'];
     seller: Omit<UserEntity, 'email' | 'userIntroduce' | 'stars' | 'loginType'>;
-    productName: ProductInfoEntity['productName'];
+    productName: ProductInfoEntity['name'];
     price: ProductInfoEntity['price'];
-    saleState: ProductInfoEntity['saleState'];
-    imageThumbnail: ProductInfoEntity['imageThumbnail'];
+    saleState: ProductInfoEntity['status'];
+    imageThumbnail: ProductInfoEntity['thumbnailImage'];
     purchaser: UserEntity['id'] | null;
   };
   lastMessage: ChatContent;

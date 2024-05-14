@@ -18,6 +18,10 @@ const ProductSearchResultList = () => {
   };
 
   const { data, isError } = useGetSearchResultList(initialParams);
+  // const { data, isError, isFetching, isLoading } = useGetSearchResultList(initialParams);
+
+  // console.log(`isFetching: ${isFetching}`);
+  // console.log(`isLoading: ${isLoading}`);
 
   if (isError) {
     return <p>에러 발생!</p>;

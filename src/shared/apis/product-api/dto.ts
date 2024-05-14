@@ -100,7 +100,7 @@ export interface ProductInfoEntity {
   /**
    * 상품 이름
    */
-  productName: string;
+  name: string;
   /**
    * 상품이 등록된 지역
    */
@@ -112,11 +112,11 @@ export interface ProductInfoEntity {
   /**
    * 상품 조회수
    */
-  views: number;
+  view: number;
   /**
    * 대표 이미지
    */
-  imageThumbnail: string;
+  thumbnailImage: string;
   /**
    * contents 필드의 내용에서 추출된 이미지들(상품 설명 내용에 포함된 이미지들)
    */
@@ -124,7 +124,7 @@ export interface ProductInfoEntity {
   /**
    * 상품 소개글(내용 + 이미지) string HTML 형태로
    */
-  description: string;
+  content: string;
   /**
    * 판매자 정보. 판매자 === 상품 판매글 작성자. User Entity 참고
    */
@@ -136,11 +136,11 @@ export interface ProductInfoEntity {
   /**
    * 판매중/판매취소/판매완료
    */
-  saleState: SaleState;
+  status: SALE_STATE;
   /**
    * 중고/새 상품 여부
    */
-  productCondition: ProductCondition;
+  condition: ProductCondition;
 }
 
 export interface ProductListItemDto {
@@ -191,15 +191,21 @@ export interface ProductListItemDto {
   /**
    * 판매 상태
    */
-  status: SaleState;
+  status: SALE_STATE;
   /**
    * 상품 썸네일
    */
   thumbnailImage: string;
+  thumbnailUrl: string;
+
   /**
    * 상품 상세 이미지
    */
-  images: string[];
+  imageUrls: string[];
+  /**
+   * 상품 업로드 날짜
+   */
+  createAt: string;
   /**
    * 찜상태
    */

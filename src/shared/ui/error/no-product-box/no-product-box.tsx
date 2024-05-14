@@ -23,6 +23,7 @@ export const SNoProductBox = styled.div`
   p {
     margin-top: 35px;
     font-size: 1.8rem;
+    font-weight: 500;
     color: ${({ theme }) => theme.color.gray_9E9E9E};
   }
 
