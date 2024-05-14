@@ -15,11 +15,12 @@ import { MainBannerSwiper } from './ui/main-banner-swiper';
 export const HomePage = () => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { changeContent, clearSelectedValues } = useCheckedCategoryStore();
+  const { changeContent, clearSelectedValues, changePagingStatus, pagingStatus } = useCheckedCategoryStore();
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     clearSelectedValues();
+    changePagingStatus(1, 12, pagingStatus.totalItemCount);
 
     // console.log(inputRef?.current?.value);
     if (inputRef?.current) {

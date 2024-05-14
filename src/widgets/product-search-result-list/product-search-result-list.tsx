@@ -35,7 +35,7 @@ const ProductSearchResultList = () => {
   // console.log(`isLoading: ${isLoading}`);
 
   useEffect(() => {
-    if (totalCardCount) {
+    if (totalCardCount !== undefined && totalCardCount >= 0) {
       return changePagingStatus(pagingStatus.page, pagingStatus.size, totalCardCount);
     }
   }, [totalCardCount]);
@@ -51,7 +51,7 @@ const ProductSearchResultList = () => {
         <>
           <S.SearchResultArea>
             <ProductFlexList listData={data.content} />
-            {totalCardCount && (
+            {totalCardCount && pagingStatus.totalItemCount > pagingStatus.size && (
               <div className='pagination-container'>
                 <Pagination totalCount={totalCardCount} itemsPerPage={12} />
               </div>

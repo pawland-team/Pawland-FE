@@ -1,3 +1,5 @@
+import { MouseEventHandler } from 'react';
+
 import { usePaginate, usePaginateParams } from '@shared/hooks/use-paginate/usePaginate';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
@@ -19,6 +21,12 @@ const Pagination = ({ totalCount, itemsPerPage = 8, pagesPerGroup = 5 }: usePagi
 
   const { changePagingStatus, pagingStatus } = useCheckedCategoryStore();
 
+  const handleClickToChangePage: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const targetValue = e.currentTarget;
+    changePage(targetValue.innerText);
+    changePagingStatus(Number(targetValue.innerText), pagingStatus.size, pagingStatus.totalItemCount);
+  };
+
   return (
     <S.PaginationContainer>
       <S.ArrowButton type='button' onClick={jumpToPreviousPageGroup} disabled={canJumpToPreviousPageGroup}>
@@ -28,10 +36,7 @@ const Pagination = ({ totalCount, itemsPerPage = 8, pagesPerGroup = 5 }: usePagi
         <S.NumberButton
           type='button'
           key={number}
-          onClick={(e) => {
-            changePage(e.target.innerText);
-            changePagingStatus(Number(e.target.innerText), pagingStatus.size, pagingStatus.totalItemCount);
-          }}
+          onClick={handleClickToChangePage}
           className={number === pagingStatus.page ? 'active' : ''}
           // disabled={number === usePaginateRest.totalPages}
         >

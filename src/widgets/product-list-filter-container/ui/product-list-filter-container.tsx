@@ -38,6 +38,8 @@ const ProductListFilterContainer = () => {
     clearSelectedValues,
     changeIsFree,
     isFree,
+    changePagingStatus,
+    pagingStatus,
   } = useCheckedCategoryStore();
 
   const handleGroupCategoryValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +55,7 @@ const ProductListFilterContainer = () => {
         [e.target.name]: [...selectedSearchParams[e.target.name as keyof selectedSearchParamsType], value],
       });
       queryClient.invalidateQueries({ queryKey: ['product'] });
+      changePagingStatus(1, 12, pagingStatus.totalItemCount);
     }
   };
 
@@ -62,26 +65,23 @@ const ProductListFilterContainer = () => {
     if (value) {
       changeIsFree(!isFree);
     }
+
+    changePagingStatus(1, 12, pagingStatus.totalItemCount);
   };
 
   const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
     // 이벤트 버블링 활용하였음. e.target하면 클릭된 요소가 찍혀서 원하는 텍스트만 가져오기 힘듦.
     removeSelectedValue(e.target.name, e.target.id);
     queryClient.invalidateQueries({ queryKey: ['product'] });
+    changePagingStatus(1, 12, pagingStatus.totalItemCount);
   };
 
   const handleClearSelectedValue = () => {
     clearSelectedValues();
     setSelectedSearchParams(initialSearchParam);
     queryClient.invalidateQueries({ queryKey: ['product'] });
+    changePagingStatus(1, 12, pagingStatus.totalItemCount);
   };
-
-  // TODO: 이거 이렇게 해주는게 맞나..?????? 근데 이렇게 안해주면 클릭할 때 마다 url 반영이 바로바로 안됨.
-  // useEffect(() => {
-  //   router.push(
-  //     `/product?page=1&size=12&region=${searchParams.region}&species=${searchParams.species}&category=${searchParams.category}&isFree=${isFree}&content=${content}&orderBy=${sorting}`,
-  //   );
-  // }, [searchParams, sorting, isFree, content]);
 
   return (
     <S.FilterContainer>
