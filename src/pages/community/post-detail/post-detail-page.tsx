@@ -254,7 +254,16 @@ export const CommunityPostDetailPage = () => {
       });
 
       if (response.ok) {
-        router.push('/community/list');
+        openModalList({
+          ModalComponent: PostModal,
+          modalKey: ['delete-modal'],
+          props: {
+            content: '게시글 삭제가 완료되었습니다.',
+            onClose: () => {
+              router.push('/community/list');
+            },
+          },
+        });
       } else {
         throw new Error('Failed to delete the post.');
       }
