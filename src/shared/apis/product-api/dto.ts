@@ -136,7 +136,7 @@ export interface ProductInfoEntity {
   /**
    * 판매중/판매취소/판매완료
    */
-  status: SALE_STATE;
+  status: SaleStateValue;
   /**
    * 중고/새 상품 여부
    */
@@ -191,7 +191,7 @@ export interface ProductListItemDto {
   /**
    * 판매 상태
    */
-  status: SALE_STATE;
+  status: SaleStateValue;
   /**
    * 상품 썸네일
    */
@@ -266,13 +266,13 @@ export interface PrductRegisterResponse {
   category: CategoryValue;
   species: SpeciesValue;
   condition: ProductConditionValue;
-  name: ProductInfoEntity['productName'];
+  name: ProductInfoEntity['name'];
   price: ProductInfoEntity['price'];
-  content: ProductInfoEntity['description'];
+  content: ProductInfoEntity['content'];
   region: Region;
-  view: ProductInfoEntity['views'];
+  view: ProductInfoEntity['view'];
   status: SaleStateValue;
-  thumbnailUrl: ProductInfoEntity['imageThumbnail'];
+  thumbnailUrl: ProductInfoEntity['thumbnailImage'];
   imageUrls: ProductInfoEntity['imageUrls'];
   createAt: ProductInfoEntity['createdAt'];
   wished: boolean;
