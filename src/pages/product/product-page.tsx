@@ -24,7 +24,7 @@ import * as S from './product-page-style';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string>('');
-  const { sorting, changeSelectedSortingValue, changeContent, content } = useCheckedCategoryStore();
+  const { sorting, changeSelectedSortingValue, changeContent, content, pagingStatus } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
@@ -84,6 +84,7 @@ const ProductPage = () => {
           <ProductListFilterContainer />
         </S.filterArea>
         <S.SelectBoxArea>
+          <p>{pagingStatus.totalItemCount}개의 상품</p>
           <CommonSelectBox
             selectedName={sorting}
             dropdownList={productListSortingData}

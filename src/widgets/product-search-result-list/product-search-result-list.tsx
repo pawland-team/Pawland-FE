@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
@@ -10,7 +12,7 @@ import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/
  */
 
 const ProductSearchResultList = () => {
-  const { searchParams, isFree, sorting, content, pagingStatus } = useCheckedCategoryStore();
+  const { searchParams, isFree, sorting, content, pagingStatus, changePagingStatus } = useCheckedCategoryStore();
 
   const newSearchParams: SearchListParam = {
     page: pagingStatus.page,
@@ -24,9 +26,16 @@ const ProductSearchResultList = () => {
   };
 
   const { data, isLoading } = useGetSearchResultList(newSearchParams);
+  const totalCardCount = data?.totalElements;
 
   // console.log(`isFetching: ${isFetching}`);
   // console.log(`isLoading: ${isLoading}`);
+
+  useEffect(() => {
+    if (totalCardCount) {
+      return changePagingStatus(pagingStatus.page, pagingStatus.size, totalCardCount);
+    }
+  }, [totalCardCount]);
 
   // ? : 상품 결과 없을 때 그냥 빈 배열 보내주면 안되는건지?
   if (isLoading) {
