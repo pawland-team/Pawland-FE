@@ -17,6 +17,7 @@ export interface UserEntity {
    */
   stars: number;
   loginType: LoginType;
+  // reviewCount: number;
 }
 
 export interface GetUserInfoResponse {

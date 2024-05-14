@@ -8,6 +8,10 @@ export const CATEGORY = {
   etc: '그 외',
 } as const;
 
+export const CATEGORY_REGEX = /사료|장난감|옷|악세서리|그 외/;
+
+export type CategoryValue = CategoryDTO[Category];
+
 export type CategoryDTO = typeof CATEGORY;
 
 export type Category = keyof typeof CATEGORY;
@@ -21,6 +25,10 @@ export const SALE_STATE = {
 export type SaleStateDTO = typeof SALE_STATE;
 
 export type SaleState = keyof typeof SALE_STATE;
+
+export type SaleStateValue = SaleStateDTO[SaleState];
+
+export const REGION_REGEX = /서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|해외/;
 
 export type Region =
   | '서울'
@@ -45,17 +53,32 @@ export type Region =
 export const SPECIES = {
   dog: '강아지',
   cat: '고양이',
-  etc: '기타',
+  etc: '그 외',
 } as const;
+
+export const SPECIES_REGEX = /강아지|고양이|그 외/;
+
+export type SpeciesValue = SpeciesDTO[Species];
 
 export type SpeciesDTO = typeof SPECIES;
 
 export type Species = keyof typeof SPECIES;
 
+export const PRODUCT_CONDITION = {
+  new: '새상품',
+  used: '중고판매',
+} as const;
+
+export const PRODUCT_CONDITION_REGEX = /새상품|중고판매/;
+
+export type ProductConditionValue = ProductConditionDTO[ProductCondition];
+
+export type ProductConditionDTO = typeof PRODUCT_CONDITION;
+
 /**
  * 중고인지 여부
  */
-export type ProductCondition = 'new' | 'used';
+export type ProductCondition = keyof typeof PRODUCT_CONDITION;
 
 /**
  * 상품 정보 entity
@@ -210,4 +233,41 @@ export interface ProductListDto {
   first: true;
   last: true;
   empty: true;
+}
+
+export interface ProductRegisterRequest {
+  category: CategoryValue;
+  species: SpeciesValue;
+  condition: ProductConditionValue;
+  name: string;
+  price: number;
+  content: string;
+  region: Region;
+  thumbnailImage: string;
+  images: Array<string>;
+}
+
+export interface PrductRegisterResponse {
+  id: ProductInfoEntity['id'];
+  seller: {
+    id: UserEntity['id'];
+    email: UserEntity['email'];
+    nickname: UserEntity['nickname'];
+    profileImage: UserEntity['profileImage'];
+    star: UserEntity['stars'];
+    reviewCount: number;
+  };
+  category: CategoryValue;
+  species: SpeciesValue;
+  condition: ProductConditionValue;
+  name: ProductInfoEntity['productName'];
+  price: ProductInfoEntity['price'];
+  content: ProductInfoEntity['description'];
+  region: Region;
+  view: ProductInfoEntity['views'];
+  status: SaleStateValue;
+  thumbnailUrl: ProductInfoEntity['imageThumbnail'];
+  imageUrls: ProductInfoEntity['imageUrls'];
+  createAt: ProductInfoEntity['createdAt'];
+  wished: boolean;
 }

@@ -11,3 +11,5 @@ export { postCancelWished } from './post-cancel-wished-api';
 export { getProductList } from './get-product-list-api';
 
 export { getProductSearchList } from './get-product-search-list-api';
+
+export { registerProduct } from './register-product-api';
