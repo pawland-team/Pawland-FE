@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-type usePaginateParams = {
+export type usePaginateParams = {
   /**
    * DB 아이템 총 개수
    */

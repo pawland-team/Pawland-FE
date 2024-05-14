@@ -5,7 +5,10 @@ import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-r
 import { ProductFlexList } from '@entities/product/ui';
 import { SearchListParam } from '@shared/apis/product-api/get-product-search-list-api';
 import { NoProductBox } from '@shared/ui/error';
+import { Pagination } from '@shared/ui/pagination';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
+
+import * as S from './style';
 
 /**
  * 상품 리스트 (검색 결과) + 페이지네이션 같이 있는 컴포넌트
@@ -44,7 +47,18 @@ const ProductSearchResultList = () => {
 
   if (data) {
     if (data.content.length > 0) {
-      return <ProductFlexList listData={data.content} />;
+      return (
+        <>
+          <S.SearchResultArea>
+            <ProductFlexList listData={data.content} />
+            {totalCardCount && (
+              <div className='pagination-container'>
+                <Pagination totalCount={totalCardCount} itemsPerPage={12} />
+              </div>
+            )}
+          </S.SearchResultArea>
+        </>
+      );
     }
   }
 
