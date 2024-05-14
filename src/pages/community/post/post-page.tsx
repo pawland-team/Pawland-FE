@@ -1,8 +1,12 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useMemo, useRef, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+import 'react-quill/dist/quill.snow.css';
+
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { QuillOptionsStatic } from 'quill';
 
 import { useModalList } from '@shared/hooks/use-modal';
 import { PostModal } from '@shared/ui/modal/post-modal';
@@ -14,13 +18,118 @@ interface FormData extends FieldValues {
   content: string;
 }
 
+interface ReactQuillProps {
+  theme: string;
+  value: string;
+  onChange: (content: string) => void;
+  modules?: QuillOptionsStatic['modules'];
+  formats: string[];
+  // 무슨 타입을 줘야될지 몰라서 임시로 any 설정했습니다
+  forwardedRef: React.Ref<any>;
+  style: React.CSSProperties;
+}
+
+const ReactQuill = dynamic<ReactQuillProps>(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+
+    // eslint-disable-next-line react/display-name
+    return ({ forwardedRef, ...props }: ReactQuillProps) => <RQ ref={forwardedRef} {...props} />;
+  },
+  {
+    ssr: false,
+  },
+);
+
 export const CommunityPostPage = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [thumbnailPreview, setThumbnailPreview] = useState<string>('');
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const { register, handleSubmit, watch, reset } = useForm<FormData>();
+  const { register, handleSubmit, setValue, watch, reset } = useForm<FormData>();
   const { openModalList } = useModalList();
   const router = useRouter();
+  // 무슨 타입을 줘야될지 몰라서 임시로 any 설정했습니다
+  const quillRef = useRef<any>(null);
+
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'color',
+    'background',
+    'video',
+  ];
+
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files ? input.files[0] : null;
+
+      if (file) {
+        const fileName = file.name;
+        console.log('콘텐츠 이미지 이름:', fileName);
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fileName }),
+          credentials: 'include',
+        });
+
+        if (!response.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
+
+        const preSignedData = await response.json();
+        const { presignedUrl }: { presignedUrl: string } = preSignedData;
+
+        const uploadResponse = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+
+        if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
+
+        const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
+        const imageUrl = `${s3BucketBaseUrl}/${fileName}`;
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection(true);
+        editor.insertEmbed(range.index, 'image', imageUrl);
+      }
+    };
+  };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: '1' }, { header: '2' }, { font: [] }],
+          [{ color: [] }, { background: [] }],
+          [{ size: ['small', false, 'large', 'huge'] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image', 'video'],
+        ],
+        handlers: { image: imageHandler },
+      },
+    }),
+    [],
+  );
 
   const onSubmit = async (data: FormData) => {
     console.log('form submitted', data);
@@ -52,7 +161,7 @@ export const CommunityPostPage = () => {
     try {
       // 프리사인 URL 요청
       const fileName = thumbnailFile.name;
-      console.log('fileName:', fileName);
+      console.log('썸네일 이미지 이름:', fileName);
 
       const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
         method: 'POST',
@@ -223,7 +332,15 @@ export const CommunityPostPage = () => {
 
         <S.TextEditorArea>
           <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
-          <textarea placeholder='내용을 입력해주세요.' {...register('content', { required: true })} />
+          <ReactQuill
+            forwardedRef={quillRef}
+            theme='snow'
+            value={watch('content')}
+            onChange={(content) => setValue('content', content)}
+            modules={modules}
+            formats={formats}
+            style={{ height: '500px' }}
+          />
         </S.TextEditorArea>
 
         <S.PostThumnailImageArea>
