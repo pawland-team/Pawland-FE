@@ -1,3 +1,4 @@
+// import { cookies } from 'next/headers';
 import { NextFetchEvent, NextRequest } from 'next/server';
 
 /**
@@ -39,6 +40,16 @@ export const middleware = (_req: NextRequest, _event: NextFetchEvent) => {
   //     headers: requestHeaders,
   //   },
   // });
+  // const ACCESS_TOKEN = 'jwt';
+  // console.log('middleware가 시작되었습니다.');
+  // const accessToken = cookies().get(ACCESS_TOKEN)?.value;
+  // if (!accessToken) {
+  //   console.log('accessToken이 없습니다.');
+  //   // @see URL second argument https://nodejs.org/api/url.html#new-urlinput-base
+  //   // @see Conditional Statements https://nextjs.org/docs/app/building-your-application/routing/middleware#conditional-statements
+  //   const signPage = new URL('/signin', request.nextUrl.origin);
+  //   return NextResponse.redirect(signPage);
+  // }
 };
 
 export const config = {

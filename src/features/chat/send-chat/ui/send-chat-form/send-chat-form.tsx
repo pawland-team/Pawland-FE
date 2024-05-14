@@ -35,6 +35,7 @@ export const SendChatForm = ({
       message: '메세지를 입력해주세요.',
     },
   });
+  // TODO: 제거해도 될 듯
   useImperativeHandle(messageFieldRegisterRef, () => textAreaRef.current, []);
 
   const onSubmit = ({ message }: { message: string }) => {
