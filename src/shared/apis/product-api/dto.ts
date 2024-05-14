@@ -4,11 +4,11 @@ export const CATEGORY = {
   food: '사료',
   toy: '장난감',
   clothes: '옷',
-  accessory: '악세서리',
-  etc: '그 외',
+  accessory: '악세사리',
+  etc: '그외',
 } as const;
 
-export const CATEGORY_REGEX = /사료|장난감|옷|악세서리|그 외/;
+export const CATEGORY_REGEX = /사료|장난감|옷|악세사리|그외/;
 
 export type CategoryValue = CategoryDTO[Category];
 
@@ -19,7 +19,7 @@ export type Category = keyof typeof CATEGORY;
 export const SALE_STATE = {
   selling: '판매중',
   canceled: '판매취소',
-  completed: '판매완료',
+  completed: '판매 완료',
 } as const;
 
 export type SaleStateDTO = typeof SALE_STATE;
@@ -53,10 +53,10 @@ export type Region =
 export const SPECIES = {
   dog: '강아지',
   cat: '고양이',
-  etc: '그 외',
+  etc: '그외',
 } as const;
 
-export const SPECIES_REGEX = /강아지|고양이|그 외/;
+export const SPECIES_REGEX = /강아지|고양이|그외/;
 
 export type SpeciesValue = SpeciesDTO[Species];
 
@@ -66,10 +66,10 @@ export type Species = keyof typeof SPECIES;
 
 export const PRODUCT_CONDITION = {
   new: '새상품',
-  used: '중고판매',
+  used: '중고',
 } as const;
 
-export const PRODUCT_CONDITION_REGEX = /새상품|중고판매/;
+export const PRODUCT_CONDITION_REGEX = /새상품|중고/;
 
 export type ProductConditionValue = ProductConditionDTO[ProductCondition];
 
