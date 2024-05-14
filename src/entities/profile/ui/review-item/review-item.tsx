@@ -2,11 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
-<<<<<<<< HEAD:src/entities/profile/ui/review-item/review-item.tsx
-
-import * as S from './review-item-style';
-========
->>>>>>>> 7cc1cd6 (Feat: 프로필페이지 커뮤니티 리스트 api 연동, 유저페이지 ui, 폴더구조 변경 ):src/entities/profile/review-item/ui/review-item.tsx
 
 import * as S from './review-item-style';
 
