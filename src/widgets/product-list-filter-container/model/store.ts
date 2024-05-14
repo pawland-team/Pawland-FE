@@ -59,8 +59,18 @@ export interface CheckedCategoryState {
    * isFree 검색용 params
    */
   isFree: boolean;
-
+  /**
+   * 키워드 검색
+   */
   content: string;
+  /**
+   * 페이지네이션 용 현재 페이지
+   */
+  page: number;
+  /**
+   * 한 페이지당 보여지는 카드 갯수
+   */
+  size: number;
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
@@ -70,6 +80,8 @@ export interface CheckedCategoryState {
   clearSelectedValues: () => void;
   changeIsFree: (isChecked: boolean) => void;
   changeContent: (value: string) => void;
+  changePage: (page: number) => void;
+  changeSize: (size: number) => void;
 }
 
 const initialValueList = {
@@ -135,6 +147,9 @@ const initialSearchParams = {
 
 const initialIsFree = false;
 
+const initialPage = 1;
+const initialSize = 12;
+
 export const useCheckedCategoryStore = create<CheckedCategoryState>()(
   devtools((set) => ({
     initialValueList,
@@ -144,6 +159,8 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     searchParams: initialSearchParams,
     isFree: initialIsFree,
     content: '',
+    page: initialPage,
+    size: initialSize,
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -242,9 +259,17 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     changeIsFree: (isChecked: boolean) => {
       set({ isFree: isChecked });
     },
-
+    // 키워드 검색 용
     changeContent: (value: string) => {
       set({ content: value });
+    },
+    // 페이지 변경
+    changePage: (page: number) => {
+      set({ page });
+    },
+    // 사이즈 변경
+    changeSize: (size: number) => {
+      set({ size });
     },
   })),
 );
