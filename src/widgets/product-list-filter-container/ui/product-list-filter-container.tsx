@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
+import { getQueryClient } from '@shared/lib/get-query-client';
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
 import { SelectedCategoryBox } from '@widgets/product-selected-category-box';
@@ -17,6 +18,7 @@ interface selectedSearchParamsType {
 
 const ProductListFilterContainer = () => {
   const router = useRouter();
+  const queryClient = getQueryClient();
 
   const initialSearchParam = {
     region: [],
@@ -56,6 +58,7 @@ const ProductListFilterContainer = () => {
         ...selectedSearchParams,
         [e.target.name]: [...selectedSearchParams[e.target.name as keyof selectedSearchParamsType], value],
       });
+      queryClient.invalidateQueries({ queryKey: ['product'] });
     }
   };
 
@@ -70,11 +73,13 @@ const ProductListFilterContainer = () => {
   const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
     // 이벤트 버블링 활용하였음. e.target하면 클릭된 요소가 찍혀서 원하는 텍스트만 가져오기 힘듦.
     removeSelectedValue(e.target.name, e.target.id);
+    queryClient.invalidateQueries({ queryKey: ['product'] });
   };
 
   const handleClearSelectedValue = () => {
     clearSelectedValues();
     setSelectedSearchParams(initialSearchParam);
+    queryClient.invalidateQueries({ queryKey: ['product'] });
   };
 
   // TODO: 이거 이렇게 해주는게 맞나..?????? 근데 이렇게 안해주면 클릭할 때 마다 url 반영이 바로바로 안됨.

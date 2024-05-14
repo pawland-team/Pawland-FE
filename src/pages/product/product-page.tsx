@@ -3,6 +3,7 @@ import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 // import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
+import { getQueryClient } from '@shared/lib/get-query-client';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
@@ -34,10 +35,12 @@ const ProductPage = () => {
   };
 
   const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    const queryClient = getQueryClient();
     const target = e.target as HTMLButtonElement | HTMLDivElement;
     const value = target.innerText as SortingValueType;
     changeSelectedSortingValue(value);
     setIsDropdownOpened(false);
+    queryClient.invalidateQueries({ queryKey: ['product'] });
   };
 
   useEffect(() => {

@@ -23,8 +23,9 @@ export const getServerSideProps: GetServerSideProps<{ dehydratedState: Dehydrate
       region: '',
       species: '',
       category: '',
-      isFree: 'false',
+      isFree: '',
       orderBy: '최신순',
+      content: '',
     }),
   });
 
