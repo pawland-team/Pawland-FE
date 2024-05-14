@@ -21,6 +21,7 @@ const ProductSearchResultList = () => {
     category: String(router.query.category),
     isFree: String(router.query.isFree),
     orderBy: String(router.query.orderBy),
+    content: String(router.query.content),
   };
 
   const { data, isLoading } = useGetSearchResultList(searchParams);

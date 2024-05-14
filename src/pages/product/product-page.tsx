@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent, useRef, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 
 // import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -23,7 +23,7 @@ import * as S from './product-page-style';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string | undefined>('');
-  const { sorting, changeSelectedSortingValue } = useCheckedCategoryStore();
+  const { sorting, changeSelectedSortingValue, changeContent } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
@@ -39,6 +39,12 @@ const ProductPage = () => {
     changeSelectedSortingValue(value);
     setIsDropdownOpened(false);
   };
+
+  useEffect(() => {
+    if (keyword) {
+      changeContent(keyword);
+    }
+  }, [keyword]);
 
   return (
     <>

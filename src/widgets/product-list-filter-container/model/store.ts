@@ -59,6 +59,8 @@ export interface CheckedCategoryState {
    * isFree 검색용 params
    */
   isFree: boolean;
+
+  content: string;
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
@@ -67,6 +69,7 @@ export interface CheckedCategoryState {
   changeSelectedSortingValue: (value: SortingValueType) => void;
   clearSelectedValues: () => void;
   changeIsFree: (isChecked: boolean) => void;
+  changeContent: (value: string) => void;
 }
 
 const initialValueList = {
@@ -140,6 +143,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     sorting: initialSorting,
     searchParams: initialSearchParams,
     isFree: initialIsFree,
+    content: '',
 
     addSelectedValue: (group, value, isChecked) => {
       set((state) => {
@@ -237,6 +241,10 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     // isFree 변경하기
     changeIsFree: (isChecked: boolean) => {
       set({ isFree: isChecked });
+    },
+
+    changeContent: (value: string) => {
+      set({ content: value });
     },
   })),
 );
