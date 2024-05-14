@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은가격순' | '높은가격순';
+export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
 
 export type CategoryItemList = {
   group: string;
@@ -100,7 +100,7 @@ const initialValueList = {
     data: [
       { value: '강아지', label: '강아지', isChecked: false },
       { value: '고양이', label: '고양이', isChecked: false },
-      { value: '그외', label: '그외', isChecked: false },
+      { value: '그 외 동물', label: '그 외 동물', isChecked: false },
     ],
   },
   category: {
@@ -110,7 +110,7 @@ const initialValueList = {
       { value: '장난감', label: '장난감', isChecked: false },
       { value: '옷', label: '옷', isChecked: false },
       { value: '악세사리', label: '악세사리', isChecked: false },
-      { value: '그외', label: '그외', isChecked: false },
+      { value: '그 외 상품', label: '그 외 상품', isChecked: false },
     ],
   },
   isFree: {
