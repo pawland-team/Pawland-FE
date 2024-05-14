@@ -9,7 +9,7 @@ export interface SearchListParam {
   category: string;
   isFree: string;
   orderBy: string;
-  content: string;
+  content: string | null;
 }
 
 /**
@@ -25,7 +25,7 @@ export const getProductSearchList = async ({
   category,
   isFree,
   orderBy,
-  content,
+  content = null,
 }: SearchListParam) => {
   const response = await clientWithTokenApi.get<ProductListDto>(
     `/api/product?page=${page}&size=${size}&region=${region}&species=${species}&category=${category}&isFree=${isFree}&content=${content}&orderBy=${orderBy}`,
