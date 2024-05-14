@@ -1,6 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
+import { getMyTransactionList } from '@shared/apis/profile-api/get-my-transaction-list-api';
 
 export const myCommunityQueryKeys = {
   all: () => ['myCommunityList'],
@@ -55,6 +56,28 @@ export const myWishListQuery = {
     queryOptions({
       queryKey: myWishListQueryKeys.myWishList(),
       queryFn: () => getMyWishList(),
+      staleTime: 3 * 60 * 1000,
+    }),
+};
+
+export const myTransactionQueryKeys = {
+  all: () => ['myTransactionList'],
+  myTransactionList: ({ page, size, type }: getMyProductListParams) => [
+    ...myTransactionQueryKeys.all(),
+    { page, size, type },
+  ],
+};
+
+export const myTransactionQuery = {
+  all: () =>
+    queryOptions({
+      queryKey: myTransactionQueryKeys.all(),
+    }),
+
+  myTransactionList: ({ page, size, type }: getMyProductListParams) =>
+    queryOptions({
+      queryKey: myTransactionQueryKeys.myTransactionList({ page, size, type }),
+      queryFn: () => getMyTransactionList({ page, size, type }),
       staleTime: 3 * 60 * 1000,
     }),
 };

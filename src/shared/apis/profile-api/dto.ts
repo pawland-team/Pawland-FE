@@ -1,3 +1,4 @@
+import { SelectHTMLAttributes } from 'react';
 import { ProductListItemDto } from '../product-api';
 import { UserEntity } from '../user-api';
 
@@ -81,3 +82,34 @@ export interface getMyProductListParams {
   size: number;
   type: string;
 }
+
+type Seller = {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string;
+  star: number;
+  reviewCount: number;
+};
+
+type Buyer = Seller;
+
+type OderReviewResponse = {
+  id: number;
+  content: string;
+  star: number;
+  createdAt: string;
+};
+
+export interface MyTransactionEntity {
+  id: number;
+  seller: Seller;
+  buyer: Buyer;
+  product: ProductListItemDto;
+  sellerCheck: boolean;
+  buyerCheck: boolean;
+  orderStatus: string;
+  orderReviewResponse: OderReviewResponse;
+}
+
+export type MyTransactionListEntity = MyTransactionEntity[];
