@@ -64,6 +64,53 @@ export const CommunityPostDetailPage = () => {
   const { id } = router.query as { id: string };
   const { data: userData } = useGetUserInfo();
   const { openModalList } = useModalList();
+  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+  const [editingCommentText, setEditingCommentText] = useState<string>('');
+
+  const startEditingComment = (commentId: number, currentText: string) => {
+    setEditingCommentId(commentId);
+    setEditingCommentText(currentText);
+  };
+
+  const cancelEditingComment = () => {
+    setEditingCommentId(null);
+    setEditingCommentText('');
+  };
+
+  const handleEditCommentButtonClick = (commentId: number, currentText: string) => {
+    startEditingComment(commentId, currentText);
+  };
+
+  const handleCommentEditSubmit = async (event: FormEvent<HTMLFormElement>, commentId: number) => {
+    event.preventDefault();
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: editingCommentText }),
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const updatedComment = await response.json();
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId ? { ...comment, content: updatedComment.content } : comment,
+          ),
+        );
+        cancelEditingComment();
+      } else {
+        throw new Error('Failed to edit comment');
+      }
+    } catch (error) {
+      console.error('Error editing comment:', error);
+    }
+  };
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
@@ -403,13 +450,40 @@ export const CommunityPostDetailPage = () => {
                   <S.ComentDeleteWrapper>
                     <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
                     {comment.author.id === userData?.id && (
-                      <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
-                        X
-                      </S.ComentDeleteButton>
+                      <>
+                        <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                          X
+                        </S.ComentDeleteButton>
+
+                        {editingCommentId === comment.id ? (
+                          <>
+                            <button type='button' onClick={cancelEditingComment}>
+                              취소
+                            </button>
+                            <button type='button' onClick={(e) => handleCommentEditSubmit(e, comment.id)}>
+                              저장
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type='button'
+                            onClick={() => handleEditCommentButtonClick(comment.id, comment.content)}
+                          >
+                            수정하기
+                          </button>
+                        )}
+                      </>
                     )}
                   </S.ComentDeleteWrapper>
                   <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
-                  <S.Coment>{comment.content}</S.Coment>
+                  {editingCommentId === comment.id ? (
+                    <S.ComentTextarea
+                      value={editingCommentText}
+                      onChange={(e) => setEditingCommentText(e.target.value)}
+                    />
+                  ) : (
+                    <S.Coment>{comment.content}</S.Coment>
+                  )}
                 </S.ComentTextareaBox>
                 <S.EmptySpace />
 
