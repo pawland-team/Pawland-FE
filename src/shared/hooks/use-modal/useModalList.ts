@@ -4,7 +4,7 @@ import { useModalListDispatch } from './context/ModalListContext';
 import { CloseWithModalKey, OpenModalListWithModalKey, UseModalList } from './types';
 
 export const useModalList: UseModalList = () => {
-  const { closeWithModalKeyImpl, openWithModalKeyImpl, watch } = useModalListDispatch();
+  const { closeWithModalKeyImpl, openWithModalKeyImpl, watch, destroy } = useModalListDispatch();
 
   /**
    * @example
@@ -26,6 +26,6 @@ export const useModalList: UseModalList = () => {
     closeWithModalKeyImpl({ modalKey });
   };
 
-  return { openModalList, closeModalList, watch };
+  return { openModalList, closeModalList, watch, destroy };
 };
 // Path: hooks/use-modal/useModalList.ts

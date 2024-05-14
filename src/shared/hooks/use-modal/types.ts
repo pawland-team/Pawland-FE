@@ -23,10 +23,23 @@ export type ValidModalProps = ModalHandler & Obj;
 export type ValidModalPropsForList = ModalHandlerForList & Obj;
 
 export interface OpenModalListOptions {
+  /**
+   * is modal persist on background click
+   * @default false
+   */
   persist?: boolean | ModalKey;
+  /**
+   * is background scrollable
+   * @default false
+   */
+  scrollable?: boolean;
 }
 
-export interface OpenModalOptions extends OpenModalListOptions {
+/**
+ * TODO: scrollable 옵션 OpenModalOptions에도 적용하기
+ */
+// export interface OpenModalOptions extends OpenModalListOptions {
+export interface OpenModalOptions extends Omit<OpenModalListOptions, 'scrollable'> {
   persist?: boolean;
 }
 
@@ -239,7 +252,7 @@ export interface OpenedModalStateWithModalKey {
   props: ValidModalPropsForList;
 }
 
-type ManagedModalInfo = {
+export type ManagedModalInfo = {
   ModalComponent: ModalComponentForList;
   modalNode?: ModalNode;
   options?: OpenModalListOptions;
@@ -283,10 +296,13 @@ export type CloseWithModalKeyImpl = ({ modalKey }: { modalKey: ModalKey | String
 
 export type Watch = (modalKey: ModalKey) => ManagedModalInfo | undefined;
 
+export type Destroy = () => Promise<void>;
+
 export interface IModalListDispatchContext {
   openWithModalKeyImpl: OpenWithModalKeyImpl;
   closeWithModalKeyImpl: CloseWithModalKeyImpl;
   watch: Watch;
+  destroy: Destroy;
 }
 
 export type TModalListStateContext = Array<{
@@ -308,9 +324,22 @@ export type OpenModalListWithModalKey = <VMC extends ModalComponentForListSuperS
 }) => void;
 
 export type UseModalList = () => {
+  /**
+   * 특정 모달을 열어준다.(모달 키를 달리 하여 여러개의 모달을 연속적으로 열 수 있다.)
+   */
   openModalList: OpenModalListWithModalKey;
+  /**
+   * 특정 모달을 닫는다.
+   */
   closeModalList: CloseWithModalKey;
+  /**
+   * 특정 모달 정보를 가져온다.
+   */
   watch: Watch;
+  /**
+   * 모달 전체 제거
+   */
+  destroy: Destroy;
 };
 
 /// ////////////////////////////////////////////////////////////////////////////////////

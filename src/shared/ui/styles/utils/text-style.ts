@@ -20,3 +20,15 @@ export const backgroundClip = css`
     background-clip: text;
   }
 `;
+
+export const likePre = css`
+  unicode-bidi: embed;
+  display: block;
+
+  font-family: Pretendard, monospace;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+`;
