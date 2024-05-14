@@ -1,22 +1,32 @@
 import { FormEvent, useRef } from 'react';
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { mainBannerData } from '@pages/home/lib/main-banner-data';
 import { SearchInput } from '@shared/ui/inputs';
 import { categoryData, CategoryList } from '@widgets/main-category-list';
 import { MainProductList } from '@widgets/main-product-list';
+import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
 import * as S from './home-page-style';
 import { MainBannerSwiper } from './ui/main-banner-swiper';
 
 export const HomePage = () => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { changeContent, clearSelectedValues } = useCheckedCategoryStore();
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    clearSelectedValues();
 
     // console.log(inputRef?.current?.value);
+    if (inputRef?.current) {
+      changeContent(inputRef?.current?.value);
+    }
+
+    return router.push('/product');
   };
 
   return (
