@@ -4,15 +4,31 @@ export const CATEGORY = {
   food: '사료',
   toy: '장난감',
   clothes: '옷',
-  accessory: '악세서리',
-  etc: '그 외',
+  accessory: '악세사리',
+  etc: '그외',
 } as const;
+
+export const CATEGORY_REGEX = /사료|장난감|옷|악세사리|그외/;
+
+export type CategoryValue = CategoryDTO[Category];
 
 export type CategoryDTO = typeof CATEGORY;
 
 export type Category = keyof typeof CATEGORY;
 
-export type SALE_STATE = '판매중' | '판매취소' | '판매완료';
+export const SALE_STATE = {
+  selling: '판매중',
+  canceled: '판매취소',
+  completed: '판매 완료',
+} as const;
+
+export type SaleStateDTO = typeof SALE_STATE;
+
+export type SaleState = keyof typeof SALE_STATE;
+
+export type SaleStateValue = SaleStateDTO[SaleState];
+
+export const REGION_REGEX = /서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|해외/;
 
 export type Region =
   | '서울'
@@ -37,17 +53,32 @@ export type Region =
 export const SPECIES = {
   dog: '강아지',
   cat: '고양이',
-  etc: '기타',
+  etc: '그외',
 } as const;
+
+export const SPECIES_REGEX = /강아지|고양이|그외/;
+
+export type SpeciesValue = SpeciesDTO[Species];
 
 export type SpeciesDTO = typeof SPECIES;
 
 export type Species = keyof typeof SPECIES;
 
+export const PRODUCT_CONDITION = {
+  new: '새상품',
+  used: '중고',
+} as const;
+
+export const PRODUCT_CONDITION_REGEX = /새상품|중고/;
+
+export type ProductConditionValue = ProductConditionDTO[ProductCondition];
+
+export type ProductConditionDTO = typeof PRODUCT_CONDITION;
+
 /**
  * 중고인지 여부
  */
-export type ProductCondition = '새상품' | '중고';
+export type ProductCondition = keyof typeof PRODUCT_CONDITION;
 
 /**
  * 상품 정보 entity
@@ -105,7 +136,7 @@ export interface ProductInfoEntity {
   /**
    * 판매중/판매취소/판매완료
    */
-  status: SALE_STATE;
+  status: SaleStateValue;
   /**
    * 중고/새 상품 여부
    */
@@ -160,7 +191,7 @@ export interface ProductListItemDto {
   /**
    * 판매 상태
    */
-  status: SALE_STATE;
+  status: SaleStateValue;
   /**
    * 상품 썸네일
    */
@@ -208,4 +239,41 @@ export interface ProductListDto {
   first: true;
   last: true;
   empty: true;
+}
+
+export interface ProductRegisterRequest {
+  category: CategoryValue;
+  species: SpeciesValue;
+  condition: ProductConditionValue;
+  name: string;
+  price: number;
+  content: string;
+  region: Region;
+  thumbnailImage: string;
+  images: Array<string>;
+}
+
+export interface PrductRegisterResponse {
+  id: ProductInfoEntity['id'];
+  seller: {
+    id: UserEntity['id'];
+    email: UserEntity['email'];
+    nickname: UserEntity['nickname'];
+    profileImage: UserEntity['profileImage'];
+    star: UserEntity['stars'];
+    reviewCount: number;
+  };
+  category: CategoryValue;
+  species: SpeciesValue;
+  condition: ProductConditionValue;
+  name: ProductInfoEntity['name'];
+  price: ProductInfoEntity['price'];
+  content: ProductInfoEntity['content'];
+  region: Region;
+  view: ProductInfoEntity['view'];
+  status: SaleStateValue;
+  thumbnailUrl: ProductInfoEntity['thumbnailImage'];
+  imageUrls: ProductInfoEntity['imageUrls'];
+  createAt: ProductInfoEntity['createdAt'];
+  wished: boolean;
 }

@@ -1,5 +1,6 @@
-import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
 import { queryOptions } from '@tanstack/react-query';
+
+import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
 
 export const myCommunityQueryKeys = {
   all: () => ['myCommunityList'],

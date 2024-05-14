@@ -1,4 +1,4 @@
-import { MyProductListEntity, getMyProductListParams } from './dto';
+import { getMyProductListParams, MyProductListEntity } from './dto';
 import { clientWithTokenApi } from '../instance';
 
 export const getMyProductList = async ({ page, size, type }: getMyProductListParams) => {
