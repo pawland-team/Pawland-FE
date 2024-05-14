@@ -1,11 +1,12 @@
+import { useRouter } from 'next/router';
+
+import { useGetOtherUserInfo } from '@entities/user/hooks';
 import { UserCommunityList } from '@widgets/user-community-list';
 import { UserInfoArea } from '@widgets/user-info-area';
 import { UserRegisteredProductList } from '@widgets/user-registered-product-list';
 import { UserReviewList } from '@widgets/user-review-list';
 
 import * as S from './user-page-style';
-import { useRouter } from 'next/router';
-import { useGetOtherUserInfo } from '@entities/user/hooks';
 
 export const UserPage = () => {
   const router = useRouter();

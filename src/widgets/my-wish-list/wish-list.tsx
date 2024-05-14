@@ -1,11 +1,12 @@
 import { ProductFlexCardItem } from '@entities/product/ui';
-
-import * as S from './wish-list-style';
 import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
 import { NoProductBox } from '@shared/ui/error';
 
+import * as S from './wish-list-style';
+
 export const WishList = () => {
   const { data, status } = useGetMyWishList();
+
   if (status === 'success') {
     return (
       <S.WishList>

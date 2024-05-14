@@ -2,7 +2,13 @@
 
 import { useModalList } from './useModalList';
 
-export type { ModalComponent, ModalComponentForList, ModalComponentProps, ModalComponentPropsForList } from './types';
+export type {
+  ModalComponent,
+  ModalComponentForList,
+  ModalComponentProps,
+  ModalComponentPropsForList,
+  ModalKey,
+} from './types';
 
 export { useToggle } from './useToggle';
 

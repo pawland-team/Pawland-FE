@@ -39,7 +39,7 @@ export const useChatFormTextareaSizeControl = <T extends HTMLElement = HTMLEleme
     currentHeight: height,
   });
 
-  const { handleResizeHeight, textBoxRef: textAreaRef } = useAutoResize<T>({
+  const { handleResizeHeight, BoxRef } = useAutoResize<T>({
     minHeight,
     maxHeight,
   });
@@ -61,5 +61,5 @@ export const useChatFormTextareaSizeControl = <T extends HTMLElement = HTMLEleme
     }));
   }, [resizeInfo]);
 
-  return { handleResizeHeight, textAreaRef, changedTextAreaHeight, observerTargetRef };
+  return { handleResizeHeight, textAreaRef: BoxRef, changedTextAreaHeight, observerTargetRef };
 };

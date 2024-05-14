@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
-import { useRouter } from 'next/router';
 // import { useMutation } from '@tanstack/react-query';
 
 // interface FormData {
