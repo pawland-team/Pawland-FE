@@ -9,7 +9,7 @@ export type WebSocketChatResponse = ChatContent;
  */
 export type HTTPChatResponse = {
   nextCursor: string;
-  hasNext: boolean;
+  // hasNext: boolean;
   messageList: ChatContent[];
 };
 
