@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useEffect, useId, useRef } from 'react';
+import { BaseSyntheticEvent, PropsWithChildren, useEffect, useId, useRef } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 
 import { InferGetServerSidePropsType } from 'next';
@@ -39,12 +39,14 @@ import * as S from './style';
  *
  * ProdutEditPage로도 사용된다.
  */
-export const ProductRegisterPage = ({ productId }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export const ProductRegisterPage = ({
+  productId,
+}: PropsWithChildren<Partial<InferGetServerSidePropsType<typeof getServerSideProps>>>) => {
   const uniqueFormId = useId();
   const focusRef = useRef<FocusRef>({});
   const { openModalList, destroy } = useModalList();
   const { ModalComponent, isModalOpen, openModal, closeModal } = useModalWithLocalState();
-  const { data, status: getProductDetailStatus } = useGetProductDetail(productId, 0);
+  const { data, status: getProductDetailStatus } = useGetProductDetail(productId!, 0); // productId 없으면 실행 안 되게끔 해 놨음.
   const { status, mutateAsync } = useRegisterProductMutation();
   const { status: editStatus, mutateAsync: editMutateAsync } = useEditProductMutation();
 
@@ -204,7 +206,7 @@ export const ProductRegisterPage = ({ productId }: InferGetServerSidePropsType<t
     }
 
     try {
-      let productIdForPath: number = productId;
+      let productIdForPath: number | undefined = productId;
 
       if (productId) {
         await editMutateAsync({ productId, product: productRegisterInfo });
