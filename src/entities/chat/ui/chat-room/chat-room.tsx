@@ -201,7 +201,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
     );
   }
 
-  const { id: productId, imageThumbnail, price, productName, saleState } = productInfo;
+  const { id: productId, thumbnailImage, price, productName, saleState } = productInfo;
   // const { id: productId, imageThumbnail, price, productName, saleState } = productInfo ?? {};
   // const { id: opponentUserId, nickname, profileImage: opponentUserProfileImage } = opponentUser;
   // const { id: myId, email, nickname, profileImage: myProfileImage, stars, userDesc } = userInfo;
@@ -219,7 +219,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
               fill
               quality={100}
               sizes='68px'
-              src={imageThumbnail}
+              src={thumbnailImage}
               alt='상품 썸네일 이미지'
               priority
             />

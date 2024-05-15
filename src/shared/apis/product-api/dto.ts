@@ -196,8 +196,6 @@ export interface ProductListItemDto {
    * 상품 썸네일
    */
   thumbnailImage: string;
-  thumbnailUrl: string;
-
   /**
    * 상품 상세 이미지
    */
