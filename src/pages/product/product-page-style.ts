@@ -42,8 +42,14 @@ export const SearchSortingContainer = styled.div`
 
 export const SelectBoxArea = styled.section`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   margin: 60px 0 20px;
+
+  p {
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.color.gray_9E9E9E};
+  }
 `;
 
 export const CardListArea = styled.section`

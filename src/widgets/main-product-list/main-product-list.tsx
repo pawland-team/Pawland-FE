@@ -23,7 +23,7 @@ const MainProductList = () => {
         <>
           <div className='product-title-box'>
             <h3>최신 상품</h3>
-            <Link href='/product?page=1&size=12'>더보기</Link>
+            <Link href='/product'>더보기</Link>
           </div>
           <ProductFlexList listData={data?.content} />
         </>

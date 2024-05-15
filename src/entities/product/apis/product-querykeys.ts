@@ -6,9 +6,9 @@ import { SearchListParam } from '@shared/apis/product-api/get-product-search-lis
 export const productQueryKeys = {
   all: () => ['product'],
   mainList: (size: number) => [...productQueryKeys.all(), size],
-  searchList: ({ page, size, region, species, category, isFree, orderBy }: SearchListParam) => [
+  searchList: ({ page, size, region, species, category, isFree, content, orderBy }: SearchListParam) => [
     ...productQueryKeys.all(),
-    { page, size, region, species, category, isFree, orderBy },
+    { page, size, region, species, category, isFree, content, orderBy },
   ],
   productDetail: (id: number) => [...productQueryKeys.all(), id],
 };
@@ -28,10 +28,12 @@ export const productQuery = {
     }),
 
   // ? : 검색 리스트는 리렌더링 시간이 짧은 경우가 많을것 같아서 staleTime 0 으로 유지..?
-  searchList: ({ page, size, region, species, category, isFree, orderBy }: SearchListParam) =>
+  searchList: ({ page, size, region, species, category, isFree, content, orderBy }: SearchListParam) =>
     queryOptions({
-      queryKey: productQueryKeys.searchList({ page, size, region, species, category, isFree, orderBy }),
-      queryFn: () => getProductSearchList({ page, size, region, species, category, isFree, orderBy }),
+      queryKey: productQueryKeys.searchList({ page, size, region, species, category, isFree, content, orderBy }),
+      queryFn: () => getProductSearchList({ page, size, region, species, category, isFree, content, orderBy }),
+      staleTime: 0,
+      retry: false,
     }),
 
   productDetail: (id: number) =>
