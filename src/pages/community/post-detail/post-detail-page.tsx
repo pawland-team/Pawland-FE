@@ -242,7 +242,7 @@ export const CommunityPostDetailPage = () => {
     if (!replyContent) return;
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${commentId}`;
 
       const response = await fetch(url, {
         method: 'POST',
@@ -270,6 +270,41 @@ export const CommunityPostDetailPage = () => {
       }
     } catch (error) {
       console.error('Error submitting reply:', error);
+    }
+  };
+
+  const handleDeleteReply = async (commentId: number, replyId: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 댓글을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${replyId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? { ...comment, replies: comment.replies.filter((reply) => reply.id !== replyId) }
+              : comment,
+          ),
+        );
+      } else {
+        throw new Error('Failed to delete reply');
+      }
+    } catch (error) {
+      console.error('Error deleting reply:', error);
     }
   };
 
@@ -510,6 +545,9 @@ export const CommunityPostDetailPage = () => {
                         </S.ProfileImageWrapper>
                         <S.ComentPostBox>
                           <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                          <S.ComentDeleteButton type='button' onClick={() => handleDeleteReply(comment.id, reply.id)}>
+                            X
+                          </S.ComentDeleteButton>
                           <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
                           <S.Coment>{reply.content}</S.Coment>
                         </S.ComentPostBox>
