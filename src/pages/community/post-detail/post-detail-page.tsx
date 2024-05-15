@@ -286,6 +286,13 @@ export const CommunityPostDetailPage = () => {
   });
 
   const handleDeletePost = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 게시물을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`;
 
     try {
