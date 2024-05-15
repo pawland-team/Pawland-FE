@@ -46,7 +46,7 @@ export const WishList = () => {
   if (status === 'success') {
     return (
       <S.WishList>
-        {data?.content.length === 0 && <NoProductBox />}
+        {data?.content.length === 0 && <NoProductBox message='찜한 상품이 없습니다.' />}
         {data?.content.map((item) => (
           <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />
         ))}

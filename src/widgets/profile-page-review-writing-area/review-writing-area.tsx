@@ -31,6 +31,7 @@ export const ReviewWritingArea = ({ orderId }: ReviewWritingAreaProps) => {
 
       if (response.ok) {
         console.log('리뷰가 성공적으로 제출되었습니다.');
+        window.location.reload();
       } else {
         console.error('리뷰 제출 실패:', response.statusText);
       }

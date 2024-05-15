@@ -53,7 +53,7 @@ export const UserCommunityList = ({ userId }: UserCommunityListProps) => {
     return (
       <S.UserCommunityList>
         <h3>'닉네임'님이 작성한 글</h3>
-        {data?.content.length === 0 && <NoProductBox />}
+        {data?.content.length === 0 && <NoProductBox message='작성한 글이 없습니다.' />}
         {data.content.map((item) => (
           <UserCommunityPostItem key={item.id} item={item} />
         ))}

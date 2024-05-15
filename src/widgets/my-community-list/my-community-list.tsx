@@ -58,7 +58,7 @@ export const MyCommunityList = () => {
             iconPath={'images/icon/arrow-down-icon-gray.svg'}
           />
         </div>
-        {data?.content.length === 0 && <NoProductBox />}
+        {data?.content.length === 0 && <NoProductBox message='작성한 글이 없습니다.' />}
 
         {listData.map((item) => (
           <CommunityPostItem key={item.id} item={item} />

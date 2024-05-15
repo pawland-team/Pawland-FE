@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
-import * as S from './dropdown-button-style';
+import * as S from './product-dropdown-style';
+import { useDropdownStore } from '@shared/store/use-drop-down-store';
 
 interface DropdownButtonProps {
   dropdownItems: string[];
@@ -16,10 +17,9 @@ interface DropdownButtonProps {
   defaultMenu: string;
 }
 
-const DropdownButton = ({
+const ProductDropdownButton = ({
   dropdownItems,
   lastDropdownItem,
-  defaultMenu,
   iconPath = 'images/icon/arrow-down-icon-gray.svg',
   width = '120px',
   buttonHeight = '36px',
@@ -28,7 +28,10 @@ const DropdownButton = ({
   selectedFontSize = '1.6rem',
 }: DropdownButtonProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(defaultMenu);
+  // const [selectedMenu, setSelectedMenu] = useState(defaultMenu);
+
+  const selectedMenu = useDropdownStore((state) => state.selectedMenu);
+  const setSelectedMenu = useDropdownStore((state) => state.setSelectedMenu);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -66,4 +69,4 @@ const DropdownButton = ({
   );
 };
 
-export { DropdownButton };
+export { ProductDropdownButton };

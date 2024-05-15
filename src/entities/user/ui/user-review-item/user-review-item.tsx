@@ -13,7 +13,7 @@ interface UserReviewItemProps {
 
 export const UserReviewItem = ({ item }: UserReviewItemProps) => {
   return (
-    <Link href='/'>
+    <Link href={`/user/${item.reviewerId}`}>
       <S.ReviewItem>
         <Image className='user-profile' src={item.reviewerProfileImage} alt='프로필 이미지' width={95} height={95} />
 

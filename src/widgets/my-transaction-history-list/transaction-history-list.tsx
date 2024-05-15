@@ -42,9 +42,6 @@ export const TransactionHistoryList = () => {
         <TransactionTapMenuBar />
       </div>
       {renderComponent()}
-
-      {/* <TransactionItem reviewArea={<ReviewItem />} />
-      <TransactionItem reviewArea={<ReviewWritingArea />} /> */}
     </S.TransactionHistoryList>
   );
 };

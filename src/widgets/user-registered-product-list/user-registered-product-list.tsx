@@ -19,7 +19,7 @@ export const UserRegisteredProductList = ({ userId }: UserRegisteredProductListP
     return (
       <S.UserRegisteredProductList>
         <h3>'닉네임'님의 등록상품</h3>
-        {data?.content.length === 0 && <NoProductBox />}
+        {data?.content.length === 0 && <NoProductBox message='등록한 상품이 없습니다.' />}
         {data?.content && <ProductListSwiper productList={data?.content} />}
       </S.UserRegisteredProductList>
     );
