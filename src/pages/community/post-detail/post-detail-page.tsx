@@ -112,7 +112,7 @@ export const CommunityPostDetailPage = () => {
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const calculateTotalComments = (comments: Comment[]) => {
-    return comments.reduce((total, comment) => {
+    return comments?.reduce((total, comment) => {
       return total + 1 + comment.replies.length;
     }, 0);
   };
@@ -353,7 +353,7 @@ export const CommunityPostDetailPage = () => {
 
   const { title, content, region, author, createdAt, recommendCount, views } = communityPostDetail;
   const totalComments = calculateTotalComments(comments);
-  const htmlContent = content.replace(/\n/g, '<br />');
+  const htmlContent = content?.replace(/\n/g, '<br />');
 
   return (
     <S.PostDetailPage>
@@ -385,12 +385,14 @@ export const CommunityPostDetailPage = () => {
           </S.FlexBox>
 
           <S.EditBox>
-            {author.id === userData?.id && (
+            {author?.id === userData?.id && (
               <>
-                <S.PostFunctionBox>
-                  <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-                  <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
-                </S.PostFunctionBox>
+                <Link href={`/community/post-edit/${id}`}>
+                  <S.PostFunctionBox>
+                    <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                    <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
+                  </S.PostFunctionBox>
+                </Link>
 
                 <S.PostFunctionBox>
                   <Image src='/images/icon/delete-icon.svg' alt='edit-icon' width={20} height={20} />
