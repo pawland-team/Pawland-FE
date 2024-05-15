@@ -82,7 +82,7 @@ const SButtonBox = styled.div`
   height: 200px;
 
   background: rgb(255 255 255);
-  background: linear-gradient(180deg, rgb(255 255 255 / 59.1%) 0%, rgb(255 255 255 / 100%) 73%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 84.1%) 37%);
 
   button {
     position: absolute;
