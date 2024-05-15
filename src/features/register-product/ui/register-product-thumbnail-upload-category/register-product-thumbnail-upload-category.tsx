@@ -20,7 +20,11 @@ export const RegisterProductThumbnailUploadCategory = () => {
     isDraggingOnTargetElement,
     onChangeFiles,
   } = useDragAndSetFiles({ isMultipleFile });
-  const { register } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
+
+  const { register, watch } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
+  const thumbnail = watch('thumbnail');
+  const defaultImage = typeof thumbnail === 'string' ? thumbnail : null;
+  const previewImage = previewImageList[0]?.url || defaultImage;
 
   return (
     <S.Wrapper>
@@ -48,9 +52,9 @@ export const RegisterProductThumbnailUploadCategory = () => {
               }
             </S.UploadImageDescription>
           </S.UploadDescriptionBox>
-          {previewImageList[0] ? (
+          {previewImage ? (
             <S.PreviewImageWrap>
-              <S.PreviewImage src={previewImageList[0].url} />
+              <S.PreviewImage src={previewImage} />
             </S.PreviewImageWrap>
           ) : null}
           <S.HideInput
@@ -68,7 +72,7 @@ export const RegisterProductThumbnailUploadCategory = () => {
                 // true여야지만 통과. 이외는 에러메세지 반환
                 size: (value) => {
                   if (value) {
-                    if (value[0].size > 1024 * 1024 * 10) {
+                    if (typeof value === 'object' && value[0].size > 1024 * 1024 * 10) {
                       return '대표 이미지 사이즈가 너무 큽니다. 10MB 이하로 업로드해주세요.';
                     }
 
@@ -76,11 +80,11 @@ export const RegisterProductThumbnailUploadCategory = () => {
                   }
                 },
                 length: (value) => {
-                  if (!value || value.length < 1) {
+                  if (!value || (typeof value === 'object' && value.length < 1)) {
                     return '대표 이미지를 업로드해주세요.';
                   }
 
-                  if (value.length > 1) {
+                  if (typeof value === 'object' && value.length > 1) {
                     return '대표 이미지는 하나만 업로드해주세요.';
                   }
 

@@ -36,11 +36,13 @@ export const productQuery = {
       retry: false,
     }),
 
-  productDetail: (id: number) =>
+  productDetail: (id: number, retryCount?: number) =>
     queryOptions({
       queryKey: productQueryKeys.productDetail(id),
       queryFn: () => getProductDetail(id),
       staleTime: 10 * 60 * 1000, // 10 min
       gcTime: 15 * 60 * 1000, // 15 min
+      enabled: typeof id === 'number', // product-register page에서 id가 없는 경우(undefined) 수정이 아닌 것으로 판단하여 쿼리를 실행하지 않도록 설정. number일 때만 실행
+      retry: retryCount || 3,
     }),
 };
