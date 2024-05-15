@@ -88,9 +88,11 @@ export const LoginPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <S.LoginPageContainer>
-        <S.LoginPageTitleContainer>
-          <S.LoginPageLogo src='/images/logo/small-text-main-logo.svg' />
-        </S.LoginPageTitleContainer>
+        <Link href='/'>
+          <S.LoginPageTitleContainer>
+            <S.LoginPageLogo src='/images/logo/small-text-main-logo.svg' />
+          </S.LoginPageTitleContainer>
+        </Link>
         <S.LoginPageForm noValidate onSubmit={handleSubmit(onSubmit)}>
           <S.LoginPageInputContainer>
             <S.InputIconWrapper>

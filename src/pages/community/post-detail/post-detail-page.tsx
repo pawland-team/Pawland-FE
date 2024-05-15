@@ -50,6 +50,10 @@ type Post = {
   recommended: boolean;
 };
 
+// 댓글, 답글 엔터로도 입력되게 해야됨
+// 게시글 삭제, 수정 기능 구현해야됨
+// 답글 수정, 삭제 기능은 아직 백엔드 미구현임
+
 export const CommunityPostDetailPage = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [commentText, setCommentText] = useState<string>('');
@@ -59,11 +63,56 @@ export const CommunityPostDetailPage = () => {
   const { id } = router.query as { id: string };
   const { data: userData } = useGetUserInfo();
   const { openModalList } = useModalList();
+  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+  const [editingCommentText, setEditingCommentText] = useState<string>('');
+
+  const startEditingComment = (commentId: number, currentText: string) => {
+    setEditingCommentId(commentId);
+    setEditingCommentText(currentText);
+  };
+
+  const cancelEditingComment = () => {
+    setEditingCommentId(null);
+    setEditingCommentText('');
+  };
+
+  const handleEditCommentButtonClick = (commentId: number, currentText: string) => {
+    startEditingComment(commentId, currentText);
+  };
+
+  const handleCommentEditSubmit = async (commentId: number) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: editingCommentText }),
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const updatedComment = await response.json();
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId ? { ...comment, content: updatedComment.content } : comment,
+          ),
+        );
+        cancelEditingComment();
+      } else {
+        throw new Error('Failed to edit comment');
+      }
+    } catch (error) {
+      console.error('Error editing comment:', error);
+    }
+  };
 
   const communityPostDetailQueryKey = 'communityPostDetail';
 
   const calculateTotalComments = (comments: Comment[]) => {
-    return comments.reduce((total, comment) => {
+    return comments?.reduce((total, comment) => {
       return total + 1 + comment.replies.length;
     }, 0);
   };
@@ -158,6 +207,13 @@ export const CommunityPostDetailPage = () => {
   };
 
   const handleDeleteComment = async (commentId: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 댓글을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     try {
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
 
@@ -236,6 +292,51 @@ export const CommunityPostDetailPage = () => {
     enabled: !!id,
   });
 
+  const handleDeletePost = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 게시물을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        openModalList({
+          ModalComponent: PostModal,
+          modalKey: ['delete-modal'],
+          props: {
+            content: '게시글 삭제가 완료되었습니다.',
+            onClose: () => {
+              router.push('/community/list');
+            },
+          },
+        });
+      } else {
+        throw new Error('Failed to delete the post.');
+      }
+    } catch (error) {
+      console.error('Error deleting the post:', error);
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['delete-modal'],
+        props: {
+          content: '게시글 삭제 중 오류가 발생했습니다.',
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     if (communityPostDetail?.recommended) {
       setIsLiked(true);
@@ -252,7 +353,7 @@ export const CommunityPostDetailPage = () => {
 
   const { title, content, region, author, createdAt, recommendCount, views } = communityPostDetail;
   const totalComments = calculateTotalComments(comments);
-  const htmlContent = content.replace(/\n/g, '<br />');
+  const htmlContent = content?.replace(/\n/g, '<br />');
 
   return (
     <S.PostDetailPage>
@@ -282,9 +383,25 @@ export const CommunityPostDetailPage = () => {
             <S.Divider />
             <S.StatusText>조회수 {views}</S.StatusText>
           </S.FlexBox>
+
           <S.EditBox>
-            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-            <S.StatusText>수정하기</S.StatusText>
+            {author?.id === userData?.id && (
+              <>
+                <Link href={`/community/post-edit/${id}`}>
+                  <S.PostFunctionBox>
+                    <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                    <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
+                  </S.PostFunctionBox>
+                </Link>
+
+                <S.PostFunctionBox>
+                  <Image src='/images/icon/delete-icon.svg' alt='edit-icon' width={20} height={20} />
+                  <S.PostFunctionButton type='button' onClick={() => handleDeletePost()}>
+                    삭제하기
+                  </S.PostFunctionButton>
+                </S.PostFunctionBox>
+              </>
+            )}
           </S.EditBox>
         </S.CommunityStatusBox>
       </S.HeaderArea>
@@ -346,13 +463,40 @@ export const CommunityPostDetailPage = () => {
                   <S.ComentDeleteWrapper>
                     <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
                     {comment.author.id === userData?.id && (
-                      <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
-                        X
-                      </S.ComentDeleteButton>
+                      <>
+                        {editingCommentId === comment.id ? (
+                          <>
+                            <button type='button' onClick={cancelEditingComment}>
+                              취소
+                            </button>
+                            <button type='button' onClick={() => handleCommentEditSubmit(comment.id)}>
+                              저장
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type='button'
+                            onClick={() => handleEditCommentButtonClick(comment.id, comment.content)}
+                          >
+                            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                          </button>
+                        )}
+
+                        <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                          X
+                        </S.ComentDeleteButton>
+                      </>
                     )}
                   </S.ComentDeleteWrapper>
                   <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
-                  <S.Coment>{comment.content}</S.Coment>
+                  {editingCommentId === comment.id ? (
+                    <S.ComentTextarea
+                      value={editingCommentText}
+                      onChange={(e) => setEditingCommentText(e.target.value)}
+                    />
+                  ) : (
+                    <S.Coment>{comment.content}</S.Coment>
+                  )}
                 </S.ComentTextareaBox>
                 <S.EmptySpace />
 
