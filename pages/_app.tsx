@@ -24,8 +24,15 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta charSet='UTF-8' />
-        <link rel='icon' type='image/svg+xml' href='/next.svg' />
+        <link rel='icon' type='image/svg+xml' href='/images/logo/favicon.svg' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name='description' content='반려동물을 사랑하는 이웃들과 교류해 보세요!' />
+        <meta property='og:image' content='/images/banner/main-banner.png' key='image' />
+        <meta property='og:title' content='반려동물을 위한 커뮤니티, PAWLAND' />
+        <meta property='og:description' content='반려동물을 사랑하는 이웃들과 교류해 보세요!' />
+        <meta property='og:url' content='https://pawland.store/' />
+        <meta property='og:type' content='website' />
       </Head>
       <StyledThemeProvider>
         <TanstackQueryProvider>
