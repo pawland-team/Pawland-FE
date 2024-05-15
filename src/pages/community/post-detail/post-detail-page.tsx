@@ -207,6 +207,13 @@ export const CommunityPostDetailPage = () => {
   };
 
   const handleDeleteComment = async (commentId: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 댓글을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     try {
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
 
