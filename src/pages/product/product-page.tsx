@@ -1,8 +1,9 @@
-import { FormEvent, MouseEvent, useRef, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 
 // import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
+import { getQueryClient } from '@shared/lib/get-query-client';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
@@ -22,23 +23,38 @@ import * as S from './product-page-style';
 
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [keyword, setKeyword] = useState<string | undefined>('');
-  const { sorting, changeSelectedSortingValue } = useCheckedCategoryStore();
+  const [keyword, setKeyword] = useState<string>('');
+  const { sorting, changeSelectedSortingValue, changeContent, content, pagingStatus } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   const handleSubmitKeyword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setKeyword(inputRef.current?.value);
+    if (inputRef.current) setKeyword(inputRef.current?.value);
+  };
+
+  const handleClearInput = () => {
+    if (inputRef.current) inputRef.current.value = '';
+
+    changeContent('');
+    setKeyword('');
   };
 
   const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    const queryClient = getQueryClient();
     const target = e.target as HTMLButtonElement | HTMLDivElement;
     const value = target.innerText as SortingValueType;
     changeSelectedSortingValue(value);
     setIsDropdownOpened(false);
+    queryClient.invalidateQueries({ queryKey: ['product'] });
   };
+
+  useEffect(() => {
+    if (keyword) {
+      changeContent(keyword);
+    }
+  }, [keyword]);
 
   return (
     <>
@@ -52,11 +68,14 @@ const ProductPage = () => {
             inputRef={inputRef}
             maxWidth='940px'
             placeholder='원하시는 상품을 검색해보세요!'
+            value={keyword}
+            prevValue={content}
+            handleClear={handleClearInput}
           />
           <S.SearchSortingContainer>
-            {keyword !== '' && (
+            {content !== '' && (
               <h2>
-                <strong>{`‘${keyword}‘`}</strong>에 대한 검색결과입니다.
+                <strong>{`‘${content}‘`}</strong>에 대한 검색결과입니다.
               </h2>
             )}
           </S.SearchSortingContainer>
@@ -65,6 +84,7 @@ const ProductPage = () => {
           <ProductListFilterContainer />
         </S.filterArea>
         <S.SelectBoxArea>
+          <p>{pagingStatus.totalItemCount}개의 상품</p>
           <CommonSelectBox
             selectedName={sorting}
             dropdownList={productListSortingData}

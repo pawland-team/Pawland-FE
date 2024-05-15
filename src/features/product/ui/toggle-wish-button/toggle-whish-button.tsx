@@ -1,6 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -78,7 +79,12 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
         },
         onError: (error) => {
           setIsWishedChange(isWishedChange);
-          console.log(error);
+
+          if (error instanceof AxiosError) {
+            if (error.response?.status === 401) {
+              return;
+            }
+          }
 
           return toast.error('문제가 생겼습니다. 관리자에게 문의하세요.');
         },
