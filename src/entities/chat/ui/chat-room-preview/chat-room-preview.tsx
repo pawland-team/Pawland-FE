@@ -53,7 +53,7 @@ const ChatRoomPreview = ({ roomId, opponentUser, productInfo }: ChatPreviewProps
           fill
           sizes='68px'
           quality={100}
-          src={productInfo.imageThumbnail}
+          src={productInfo.thumbnailImage}
           alt={`${productInfo.productName} 상품 이미지`}
         />
       </S.ProductImageWrap>
