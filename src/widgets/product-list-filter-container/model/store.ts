@@ -264,13 +264,14 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     },
     // 페이지 변경
     changePagingStatus: (page: number, size: number, totalItemCount: number) => {
-      set({
+      set((state) => ({
+        ...state,
         pagingStatus: {
           page,
           size,
           totalItemCount,
         },
-      });
+      }));
     },
   })),
 );

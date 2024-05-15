@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 export type usePaginateParams = {
   /**
@@ -17,10 +17,11 @@ export type usePaginateParams = {
    */
   pagesPerGroup?: number;
   /**
-   * 초기 페이지 번호
+   * 마운트 이후 초기 페이지 번호
+   * 컴포넌트의 마운트 이후 가질 초기 페이지 번호를 지정해야 한다.
    * @default 1
    */
-  initialPage?: number;
+  initialPageOnMount?: number;
 };
 
 type CurrentPageGroup = number[];
@@ -88,11 +89,16 @@ type CanJumpToNextPageGroup = boolean;
  *
  * ```
  */
-const usePaginate = ({ totalCount, itemsPerPage = 8, pagesPerGroup = 5 }: usePaginateParams) => {
+const usePaginate = ({
+  totalCount,
+  itemsPerPage = 8,
+  pagesPerGroup = 5,
+  initialPageOnMount = 1,
+}: usePaginateParams) => {
   /**
    * 내부에 useEffect까지 위치시킬까?
    */
-  const [currentPage, setCurrentPage] = useState(1); // 시작 페이지 번호 1
+  const [currentPage, setCurrentPage] = useState(initialPageOnMount); // 마운트 이후 시작 페이지 번호
 
   const totalPages: TotalPages = useMemo(() => {
     return totalCount ? Math.ceil(totalCount / itemsPerPage) : 0;
@@ -108,11 +114,14 @@ const usePaginate = ({ totalCount, itemsPerPage = 8, pagesPerGroup = 5 }: usePag
     [pagesPerGroup, currentPage, totalPages],
   );
 
-  const changePage: ChangePage = (pagenumber) => {
-    const targetPageNumber = Number(pagenumber);
+  const changePage: ChangePage = useCallback(
+    (pagenumber) => {
+      const targetPageNumber = Number(pagenumber);
 
-    if (targetPageNumber > 0 && targetPageNumber <= totalPages) setCurrentPage(targetPageNumber);
-  };
+      if (targetPageNumber > 0 && targetPageNumber <= totalPages) setCurrentPage(targetPageNumber);
+    },
+    [totalPages],
+  );
 
   const jumpToPreviousPageGroup: JumpToPreviousPageGroup = () => {
     if (Math.ceil(currentPage / pagesPerGroup) === 1) return;

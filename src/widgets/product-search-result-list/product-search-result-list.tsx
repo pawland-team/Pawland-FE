@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useShallow } from 'zustand/react/shallow';
+
 import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
@@ -15,7 +17,16 @@ import * as S from './style';
  */
 
 const ProductSearchResultList = () => {
-  const { searchParams, isFree, sorting, content, pagingStatus, changePagingStatus } = useCheckedCategoryStore();
+  const { searchParams, isFree, sorting, content, pagingStatus, changePagingStatus } = useCheckedCategoryStore(
+    useShallow(({ searchParams, isFree, sorting, content, pagingStatus, changePagingStatus }) => ({
+      searchParams,
+      isFree,
+      sorting,
+      content,
+      pagingStatus,
+      changePagingStatus,
+    })),
+  );
 
   const newSearchParams: SearchListParam = {
     page: pagingStatus.page,
@@ -53,7 +64,7 @@ const ProductSearchResultList = () => {
             <ProductFlexList listData={data.content} />
             {totalCardCount && pagingStatus.totalItemCount > pagingStatus.size && (
               <div className='pagination-container'>
-                <Pagination totalCount={totalCardCount} itemsPerPage={12} />
+                <Pagination totalCount={totalCardCount} itemsPerPage={12} initialPageOnMount={pagingStatus.page} />
               </div>
             )}
           </S.SearchResultArea>
