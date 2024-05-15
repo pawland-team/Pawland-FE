@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
-import { getQueryClient } from '@shared/lib/get-query-client';
+// import { getQueryClient } from '@shared/lib/get-query-client';
 import { BorderCheckBox } from '@shared/ui/checkbox';
 import { CheckboxSelectBox } from '@shared/ui/select-box/checkbox-select-box/checkbox-select-box';
 import { SelectedCategoryBox } from '@widgets/product-selected-category-box';
@@ -15,7 +15,7 @@ interface selectedSearchParamsType {
 }
 
 const ProductListFilterContainer = () => {
-  const queryClient = getQueryClient();
+  // const queryClient = getQueryClient();
 
   const initialSearchParam = {
     region: [],
@@ -54,7 +54,7 @@ const ProductListFilterContainer = () => {
         ...selectedSearchParams,
         [e.target.name]: [...selectedSearchParams[e.target.name as keyof selectedSearchParamsType], value],
       });
-      queryClient.invalidateQueries({ queryKey: ['product'] });
+      // queryClient.invalidateQueries({ queryKey: ['product'] });
       changePagingStatus(1, 12, pagingStatus.totalItemCount);
     }
   };
@@ -72,14 +72,14 @@ const ProductListFilterContainer = () => {
   const handleRemoveCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
     // 이벤트 버블링 활용하였음. e.target하면 클릭된 요소가 찍혀서 원하는 텍스트만 가져오기 힘듦.
     removeSelectedValue(e.target.name, e.target.id);
-    queryClient.invalidateQueries({ queryKey: ['product'] });
+    // queryClient.invalidateQueries({ queryKey: ['product'] });
     changePagingStatus(1, 12, pagingStatus.totalItemCount);
   };
 
   const handleClearSelectedValue = () => {
     clearSelectedValues();
     setSelectedSearchParams(initialSearchParam);
-    queryClient.invalidateQueries({ queryKey: ['product'] });
+    // queryClient.invalidateQueries({ queryKey: ['product'] });
     changePagingStatus(1, 12, pagingStatus.totalItemCount);
   };
 
