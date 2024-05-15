@@ -3,6 +3,7 @@ import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './my-buy-list-style';
 import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
+import { NoProductBox } from '@shared/ui/error';
 
 export const MyBuyList = () => {
   const initialParams = {
@@ -12,12 +13,27 @@ export const MyBuyList = () => {
   };
 
   const { data, status } = useGetmyTransactionList(initialParams);
-  console.log(data, status);
 
-  return (
-    <S.TransactionHistoryList>
-      <TransactionItem reviewArea={<ReviewItem />} />
-      <TransactionItem reviewArea={<ReviewWritingArea />} />
-    </S.TransactionHistoryList>
-  );
+  if (status === 'success') {
+    return (
+      <S.TransactionHistoryList>
+        {data?.length === 0 && <NoProductBox />}
+
+        {data.map((item) => (
+          <TransactionItem
+            reviewArea={
+              item.orderReviewResponse ? (
+                <ReviewItem reviewData={item.orderReviewResponse} buyer={item.buyer} />
+              ) : (
+                <ReviewWritingArea orderId={item.id} />
+              )
+            }
+            key={item.id}
+            item={item}
+            itemTitle={'구매상품'}
+          />
+        ))}
+      </S.TransactionHistoryList>
+    );
+  }
 };

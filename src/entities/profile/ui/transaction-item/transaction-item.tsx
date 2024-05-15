@@ -9,15 +9,16 @@ import { MyTransactionEntity } from '@shared/apis/profile-api';
 interface TransactionItemProps {
   reviewArea: React.ReactNode;
   item: MyTransactionEntity;
+  itemTitle: string;
 }
 
-export const TransactionItem = ({ reviewArea, item }: TransactionItemProps) => {
+export const TransactionItem = ({ itemTitle, reviewArea, item }: TransactionItemProps) => {
   return (
     <S.TransactionItem>
       <S.ProductArea>
         <SmallThumbnail imageUrl={item.product.thumbnailUrl} />
         <S.ItemInfoArea>
-          <span className='saleSate'>판매상품</span>
+          <span className='saleSate'>{itemTitle}</span>
           <div>
             <h1>{item.product.name}</h1>
             <p className='price'>{formatPriceToKoStyle(item.product.price)}</p>
@@ -28,7 +29,8 @@ export const TransactionItem = ({ reviewArea, item }: TransactionItemProps) => {
           </div>
         </S.ItemInfoArea>
       </S.ProductArea>
-      {item.orderReviewResponse && reviewArea}
+      {reviewArea}
+      {/* {item?.orderReviewResponse && reviewArea} */}
     </S.TransactionItem>
   );
 };

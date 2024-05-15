@@ -1,5 +1,4 @@
 import { ReviewItem, TransactionItem } from '@entities/profile/ui';
-import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './my-sell-list-style';
 import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
@@ -17,13 +16,15 @@ export const MySellList = () => {
   if (status === 'success') {
     return (
       <S.TransactionHistoryList>
-        <div className='button-area'>판매내역</div>
         {data?.length === 0 && <NoProductBox />}
         {data.map((item) => (
           <TransactionItem
-            reviewArea={<ReviewItem reviewData={item.orderReviewResponse} buyer={item.buyer} />}
+            reviewArea={
+              item.orderReviewResponse ? <ReviewItem reviewData={item.orderReviewResponse} buyer={item.buyer} /> : null
+            }
             key={item.id}
             item={item}
+            itemTitle={'판매상품'}
           />
         ))}
       </S.TransactionHistoryList>
