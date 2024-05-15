@@ -450,10 +450,6 @@ export const CommunityPostDetailPage = () => {
                     <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
                     {comment.author.id === userData?.id && (
                       <>
-                        <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
-                          X
-                        </S.ComentDeleteButton>
-
                         {editingCommentId === comment.id ? (
                           <>
                             <button type='button' onClick={cancelEditingComment}>
@@ -468,9 +464,13 @@ export const CommunityPostDetailPage = () => {
                             type='button'
                             onClick={() => handleEditCommentButtonClick(comment.id, comment.content)}
                           >
-                            수정하기
+                            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
                           </button>
                         )}
+
+                        <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                          X
+                        </S.ComentDeleteButton>
                       </>
                     )}
                   </S.ComentDeleteWrapper>
