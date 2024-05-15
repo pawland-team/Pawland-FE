@@ -22,6 +22,16 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
     setIsOpened((prev) => !prev);
   };
 
+  const handleLogout = () => {
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+  };
+
   return (
     <S.NicknameWithAvatar ref={dropDownRef}>
       <S.NickNameImageBox onClick={handleClickAvatar}>
@@ -37,7 +47,9 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
             <Link href='/'>상품 등록</Link>
           </li>
           <li>
-            <button type='button'>로그아웃</button>
+            <button type='button' onClick={handleLogout}>
+              로그아웃
+            </button>
           </li>
         </S.DropDownMenu>
       )}
