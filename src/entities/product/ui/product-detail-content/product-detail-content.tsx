@@ -27,7 +27,7 @@ const ProductDetailContent = ({ detailContent }: ProductDetailContentProps) => {
         const height = contentTextRef.current.offsetHeight;
         setTextBoxHeight(height);
       }
-    }, 100); // 1초 후에 실행
+    }, 500); // 1초 후에 실행
 
     return () => clearTimeout(timer); // cleanup 함수에서 타이머 해제
   }, []); // []를 사용하여 최초 렌더링 시에만 실행되도록 설정
