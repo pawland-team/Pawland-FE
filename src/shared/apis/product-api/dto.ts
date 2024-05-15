@@ -254,7 +254,7 @@ export interface ProductRegisterRequest {
   images: Array<string>;
 }
 
-export interface PrductRegisterResponse {
+export interface ProductRegisterResponse {
   id: ProductInfoEntity['id'];
   seller: {
     id: UserEntity['id'];
