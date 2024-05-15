@@ -155,6 +155,7 @@ export interface ProductListItemDto {
     id: number;
     email: string;
     nickname: string;
+    star: number;
   };
   /**
    * 상품 카테고리

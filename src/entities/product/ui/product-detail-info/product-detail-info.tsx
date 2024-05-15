@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 
 import { ProductListItemDto } from '@shared/apis/product-api';
 import { CommonButton } from '@shared/ui/buttons';
-import { CategoryTree, ProductInteractionButtonsBox } from '@shared/ui/product';
+import { CategoryTree, ProductInteractionButtonsBox, RateStar } from '@shared/ui/product';
+import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 import { formatPrice } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
@@ -32,12 +33,14 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
           <time>{formatDateShorter(detailInfo.createAt)}</time>
           <h2>{detailInfo.name}</h2>
           <div className='seller-info-box'>
-            {/* TODO : 유저 페이지로 이동될 수 있도록 */}
-            <Link href='/'>
+            {/*
+            TODO : 유저 페이지로 이동될 수 있도록 / 내 이름 클릭하면 프로필 페이지로 이동하도록해야함
+             */}
+            <Link href={`/user/${detailInfo.seller.id}`}>
               <p>{detailInfo.seller.nickname}</p>
             </Link>
-            {/* <RateStar rate={detailInfo.seller.stars} />
-            <StarRatingResult number={detailInfo.seller.stars} /> */}
+            <RateStar rate={detailInfo.seller.star} />
+            <StarRatingResult number={detailInfo.seller.star} />
           </div>
           <S.DivideLine />
           <h3>{formatPrice(detailInfo.price)}</h3>
