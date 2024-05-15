@@ -12,7 +12,7 @@ import * as S from './product-detail-page-style';
 
 const ProductDetailPage = () => {
   const router = useRouter();
-  const PRODUCT_ID = Number(router.query.id);
+  const PRODUCT_ID = Number(router.query.productId);
 
   const { data: recentProductListData, isLoading: recentProductLoading } = useGetMainProductList(8);
   const { data: productDetailData, isLoading: productDetailLoading } = useGetProductDetail(PRODUCT_ID);

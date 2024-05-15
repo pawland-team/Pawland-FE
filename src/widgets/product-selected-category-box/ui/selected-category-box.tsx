@@ -1,9 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEventHandler } from 'react';
 
 import Image from 'next/image';
 
 import { RoundedCancelInput } from '@shared/ui/inputs';
-import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
 import * as S from './style';
 
@@ -14,15 +13,10 @@ interface SelectedCategoryBoxProps {
     isChecked: boolean;
   }[];
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleClear: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SelectedCategoryBox = ({ selectedValueList, handleChange }: SelectedCategoryBoxProps) => {
-  const { clearSelectedValues } = useCheckedCategoryStore();
-
-  const handleClearSelectedValue = () => {
-    clearSelectedValues();
-  };
-
+const SelectedCategoryBox = ({ selectedValueList, handleChange, handleClear }: SelectedCategoryBoxProps) => {
   if (selectedValueList.length <= 0) {
     return;
   }
@@ -40,7 +34,7 @@ const SelectedCategoryBox = ({ selectedValueList, handleChange }: SelectedCatego
         ))}
       </div>
       <div className='clear-box'>
-        <button type='button' onClick={handleClearSelectedValue}>
+        <button type='button' onClick={handleClear}>
           <Image src='/images/icon/clear-icon.svg' alt='선택 초기화' width={16} height={16} />
           <span>초기화</span>
         </button>

@@ -13,17 +13,14 @@ interface CategoryListProps {
 }
 
 const CategoryList = ({ categoryList }: CategoryListProps) => {
-  const { addSelectedValue, clearSelectedValues } = useCheckedCategoryStore();
+  const { addSelectedValue, clearSelectedValues, changePagingStatus, pagingStatus } = useCheckedCategoryStore();
 
   const handleClickLink = (e: MouseEvent<HTMLAnchorElement>, group: string) => {
     clearSelectedValues();
+    changePagingStatus(1, 12, pagingStatus.totalItemCount);
     const selectedKeyword = e.currentTarget.querySelector('p')?.innerText;
 
     if (selectedKeyword) {
-      if (selectedKeyword === '기타') {
-        return addSelectedValue(group, '그 외 상품', true);
-      }
-
       return addSelectedValue(group, selectedKeyword, true);
     }
   };

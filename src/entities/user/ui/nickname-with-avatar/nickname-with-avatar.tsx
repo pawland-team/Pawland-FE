@@ -45,7 +45,7 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
             <Link href='/profile'>프로필</Link>
           </li>
           <li>
-            <Link href='/'>상품 등록</Link>
+            <Link href='/product/register'>상품 등록</Link>
           </li>
           <li>
             <button type='button' onClick={handleLogout}>
