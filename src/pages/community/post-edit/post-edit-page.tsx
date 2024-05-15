@@ -51,7 +51,6 @@ export const CommunityPostEditPage = () => {
   // 무슨 타입을 줘야될지 몰라서 임시로 any 설정했습니다
   const quillRef = useRef<any>(null);
 
-  // 기존 데이터를 로드하는 함수
   const fetchPostDetails = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`, {
@@ -95,7 +94,57 @@ export const CommunityPostEditPage = () => {
       return;
     }
 
+    if (!thumbnailFile) {
+      openModalList({
+        ModalComponent: PostModal,
+        modalKey: ['post-modal'],
+        props: {
+          content: '썸네일 이미지를 선택해주세요.',
+        },
+      });
+
+      return;
+    }
+
     try {
+      const fileName = thumbnailFile.name;
+      console.log('썸네일 이미지 이름:', fileName);
+
+      const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName }),
+        credentials: 'include',
+      });
+
+      if (!preSignedResponse.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
+
+      const preSignedData = await preSignedResponse.json();
+      const { presignedUrl }: { presignedUrl: string } = preSignedData;
+
+      // 프리사인 URL로 파일 업로드
+      const uploadResponse = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: thumbnailFile,
+        headers: {
+          'Content-Type': thumbnailFile.type,
+        },
+      });
+
+      if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
+
+      const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
+      const thumbnailUrl = `${s3BucketBaseUrl}/${fileName}`;
+
+      // 업로드된 파일의 URL을 서버로 전송
+      const postData = {
+        title: data.title,
+        content: data.content,
+        region: selectedRegion,
+        thumbnail: thumbnailUrl,
+      };
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${id}`;
 
       const response = await fetch(url, {
@@ -105,10 +154,7 @@ export const CommunityPostEditPage = () => {
         },
         credentials: 'include',
         body: JSON.stringify({
-          title: data.title,
-          content: data.content,
-          region: selectedRegion,
-          thumbnail: thumbnailPreview, // Assuming the thumbnail is not changed
+          ...postData,
         }),
       });
 
