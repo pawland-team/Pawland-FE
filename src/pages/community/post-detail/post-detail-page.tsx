@@ -80,9 +80,7 @@ export const CommunityPostDetailPage = () => {
     startEditingComment(commentId, currentText);
   };
 
-  const handleCommentEditSubmit = async (event: FormEvent<HTMLFormElement>, commentId: number) => {
-    event.preventDefault();
-
+  const handleCommentEditSubmit = async (commentId: number) => {
     try {
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
 
@@ -455,7 +453,7 @@ export const CommunityPostDetailPage = () => {
                             <button type='button' onClick={cancelEditingComment}>
                               취소
                             </button>
-                            <button type='button' onClick={(e) => handleCommentEditSubmit(e, comment.id)}>
+                            <button type='button' onClick={() => handleCommentEditSubmit(comment.id)}>
                               저장
                             </button>
                           </>
