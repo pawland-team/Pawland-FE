@@ -4,7 +4,6 @@ import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 
 // import { Loading } from '@app/layout/loading';
-import { getQueryClient } from '@shared/lib/get-query-client';
 import { SearchInput } from '@shared/ui/inputs';
 import { CommonSelectBox } from '@shared/ui/select-box';
 import { productListSortingData } from '@shared/ui/select-box/lib/product-list-sorting-data';
@@ -25,6 +24,7 @@ import * as S from './product-page-style';
 const ProductPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState<string>('');
+
   const { sorting, changeSelectedSortingValue, changeContent, content, pagingStatus } = useCheckedCategoryStore();
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -43,12 +43,12 @@ const ProductPage = () => {
   };
 
   const handleClickSelectList = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
-    const queryClient = getQueryClient();
+    // const queryClient = getQueryClient();
     const target = e.target as HTMLButtonElement | HTMLDivElement;
     const value = target.innerText as SortingValueType;
     changeSelectedSortingValue(value);
     setIsDropdownOpened(false);
-    queryClient.invalidateQueries({ queryKey: ['product'] });
+    // queryClient.invalidateQueries({ queryKey: ['product'] });
   };
 
   useEffect(() => {
