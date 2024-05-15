@@ -42,7 +42,7 @@ export type RegisterProductForm = {
    *
    * - 보내기 전에 string(image url)으로 변환시켜야 함.
    */
-  thumbnail: FileList | null;
+  thumbnail: FileList | null | string;
   // thumbnail: FileList;
   /**
    * 상품 설명에 들어있는 이미지 리스트

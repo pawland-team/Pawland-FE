@@ -1,4 +1,4 @@
-import { PrductRegisterResponse, ProductRegisterRequest } from './dto';
+import { ProductRegisterRequest, ProductRegisterResponse } from './dto';
 import { clientWithTokenApi } from '../instance';
 
 // 200 성공
@@ -12,7 +12,7 @@ import { clientWithTokenApi } from '../instance';
 // }
 
 export const registerProduct = async (product: ProductRegisterRequest) => {
-  const response = await clientWithTokenApi.post<PrductRegisterResponse>('/api/product', product, {
+  const response = await clientWithTokenApi.post<ProductRegisterResponse>('/api/product', product, {
     headers: {
       'Content-Type': 'application/json',
     },

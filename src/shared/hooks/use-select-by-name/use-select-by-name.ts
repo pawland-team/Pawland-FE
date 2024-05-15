@@ -52,7 +52,7 @@ export const useSelectByName = <
 >({
   initialFieldValue,
   regexForTestingName,
-  shouldValidate = true,
+  // shouldValidate = true,
 }: {
   initialFieldValue: TFieldValues;
   regexForTestingName: RegExp;
@@ -72,7 +72,7 @@ export const useSelectByName = <
 
   const fieldObj = useWatch({
     control,
-    defaultValue: memoizedField as DeepPartialSkipArrayKey<TFieldValues>,
+    // defaultValue: memoizedField as DeepPartialSkipArrayKey<TFieldValues>,
     exact: true,
   });
 
@@ -88,23 +88,20 @@ export const useSelectByName = <
     }
   };
 
-  // 초기값 설정
-  useEffect(() => {
-    setValue(Object.keys(memoizedField)[0] as Path<TFieldValues>, memoizedField[Object.keys(memoizedField)[0]], {
-      shouldValidate,
-    });
-  }, [memoizedField]);
+  // // ~~초기값 설정~~
+  // ! 초기값은 useForm에서 설정하기 때문에 아래 코드 주석 처리
+  // useEffect(() => {
+  //   setValue(Object.keys(memoizedField)[0] as Path<TFieldValues>, memoizedField[Object.keys(memoizedField)[0]], {
+  //     shouldValidate,
+  //   });
+  // }, [memoizedField]);
 
   // 제출 성공 시 초기화
   useEffect(() => {
     if (isSubmitSuccessful) {
-      // setValue(
-      //   Object.keys(initialFieldValue)[0] as Path<TFieldValues>,
-      //   initialFieldValue[Object.keys(initialFieldValue)[0]],
-      // );
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   return {
     formState,
