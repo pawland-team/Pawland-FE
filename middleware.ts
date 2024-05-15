@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextFetchEvent, NextRequest } from 'next/server';
 
 /**
@@ -23,15 +22,13 @@ import { NextFetchEvent, NextRequest } from 'next/server';
  * };
  * ```
  */
-export const middleware = (request: NextRequest, _event: NextFetchEvent) => {
-  const { cookies: requestCookies } = request;
-  console.log('----------------------Middleware Request COOKIES--------------------------------');
-  console.log(requestCookies);
-
-  console.log('----------------------Middleware JWT VALUE--------------------------------');
-  const cookiesApi = cookies();
-  console.log(cookiesApi.get('jwt')?.value);
-
+export const middleware = (_request: NextRequest, _event: NextFetchEvent) => {
+  // const { cookies: requestCookies } = request;
+  // console.log('----------------------Middleware Request COOKIES--------------------------------');
+  // console.log(requestCookies);
+  // console.log('----------------------Middleware JWT VALUE--------------------------------');
+  // const cookiesApi = cookies();
+  // console.log(cookiesApi.get('jwt')?.value);
   // const ACCESS_TOKEN = 'custom access token key';
   // const requestHeaders = new Headers(request.headers);
   // requestHeaders.set('Authorization', `Bearer ${ACCESS_TOKEN}`);
