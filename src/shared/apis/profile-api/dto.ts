@@ -83,23 +83,23 @@ export interface getMyProductListParams {
   type: string;
 }
 
-type Seller = {
+export interface Seller {
   id: number;
   email: string;
   nickname: string;
   profileImage: string;
   star: number;
   reviewCount: number;
-};
+}
 
-type Buyer = Seller;
+export type Buyer = Seller;
 
-type OderReviewResponse = {
+export interface OderReviewResponse {
   id: number;
   content: string;
   star: number;
   createdAt: string;
-};
+}
 
 export interface MyTransactionEntity {
   id: number;
