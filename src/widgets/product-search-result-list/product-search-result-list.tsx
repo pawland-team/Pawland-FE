@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
 import { SearchListParam } from '@shared/apis/product-api/get-product-search-list-api';
