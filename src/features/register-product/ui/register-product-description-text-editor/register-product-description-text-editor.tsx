@@ -21,7 +21,8 @@ type RegisterProductDescriptionTextEditorProps = FocusRefProps;
 
 export const RegisterProductDescriptionTextEditor = ({ focusRef }: RegisterProductDescriptionTextEditorProps) => {
   const { setValue, setError, watch, clearErrors } = useFormContext<
-    Pick<RegisterProductForm, 'description' | 'images'> & { just_for_reset_quill: string }
+    Pick<RegisterProductForm, 'description' | 'images'>
+    // Pick<RegisterProductForm, 'description' | 'images'> & { just_for_reset_quill: string }
   >();
   const description = watch('description');
 
@@ -47,7 +48,7 @@ export const RegisterProductDescriptionTextEditor = ({ focusRef }: RegisterProdu
     //     .map((op) => op.insert.image),
     // );
 
-    setValue('just_for_reset_quill', value);
+    // setValue('just_for_reset_quill', value);
     // images 필드는 옵셔널하다 빈 배열[]로 보내도 된다는 뜻.
     setValue(
       'images',

@@ -1,7 +1,10 @@
-import { BaseSyntheticEvent, useEffect, useId, useRef } from 'react';
+import { BaseSyntheticEvent, PropsWithChildren, useEffect, useId, useRef } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 
-import { useRegisterProductMutation } from '@features/register-product/hooks';
+import { InferGetServerSidePropsType } from 'next';
+
+import { useGetProductDetail } from '@entities/product/hooks/use-get-product-detail.query';
+import { useEditProductMutation, useRegisterProductMutation } from '@features/register-product/hooks';
 import { FocusRef, RegisterProductForm } from '@features/register-product/model';
 import {
   ProductHeaderButtonContainer,
@@ -14,31 +17,38 @@ import {
   RegisterProductThumbnailUploadCategory,
   RegisterProductTitleCategory,
 } from '@features/register-product/ui';
-import { REGISTER_PRODUCT_PAGE_CONFIRM_MODAL_AFTER_SUBMIT } from '@pages/product-register/constants/modal-key';
+import {
+  REGISTER_PRODUCT_PAGE_CONFIRM_MODAL_AFTER_SUBMIT,
+  REGISTER_PRODUCT_PAGE_CONFIRM_MODAL_ON_ERROR,
+} from '@pages/product-register/constants/modal-key';
 import { getPreSignedURL, PreSignedURLResponse } from '@shared/apis/image-api';
 import { clientWithTokenApi } from '@shared/apis/instance';
+import { ProductRegisterRequest } from '@shared/apis/product-api';
 import { useModalList, useModalWithLocalState } from '@shared/hooks/use-modal';
 import { ConfirmModalFrame } from '@shared/ui/modal/confirm-modal-frame';
 import { NormalSnackBar } from '@shared/ui/snack-bar/normal-snack-bar';
+
+import { getServerSideProps } from '@/pages/product/edit/[productId]';
 
 import * as S from './style';
 
 /**
  * 조립은 page 단에서 한다.
+ *
+ * TODO: 제출 코드 리팩토링
+ *
+ * ProdutEditPage로도 사용된다.
  */
-export const ProductRegisterPage = () => {
+export const ProductRegisterPage = ({
+  productId,
+}: PropsWithChildren<Partial<InferGetServerSidePropsType<typeof getServerSideProps>>>) => {
   const uniqueFormId = useId();
+  const focusRef = useRef<FocusRef>({});
   const { openModalList, destroy } = useModalList();
   const { ModalComponent, isModalOpen, openModal, closeModal } = useModalWithLocalState();
-  // 요청 로딩 처리하기
+  const { data, status: getProductDetailStatus } = useGetProductDetail(productId!, 0); // productId 없으면 실행 안 되게끔 해 놨음.
   const { status, mutateAsync } = useRegisterProductMutation();
-  /**
-   * - register에 등록되지 않은 요소에 대한 custom focus ref
-   * - register의 ref는 input, textarea만 등록 및 focus가능하다.
-   */
-  // const [focusElementFunctionObject, setFocusElementFunctionObject] = useState<FocusElementFunctionObject>();
-
-  const focusRef = useRef<FocusRef>({});
+  const { status: editStatus, mutateAsync: editMutateAsync } = useEditProductMutation();
 
   const methods = useForm<RegisterProductForm>({
     mode: 'onBlur',
@@ -57,7 +67,39 @@ export const ProductRegisterPage = () => {
     shouldFocusError: false,
   });
 
-  const { handleSubmit, setFocus } = methods;
+  const { handleSubmit, setFocus, setValue } = methods;
+
+  useEffect(() => {
+    // edit 페이지면 기존 데이터를 form에 채워넣는다.
+    if (productId && getProductDetailStatus === 'success' && data) {
+      console.log(data);
+      setValue('description', data.content);
+      setValue('price', data.price.toString());
+      setValue('images', data.imageUrls);
+      setValue('productTitle', data.name);
+      setValue('selectedProductSortCategory', data.category);
+      setValue('selectedProductConditionTagCategory', data.condition);
+      setValue('selectedRegionCategory', data.region);
+      setValue('selectedSpeciesCategory', data.species);
+      setValue('thumbnail', data.thumbnailImage);
+
+      return;
+    }
+
+    if (productId && getProductDetailStatus === 'error') {
+      openModalList({
+        ModalComponent: ConfirmModalFrame,
+        modalKey: REGISTER_PRODUCT_PAGE_CONFIRM_MODAL_ON_ERROR,
+        props: {
+          modalMessage: <S.ModalMessage>삭제되거나 존재하지 않는 상품입니다.</S.ModalMessage>,
+          modalFooter: <S.ModalFooterOnelineButton href={`/`}>홈으로 돌아가기</S.ModalFooterOnelineButton>,
+        },
+        options: {
+          persist: true,
+        },
+      });
+    }
+  }, [data, getProductDetailStatus, productId, setValue]);
 
   const onSubmit = async (
     {
@@ -81,60 +123,76 @@ export const ProductRegisterPage = () => {
           persist: true,
         },
       });
+      focusRef.current.thumbnail?.focus();
 
       return;
     }
 
-    const file = thumbnail[0];
-    const uuid = crypto.randomUUID();
-    const uniqueFileName = `${uuid}-${file.name}`;
-    let presignedUrl: PreSignedURLResponse['presignedUrl'];
+    let productRegisterInfo: ProductRegisterRequest;
 
-    try {
-      /**
-       * unique file name
-       */
-
-      presignedUrl = (await getPreSignedURL({ fileName: uniqueFileName })).presignedUrl;
-    } catch (error) {
-      // 이건 콘솔로 바꿔야 할 듯
-      console.error(error);
-      openModal({
-        ModalComponent: NormalSnackBar,
-        props: { message: '프리사인 URL 요청에 실패하였습니다.' },
-        options: {
-          persist: true,
-        },
-      });
-
-      return;
-    }
-
-    try {
-      // s3 등록 요청
-      await clientWithTokenApi.put(presignedUrl, file, {
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      openModal({
-        ModalComponent: NormalSnackBar,
-        props: { message: '이미지 업로드에 실패했습니다.' },
-        options: {
-          persist: true,
-        },
-      });
-
-      return;
-    }
-
-    const uniqueImageUrl = `${process.env.NEXT_PUBLIC_BUCKET_BASE_URL}/${uniqueFileName}`;
-
-    try {
+    if (typeof thumbnail === 'string') {
       /** ! 단언처리한 이유: {@link onSubmitInvalid} 에서 에러 경우의 수를 모두 처리해주도록 분리했음. */
-      const { id } = await mutateAsync({
+      productRegisterInfo = {
+        category: selectedProductSortCategory!,
+        condition: selectedProductConditionTagCategory!,
+        content: description,
+        images,
+        name: productTitle,
+        price: Number(price!.replaceAll(',', '')),
+        region: selectedRegionCategory!,
+        species: selectedSpeciesCategory!,
+        thumbnailImage: thumbnail,
+      };
+    } else {
+      const file = thumbnail[0];
+      const uuid = crypto.randomUUID();
+      const uniqueFileName = `${uuid}-${file.name}`;
+      let presignedUrl: PreSignedURLResponse['presignedUrl'];
+
+      try {
+        /**
+         * unique file name
+         */
+
+        presignedUrl = (await getPreSignedURL({ fileName: uniqueFileName })).presignedUrl;
+      } catch (error) {
+        // 이건 콘솔로 바꿔야 할 듯
+        console.error(error);
+        openModal({
+          ModalComponent: NormalSnackBar,
+          props: { message: '프리사인 URL 요청에 실패하였습니다.' },
+          options: {
+            persist: true,
+          },
+        });
+        focusRef.current.thumbnail?.focus();
+
+        return;
+      }
+
+      try {
+        // s3 등록 요청
+        await clientWithTokenApi.put(presignedUrl, file, {
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        openModal({
+          ModalComponent: NormalSnackBar,
+          props: { message: '이미지 업로드에 실패했습니다.' },
+          options: {
+            persist: true,
+          },
+        });
+        focusRef.current.thumbnail?.focus();
+
+        return;
+      }
+
+      const uniqueImageUrl = `${process.env.NEXT_PUBLIC_BUCKET_BASE_URL}/${uniqueFileName}`;
+      productRegisterInfo = {
         category: selectedProductSortCategory!,
         condition: selectedProductConditionTagCategory!,
         content: description,
@@ -144,24 +202,40 @@ export const ProductRegisterPage = () => {
         region: selectedRegionCategory!,
         species: selectedSpeciesCategory!,
         thumbnailImage: uniqueImageUrl,
-      });
+      };
+    }
+
+    try {
+      let productIdForPath: number | undefined = productId;
+
+      if (productId) {
+        await editMutateAsync({ productId, product: productRegisterInfo });
+      } else {
+        const { id } = await mutateAsync(productRegisterInfo);
+        productIdForPath = id;
+      }
+
+      const modalMessage = `상품${productId ? '수정' : '등록'}이 완료되었습니다.`;
+      const moddalButtonMessage = `${productId ? '수정' : '등록'} 상품 보러 가기`;
 
       openModalList({
         ModalComponent: ConfirmModalFrame,
         modalKey: REGISTER_PRODUCT_PAGE_CONFIRM_MODAL_AFTER_SUBMIT,
         props: {
-          modalMessage: <S.ModalMessage>상품등록이 완료되었습니다.</S.ModalMessage>,
+          modalMessage: <S.ModalMessage>{modalMessage}</S.ModalMessage>,
           modalFooter: (
-            // TODO: 상품 상세 페이지로 이동하는 링크로 변경
-            // # 등록한 해당 상품 id 필요함.
-            <S.ModalFooterOnelineButton href={`/product/${id}`}>등록 상품 보러 가기</S.ModalFooterOnelineButton>
+            <S.ModalFooterOnelineButton href={`/product/${productIdForPath}`}>
+              {moddalButtonMessage}
+            </S.ModalFooterOnelineButton>
           ),
         },
       });
     } catch (error) {
+      const modalErrorMessage = `(서버 리스폰스 에러) 상품 ${productId ? '수정' : '등록'}에 실패했습니다.`;
+
       openModal({
         ModalComponent: NormalSnackBar,
-        props: { message: '(서버 리스폰스 에러) 상품 등록에 실패했습니다.' },
+        props: { message: modalErrorMessage },
         options: {
           persist: true,
         },
@@ -240,7 +314,7 @@ export const ProductRegisterPage = () => {
       {isModalOpen && <ModalComponent />}
       <S.HeaderArea>
         <S.PageTitle>상품등록</S.PageTitle>
-        <ProductHeaderButtonContainer status={status} uniqueFormId={uniqueFormId} />
+        <ProductHeaderButtonContainer status={productId ? editStatus : status} uniqueFormId={uniqueFormId} />
       </S.HeaderArea>
       <S.ProductRegisterBody>
         <FormProvider {...methods}>
