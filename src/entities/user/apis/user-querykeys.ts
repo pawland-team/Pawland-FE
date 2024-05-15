@@ -39,10 +39,7 @@ export const userQuery = {
 
 export const userProductQueryKeys = {
   all: () => ['userProductList'],
-  userProductList: ({ page, size, userId }: getUserProductListParams) => [
-    ...userProductQueryKeys.all(),
-    { page, size, userId },
-  ],
+  userProductList: ({ size, userId }: getUserProductListParams) => [...userProductQueryKeys.all(), { size, userId }],
 };
 
 export const userProductQuery = {
@@ -51,10 +48,10 @@ export const userProductQuery = {
       queryKey: userProductQueryKeys.all(),
     }),
 
-  userProductList: ({ page, size, userId }: getUserProductListParams) =>
+  userProductList: ({ size, userId }: getUserProductListParams) =>
     queryOptions({
-      queryKey: userProductQueryKeys.userProductList({ page, size, userId }),
-      queryFn: () => getUserProductList({ page, size, userId }),
+      queryKey: userProductQueryKeys.userProductList({ size, userId }),
+      queryFn: () => getUserProductList({ size, userId }),
       staleTime: 3 * 60 * 1000,
     }),
 };
