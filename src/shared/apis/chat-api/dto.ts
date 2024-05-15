@@ -37,7 +37,7 @@ export type ChatRoomListResponse = Array<{
     productName: ProductInfoEntity['name'];
     price: ProductInfoEntity['price'];
     saleState: ProductInfoEntity['status'];
-    imageThumbnail: ProductInfoEntity['thumbnailImage'];
+    thumbnailImage: ProductInfoEntity['thumbnailImage'];
     purchaser: UserEntity['id'] | null;
   };
   lastMessage: ChatContent;

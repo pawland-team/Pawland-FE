@@ -16,7 +16,7 @@ export const RegisteredProductItem = ({ item }: RegisteredProductItemProps) => {
   return (
     <Link href={`/product/${item.id}`}>
       <S.RegisteredProductItem>
-        <SmallThumbnail imageUrl={item.thumbnailUrl} />
+        <SmallThumbnail imageUrl={item.thumbnailImage} />
         <S.ItemInfoArea>
           <div>
             <DropdownButton
