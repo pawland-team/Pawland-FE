@@ -4,15 +4,14 @@ import Head from 'next/head';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
-import { mainListData } from '@shared/apis/main-list-api/main-list-mock';
 import { useActiveButtonStore } from '@shared/store/use-active-button-store';
-import { CommunityList } from '@widgets/community-list';
+import { MyCommunityList } from '@widgets/my-community-list/my-community-list';
+import { MyInfoArea } from '@widgets/my-info-area';
+import { MyLoginInfoArea } from '@widgets/my-login-info-area';
+import { MyRegisteredProductList } from '@widgets/my-registered-product-list/my-registered-product-list';
+import { TransactionHistoryList } from '@widgets/my-transaction-history-list';
+import { WishList } from '@widgets/my-wish-list';
 import { ProfilePageMenuBar } from '@widgets/profile-page-menu-bar';
-import { RegisteredProductList } from '@widgets/registered-product-list';
-import { TransactionHistoryList } from '@widgets/transaction-history-list';
-import { UserInfoArea } from '@widgets/user-info-area';
-import { UserLoginInfoArea } from '@widgets/user-login-info-area';
-import { WishList } from '@widgets/wish-list';
 
 import * as S from './profile-page-style';
 
@@ -34,15 +33,15 @@ export const ProfilePage = () => {
   const renderComponent = () => {
     switch (activeButton) {
       case 'register':
-        return <RegisteredProductList />;
+        return <MyRegisteredProductList />;
       case 'wish':
-        return <WishList itemList={mainListData} />;
+        return <WishList />;
       case 'transaction':
         return <TransactionHistoryList />;
       case 'community':
-        return <CommunityList />;
+        return <MyCommunityList />;
       default:
-        return <RegisteredProductList />;
+        return <MyRegisteredProductList />;
     }
   };
 
@@ -57,8 +56,8 @@ export const ProfilePage = () => {
       <main>
         <S.ProfilePage>
           <S.UserInfoContainer>
-            <UserInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
-            <UserLoginInfoArea />
+            <MyInfoArea imageSrc={data?.profileImage} nickname={data?.nickname} description={data?.userDesc} />
+            <MyLoginInfoArea loginType={data?.loginType} email={data?.email} />
           </S.UserInfoContainer>
           <S.ListContainer>
             <ProfilePageMenuBar />

@@ -3,8 +3,9 @@ import Head from 'next/head';
 import type {} from 'styled-components/cssprop';
 
 import { Layout } from '@app/layout';
-import { MultiProvider, StyledThemeProvider, TanstackQueryProvider } from '@app/providers';
+import { StyledThemeProvider, TanstackQueryProvider } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
+import 'react-quill/dist/quill.snow.css';
 
 import type { AppProps } from 'next/app';
 
@@ -26,20 +27,18 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel='icon' type='image/svg+xml' href='/next.svg' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
-      <MultiProvider
-        providers={[
-          <StyledThemeProvider key='styled' />,
-          <TanstackQueryProvider key='tanstack' />,
-          <ModalListProvider key='modalList' />,
-        ]}
-      >
-        <HydrationBoundary state={pageProps.dehydratedState}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <ModalList />
-        </HydrationBoundary>
-      </MultiProvider>
+      <StyledThemeProvider>
+        <TanstackQueryProvider>
+          <ModalListProvider>
+            <HydrationBoundary state={pageProps.dehydratedState}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <ModalList />
+            </HydrationBoundary>
+          </ModalListProvider>
+        </TanstackQueryProvider>
+      </StyledThemeProvider>
     </>
   );
 }

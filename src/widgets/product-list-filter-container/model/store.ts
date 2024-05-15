@@ -1,14 +1,11 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-// 어차피 post 보낼때는 value값만 파라미터 추가되는거 아님..? 아 region=** 이렇게 가야하넹
-
 export type SortingValueType = '최신순' | '조회순' | '인기순' | '낮은 가격순' | '높은 가격순';
 
 export type CategoryItemList = {
   category: string;
   data: {
-    label: string;
     value: string;
     isChecked: boolean;
   }[];
@@ -51,8 +48,7 @@ export interface CheckedCategoryState {
   /**
    * 선택된 값 배열에 추가 및 중복되는 값은 추가하지 않도록
    */
-  addSelectedValue: (group: string, value: string, label: string, isChecked: boolean) => void;
-  // addGiveAwayValue: (group: string, value: string, isChecked: boolean) => void;
+  addSelectedValue: (group: string, value: string, isChecked: boolean) => void;
   removeSelectedValue: (group: string, value: string) => void;
   changeSelectedSortingValue: (value: SortingValueType) => void;
   clearSelectedValues: () => void;
@@ -62,48 +58,47 @@ const initialValueList = {
   region: {
     category: 'region',
     data: [
-      { label: '서울', value: '서울', isChecked: false },
-      { label: '대구', value: '대구', isChecked: false },
-      { label: '인천', value: '인천', isChecked: false },
-      { label: '광주', value: '광주', isChecked: false },
-      { label: '대전', value: '대전', isChecked: false },
-      { label: '울산', value: '울산', isChecked: false },
-      { label: '세종', value: '세종', isChecked: false },
-      { label: '경기', value: '경기', isChecked: false },
-      { label: '강원', value: '강원', isChecked: false },
-      { label: '충북', value: '충북', isChecked: false },
-      { label: '충남', value: '충남', isChecked: false },
-      { label: '전북', value: '전북', isChecked: false },
-      { label: '전남', value: '전남', isChecked: false },
-      { label: '경북', value: '경북', isChecked: false },
-      { label: '경남', value: '경남', isChecked: false },
-      { label: '제주', value: '제주', isChecked: false },
-      { label: '해외', value: '해외', isChecked: false },
+      { value: '서울', isChecked: false },
+      { value: '대구', isChecked: false },
+      { value: '인천', isChecked: false },
+      { value: '광주', isChecked: false },
+      { value: '대전', isChecked: false },
+      { value: '울산', isChecked: false },
+      { value: '세종', isChecked: false },
+      { value: '경기', isChecked: false },
+      { value: '강원', isChecked: false },
+      { value: '충북', isChecked: false },
+      { value: '충남', isChecked: false },
+      { value: '전북', isChecked: false },
+      { value: '전남', isChecked: false },
+      { value: '경북', isChecked: false },
+      { value: '경남', isChecked: false },
+      { value: '제주', isChecked: false },
+      { value: '해외', isChecked: false },
     ],
   },
   species: {
     category: 'species',
     data: [
-      { label: 'dog', value: '강아지', isChecked: false },
-      { label: 'cat', value: '고양이', isChecked: false },
-      { label: 'etc', value: '그 외 동물', isChecked: false },
+      { value: '강아지', isChecked: false },
+      { value: '고양이', isChecked: false },
+      { value: '그 외 동물', isChecked: false },
     ],
   },
   product: {
     category: 'product',
     data: [
-      { label: 'food', value: '사료', isChecked: false },
-      { label: 'toy', value: '장난감', isChecked: false },
-      { label: 'clothes', value: '옷', isChecked: false },
-      { label: 'accessory', value: '악세사리', isChecked: false },
-      { label: 'etc', value: '그 외 상품', isChecked: false },
+      { value: '사료', isChecked: false },
+      { value: '장난감', isChecked: false },
+      { value: '옷', isChecked: false },
+      { value: '악세사리', isChecked: false },
+      { value: '그 외 상품', isChecked: false },
     ],
   },
   giveAway: {
     category: 'giveAway',
     data: [
       {
-        label: 'free',
         value: '무료나눔',
         isChecked: false,
       },
@@ -121,7 +116,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
     selectedValues: [],
     sorting: initialSorting,
 
-    addSelectedValue: (group, value, label, isChecked) => {
+    addSelectedValue: (group, value, isChecked) => {
       set((state) => {
         const updatedValues = state.updatedValueList[group].data.map((item) =>
           item.value === value ? { ...item, isChecked } : item,
@@ -145,7 +140,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
           // shouldAddToSelectedValues 가 true라면 새로 들어온 값을 추가한다.
           // false라면 필터링된 새로운 배열을 반환한다.
           selectedValues: shouldAddToSelectedValues
-            ? [...state.selectedValues, { group, value, label, isChecked }]
+            ? [...state.selectedValues, { group, value, isChecked }]
             : filteredSelectedValues,
         };
       });
@@ -183,7 +178,7 @@ export const useCheckedCategoryStore = create<CheckedCategoryState>()(
       set({ updatedValueList: initialValueList, selectedValues: [] });
     },
 
-    // sorting value 값 변경하기
+    // sorting 셀렉트 박스 value 값 변경하기
     changeSelectedSortingValue: (value: SortingValueType) => {
       set({ sorting: value });
     },

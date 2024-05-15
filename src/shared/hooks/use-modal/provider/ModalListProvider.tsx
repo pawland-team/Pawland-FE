@@ -6,6 +6,9 @@ import { ModalListDispatchContext, ModalListStateContext } from '../context/Moda
 import {
   CloseWithModalKeyImpl,
   CustomModalRef,
+  Destroy,
+  IModalListDispatchContext,
+  ManagedModalInfo,
   ModalInfoManageMap,
   ModalKey,
   ModalListProviderProps,
@@ -18,7 +21,7 @@ import { useCloseModalOnMouseDown } from '../useCloseModalOnMouseDown';
 import { usePersistScrollingDim } from '../usePersistScrollingDim';
 
 const ModalListProvider = ({ children }: ModalListProviderProps) => {
-  const [opendModalList, setOpenedModalList] = useState<OpenedModalStateWithModalKey[]>([]);
+  const [openedModalList, setOpenedModalList] = useState<OpenedModalStateWithModalKey[]>([]);
   const modalInfoManageMapRef = useRef<ModalInfoManageMap>(new Map());
 
   const watch: Watch = (modalKey: ModalKey) => {
@@ -28,7 +31,15 @@ const ModalListProvider = ({ children }: ModalListProviderProps) => {
   const setCustomModalRef: SetCustomModalRef = useCallback(({ modalKey, ModalComponent, options }) => {
     const customModalRef = <T extends HTMLElement | null>(node: T) => {
       if (node) {
-        modalInfoManageMapRef.current.set(modalKey, { ModalComponent, options, modalNode: node });
+        const optionsRemappedWithDefaultValue: ManagedModalInfo['options'] = options
+          ? // 전달 받은 옵션으로 기본값 덮어씌움
+            { scrollable: false, ...options }
+          : options;
+        modalInfoManageMapRef.current.set(modalKey, {
+          ModalComponent,
+          options: optionsRemappedWithDefaultValue,
+          modalNode: node,
+        });
       }
     };
 
@@ -73,19 +84,32 @@ const ModalListProvider = ({ children }: ModalListProviderProps) => {
       const removalResult = modalInfoManageMapRef.current.delete(stringifiedModalKey);
 
       if (!removalResult) {
-        console.error(`Failed to remove modal with key: ${stringifiedModalKey}`);
+        console.error(
+          `Failed to remove a modal with key: ${stringifiedModalKey}.\nThis error occurs because the modal has already been removed or the modal key is invalid.\nPlease check your modal key.\nBtw, this error is not critical and will not stop the application.`,
+        );
       }
     });
   };
 
-  useCloseModalOnMouseDown({ modalInfoManageMap: modalInfoManageMapRef.current, closeWithModalKeyImpl });
-  usePersistScrollingDim({ modalInfoManageMap: modalInfoManageMapRef.current, dependencyList: [opendModalList] });
+  const destroy: Destroy = async () => {
+    queueMicrotask(() => {
+      modalInfoManageMapRef.current.clear();
+      setOpenedModalList([]);
+    });
+  };
 
-  const dispatch = useMemo(() => ({ openWithModalKeyImpl, closeWithModalKeyImpl, watch }), []);
+  // options
+  useCloseModalOnMouseDown({ modalInfoManageMap: modalInfoManageMapRef.current, closeWithModalKeyImpl });
+  usePersistScrollingDim({ modalInfoManageMap: modalInfoManageMapRef.current, dependencyList: [openedModalList] });
+
+  const dispatch: IModalListDispatchContext = useMemo(
+    () => ({ openWithModalKeyImpl, closeWithModalKeyImpl, watch, destroy }),
+    [],
+  );
 
   return (
     <ModalListDispatchContext.Provider value={dispatch}>
-      <ModalListStateContext.Provider value={opendModalList}>{children}</ModalListStateContext.Provider>
+      <ModalListStateContext.Provider value={openedModalList}>{children}</ModalListStateContext.Provider>
     </ModalListDispatchContext.Provider>
   );
 };

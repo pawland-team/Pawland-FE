@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren, useEffect } from 'react';
+import { ComponentType, PropsWithChildren, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -13,14 +13,14 @@ import { useUserStore } from '@entities/user/model';
  * 페이지 전체를 감싸는 HOC 훅
  *
  * @description
- * `const pathName = usePathname();` 사용하여 최상위 Layout을 감싸지 않는 이유
- * If the hook is accessed from pages/, the pathname may be null when the router is not ready.
- * GSSP, GSP 등을 사용하는 페이지가 있다고 가정하자.
+ * - `const pathName = usePathname();` 사용하여 최상위 Layout을 감싸지 않는 이유
+ * - If the hook is accessed from pages/, the pathname may be null when the router is not ready.
+ * - GSSP, GSP 등을 사용하는 페이지가 있다고 가정하자.
  * pathName 넣고 전체 Layout 컴포넌트에서 사용할 경우에는 ssr때 프리렌더링이 되더라도 pathName은 useEffect 내부에서만 사용하므로 빈 화면이 보임
  *
  * 일부 컴포넌트만을 보호하려면 {@link UseGetAndSetUserInfo} 훅을 사용해야 한다.
  */
-export const withAuth = (Component: FunctionComponent<PropsWithChildren>) => {
+export const withAuth = (Component: ComponentType<PropsWithChildren>) => {
   const ProtectedComponent = (props: PropsWithChildren) => {
     const router = useRouter();
     const { data, status } = useGetUserInfo();
@@ -45,10 +45,12 @@ export const withAuth = (Component: FunctionComponent<PropsWithChildren>) => {
     }, [router, data, status, clearUserInfo, setUserInfo]);
 
     if (status === 'pending') {
+      // TODO: 로딩 스피너 추가
       return <div>Loading...</div>;
     }
 
     if (status === 'error') {
+      // TODO: 에러 페이지 추가
       return null;
     }
 

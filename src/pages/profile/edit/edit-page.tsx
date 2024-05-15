@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react';
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
+// import { useMutation } from '@tanstack/react-query';
+
+// interface FormData {
+//   nickname: string;
+//   description: string;
+//   selectedFile: string | null;
+// }
 
 export const EditPage = () => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
   const { data, status } = useGetUserInfo();
   const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
   const [nickname, setNickname] = useState(data?.nickname);
   const [description, setDescription] = useState(data?.userDesc);
   const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
-  const [isChanged, setIsChanged] = useState(false);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -34,15 +45,76 @@ export const EditPage = () => {
     setIsChanged(true);
   };
 
+  const handleDeleteImage = () => {
+    setSelectedFile(null);
+    setIsChanged(true);
+  };
+
   useEffect(() => {
     if (status === 'success' && data) {
       setUserInfo(data);
     }
   }, [data, status]);
 
-  const handleSaveProfile = () => {
-    setIsChanged(false);
+  const handleSaveProfile = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/user/my-info`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          nickname,
+          userDesc: description,
+          profileImage: selectedFile,
+        }),
+      });
+
+      if (response.ok) {
+        setIsChanged(false);
+        const updatedUserInfo = await response.json();
+        setUserInfo(updatedUserInfo);
+        setIsChanged(false);
+        router.push('/profile');
+      } else {
+        console.error('프로필 저장 실패:', response.statusText);
+      }
+    } catch (error) {
+      console.error('프로필 저장 실패:', error);
+    }
   };
+
+  // const mutation = useMutation(
+  //   async ({ nickname, description, selectedFile }: FormData) => {
+  //     const response = await fetch(`${BASE_URL}/api/user/my-info`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       credentials: 'include',
+  //       body: JSON.stringify({
+  //         nickname,
+  //         userDesc: description,
+  //         profileImage: selectedFile,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('프로필 저장 실패: ' + response.statusText);
+  //     }
+
+  //     return response.json();
+  //   }
+  // );
+
+  // const handleSaveProfile = async () => {
+  //   try {
+  //     await mutation.mutateAsync({ nickname, description, selectedFile });
+  //     setIsChanged(false);
+  //   } catch (error) {
+  //     console.error('프로필 저장 실패:', error.message);
+  //   }
 
   return (
     <>
@@ -61,7 +133,7 @@ export const EditPage = () => {
               <S.ImageEditButton htmlFor='fileUpload'>바꾸기</S.ImageEditButton>
               <S.FileUploadInput id='fileUpload' type='file' accept='image/*' onChange={handleFileChange} />
 
-              <S.ImageEditButton>삭제</S.ImageEditButton>
+              <S.ImageEditButton onClick={handleDeleteImage}>삭제</S.ImageEditButton>
             </S.EditButtonArea>
             <S.InputArea>
               <S.InputItem>

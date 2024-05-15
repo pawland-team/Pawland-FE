@@ -9,20 +9,24 @@ interface DropdownButtonStyleProps {
 }
 
 export const DropdownButton = styled.div<DropdownButtonStyleProps>`
+  cursor: pointer;
+
+  position: relative;
+
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   width: ${(props) => props.$width};
   height: ${(props) => props.$buttonHeight};
-  border: 1px solid;
-  border-color: ${(props) => props.$borderColor};
+  padding-right: 8px;
+  padding-left: 15px;
+
   color: ${(props) => props.$fontColor};
 
+  border: 1px solid;
+  border-color: ${(props) => props.$borderColor};
   border-radius: 5px;
-  justify-content: space-between;
-  padding-left: 15px;
-  padding-right: 8px;
-  position: relative;
-  cursor: pointer;
-  align-items: center;
 `;
 
 export const SelectedMenu = styled.div<DropdownButtonStyleProps>`
@@ -31,29 +35,35 @@ export const SelectedMenu = styled.div<DropdownButtonStyleProps>`
 `;
 
 export const DropdownMenuList = styled.div<DropdownButtonStyleProps>`
-  display: flex;
-  flex-direction: column;
-  width: ${(props) => props.$width};
   position: absolute;
   top: 100%;
   left: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  width: ${(props) => props.$width};
+  padding-right: 17px;
+  padding-left: 17px;
+
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border: 1px solid;
   border-color: ${(props) => props.$borderColor};
   border-radius: 5px;
-  padding-left: 17px;
-  padding-right: 17px;
-  background-color: ${({ theme }) => theme.color.white_FFFFFF};
 `;
 
 export const DropdownMenu = styled.div<DropdownButtonStyleProps>`
-  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
   height: 44px;
+
+  font-size: 1.4rem;
   font-weight: 200;
-  border-bottom: 1px solid;
+
   border-color: ${(props) => props.$borderColor};
+  border-bottom: 1px solid;
 
   &:hover {
     font-weight: 700;

@@ -9,8 +9,9 @@ const mockUserInfo: UserEntity = {
   id: 1,
   nickname: '테스트',
   stars: 3.5,
-  userIntroduce: '안녕하세요',
+  userDesc: '안녕하세요',
   loginType: '일반',
+  reviewCount: 6,
 };
 
 // @see https://fe-developers.kakaoent.com/2022/220317-integrate-msw-storybook-jest/
