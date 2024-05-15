@@ -4,12 +4,26 @@ import {
   FieldValues,
   Path,
   PathValue,
-  UseFormClearErrors,
   useFormContext,
-  UseFormSetError,
-  UseFormSetValue,
+  UseFormReturn,
   useWatch,
 } from 'react-hook-form';
+
+interface UseSelectByNameReturn<
+  TFieldValues extends FieldValues,
+  EventType extends BaseSyntheticEvent = BaseSyntheticEvent,
+> extends UseFormReturn<TFieldValues, any, undefined> {
+  /**
+   * 필드 (obj)
+   */
+  fieldObj: DeepPartialSkipArrayKey<TFieldValues>;
+  /**
+   * HTML 이벤트 핸들러
+   * @example
+   * onClick, onChange, ... 등
+   */
+  handleChangeCheckBox: (e: EventType) => void;
+}
 
 /**
  * @description
@@ -43,21 +57,7 @@ export const useSelectByName = <
   initialFieldValue: TFieldValues;
   regexForTestingName: RegExp;
   shouldValidate?: boolean;
-}): {
-  /**
-   * 필드 (obj)
-   */
-  fieldObj: DeepPartialSkipArrayKey<TFieldValues>;
-  /**
-   * HTML 이벤트 핸들러
-   * @example
-   * onClick, onChange, ... 등
-   */
-  handleChangeCheckBox: (e: EventType) => void;
-  setValue: UseFormSetValue<TFieldValues>;
-  setError: UseFormSetError<TFieldValues>;
-  clearErrors: UseFormClearErrors<TFieldValues>;
-} => {
+}): UseSelectByNameReturn<TFieldValues, EventType> => {
   /**
    * obj 인자 프로퍼티명과 프로퍼티값이 변경될 때만 memoizedField를 업데이트한다.
    */
@@ -66,14 +66,9 @@ export const useSelectByName = <
     [Object.keys(initialFieldValue)[0], initialFieldValue[Object.keys(initialFieldValue)[0]]],
   );
 
-  const {
-    formState: { isSubmitSuccessful },
-    setValue,
-    setError,
-    reset,
-    clearErrors,
-    control,
-  } = useFormContext<TFieldValues>();
+  const { formState, getFieldState, setValue, setError, reset, clearErrors, register, control, ...rest } =
+    useFormContext<TFieldValues>();
+  const { isSubmitSuccessful } = formState;
 
   const fieldObj = useWatch({
     control,
@@ -112,10 +107,16 @@ export const useSelectByName = <
   }, [isSubmitSuccessful]);
 
   return {
+    formState,
+    control,
     fieldObj,
+    reset,
     handleChangeCheckBox,
     setValue,
     setError,
     clearErrors,
+    register,
+    getFieldState,
+    ...rest,
   };
 };
