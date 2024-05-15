@@ -67,7 +67,10 @@ export type MyCommunityListResponse = Array<{
   commentCount: number;
 }>;
 
-export type MyProductListEntity = ProductListItemDto[];
+export type MyProductListEntity = {
+  content: ProductListItemDto[];
+  totalPages: number;
+};
 
 export interface MyWishProductEntity {
   id: number;
@@ -79,7 +82,14 @@ export interface MyWishProductEntity {
   wished: boolean;
 }
 
-export type MyWishListEntity = ProductListItemDto[];
+export interface getMyWishListParams {
+  page: number;
+}
+
+export type MyWishListEntity = {
+  content: ProductListItemDto[];
+  totalPages: number;
+};
 
 export interface getMyProductListParams {
   page: number;
@@ -116,4 +126,7 @@ export interface MyTransactionEntity {
   orderReviewResponse: OderReviewResponse;
 }
 
-export type MyTransactionListEntity = MyTransactionEntity[];
+export type MyTransactionListEntity = {
+  content: MyTransactionEntity[];
+  totalPages: number;
+};

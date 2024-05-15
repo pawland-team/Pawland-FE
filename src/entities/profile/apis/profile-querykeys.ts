@@ -1,6 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
+import {
+  getMyCommunityList,
+  getMyProductList,
+  getMyProductListParams,
+  getMyWishList,
+  getMyWishListParams,
+} from '@shared/apis/profile-api';
 import { getMyTransactionList } from '@shared/apis/profile-api/get-my-transaction-list-api';
 
 export const myCommunityQueryKeys = {
@@ -43,7 +49,7 @@ export const myProductQuery = {
 
 export const myWishListQueryKeys = {
   all: () => ['myWishList'],
-  myWishList: () => [...myProductQueryKeys.all()],
+  myWishList: ({ page }: getMyWishListParams) => [...myProductQueryKeys.all(), page],
 };
 
 export const myWishListQuery = {
@@ -52,10 +58,10 @@ export const myWishListQuery = {
       queryKey: myWishListQueryKeys.all(),
     }),
 
-  myWishList: () =>
+  myWishList: ({ page }: getMyWishListParams) =>
     queryOptions({
-      queryKey: myWishListQueryKeys.myWishList(),
-      queryFn: () => getMyWishList(),
+      queryKey: myWishListQueryKeys.myWishList({ page }),
+      queryFn: () => getMyWishList({ page }),
       staleTime: 3 * 60 * 1000,
     }),
 };

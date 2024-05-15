@@ -19,7 +19,7 @@ export const UserPage = () => {
       <S.UserPage>
         <UserInfoArea userData={data} />
         <UserRegisteredProductList userId={USER_ID} />
-        {/* <UserReviewList userId={USER_ID} /> */}
+        <UserReviewList userId={USER_ID} />
         <UserCommunityList userId={USER_ID} />
       </S.UserPage>
     );

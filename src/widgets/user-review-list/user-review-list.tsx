@@ -22,8 +22,8 @@ export const UserReviewList = ({ userId }: UserReviewListProps) => {
     return (
       <S.UserReviewList>
         <h3>'닉네임'님의 리뷰</h3>
-        {data?.length === 0 && <NoProductBox />}
-        {data.map((item) => (
+        {data?.content.length === 0 && <NoProductBox />}
+        {data.content.map((item) => (
           <UserReviewItem key={item.reviewId} item={item} />
         ))}
       </S.UserReviewList>

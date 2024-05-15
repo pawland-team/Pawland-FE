@@ -34,7 +34,6 @@ export interface GetUserInfoResponse {
 }
 
 export interface getUserProductListParams {
-  page: number;
   size: number;
   userId: number;
 }
@@ -60,4 +59,7 @@ export interface UserReviewEntity {
   createAt: string;
 }
 
-export type UserReviewListEntity = UserReviewEntity[];
+export type UserReviewListEntity = {
+  content: UserReviewEntity[];
+  totalPages: number;
+};

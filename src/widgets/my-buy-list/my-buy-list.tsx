@@ -17,9 +17,9 @@ export const MyBuyList = () => {
   if (status === 'success') {
     return (
       <S.TransactionHistoryList>
-        {data?.length === 0 && <NoProductBox />}
+        {data?.content.length === 0 && <NoProductBox />}
 
-        {data.map((item) => (
+        {data.content.map((item) => (
           <TransactionItem
             reviewArea={
               item.orderReviewResponse ? (
