@@ -4,7 +4,7 @@ import ReactQuill, { ReactQuillProps } from 'react-quill';
 
 import { styled } from 'styled-components';
 
-import { FocusRefProps } from '@features/register-product/model';
+import { FocusRefProps, RegisterProductForm } from '@features/register-product/model';
 import { useProductImageListStore } from '@features/register-product/model/store';
 import { getPreSignedURL, PreSignedURLResponse } from '@shared/apis/image-api';
 import { clientWithTokenApi } from '@shared/apis/instance';
@@ -24,7 +24,7 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
     (state) => state.appendPreRegisteredToS3ProductImage,
   );
 
-  const { watch } = useFormContext<{ just_for_reset_quill: string }>();
+  const { watch } = useFormContext<Pick<RegisterProductForm, 'description'>>();
 
   /**
    * ? 궁금증
@@ -224,7 +224,7 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
         }}
         theme={theme}
         modules={mod}
-        value={watch('just_for_reset_quill')}
+        value={watch('description')}
         onChange={onChange}
         formats={formats}
         {...rest}
