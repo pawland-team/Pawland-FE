@@ -39,7 +39,7 @@ const ProductSearchResultList = () => {
     content: String(content),
   };
 
-  const { data, isLoading } = useGetSearchResultList(newSearchParams);
+  const { data } = useGetSearchResultList(newSearchParams);
   const totalCardCount = data?.totalElements;
 
   // console.log(`isFetching: ${isFetching}`);
