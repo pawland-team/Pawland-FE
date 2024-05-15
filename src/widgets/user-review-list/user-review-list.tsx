@@ -16,6 +16,7 @@ export const UserReviewList = ({ userId }: UserReviewListProps) => {
   };
 
   const { data, status } = useGetUserReviewList(initialParams);
+  console.log(data);
 
   if (status === 'success') {
     return (

@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import * as S from './user-community-post-item-style';
 import { UserCommunityPostEntity } from '@shared/apis/profile-api';
+import { formatDateShorter } from '@shared/utils/time';
 
 interface UserCommunityPostItemProps {
   item: UserCommunityPostEntity;
@@ -28,7 +29,7 @@ export const UserCommunityPostItem = ({ item }: UserCommunityPostItemProps) => {
           <S.ItemSubTextBox>
             <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
             <S.ItemSubDivider />
-            <S.ItemSubText>{item.createdAt}</S.ItemSubText>
+            <S.ItemSubText>{formatDateShorter(item.createdAt)}</S.ItemSubText>
             <S.ItemSubDivider />
             <S.ItemSubText>{`댓글 ${item.comments.length}`}</S.ItemSubText>
             <S.ItemSubDivider />

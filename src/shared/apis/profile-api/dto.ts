@@ -50,7 +50,10 @@ export interface UserCommunityPostEntity {
   recommended: boolean;
 }
 
-export type UserCommunityListEntity = UserCommunityPostEntity[];
+export type UserCommunityListEntity = {
+  content: UserCommunityPostEntity[];
+  totalPages: number;
+};
 
 export type MyCommunityListResponse = Array<{
   id: number;

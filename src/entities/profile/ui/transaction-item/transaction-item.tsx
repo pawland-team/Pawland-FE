@@ -16,7 +16,7 @@ export const TransactionItem = ({ itemTitle, reviewArea, item }: TransactionItem
   return (
     <S.TransactionItem>
       <S.ProductArea>
-        <SmallThumbnail imageUrl={item.product.thumbnailUrl} />
+        <SmallThumbnail imageUrl={item.product.thumbnailImage} />
         <S.ItemInfoArea>
           <span className='saleSate'>{itemTitle}</span>
           <div>

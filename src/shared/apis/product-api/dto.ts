@@ -155,19 +155,22 @@ export interface ProductListItemDto {
     id: number;
     email: string;
     nickname: string;
+    profileImage: string;
+    star: number;
+    reviewCount: number;
   };
   /**
    * 상품 카테고리
    */
-  category: Category;
+  category: CategoryValue;
   /**
    * 동물 카테고리
    */
-  species: Species;
+  species: SpeciesValue;
   /**
    * 상품 상태
    */
-  condition: ProductCondition;
+  condition: ProductConditionValue;
   /**
    * 상품명
    */
@@ -196,8 +199,6 @@ export interface ProductListItemDto {
    * 상품 썸네일
    */
   thumbnailImage: string;
-  thumbnailUrl: string;
-
   /**
    * 상품 상세 이미지
    */
