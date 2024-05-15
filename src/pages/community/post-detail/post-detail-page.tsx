@@ -592,31 +592,33 @@ export const CommunityPostDetailPage = () => {
                           <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
                         </S.ProfileImageWrapper>
                         <S.ComentPostBox>
-                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
-                          {reply.author.id === userData?.id && (
-                            <>
-                              {editingReplyId === reply.id ? (
-                                <>
-                                  <button type='button' onClick={cancelEditingReply}>
-                                    취소
+                          <S.ReplyFunctionBox>
+                            <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                            {reply.author.id === userData?.id && (
+                              <>
+                                {editingReplyId === reply.id ? (
+                                  <>
+                                    <button type='button' onClick={cancelEditingReply}>
+                                      취소
+                                    </button>
+                                    <button type='button' onClick={() => handleReplyEditSubmit(reply.id, comment.id)}>
+                                      저장
+                                    </button>
+                                  </>
+                                ) : (
+                                  <button type='button' onClick={() => startEditingReply(reply.id, reply.content)}>
+                                    <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
                                   </button>
-                                  <button type='button' onClick={() => handleReplyEditSubmit(reply.id, comment.id)}>
-                                    저장
-                                  </button>
-                                </>
-                              ) : (
-                                <button type='button' onClick={() => startEditingReply(reply.id, reply.content)}>
-                                  <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-                                </button>
-                              )}
-                              <S.ComentDeleteButton
-                                type='button'
-                                onClick={() => handleDeleteReply(comment.id, reply.id)}
-                              >
-                                X
-                              </S.ComentDeleteButton>
-                            </>
-                          )}
+                                )}
+                                <S.ComentDeleteButton
+                                  type='button'
+                                  onClick={() => handleDeleteReply(comment.id, reply.id)}
+                                >
+                                  X
+                                </S.ComentDeleteButton>
+                              </>
+                            )}
+                          </S.ReplyFunctionBox>
                           <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
                           {editingReplyId === reply.id ? (
                             <S.ComentTextarea
