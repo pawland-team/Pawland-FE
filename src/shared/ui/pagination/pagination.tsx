@@ -39,9 +39,11 @@ const Pagination = ({ totalCount, itemsPerPage = 12, pagesPerGroup = 5, initialP
 
   return (
     <S.PaginationContainer>
-      <S.ArrowButton type='button' onClick={jumpToPreviousPageGroup} disabled={!canJumpToPreviousPageGroup}>
-        &lt;
-      </S.ArrowButton>
+      {canJumpToPreviousPageGroup && (
+        <S.ArrowButton type='button' onClick={jumpToPreviousPageGroup}>
+          &lt;
+        </S.ArrowButton>
+      )}
       {currentPageGroup.map((number) => (
         <>
           {console.log(currentPage)}
@@ -56,9 +58,11 @@ const Pagination = ({ totalCount, itemsPerPage = 12, pagesPerGroup = 5, initialP
           </S.NumberButton>
         </>
       ))}
-      <S.ArrowButton type='button' onClick={jumpToNextPageGroup} disabled={!canJumpToNextPageGroup}>
-        &gt;
-      </S.ArrowButton>
+      {canJumpToNextPageGroup && (
+        <S.ArrowButton type='button' onClick={jumpToNextPageGroup}>
+          &gt;
+        </S.ArrowButton>
+      )}
     </S.PaginationContainer>
   );
 };
