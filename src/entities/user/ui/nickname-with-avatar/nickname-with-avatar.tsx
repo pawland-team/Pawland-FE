@@ -23,13 +23,14 @@ const NicknameWithAvatar = ({ imageSrc, nickname }: NicknameWithAvatarProps) => 
   };
 
   const handleLogout = () => {
-    fetch('/api/auth/logout', {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
     });
+    window.location.href = '/';
   };
 
   return (
