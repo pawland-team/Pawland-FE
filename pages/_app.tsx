@@ -1,8 +1,12 @@
+import { useEffect, useState } from 'react';
+
 import { HydrationBoundary } from '@tanstack/react-query';
 import Head from 'next/head';
 import type {} from 'styled-components/cssprop';
+import { useRouter } from 'next/router';
 
 import { Layout } from '@app/layout';
+import { Loading } from '@app/layout/loading';
 import { StyledThemeProvider, TanstackQueryProvider } from '@app/providers';
 import { ModalList, ModalListProvider } from '@shared/hooks/use-modal';
 import 'react-quill/dist/quill.snow.css';
@@ -20,6 +24,31 @@ if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_API_MOCKIN
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const start = () => {
+      // NProgress.start();
+      setLoading(true);
+    };
+
+    const end = () => {
+      // NProgress.done();
+      setLoading(false);
+    };
+
+    router.events.on('routeChangeStart', start);
+    router.events.on('routeChangeComplete', end);
+    router.events.on('routeChangeError', end);
+
+    return () => {
+      router.events.off('routeChangeStart', start);
+      router.events.off('routeChangeComplete', end);
+      router.events.off('routeChangeError', end);
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -38,9 +67,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <TanstackQueryProvider>
           <ModalListProvider>
             <HydrationBoundary state={pageProps.dehydratedState}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
               <ModalList />
             </HydrationBoundary>
           </ModalListProvider>
