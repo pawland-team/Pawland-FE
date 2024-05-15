@@ -17,6 +17,7 @@ export interface MyCommunityPostEntity {
 
 export interface MyCommunityListEntity {
   content: MyCommunityPostEntity[];
+  totalPages: number;
 }
 
 type Author = {
