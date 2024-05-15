@@ -85,13 +85,29 @@ const FlexBox = styled.div`
 
 const EditBox = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
 `;
 
 const StatusText = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+const PostFunctionBox = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+`;
+
+const PostFunctionButton = styled.button`
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: ${({ theme }) => theme.color.gray_9E9E9E};
 `;
 
@@ -392,6 +408,8 @@ export {
   EditBox,
   CommunityStatusBox,
   StatusText,
+  PostFunctionBox,
+  PostFunctionButton,
   Divider,
   ContentsArea,
   Contents,

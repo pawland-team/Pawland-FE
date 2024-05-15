@@ -1,20 +1,19 @@
+import { toast } from 'react-toastify';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { NicknameWithAvatar } from '@entities/user/ui';
-import { CommonButton } from '@shared/ui/buttons';
+import { CommonLink } from '@shared/ui/buttons/common-link';
 
 import * as S from './header-style';
 
 const Header = () => {
-  const router = useRouter();
-
   const { data, status } = useGetUserInfo();
 
-  const handleClickLogin = () => {
-    router.push('/login');
+  const handleNotReadyAleart = () => {
+    toast.warning('준비중입니다! 기대해주세요 :)');
   };
 
   return (
@@ -34,11 +33,15 @@ const Header = () => {
               <li>
                 <Link href='/community/list'>커뮤니티</Link>
               </li>
-              <li>
-                <Link href='/'>반려동물동반</Link>
+              <li className='disabled'>
+                <button type='button' onClick={handleNotReadyAleart}>
+                  반려동물동반
+                </button>
               </li>
-              <li>
-                <Link href='/'>이벤트</Link>
+              <li className='disabled'>
+                <button type='button' onClick={handleNotReadyAleart}>
+                  이벤트
+                </button>
               </li>
             </ul>
           </S.NavContainer>
@@ -55,9 +58,9 @@ const Header = () => {
               <NicknameWithAvatar nickname={data.nickname} imageSrc={data.profileImage} />
             </S.LinkGroupContainer>
           ) : (
-            <CommonButton maxWidth='172px' fontWeight='700' handleClick={handleClickLogin}>
+            <CommonLink maxWidth='172px' fontWeight='700' href='/login'>
               로그인/회원가입
-            </CommonButton>
+            </CommonLink>
           )}
         </S.HeaderContainer>
       </S.HeaderArea>

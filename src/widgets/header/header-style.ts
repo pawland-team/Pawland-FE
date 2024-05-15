@@ -54,6 +54,18 @@ export const NavContainer = styled.nav`
         color: ${({ theme }) => theme.color.blue_43ADFF};
       }
     }
+
+    &.disabled {
+      button {
+        font-size: 2rem;
+        font-weight: 700;
+        transition: all 0.15s;
+
+        &:hover {
+          color: ${({ theme }) => theme.color.blue_43ADFF};
+        }
+      }
+    }
   }
 `;
 

@@ -13,8 +13,8 @@ const DetailMainInfo = ({ itemData }: DetailMainInfoProps) => {
       <S.MainInfoSection>
         <div className='info-container'>
           <ProductDetailImages
-            SubImagesList={itemData.imageUrls}
-            ThumbnailSrc={
+            subImagesList={itemData.imageUrls}
+            thumbnailSrc={
               itemData.thumbnailImage === undefined
                 ? '/images/product/default-card-thumbnail.png'
                 : itemData.thumbnailImage

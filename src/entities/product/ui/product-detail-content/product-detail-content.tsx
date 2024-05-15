@@ -18,13 +18,19 @@ const ProductDetailContent = ({ detailContent }: ProductDetailContentProps) => {
     setIsOpened((prev) => !prev);
   };
 
-  useEffect(() => {
-    const textAreraHeight = contentTextRef.current?.offsetHeight;
+  // ? : 화면 렌더링 되기 전에 먼저 요소 높이를 측정해 버리기 때문에 항상 500px이 넘지 않는 상황.
+  // setTimeout으로 해결 이게 맞나
 
-    if (textAreraHeight) {
-      setTextBoxHeight(contentTextRef.current.offsetHeight);
-    }
-  }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (contentTextRef.current) {
+        const height = contentTextRef.current.offsetHeight;
+        setTextBoxHeight(height);
+      }
+    }, 500); // 1초 후에 실행
+
+    return () => clearTimeout(timer); // cleanup 함수에서 타이머 해제
+  }, []); // []를 사용하여 최초 렌더링 시에만 실행되도록 설정
 
   return (
     <SContentContainer>
@@ -82,7 +88,7 @@ const SButtonBox = styled.div`
   height: 200px;
 
   background: rgb(255 255 255);
-  background: linear-gradient(180deg, rgb(255 255 255 / 59.1%) 0%, rgb(255 255 255 / 100%) 73%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 84.1%) 37%);
 
   button {
     position: absolute;

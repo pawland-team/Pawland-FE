@@ -18,7 +18,7 @@
     "lint:check": "eslint \"**/*.{ts,tsx}\"",
     "lint:css": "stylelint --fix \"**/*.{css,ts,tsx}\"",
     "lint:fix": "prettier --write \"**/*.{ts,tsx}\" && eslint --fix \"**/*.{ts,tsx}\" & stylelint --fix \"**/*.{css,ts,tsx}\"",
-    "typecheck": "tsc --noEmit --skipLibCheck",
+    "typecheck": "tsc --noEmit --skipLibCheck && rm -f tsconfig.tsbuildinfo",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install",
