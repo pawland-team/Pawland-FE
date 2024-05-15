@@ -225,6 +225,9 @@ export const SignupPage = () => {
       </Head>
       <S.SignupPageContainer>
         <S.SignupPageTitleContainer>
+          <Link href='/'>
+            <Image src='/images/logo/signature-logo.svg' alt='signup-logo' width={150} height={150} />
+          </Link>
           <S.SignupPageTitle>회원가입</S.SignupPageTitle>
           <S.SignupPageTitleSpan>회원가입에 필요한 정보를 입력해주세요.</S.SignupPageTitleSpan>
         </S.SignupPageTitleContainer>
