@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { ProductListItemDto } from '@shared/apis/product-api';
-import { CommonButton } from '@shared/ui/buttons';
+import { CommonLink } from '@shared/ui/buttons/common-link';
 import { CategoryTree, ProductInteractionButtonsBox, RateStar } from '@shared/ui/product';
 import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 import { formatPrice } from '@shared/utils/price';
@@ -16,12 +15,6 @@ interface ProductDetailInfoProps {
 }
 
 const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
-  const router = useRouter();
-
-  const handleClickToChat = () => {
-    router.push('/chat');
-  };
-
   return (
     <S.ProductDetailInfoArea>
       <div>
@@ -47,19 +40,18 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
         </S.MainInfoContainer>
       </div>
       <S.ButtonContainer>
-        <CommonButton
-          handleClick={handleClickToChat}
+        <CommonLink
+          href='/chat'
           backgroundColor='#43ADFF'
           fontColor='#fff'
           fontSize='24px'
           padding='16px'
           fontWeight='600'
-          disabled={detailInfo.status !== '판매중'}
         >
           {detailInfo.status === '판매중' && '채팅하기'}
           {detailInfo.status === '판매취소' && '판매취소'}
           {detailInfo.status === '판매 완료' && '판매완료'}
-        </CommonButton>
+        </CommonLink>
       </S.ButtonContainer>
     </S.ProductDetailInfoArea>
   );
