@@ -23,21 +23,22 @@ export const ReviewItem = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 36px;
   gap: 26px;
+  margin-left: 36px;
 `;
 
 export const Nickname = styled.span`
+  margin-top: 14px;
   font-size: 2.4rem;
   line-height: 28px;
-  margin-top: 14px;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
 `;
 
 export const Date = styled.span`
+  margin-top: 14px;
+  margin-left: 680px;
+
   font-size: 2.4rem;
   line-height: 28px;
-  margin-top: 14px;
   color: ${({ theme }) => theme.color.gray_BDBDBD};
-  margin-left: 450px;
 `;

@@ -1,31 +1,39 @@
-import * as S from './user-community-post-item-style';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 
-export const UserCommunityPostItem = () => {
+import Image from 'next/image';
+import Link from 'next/link';
+
+import * as S from './user-community-post-item-style';
+import { UserCommunityPostEntity } from '@shared/apis/profile-api';
+import { formatDateShorter } from '@shared/utils/time';
+
+interface UserCommunityPostItemProps {
+  item: UserCommunityPostEntity;
+}
+
+export const UserCommunityPostItem = ({ item }: UserCommunityPostItemProps) => {
   const [iconSrc, setIconSrc] = useState<string>('/images/icon/arrow-icon-gray.svg');
 
   return (
-    <Link href='/community/post-detail'>
+    <Link href={`/community/post-detail/${item.id}`}>
       <S.ItemBox
         onMouseEnter={() => setIconSrc('/images/icon/arrow-icon-blue.svg')}
         onMouseLeave={() => setIconSrc('/images/icon/arrow-icon-gray.svg')}
       >
         <S.ThumnailImageWrapper>
-          <Image src='/images/logo/signature-logo.svg' alt='thumnail-image' fill />
+          <Image src={item.thumbnail} alt='thumnail-image' fill />
         </S.ThumnailImageWrapper>
         <S.TextContentsWrapper>
-          <S.ItemRegiontext>지역</S.ItemRegiontext>
-          <S.ItemTitleText>제목제목제목제목제목</S.ItemTitleText>
+          <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
+          <S.ItemTitleText>{item.title}</S.ItemTitleText>
           <S.ItemSubTextBox>
-            <S.ItemSubText>닉네임</S.ItemSubText>
+            <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
             <S.ItemSubDivider />
-            <S.ItemSubText>2024.05.03</S.ItemSubText>
+            <S.ItemSubText>{formatDateShorter(item.createdAt)}</S.ItemSubText>
             <S.ItemSubDivider />
-            <S.ItemSubText>댓글 100</S.ItemSubText>
+            <S.ItemSubText>{`댓글 ${item.comments.length}`}</S.ItemSubText>
             <S.ItemSubDivider />
-            <S.ItemSubText>추천 100</S.ItemSubText>
+            <S.ItemSubText>{`추천 ${item.recommendCount}`}</S.ItemSubText>
           </S.ItemSubTextBox>
         </S.TextContentsWrapper>
         <S.ArrowIconWrapper>

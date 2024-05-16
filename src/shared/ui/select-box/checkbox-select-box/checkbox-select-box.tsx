@@ -25,6 +25,7 @@ interface CheckboxSelectBoxProps {
 const CheckboxSelectBox = ({ selectBoxCategory, categoryList, handleChange }: CheckboxSelectBoxProps) => {
   const dropDownRef = useRef(null);
   const [isSelectOpened, setIsSelectOpened] = useState(false);
+  const isAnyCheckboxChecked = categoryList?.data.some((checkbox) => checkbox.isChecked);
 
   useOutsideClick(dropDownRef, isSelectOpened, setIsSelectOpened);
 
@@ -34,16 +35,21 @@ const CheckboxSelectBox = ({ selectBoxCategory, categoryList, handleChange }: Ch
 
   return (
     <S.CheckboxSelectBoxStyle ref={dropDownRef}>
-      <SelectBox handleClick={handleClickOpenSelectBox} isOpened={isSelectOpened} selectedName={selectBoxCategory} />
+      <SelectBox
+        handleClick={handleClickOpenSelectBox}
+        isOpened={isSelectOpened}
+        selectedName={selectBoxCategory}
+        className={isAnyCheckboxChecked ? 'active' : ''}
+      />
       {isSelectOpened && (
-        <CheckDropDownBox width='290px' ariaLabelledBy={categoryList.category}>
+        <CheckDropDownBox width='290px' ariaLabelledBy={categoryList.group}>
           {categoryList?.data.map((checkbox) => (
-            <li key={checkbox.label}>
+            <li key={checkbox.value}>
               <CommonCheckBox
-                label={checkbox.label}
+                label={checkbox.value}
                 value={checkbox.value}
                 isChecked={checkbox.isChecked}
-                group={categoryList.category}
+                group={categoryList.group}
                 handleChangeCheckBox={handleChange}
               />
             </li>

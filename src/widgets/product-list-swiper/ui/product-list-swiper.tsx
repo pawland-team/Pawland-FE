@@ -48,12 +48,16 @@ const ProductListSwiper = ({ productList }: ProductListSwiperProps) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <S.NavigationLeft>
-        <RoundedArrowButton disabled={isBeginning} handleClick={handlePrev} direction='left' />
-      </S.NavigationLeft>
-      <S.NavigationRight>
-        <RoundedArrowButton disabled={isEnd} handleClick={handleNext} direction='right' />
-      </S.NavigationRight>
+      {productList.length > 4 && (
+        <>
+          <S.NavigationLeft>
+            <RoundedArrowButton disabled={isBeginning} handleClick={handlePrev} direction='left' />
+          </S.NavigationLeft>
+          <S.NavigationRight>
+            <RoundedArrowButton disabled={isEnd} handleClick={handleNext} direction='right' />
+          </S.NavigationRight>
+        </>
+      )}
     </S.ProductListSwiperBox>
   );
 };

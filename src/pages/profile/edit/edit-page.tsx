@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
 
 import * as S from './edit-page-style';
-// import { useMutation } from '@tanstack/react-query';
-
-// interface FormData {
-//   nickname: string;
-//   description: string;
-//   selectedFile: string | null;
-// }
+import { getQueryClient } from '@shared/lib/get-query-client';
 
 export const EditPage = () => {
+  const queryClient = getQueryClient();
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
   const { data, status } = useGetUserInfo();
   const { setUserInfo } = useUserStore((state) => ({ setUserInfo: state.setUserInfo }));
@@ -22,6 +18,9 @@ export const EditPage = () => {
   const [description, setDescription] = useState(data?.userDesc);
   const [selectedFile, setSelectedFile] = useState<string | null>(data?.profileImage || null);
   const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -29,6 +28,7 @@ export const EditPage = () => {
     if (file) {
       setSelectedFile(URL.createObjectURL(file));
       setIsChanged(true);
+      setImageFile(file);
     }
   };
 
@@ -55,73 +55,71 @@ export const EditPage = () => {
 
   const handleSaveProfile = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/user/my-info`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          nickname,
-          userDesc: description,
-          profileImage: selectedFile,
-        }),
-      });
+      if (imageFile) {
+        const fileName = imageFile.name;
+        console.log('썸네일 이미지 이름:', fileName);
 
-      if (response.ok) {
-        setIsChanged(false);
-        const updatedUserInfo = await response.json();
-        setUserInfo(updatedUserInfo);
-        setIsChanged(false);
-        console.log(updatedUserInfo);
-        console.log(nickname, description, selectedFile);
-      } else {
-        console.error('프로필 저장 실패:', response.statusText);
-        console.log(nickname, description, selectedFile);
+        const preSignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ fileName }),
+          credentials: 'include',
+        });
+
+        if (!preSignedResponse.ok) throw new Error('프리사인 URL 요청에 실패했습니다.');
+
+        const preSignedData = await preSignedResponse.json();
+        const { presignedUrl }: { presignedUrl: string } = preSignedData;
+
+        const uploadResponse = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: imageFile,
+          headers: {
+            'Content-Type': imageFile.type,
+          },
+        });
+
+        if (!uploadResponse.ok) throw new Error('파일 업로드에 실패했습니다.');
+
+        const s3BucketBaseUrl = process.env.NEXT_PUBLIC_BUCKET_BASE_URL as string;
+        const ImageUrl = `${s3BucketBaseUrl}/${fileName}`;
+
+        const response = await fetch(`${BASE_URL}/api/user/my-info`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            nickname,
+            userDesc: description,
+            profileImage: ImageUrl,
+          }),
+        });
+
+        if (response.ok) {
+          setIsChanged(false);
+          const updatedUserInfo = await response.json();
+          setUserInfo(updatedUserInfo);
+          setIsChanged(false);
+          queryClient.invalidateQueries({ queryKey: ['user'] });
+          router.push('/profile');
+        } else {
+          console.error('프로필 저장 실패:', response.status);
+          console.log(nickname, description, ImageUrl);
+        }
       }
     } catch (error) {
       console.error('프로필 저장 실패:', error);
     }
   };
 
-  // const mutation = useMutation(
-  //   async ({ nickname, description, selectedFile }: FormData) => {
-  //     const response = await fetch(`${BASE_URL}/api/user/my-info`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: 'include',
-  //       body: JSON.stringify({
-  //         nickname,
-  //         userDesc: description,
-  //         profileImage: selectedFile,
-  //       }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('프로필 저장 실패: ' + response.statusText);
-  //     }
-
-  //     return response.json();
-  //   }
-  // );
-
-  // const handleSaveProfile = async () => {
-  //   try {
-  //     await mutation.mutateAsync({ nickname, description, selectedFile });
-  //     setIsChanged(false);
-  //   } catch (error) {
-  //     console.error('프로필 저장 실패:', error.message);
-  //   }
-
   return (
     <>
       <Head>
-        <title>Pawland Profile</title>
-        <meta name='description' content='Generated by create next app' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        <title>Pawland :: 프로필 수정</title>
       </Head>
       <main>
         <S.EditPage>
@@ -176,27 +174,3 @@ export const EditPage = () => {
     </>
   );
 };
-
-[
-  {
-    roomId: 0,
-    opponentUser: {
-      id: 0,
-      nickname: 'string',
-      profileImage: 'string',
-    },
-    productInfo: {
-      id: 0,
-      seller: {
-        id: 0,
-        nickname: 'string',
-        profileImage: 'string',
-      },
-      productName: 'string',
-      price: 0,
-      saleState: 'string',
-      purchaser: 0,
-      imageThumbnail: 'string',
-    },
-  },
-];

@@ -1,23 +1,30 @@
 import { ProductDetailContent, ProductDetailImages, ProductDetailInfo } from '@entities/product/ui';
-import { ProductDetailType } from '@shared/apis/product-api/product-detail.mock';
+import { ProductListItemDto } from '@shared/apis/product-api';
 
 import * as S from './detail-main-info-style';
 
-interface DetailMainInfoAreaProps {
-  detailInfo: ProductDetailType;
+interface DetailMainInfoProps {
+  itemData: ProductListItemDto;
 }
 
-const DetailMainInfo = ({ detailInfo }: DetailMainInfoAreaProps) => {
+const DetailMainInfo = ({ itemData }: DetailMainInfoProps) => {
   return (
     <>
       <S.MainInfoSection>
         <div className='info-container'>
-          <ProductDetailImages SubImagesList={detailInfo.imageUrls} ThumbnailSrc={detailInfo.imageThumbnail} />
-          <ProductDetailInfo id={detailInfo.id} detailInfo={detailInfo} />
+          <ProductDetailImages
+            subImagesList={itemData.imageUrls}
+            thumbnailSrc={
+              itemData.thumbnailImage === undefined
+                ? '/images/product/default-card-thumbnail.png'
+                : itemData.thumbnailImage
+            }
+          />
+          <ProductDetailInfo id={itemData.id} detailInfo={itemData} />
         </div>
         <S.DivideLine />
         <div className='content-container'>
-          <ProductDetailContent detailContent={detailInfo.description} />
+          <ProductDetailContent detailContent={itemData.content} />
         </div>
       </S.MainInfoSection>
     </>

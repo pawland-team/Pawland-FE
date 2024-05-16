@@ -8,5 +8,9 @@ declare namespace NodeJS {
     NEXT_PUBLIC_PORT_ONE: string;
     DEPLOY_SERVER_URL: string;
     SERVER_URL_ON_SSR: string;
+    NEXT_PUBLIC_NAVER_CLIENT_ID: string;
+    NEXT_PUBLIC_KAKAO_CLIENT_ID: string;
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: string;
+    NEXT_PUBLIC_BUCKET_BASE_URL: string;
   }
 }

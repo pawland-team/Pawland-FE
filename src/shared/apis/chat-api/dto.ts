@@ -3,13 +3,19 @@ import { UserEntity } from '@shared/apis/user-api';
 
 export type WebSocketChatResponse = ChatContent;
 
+export interface CreateChatRoomRequestDTO {
+  sellerId: number;
+  productId: number;
+  orderId: number;
+}
+
 /**
  * websocket Chat 응답 시
  * http 응답 시
  */
 export type HTTPChatResponse = {
   nextCursor: string;
-  hasNext: boolean;
+  // hasNext: boolean;
   messageList: ChatContent[];
 };
 
@@ -30,14 +36,15 @@ export interface ChatContent {
 
 export type ChatRoomListResponse = Array<{
   roomId: number;
+  orderId: number;
   opponentUser: Pick<UserEntity, 'id' | 'nickname' | 'profileImage'>;
   productInfo: {
     id: ProductInfoEntity['id'];
     seller: Omit<UserEntity, 'email' | 'userIntroduce' | 'stars' | 'loginType'>;
-    productName: ProductInfoEntity['productName'];
+    productName: ProductInfoEntity['name'];
     price: ProductInfoEntity['price'];
-    saleState: ProductInfoEntity['saleState'];
-    imageThumbnail: ProductInfoEntity['imageThumbnail'];
+    saleState: ProductInfoEntity['status'];
+    thumbnailImage: ProductInfoEntity['thumbnailImage'];
     purchaser: UserEntity['id'] | null;
   };
   lastMessage: ChatContent;

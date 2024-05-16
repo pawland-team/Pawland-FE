@@ -13,14 +13,17 @@ import * as S from './main-product-list-style';
 const MainProductList = () => {
   const { data } = useGetMainProductList(8);
 
+  if (!data || data?.content.length === 0) {
+    return <NoProductBox message='등록된 상품이 없습니다.' />;
+  }
+
   return (
     <S.ProductListArea>
-      {data?.content.length === 0 && <NoProductBox />}
-      {data && data?.content.length > 0 && (
+      {data && (
         <>
           <div className='product-title-box'>
             <h3>최신 상품</h3>
-            <Link href='/product?page=1&size=12'>더보기</Link>
+            <Link href='/product'>더보기</Link>
           </div>
           <ProductFlexList listData={data?.content} />
         </>

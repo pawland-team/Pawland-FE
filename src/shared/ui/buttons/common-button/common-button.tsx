@@ -2,7 +2,7 @@ import { MouseEvent, ReactNode } from 'react';
 
 import * as S from './common-button-style';
 
-interface CommonButtonProps {
+type CommonButtonProps = {
   children: ReactNode;
   handleClick?: (e: MouseEvent<HTMLElement>) => void;
   borderRadius?: string;
@@ -13,10 +13,32 @@ interface CommonButtonProps {
   fontColor?: string;
   padding?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
-  disabled?: boolean;
   borderColor?: string;
   borderWidth?: string;
-}
+  /**
+   * Link 태그에서는 사용 불가능
+   * @default undefined
+   */
+  disabled?: boolean;
+  /**
+   * Link 태그로 사용할 때는 true를 줘야 함
+   * @default undefined
+   */
+  asLink?: boolean;
+} & (
+  | {
+      asLink?: false;
+    }
+  | {
+      asLink: true;
+      /**
+       * asLink가 true면 href를 넣어주세요
+       * Link 태그의 href에 할당됩니다.
+       */
+      href: string;
+      disabled: never;
+    }
+);
 
 /**
  * - 단위까지 다 적어주세요
@@ -36,21 +58,49 @@ interface CommonButtonProps {
  * @param borderWidth example '2px'
  */
 
-const CommonButton = ({
-  children,
-  handleClick,
-  borderRadius = '6px',
-  maxWidth = '100%',
-  fontSize = '1.6rem',
-  backgroundColor = '#000',
-  fontColor = '#fff',
-  fontWeight = '400',
-  type = 'button',
-  padding = '10px 0',
-  disabled = false,
-  borderColor,
-  borderWidth,
-}: CommonButtonProps) => {
+const CommonButton = (commonButtonProps: CommonButtonProps) => {
+  // 🛡️타입 가드
+  const {
+    children,
+    handleClick,
+    borderRadius = '6px',
+    maxWidth = '100%',
+    fontSize = '1.6rem',
+    backgroundColor = '#000',
+    fontColor = '#fff',
+    fontWeight = '400',
+    type = 'button',
+    padding = '10px 0',
+    borderColor,
+    borderWidth,
+    disabled,
+    asLink,
+  } = commonButtonProps;
+
+  // eslint-disable-next-line react/destructuring-assignment
+  if (asLink === true && commonButtonProps.href) {
+    const { href } = commonButtonProps;
+
+    return (
+      <S.CommonLinkButton
+        href={href}
+        type={type}
+        onClick={handleClick}
+        $borderRadius={borderRadius}
+        $backgroundColor={backgroundColor}
+        $fontColor={fontColor}
+        $maxWidth={maxWidth}
+        $fontSize={fontSize}
+        $fontWeight={fontWeight}
+        $padding={padding}
+        $borderColor={borderColor}
+        $borderWidth={borderWidth}
+      >
+        {children}
+      </S.CommonLinkButton>
+    );
+  }
+
   return (
     <S.CommonButton
       type={type}

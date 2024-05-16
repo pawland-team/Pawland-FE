@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { Client } from '@stomp/stompjs';
+import Head from 'next/head';
 
 import { CHAT_TEXTAREA_SIZE } from '@entities/chat/constants/style';
 import { useChatFormTextareaSizeControl, useGetChatRoomList } from '@entities/chat/hooks';
@@ -91,19 +92,24 @@ export const ChatPage = () => {
   // }
 
   return (
-    <S.Page>
-      <S.ChatContentWrapper>
-        <S.ChatPageMeta>채팅</S.ChatPageMeta>
-        <S.ChatContentArea>
-          <S.ChatRoomPreviewListWrapper>
-            {data?.map(({ roomId, ...rest }) => <ChatRoomPreview key={roomId} roomId={roomId} {...rest} />)}
-          </S.ChatRoomPreviewListWrapper>
-          <ChatRoom
-            changedTextAreaHeight={changedTextAreaHeight}
-            formInFooter={<SendChatForm changedTextAreaHeight={changedTextAreaHeight} {...sizeControlRest} />}
-          />
-        </S.ChatContentArea>
-      </S.ChatContentWrapper>
-    </S.Page>
+    <>
+      <Head>
+        <title>Pawland :: 채팅하기</title>
+      </Head>
+      <S.Page>
+        <S.ChatContentWrapper>
+          <S.ChatPageMeta>채팅</S.ChatPageMeta>
+          <S.ChatContentArea>
+            <S.ChatRoomPreviewListWrapper>
+              {data?.map(({ roomId, ...rest }) => <ChatRoomPreview key={roomId} roomId={roomId} {...rest} />)}
+            </S.ChatRoomPreviewListWrapper>
+            <ChatRoom
+              changedTextAreaHeight={changedTextAreaHeight}
+              formInFooter={<SendChatForm changedTextAreaHeight={changedTextAreaHeight} {...sizeControlRest} />}
+            />
+          </S.ChatContentArea>
+        </S.ChatContentWrapper>
+      </S.Page>
+    </>
   );
 };
