@@ -1,4 +1,3 @@
-import { SelectHTMLAttributes } from 'react';
 import { ProductListItemDto } from '../product-api';
 import { UserEntity } from '../user-api';
 
