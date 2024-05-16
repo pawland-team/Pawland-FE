@@ -17,8 +17,8 @@ const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
 
-  const handleClickJoin = () => {
-    router.push('/signup');
+  const handleClickChangeHref = (link: string) => {
+    router.push(link);
   };
 
   return (
@@ -47,9 +47,11 @@ const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
             <div className={`description-box ${banner.id === activeIndex ? 'active' : ''}`}>
               <h2>{banner.title}</h2>
               <p dangerouslySetInnerHTML={{ __html: banner.description }} />
-              <CommonButton handleClick={handleClickJoin} maxWidth={'174px'}>
-                {banner.buttonText}
-              </CommonButton>
+              {banner.buttonText && banner.link ? (
+                <CommonButton handleClick={handleClickChangeHref(banner.link)} maxWidth={'174px'}>
+                  {banner.buttonText}
+                </CommonButton>
+              ) : null}
             </div>
           </SwiperSlide>
         ))}
