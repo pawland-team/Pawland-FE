@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
+
+import { useGetUserCommunityList } from '@entities/user/hooks/use-get-user-community-list.query';
 import { UserCommunityPostItem } from '@entities/user/ui/user-community-post-item';
+import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './user-community-list-style';
-import { useGetUserCommunityList } from '@entities/user/hooks/use-get-user-community-list.query';
-import { NoProductBox } from '@shared/ui/error';
-import { useEffect, useState } from 'react';
 
 interface UserCommunityListProps {
   userId: number;
@@ -12,9 +13,10 @@ interface UserCommunityListProps {
 export const UserCommunityList = ({ userId }: UserCommunityListProps) => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
+
   const initialParams = {
-    page: page,
-    userId: userId,
+    page,
+    userId,
   };
 
   const { data, status } = useGetUserCommunityList(initialParams);

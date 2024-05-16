@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Buyer, OderReviewResponse } from '@shared/apis/profile-api';
 import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 
 import * as S from './review-item-style';
-import { Buyer, OderReviewResponse } from '@shared/apis/profile-api';
 
 interface ReviewItemProps {
   reviewData: OderReviewResponse;

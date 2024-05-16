@@ -1,14 +1,16 @@
+import { useEffect, useState } from 'react';
+
+import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
 import { ReviewItem, TransactionItem } from '@entities/profile/ui';
+import { NoProductBox } from '@shared/ui/error';
 import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
 
 import * as S from './my-buy-list-style';
-import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
-import { NoProductBox } from '@shared/ui/error';
-import { useEffect, useState } from 'react';
 
 export const MyBuyList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
+
   const initialParams = {
     page: 1,
     size: 4,
