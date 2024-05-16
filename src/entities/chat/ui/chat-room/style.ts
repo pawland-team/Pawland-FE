@@ -234,7 +234,8 @@ export const ButtonGroup = styled.div`
   width: 100%;
   height: 62px;
 
-  button {
+  button,
+  a {
     display: flex;
     flex-grow: 1;
     align-items: center;
