@@ -2,6 +2,7 @@ import { BaseSyntheticEvent, PropsWithChildren, useEffect, useId, useRef } from 
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 
 import { InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 
 import { useGetProductDetail } from '@entities/product/hooks/use-get-product-detail.query';
 import { useEditProductMutation, useRegisterProductMutation } from '@features/register-product/hooks';
@@ -310,33 +311,38 @@ export const ProductRegisterPage = ({
   );
 
   return (
-    <S.Wrapper>
-      {isModalOpen && <ModalComponent />}
-      <S.HeaderArea>
-        <S.PageTitle>상품등록</S.PageTitle>
-        <ProductHeaderButtonContainer status={productId ? editStatus : status} uniqueFormId={uniqueFormId} />
-      </S.HeaderArea>
-      <S.ProductRegisterBody>
-        <FormProvider {...methods}>
-          <S.ProudctRegisterForm id={uniqueFormId} onSubmit={handleSubmit(onSubmit, onSubmitInvalid)}>
-            <RegisterProductSpeciesSelectCategory focusRef={focusRef} />
-            <S.Divider />
-            <RegisterProductSortSelectCategory focusRef={focusRef} />
-            <S.Divider />
-            <RegisterProductRegionSelectCategory focusRef={focusRef} />
-            <S.Divider />
-            <RegisterProductPriceInputCategory />
-            <S.Divider />
-            <RegisterProductConditionTagSelectCategory focusRef={focusRef} />
-            <S.Divider />
-            <RegisterProductTitleCategory />
-            <S.Divider />
-            <RegisterProductThumbnailUploadCategory />
-            <S.Divider />
-            <RegisterProductDescriptionTextEditor focusRef={focusRef} />
-          </S.ProudctRegisterForm>
-        </FormProvider>
-      </S.ProductRegisterBody>
-    </S.Wrapper>
+    <>
+      <Head>
+        <title>Pawland :: 상품 등록하기</title>
+      </Head>
+      <S.Wrapper>
+        {isModalOpen && <ModalComponent />}
+        <S.HeaderArea>
+          <S.PageTitle>상품등록</S.PageTitle>
+          <ProductHeaderButtonContainer status={productId ? editStatus : status} uniqueFormId={uniqueFormId} />
+        </S.HeaderArea>
+        <S.ProductRegisterBody>
+          <FormProvider {...methods}>
+            <S.ProudctRegisterForm id={uniqueFormId} onSubmit={handleSubmit(onSubmit, onSubmitInvalid)}>
+              <RegisterProductSpeciesSelectCategory focusRef={focusRef} />
+              <S.Divider />
+              <RegisterProductSortSelectCategory focusRef={focusRef} />
+              <S.Divider />
+              <RegisterProductRegionSelectCategory focusRef={focusRef} />
+              <S.Divider />
+              <RegisterProductPriceInputCategory />
+              <S.Divider />
+              <RegisterProductConditionTagSelectCategory focusRef={focusRef} />
+              <S.Divider />
+              <RegisterProductTitleCategory />
+              <S.Divider />
+              <RegisterProductThumbnailUploadCategory />
+              <S.Divider />
+              <RegisterProductDescriptionTextEditor focusRef={focusRef} />
+            </S.ProudctRegisterForm>
+          </FormProvider>
+        </S.ProductRegisterBody>
+      </S.Wrapper>
+    </>
   );
 };

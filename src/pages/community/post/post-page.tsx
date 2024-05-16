@@ -4,6 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import 'react-quill/dist/quill.snow.css';
 
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { QuillOptionsStatic } from 'quill';
@@ -275,97 +276,102 @@ export const CommunityPostPage = () => {
   ];
 
   return (
-    <S.PostPage>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <S.HeaderArea>
-          <S.HeaderTitle>커뮤니티 등록</S.HeaderTitle>
-          <S.ButtonArea>
-            <S.TempSaveButton>
-              <S.TempSaveButtonText>임시저장</S.TempSaveButtonText>
-            </S.TempSaveButton>
-            <S.PostButton type='submit'>
-              <S.PostButtonIconWrapper>
-                <Image src='/images/button/add-button.svg' alt='add-button' fill />
-              </S.PostButtonIconWrapper>
-              <S.buttonTextWrapper>커뮤니티 등록</S.buttonTextWrapper>
-            </S.PostButton>
-          </S.ButtonArea>
-        </S.HeaderArea>
+    <>
+      <Head>
+        <title>Pawland :: 커뮤니티 글 등록하기</title>
+      </Head>
+      <S.PostPage>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <S.HeaderArea>
+            <S.HeaderTitle>커뮤니티 등록</S.HeaderTitle>
+            <S.ButtonArea>
+              <S.TempSaveButton>
+                <S.TempSaveButtonText>임시저장</S.TempSaveButtonText>
+              </S.TempSaveButton>
+              <S.PostButton type='submit'>
+                <S.PostButtonIconWrapper>
+                  <Image src='/images/button/add-button.svg' alt='add-button' fill />
+                </S.PostButtonIconWrapper>
+                <S.buttonTextWrapper>커뮤니티 등록</S.buttonTextWrapper>
+              </S.PostButton>
+            </S.ButtonArea>
+          </S.HeaderArea>
 
-        <S.CategoryArea>
-          <S.CategoryTitleBox>
-            <S.CategoryTitle>지역 선택</S.CategoryTitle>
-            <div>
-              <S.CategortyParagraph>나와 가까운 이용자들과의</S.CategortyParagraph>
-              <S.CategortyParagraph>원활한 소통을 위하여 지역을 선택해주세요.</S.CategortyParagraph>
-            </div>
-          </S.CategoryTitleBox>
-          <S.RegionBox>
-            <S.RegionSelectBoxTitle>지역 선택</S.RegionSelectBoxTitle>
-            <S.RegionSelectBox>
-              {regionList.map((region) => (
-                <S.RegionSelectItem
-                  key={region}
-                  onClick={() => handleRegionSelect(region)}
-                  style={{
-                    backgroundColor: selectedRegion === region ? '#43ADFF' : '',
-                    color: selectedRegion === region ? '#FFFFFF' : '',
-                  }}
-                >
-                  {region}
-                </S.RegionSelectItem>
-              ))}
-            </S.RegionSelectBox>
-          </S.RegionBox>
-        </S.CategoryArea>
+          <S.CategoryArea>
+            <S.CategoryTitleBox>
+              <S.CategoryTitle>지역 선택</S.CategoryTitle>
+              <div>
+                <S.CategortyParagraph>나와 가까운 이용자들과의</S.CategortyParagraph>
+                <S.CategortyParagraph>원활한 소통을 위하여 지역을 선택해주세요.</S.CategortyParagraph>
+              </div>
+            </S.CategoryTitleBox>
+            <S.RegionBox>
+              <S.RegionSelectBoxTitle>지역 선택</S.RegionSelectBoxTitle>
+              <S.RegionSelectBox>
+                {regionList.map((region) => (
+                  <S.RegionSelectItem
+                    key={region}
+                    onClick={() => handleRegionSelect(region)}
+                    style={{
+                      backgroundColor: selectedRegion === region ? '#43ADFF' : '',
+                      color: selectedRegion === region ? '#FFFFFF' : '',
+                    }}
+                  >
+                    {region}
+                  </S.RegionSelectItem>
+                ))}
+              </S.RegionSelectBox>
+            </S.RegionBox>
+          </S.CategoryArea>
 
-        <S.TitleInputArea>
-          <S.TitleInputTitle>제목을 입력해주세요.</S.TitleInputTitle>
-          <S.TitleInputBox>
-            <S.TitleInput
-              placeholder='제목을 40자내로 작성해주세요.'
-              {...register('title', { required: true, maxLength: 40 })}
+          <S.TitleInputArea>
+            <S.TitleInputTitle>제목을 입력해주세요.</S.TitleInputTitle>
+            <S.TitleInputBox>
+              <S.TitleInput
+                placeholder='제목을 40자내로 작성해주세요.'
+                {...register('title', { required: true, maxLength: 40 })}
+              />
+              <S.TitleInputCounter>{watch('title', '').length}/40</S.TitleInputCounter>
+            </S.TitleInputBox>
+          </S.TitleInputArea>
+
+          <S.TextEditorArea>
+            <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
+            <ReactQuill
+              forwardedRef={quillRef}
+              theme='snow'
+              value={watch('content')}
+              onChange={(content) => setValue('content', content)}
+              modules={modules}
+              formats={formats}
+              style={{ height: '500px' }}
             />
-            <S.TitleInputCounter>{watch('title', '').length}/40</S.TitleInputCounter>
-          </S.TitleInputBox>
-        </S.TitleInputArea>
+          </S.TextEditorArea>
 
-        <S.TextEditorArea>
-          <S.TextEditorTitle>내용을 입력해주세요.</S.TextEditorTitle>
-          <ReactQuill
-            forwardedRef={quillRef}
-            theme='snow'
-            value={watch('content')}
-            onChange={(content) => setValue('content', content)}
-            modules={modules}
-            formats={formats}
-            style={{ height: '500px' }}
-          />
-        </S.TextEditorArea>
-
-        <S.PostThumnailImageArea>
-          <S.PostThumnailImageAreaTitleBox>
-            <S.PostThumnailImageAreaTitle>대표이미지</S.PostThumnailImageAreaTitle>
-            <S.PostThumnailImageAreaSubTitle>대표 이미지를 넣어주세요.</S.PostThumnailImageAreaSubTitle>
-          </S.PostThumnailImageAreaTitleBox>
-          <S.ThumnailUploadBox>
-            <S.ThumnailUploadBoxTitle>대표이미지</S.ThumnailUploadBoxTitle>
-            <S.ThumnailUploadBoxSubTitle>* 썸네일로 보여지는 이미지입니다.</S.ThumnailUploadBoxSubTitle>
-            <S.UploadLabel htmlFor='thumnail-upload'>
-              <S.UploadIconWrapper>
-                <Image src='/images/icon/upload-file-icon.svg' alt='upload-icon' fill />
-              </S.UploadIconWrapper>
-              <S.UploadSpan>이미지 업로드</S.UploadSpan>
-              <S.HideInput id='thumnail-upload' type='file' onChange={handleThumbnailChange} />
-              {thumbnailPreview && (
-                <div>
-                  <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
-                </div>
-              )}
-            </S.UploadLabel>
-          </S.ThumnailUploadBox>
-        </S.PostThumnailImageArea>
-      </form>
-    </S.PostPage>
+          <S.PostThumnailImageArea>
+            <S.PostThumnailImageAreaTitleBox>
+              <S.PostThumnailImageAreaTitle>대표이미지</S.PostThumnailImageAreaTitle>
+              <S.PostThumnailImageAreaSubTitle>대표 이미지를 넣어주세요.</S.PostThumnailImageAreaSubTitle>
+            </S.PostThumnailImageAreaTitleBox>
+            <S.ThumnailUploadBox>
+              <S.ThumnailUploadBoxTitle>대표이미지</S.ThumnailUploadBoxTitle>
+              <S.ThumnailUploadBoxSubTitle>* 썸네일로 보여지는 이미지입니다.</S.ThumnailUploadBoxSubTitle>
+              <S.UploadLabel htmlFor='thumnail-upload'>
+                <S.UploadIconWrapper>
+                  <Image src='/images/icon/upload-file-icon.svg' alt='upload-icon' fill />
+                </S.UploadIconWrapper>
+                <S.UploadSpan>이미지 업로드</S.UploadSpan>
+                <S.HideInput id='thumnail-upload' type='file' onChange={handleThumbnailChange} />
+                {thumbnailPreview && (
+                  <div>
+                    <Image src={thumbnailPreview} alt='thumbnail-preview' width={200} height={200} />
+                  </div>
+                )}
+              </S.UploadLabel>
+            </S.ThumnailUploadBox>
+          </S.PostThumnailImageArea>
+        </form>
+      </S.PostPage>
+    </>
   );
 };
