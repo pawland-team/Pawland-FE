@@ -393,6 +393,12 @@ const ReplyForm = styled.form`
   gap: 10px;
 `;
 
+const ReplyFunctionBox = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
 export {
   PostDetailPage,
   HeaderArea,
@@ -441,4 +447,5 @@ export {
   EmptySpace,
   ContentImageWrapper,
   ReplyForm,
+  ReplyFunctionBox,
 };

@@ -11,11 +11,49 @@ export interface MyCommunityPostEntity {
   commentCount: number;
   recommendCount: number;
   createdAt: string;
+  region: string;
 }
 
 export interface MyCommunityListEntity {
   content: MyCommunityPostEntity[];
+  totalPages: number;
 }
+
+type Author = {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string;
+  star?: number;
+  reviewCount?: number;
+};
+
+type Comment = {
+  id: number;
+  author: Author;
+  content: string;
+  recommendCount: number;
+  createdAt: string;
+};
+
+export interface UserCommunityPostEntity {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  region: string;
+  views: number;
+  author: Author;
+  comments: Comment[];
+  createdAt: string;
+  recommendCount: number;
+  recommended: boolean;
+}
+
+export type UserCommunityListEntity = {
+  content: UserCommunityPostEntity[];
+  totalPages: number;
+};
 
 export type MyCommunityListResponse = Array<{
   id: number;
@@ -28,7 +66,10 @@ export type MyCommunityListResponse = Array<{
   commentCount: number;
 }>;
 
-export type MyProductListEntity = ProductListItemDto[];
+export type MyProductListEntity = {
+  content: ProductListItemDto[];
+  totalPages: number;
+};
 
 export interface MyWishProductEntity {
   id: number;
@@ -40,10 +81,51 @@ export interface MyWishProductEntity {
   wished: boolean;
 }
 
-export type MyWishListEntity = ProductListItemDto[];
+export interface getMyWishListParams {
+  page: number;
+}
+
+export type MyWishListEntity = {
+  content: ProductListItemDto[];
+  totalPages: number;
+};
 
 export interface getMyProductListParams {
   page: number;
   size: number;
   type: string;
 }
+
+export interface Seller {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImage: string;
+  star: number;
+  reviewCount: number;
+}
+
+export type Buyer = Seller;
+
+export interface OderReviewResponse {
+  id: number;
+  content: string;
+  star: number;
+  createdAt: string;
+}
+
+export interface MyTransactionEntity {
+  id: number;
+  seller: Seller;
+  buyer: Buyer;
+  product: ProductListItemDto;
+  sellerCheck: boolean;
+  buyerCheck: boolean;
+  orderStatus: string;
+  orderReviewResponse: OderReviewResponse;
+}
+
+export type MyTransactionListEntity = {
+  content: MyTransactionEntity[];
+  totalPages: number;
+};

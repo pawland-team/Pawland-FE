@@ -18,9 +18,9 @@ export const UserPage = () => {
     return (
       <S.UserPage>
         <UserInfoArea userData={data} />
-        <UserRegisteredProductList />
-        <UserReviewList />
-        <UserCommunityList />
+        <UserRegisteredProductList userId={USER_ID} />
+        <UserReviewList userId={USER_ID} />
+        <UserCommunityList userId={USER_ID} />
       </S.UserPage>
     );
   }

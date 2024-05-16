@@ -1,22 +1,44 @@
-import { ReviewItem, TransactionItem } from '@entities/profile/ui';
-import { DropdownButton } from '@shared/ui/buttons';
-import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
-
 import * as S from './transaction-history-list-style';
+import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
+import { TransactionTapMenuBar } from '@widgets/Transaction-tap-menu-bar';
+import { useActiveMenuStore } from '@shared/store/use-active-menu-store';
+import { MyBuyList } from '@widgets/my-buy-list';
+import { MySellList } from '@widgets/my-sell-list';
+
+interface ActiveMenuState {
+  activeMenu: string;
+}
 
 export const TransactionHistoryList = () => {
+  const initialParams = {
+    page: 1,
+    size: 4,
+    type: '',
+  };
+
+  const activeMenu = useActiveMenuStore((state: ActiveMenuState) => state.activeMenu);
+
+  const { data, status } = useGetmyTransactionList(initialParams);
+  console.log(data, status);
+
+  const renderComponent = () => {
+    switch (activeMenu) {
+      case 'buy':
+        return <MyBuyList />;
+      case 'sell':
+        return <MySellList />;
+
+      default:
+        return <MyBuyList />;
+    }
+  };
+
   return (
     <S.TransactionHistoryList>
       <div className='button-area'>
-        <DropdownButton
-          dropdownItems={['전체보기', '최신순']}
-          lastDropdownItem={'인기순'}
-          defaultMenu={'전체보기'}
-          iconPath={'images/icon/arrow-down-icon-gray.svg'}
-        />
+        <TransactionTapMenuBar />
       </div>
-      <TransactionItem reviewArea={<ReviewItem />} />
-      <TransactionItem reviewArea={<ReviewWritingArea />} />
+      {renderComponent()}
     </S.TransactionHistoryList>
   );
 };
