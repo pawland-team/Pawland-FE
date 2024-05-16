@@ -1,4 +1,4 @@
-import { MyCommunityListEntity, getMyCommunityListParams } from './dto';
+import { getMyCommunityListParams, MyCommunityListEntity } from './dto';
 import { clientWithTokenApi } from '../instance';
 
 export const getMyCommunityList = async ({ page }: getMyCommunityListParams) => {

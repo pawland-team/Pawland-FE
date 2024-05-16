@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+
+import { orderBy } from 'lodash';
+
 import { useGetmyCommunityList } from '@entities/profile/hooks';
 import { CommunityPostItem } from '@entities/profile/ui/my-community-post-item';
 import { MyCommunityPostEntity } from '@shared/apis/profile-api';
@@ -6,15 +10,13 @@ import { NoProductBox } from '@shared/ui/error';
 // import { TapMenuBar } from '@widgets/profile-page-tap-menu-bar';
 
 import * as S from './my-community-list-style';
-import { useEffect, useState } from 'react';
-import { orderBy } from 'lodash';
 
 export const MyCommunityList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
 
   const initialParams = {
-    page: page,
+    page,
     oderBy: orderBy,
   };
   const { data, status } = useGetmyCommunityList(initialParams);

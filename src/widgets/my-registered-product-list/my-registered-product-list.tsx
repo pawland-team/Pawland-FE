@@ -2,20 +2,21 @@ import { useEffect, useState } from 'react';
 
 import { useGetmyProductList } from '@entities/profile/hooks/use-get-my-product-list.query';
 import { RegisteredProductItem } from '@entities/profile/ui';
+import { useDropdownStore } from '@shared/store/use-drop-down-store';
+import { ProductDropdownButton } from '@shared/ui/buttons/product-dropdown/product-dropdown';
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './my-registered-product-list-style';
-import { ProductDropdownButton } from '@shared/ui/buttons/product-dropdown/product-dropdown';
-import { useDropdownStore } from '@shared/store/use-drop-down-store';
 
 export const MyRegisteredProductList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
   const type = useDropdownStore((state) => state.selectedMenu);
+
   const initialParams = {
-    page: page,
+    page,
     size: 4,
-    type: type,
+    type,
   };
 
   const { data, status } = useGetmyProductList(initialParams);

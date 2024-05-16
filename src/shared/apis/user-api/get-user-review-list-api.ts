@@ -1,5 +1,5 @@
+import { getUserReviewListParams, UserReviewListEntity } from './dto';
 import { clientWithTokenApi } from '../instance';
-import { UserReviewListEntity, getUserReviewListParams } from './dto';
 
 export const getUserReviewList = async ({ page, size, userId }: getUserReviewListParams) => {
   const response = await clientWithTokenApi.get<UserReviewListEntity>(
