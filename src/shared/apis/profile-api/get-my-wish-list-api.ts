@@ -1,4 +1,4 @@
-import { getMyWishListParams, MyWishListEntity } from './dto';
+import { MyWishListEntity, getMyWishListParams } from './dto';
 import { clientWithTokenApi } from '../instance';
 
 export const getMyWishList = async ({ page }: getMyWishListParams) => {

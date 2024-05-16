@@ -51,6 +51,7 @@ export const DropdownMenuList = styled.div<DropdownButtonStyleProps>`
   border: 1px solid;
   border-color: ${(props) => props.$borderColor};
   border-radius: 5px;
+  z-index: ${({ theme }) => theme.zIndex.floatingButton};
 `;
 
 export const DropdownMenu = styled.div<DropdownButtonStyleProps>`
@@ -65,6 +66,8 @@ export const DropdownMenu = styled.div<DropdownButtonStyleProps>`
 
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border-color: ${(props) => props.$borderColor};
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
+
   border-bottom: 1px solid;
 
   &:hover {
@@ -75,4 +78,5 @@ export const DropdownMenu = styled.div<DropdownButtonStyleProps>`
 export const LastDropdownMenu = styled(DropdownMenu)`
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border-bottom: 0;
+  background-color: ${({ theme }) => theme.color.white_FFFFFF};
 `;

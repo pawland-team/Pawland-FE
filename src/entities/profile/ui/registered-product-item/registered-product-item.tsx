@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { ProductListItemDto } from '@shared/apis/product-api';
-import { DropdownButton } from '@shared/ui/buttons';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
@@ -19,17 +18,7 @@ export const RegisteredProductItem = ({ item }: RegisteredProductItemProps) => {
         <SmallThumbnail imageUrl={item.thumbnailImage} />
 
         <S.DropDownArea>
-          <DropdownButton
-            dropdownItems={['판매중']}
-            lastDropdownItem={'판매완료'}
-            defaultMenu={item.status}
-            iconPath='images/icon/arrow-down-icon-black.svg'
-            width='100px'
-            buttonHeight='28px'
-            borderColor='#000000'
-            fontColor='#000000'
-            selectedFontSize='1.4rem'
-          />
+          <S.Status>{item.status}</S.Status>
           <S.Date className='create-date'>{formatDateShorter(item.createAt)}</S.Date>
         </S.DropDownArea>
 

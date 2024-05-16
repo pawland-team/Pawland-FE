@@ -72,7 +72,7 @@ const ProductSearchResultList = () => {
     }
   }
 
-  return <NoProductBox message='등록된 상품이 없습니다.' />;
+  return <NoProductBox message='등록한 상품이 없습니다.' />;
 };
 
 export { ProductSearchResultList };
