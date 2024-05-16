@@ -36,7 +36,7 @@ export const Nickname = styled.span`
 
 export const Date = styled.span`
   margin-top: 14px;
-  margin-left: 450px;
+  margin-left: 680px;
 
   font-size: 2.4rem;
   line-height: 28px;
