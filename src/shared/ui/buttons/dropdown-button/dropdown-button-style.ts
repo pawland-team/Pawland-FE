@@ -62,6 +62,7 @@ export const DropdownMenu = styled.div<DropdownButtonStyleProps>`
 
   font-size: 1.4rem;
   font-weight: 200;
+
   background-color: ${({ theme }) => theme.color.white_FFFFFF};
   border-color: ${(props) => props.$borderColor};
   border-bottom: 1px solid;
