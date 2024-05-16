@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
   CHAT_CONFIRM_MESSAGE_DELETE_MODAL_KEY,
@@ -11,6 +11,7 @@ import { useGetPreviousChatList } from '@entities/chat/hooks';
 import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks/use-chat-form-textarea-size-control';
 import { useChatStore } from '@entities/chat/model';
 import { insertMessageGroupForDisplay } from '@entities/chat/utils/insert-message-group-for-display';
+import { useCompleteTransaction } from '@entities/order/hooks';
 import { useUserStore } from '@entities/user/model';
 import { useInView } from '@shared/hooks/use-in-view';
 import { useModalList } from '@shared/hooks/use-modal';
@@ -30,14 +31,18 @@ interface ChatRoomProps extends Pick<UseChatFormTextareaSizeControlReturn, 'chan
  * 현재 선택된 roomId에 해당하는 채팅방을 보여주는 컴포넌트
  */
 export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps) => {
+  const router = useRouter();
   const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
-  const { openModalList, closeModalList } = useModalList();
+  const { openModalList, closeModalList, destroy } = useModalList();
 
   const { roomMap, selectedChatRoomId, appendPreviousMessageList } = useChatStore((state) => ({
     roomMap: state.roomMap,
     selectedChatRoomId: state.selectedChatRoomId,
     appendPreviousMessageList: state.appendPreviousMessageList,
   }));
+
+  // TODO: _completeTransactionStatus 사용해서 페이지 넘어가기 전 Loading 구현하기
+  const { mutate, status: _completeTransactionStatus } = useCompleteTransaction();
 
   const { isPlaceholderData, fetchNextPage, hasNextPage } = useGetPreviousChatList({
     roomId: selectedChatRoomId,
@@ -87,18 +92,26 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
 
   // selectedChatRoomId undefined여도 상관없음. UnselectedChatRoomDisplay 컴포넌트 보여주면 됨.
   const roomState = roomMap.get(selectedChatRoomId!);
-  const { messageList, productInfo, opponentUser } = roomState ?? {};
+  const { messageList, productInfo, opponentUser, orderId } = roomState ?? {};
 
   // TODO: data 로직은 store에 있는 것이고 ui 로직은 component state로 관리해야 함.
   // const [messageGroupListForDisplay, setMessageGroupListForDisplay] = useState<MessageGroupListForDisplay>([]);
 
-  const handleConfirmTransaction = async () => {
+  const handleConfirmTransaction = async ({ orderId, productId }: { orderId: number; productId: number }) => {
     const ModalComponent = await import('@shared/ui/modal/confirm-modal-frame').then(
       (module) => module.ConfirmModalFrame,
     );
 
     const handleConfirm = () => {
-      closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY });
+      mutate(
+        { orderId, productId },
+        {
+          onSuccess: () => {
+            router.push(`/product/${productId}`);
+            closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY });
+          },
+        },
+      );
     };
 
     openModalList({
@@ -108,9 +121,9 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
         modalMessage: <S.ModalMessage>거래를 확정하시겠습니까?</S.ModalMessage>,
         modalFooter: (
           <S.ButtonGroup>
-            <Link type='button' href={`/product/${productInfo?.price}`} onClick={handleConfirm}>
+            <button type='button' onClick={handleConfirm}>
               거래확정
-            </Link>
+            </button>
             <button type='button' onClick={() => closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY })}>
               취소
             </button>
@@ -179,12 +192,17 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
     });
   };
 
+  useEffect(() => {
+    // Prefetch the `/product/[productId]` page
+    if (productInfo?.id) {
+      router.prefetch(`/product/${productInfo.id}`);
+    }
+  }, [router, productInfo?.id]);
+
   useEffect(
     () => () => {
       // unmount 시에는 모달을 닫아준다.
-      closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY });
-      closeModalList({ modalKey: CHAT_CONFIRM_MESSAGE_DELETE_MODAL_KEY });
-      closeModalList({ modalKey: CHAT_MESSAGE_DELETE_MODAL_KEY });
+      destroy();
     },
     [],
   );
@@ -193,7 +211,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
     return insertMessageGroupForDisplay({ messageList: messageList ?? [] });
   }, [messageList]);
 
-  if (selectedChatRoomId === undefined || !messageList || !productInfo || !opponentUser || !userInfo) {
+  if (selectedChatRoomId === undefined || !messageList || !productInfo || !opponentUser || !userInfo || !orderId) {
     return (
       <S.ChatRoomWrapper>
         <UnselectedChatRoomDisplay />
@@ -236,7 +254,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight }: ChatRoomProps)
             <S.ProductPrice>{formatPriceToKoStyle(price)}</S.ProductPrice>
           </S.ProductDesc>
         </S.ProductMeta>
-        <S.ConfirmTransactionButton type='button' onClick={handleConfirmTransaction}>
+        <S.ConfirmTransactionButton type='button' onClick={() => handleConfirmTransaction({ orderId, productId })}>
           거래확정하기
         </S.ConfirmTransactionButton>
       </S.ChatRoomHeader>

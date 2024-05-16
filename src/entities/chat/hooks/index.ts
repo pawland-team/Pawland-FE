@@ -6,3 +6,5 @@ export {
   useChatFormTextareaSizeControl,
   type UseChatFormTextareaSizeControlReturn,
 } from './use-chat-form-textarea-size-control';
+
+export { useCreateChatRoom } from './use-create-chat-room.mutation';
