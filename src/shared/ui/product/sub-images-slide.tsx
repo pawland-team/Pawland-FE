@@ -129,7 +129,7 @@ const SSubImageBox = styled.div`
     width: 100%;
     height: 100%;
 
-    border: 2px solid ${({ theme }) => theme.color.blue_43ADFF};
+    border: 4px solid ${({ theme }) => theme.color.blue_43ADFF};
     border-radius: 10px;
   }
 
