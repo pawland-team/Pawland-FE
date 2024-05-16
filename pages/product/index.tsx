@@ -1,9 +1,17 @@
 import { dehydrate, DehydratedState } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
+// import dynamic from 'next/dynamic';
 
+// import { Loading } from '@app/layout/loading';
 import { productQuery } from '@entities/product/apis/product-querykeys';
 import { ProductPage } from '@pages/product';
 import { getQueryClient } from '@shared/lib/get-query-client';
+
+// const ProductPage = dynamic(() => import('@pages/product/product-page').then((module) => module.ProductPage), {
+//   ssr: false,
+//   suspense: true,
+//   loading: () => <Loading />,
+// });
 
 const Product = () => {
   return <ProductPage />;

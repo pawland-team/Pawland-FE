@@ -1,13 +1,15 @@
+import { useEffect, useState } from 'react';
+
 import { ProductFlexCardItem } from '@entities/product/ui';
 import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './wish-list-style';
-import { useEffect, useState } from 'react';
 
 export const WishList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
+
   const initialParams = {
     page: 1,
   };

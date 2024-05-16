@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { Loading } from '@app/layout/loading';
 import { useGetSearchResultList } from '@entities/product/hooks/use-get-search-result-list.query';
 import { ProductFlexList } from '@entities/product/ui';
 import { SearchListParam } from '@shared/apis/product-api/get-product-search-list-api';
@@ -39,7 +38,7 @@ const ProductSearchResultList = () => {
     content: String(content),
   };
 
-  const { data, isLoading } = useGetSearchResultList(newSearchParams);
+  const { data } = useGetSearchResultList(newSearchParams);
   const totalCardCount = data?.totalElements;
 
   // console.log(`isFetching: ${isFetching}`);
@@ -52,9 +51,9 @@ const ProductSearchResultList = () => {
   }, [totalCardCount]);
 
   // ? : 상품 결과 없을 때 그냥 빈 배열 보내주면 안되는건지?
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   if (data) {
     if (data.content.length > 0) {
@@ -73,7 +72,7 @@ const ProductSearchResultList = () => {
     }
   }
 
-  return <NoProductBox message='등록한 상품이 없습니다.' />;
+  return <NoProductBox message='등록된 상품이 없습니다.' />;
 };
 
 export { ProductSearchResultList };

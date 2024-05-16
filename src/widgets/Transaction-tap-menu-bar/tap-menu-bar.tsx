@@ -1,5 +1,6 @@
-import * as S from './tap-menu-bar-style';
 import { useActiveMenuStore } from '@shared/store/use-active-menu-store';
+
+import * as S from './tap-menu-bar-style';
 
 interface ActiveMenuState {
   activeMenu: string;

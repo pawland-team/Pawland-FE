@@ -88,7 +88,7 @@ type ApiResponse = {
   empty: boolean;
 };
 
-export const CommunityListPage = () => {
+const CommunityListPage = () => {
   const [isOpenRegion, setIsOpenRegion] = useState<boolean>(false);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
@@ -352,46 +352,45 @@ export const CommunityListPage = () => {
             </S.RegionSelectButton>
           </S.CategoryArea>
           <S.ItemListArea>
-            {isLoading
-              ? '로딩중'
-              : communityList?.map((item) => {
-                  const isHovered = hoveredItemId === item.id;
+            {!isLoading &&
+              communityList?.map((item) => {
+                const isHovered = hoveredItemId === item.id;
 
-                  const arrowIconSrc = isHovered
-                    ? '/images/icon/arrow-icon-blue.svg'
-                    : '/images/icon/arrow-icon-gray.svg';
+                const arrowIconSrc = isHovered
+                  ? '/images/icon/arrow-icon-blue.svg'
+                  : '/images/icon/arrow-icon-gray.svg';
 
-                  const thumbnailUrl = isValidHttpUrl(item.thumbnail) ? item.thumbnail : '/images/test/test-image2.png';
-                  const totalComments = calculateTotalComments(item.comments);
+                const thumbnailUrl = isValidHttpUrl(item.thumbnail) ? item.thumbnail : '/images/test/test-image2.png';
+                const totalComments = calculateTotalComments(item.comments);
 
-                  return (
-                    <Link href={`/community/post-detail/${item.id}`} key={item.id}>
-                      <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
-                        <S.ThumnailImageWrapper>
-                          <Image src={thumbnailUrl} alt='thumbnail-image' fill />
-                        </S.ThumnailImageWrapper>
-                        <S.TextContentsWrapper>
-                          <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
-                          <S.ItemTitleText>{item.title}</S.ItemTitleText>
-                          <S.ItemSubTextBox>
-                            <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
-                            <S.ItemSubDivider />
-                            <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
-                            <S.ItemSubDivider />
-                            <S.ItemSubText>댓글 {totalComments}</S.ItemSubText>
-                            <S.ItemSubDivider />
-                            <S.ItemSubText>추천 {item.recommendCount}</S.ItemSubText>
-                            <S.ItemSubDivider />
-                            <S.ItemSubText>조회 {item.views}</S.ItemSubText>
-                          </S.ItemSubTextBox>
-                        </S.TextContentsWrapper>
-                        <S.ArrowIconWrapper>
-                          <Image src={arrowIconSrc} alt='arrow-icon' fill />
-                        </S.ArrowIconWrapper>
-                      </S.ItemBox>
-                    </Link>
-                  );
-                })}
+                return (
+                  <Link href={`/community/post-detail/${item.id}`} key={item.id}>
+                    <S.ItemBox onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
+                      <S.ThumnailImageWrapper>
+                        <Image src={thumbnailUrl} alt='thumbnail-image' fill />
+                      </S.ThumnailImageWrapper>
+                      <S.TextContentsWrapper>
+                        <S.ItemRegiontext>{item.region}</S.ItemRegiontext>
+                        <S.ItemTitleText>{item.title}</S.ItemTitleText>
+                        <S.ItemSubTextBox>
+                          <S.ItemSubText>{item.author.nickname}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>{new Date(item.createdAt).toLocaleDateString()}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>댓글 {totalComments}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>추천 {item.recommendCount}</S.ItemSubText>
+                          <S.ItemSubDivider />
+                          <S.ItemSubText>조회 {item.views}</S.ItemSubText>
+                        </S.ItemSubTextBox>
+                      </S.TextContentsWrapper>
+                      <S.ArrowIconWrapper>
+                        <Image src={arrowIconSrc} alt='arrow-icon' fill />
+                      </S.ArrowIconWrapper>
+                    </S.ItemBox>
+                  </Link>
+                );
+              })}
           </S.ItemListArea>
           <S.PaginationWrapper>
             <button type='button' onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
@@ -411,3 +410,5 @@ export const CommunityListPage = () => {
     </S.CommunityListPage>
   );
 };
+
+export { CommunityListPage };

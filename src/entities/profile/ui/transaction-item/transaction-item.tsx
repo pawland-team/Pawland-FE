@@ -1,10 +1,10 @@
 import { GoDetailButton } from '@features/button/go-detail-button';
+import { MyTransactionEntity } from '@shared/apis/profile-api';
 import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './transaction-item-style';
-import { MyTransactionEntity } from '@shared/apis/profile-api';
 
 interface TransactionItemProps {
   reviewArea: React.ReactNode;

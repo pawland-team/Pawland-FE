@@ -1,6 +1,7 @@
+import { useRatingStore } from '@shared/store/use-rating-store';
+
 import { StarInput } from './star-input';
 import * as S from './star-rating-style';
-import { useRatingStore } from '@shared/store/use-rating-store';
 
 export const StarRating = () => {
   const { selectedRating, setSelectedRating } = useRatingStore();
