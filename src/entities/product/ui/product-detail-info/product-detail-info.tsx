@@ -32,36 +32,41 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
   }, [postOrderStatus, createChatRoomStatus]);
 
   const createChatRoom = async () => {
-    const orderId = await postOrderMutate(detailInfo.id, {
-      onError: () => {
-        openModal({
-          ModalComponent: NormalSnackBar,
-          props: { message: '주문 생성에 실패하였습니다.' },
-          options: {
-            persist: true,
-          },
-        });
-      },
-    });
-
-    if (orderId && postOrderStatus === 'success') {
-      createChatRoomMutate(
-        { productId: detailInfo.id, sellerId: detailInfo.seller.id, orderId },
-        {
-          onError: () => {
-            openModal({
-              ModalComponent: NormalSnackBar,
-              props: { message: '채팅방 생성에 실패하였습니다.' },
-              options: {
-                persist: true,
-              },
-            });
-          },
-          onSuccess: () => {
-            router.push('/chat');
-          },
+    try {
+      await postOrderMutate(detailInfo.id, {
+        onError: () => {
+          openModal({
+            ModalComponent: NormalSnackBar,
+            props: { message: '주문 생성에 실패하였습니다.' },
+            options: {
+              persist: true,
+            },
+          });
         },
-      );
+        onSuccess: (orderId) => {
+          if (orderId && postOrderStatus === 'success') {
+            createChatRoomMutate(
+              { productId: detailInfo.id, sellerId: detailInfo.seller.id, orderId },
+              {
+                onError: () => {
+                  openModal({
+                    ModalComponent: NormalSnackBar,
+                    props: { message: '채팅방 생성에 실패하였습니다.' },
+                    options: {
+                      persist: true,
+                    },
+                  });
+                },
+                onSuccess: () => {
+                  router.push('/chat');
+                },
+              },
+            );
+          }
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 
