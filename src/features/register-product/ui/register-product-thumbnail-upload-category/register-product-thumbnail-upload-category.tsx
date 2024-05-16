@@ -29,8 +29,8 @@ export const RegisterProductThumbnailUploadCategory = () => {
   return (
     <S.Wrapper>
       <ProductRegisterCategoryMeta
-        metaTitle='상품 카테고리'
-        metaDescription={<>구매자분들이 쉽게 찾을 수 있도록, 카테고리를 선정해주세요.</>}
+        metaTitle='대표 이미지'
+        metaDescription={<>상품을 설명할 수 있는 가장 자신있는 이미지를 업로드해 주세요!</>}
       />
       <S.SelectBox>
         <ProductRegisterCategorySubMeta metaTitle='대표이미지' metaDescription='*메인으로 보여지는 이미지에요' />
@@ -65,7 +65,8 @@ export const RegisterProductThumbnailUploadCategory = () => {
             {...register('thumbnail', {
               onChange: onChangeFiles,
               required: {
-                value: true,
+                // value: true,
+                value: !previewImage,
                 message: '대표 이미지를 업로드해주세요.',
               },
               validate: {

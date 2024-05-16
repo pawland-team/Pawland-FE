@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { useGetOtherUserInfo } from '@entities/user/hooks';
@@ -16,12 +17,17 @@ export const UserPage = () => {
 
   if (status === 'success') {
     return (
-      <S.UserPage>
-        <UserInfoArea userData={data} />
-        <UserRegisteredProductList />
-        <UserReviewList />
-        <UserCommunityList />
-      </S.UserPage>
+      <>
+        <Head>
+          <title>Pawland :: 유저 페이지</title>
+        </Head>
+        <S.UserPage>
+          <UserInfoArea userData={data} />
+          <UserRegisteredProductList userId={USER_ID} />
+          <UserReviewList userId={USER_ID} />
+          <UserCommunityList userId={USER_ID} />
+        </S.UserPage>
+      </>
     );
   }
 };

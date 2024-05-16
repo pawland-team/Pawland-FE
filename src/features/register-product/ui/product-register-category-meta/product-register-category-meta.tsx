@@ -43,6 +43,9 @@ const S = {
     flex-direction: column;
     row-gap: ${({ $rowGap }) => $rowGap}px;
     align-items: flex-start;
+
+    width: 90%;
+    max-width: 400px;
   `,
   MetaTitle: styled.h2`
     font-size: 2.8rem;
@@ -52,16 +55,16 @@ const S = {
   `,
   RequireStarMarker: styled.span<{ $isRequired: boolean }>`
     display: ${({ $isRequired }) => ($isRequired ? 'inline' : 'none')};
-
     font-size: 2.8rem;
     font-weight: 700;
-    line-height: normal;
     color: ${({ theme: { color } }) => color.blue_43ADFF};
   `,
   MetaDescription: styled.p`
+    margin-top: 9px;
+
     font-size: 2rem;
     font-weight: 400;
-    line-height: normal;
+    line-height: 1.5;
     color: ${({ theme: { color } }) => color.gray_9E9E9E};
 
     ${likePre}

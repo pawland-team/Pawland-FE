@@ -3,6 +3,12 @@ import { UserEntity } from '@shared/apis/user-api';
 
 export type WebSocketChatResponse = ChatContent;
 
+export interface CreateChatRoomRequestDTO {
+  sellerId: number;
+  productId: number;
+  orderId: number;
+}
+
 /**
  * websocket Chat 응답 시
  * http 응답 시
@@ -30,6 +36,7 @@ export interface ChatContent {
 
 export type ChatRoomListResponse = Array<{
   roomId: number;
+  orderId: number;
   opponentUser: Pick<UserEntity, 'id' | 'nickname' | 'profileImage'>;
   productInfo: {
     id: ProductInfoEntity['id'];

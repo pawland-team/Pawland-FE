@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -65,6 +66,8 @@ export const CommunityPostDetailPage = () => {
   const { openModalList } = useModalList();
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingCommentText, setEditingCommentText] = useState<string>('');
+  const [editingReplyId, setEditingReplyId] = useState<number | null>(null);
+  const [editingReplyText, setEditingReplyText] = useState<string>('');
 
   const startEditingComment = (commentId: number, currentText: string) => {
     setEditingCommentId(commentId);
@@ -115,6 +118,52 @@ export const CommunityPostDetailPage = () => {
     return comments?.reduce((total, comment) => {
       return total + 1 + comment.replies.length;
     }, 0);
+  };
+
+  const startEditingReply = (replyId: number, currentText: string) => {
+    setEditingReplyId(replyId);
+    setEditingReplyText(currentText);
+  };
+
+  const cancelEditingReply = () => {
+    setEditingReplyId(null);
+    setEditingReplyText('');
+  };
+
+  const handleReplyEditSubmit = async (replyId: number, commentId: number) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${replyId}`;
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: editingReplyText }),
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const updatedReply = await response.json();
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? {
+                  ...comment,
+                  replies: comment.replies.map((reply) =>
+                    reply.id === replyId ? { ...reply, content: updatedReply.content } : reply,
+                  ),
+                }
+              : comment,
+          ),
+        );
+        cancelEditingReply();
+      } else {
+        throw new Error('Failed to edit reply');
+      }
+    } catch (error) {
+      console.error('Error editing reply:', error);
+    }
   };
 
   const handleLike = async () => {
@@ -242,7 +291,7 @@ export const CommunityPostDetailPage = () => {
     if (!replyContent) return;
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${commentId}`;
 
       const response = await fetch(url, {
         method: 'POST',
@@ -270,6 +319,41 @@ export const CommunityPostDetailPage = () => {
       }
     } catch (error) {
       console.error('Error submitting reply:', error);
+    }
+  };
+
+  const handleDeleteReply = async (commentId: number, replyId: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 댓글을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${replyId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? { ...comment, replies: comment.replies.filter((reply) => reply.id !== replyId) }
+              : comment,
+          ),
+        );
+      } else {
+        throw new Error('Failed to delete reply');
+      }
+    } catch (error) {
+      console.error('Error deleting reply:', error);
     }
   };
 
@@ -356,191 +440,229 @@ export const CommunityPostDetailPage = () => {
   const htmlContent = content?.replace(/\n/g, '<br />');
 
   return (
-    <S.PostDetailPage>
-      <S.HeaderArea>
-        <S.HeaderButtonBox>
-          <Link href='/community/list'>
-            <S.BacktoListButton>
-              <S.HeaderButtonText>목록으로 이동</S.HeaderButtonText>
-            </S.BacktoListButton>
-          </Link>
-        </S.HeaderButtonBox>
+    <>
+      <Head>
+        <title>Pawland :: 커뮤니티 글 상세</title>
+      </Head>
+      <S.PostDetailPage>
+        <S.HeaderArea>
+          <S.HeaderButtonBox>
+            <Link href='/community/list'>
+              <S.BacktoListButton>
+                <S.HeaderButtonText>목록으로 이동</S.HeaderButtonText>
+              </S.BacktoListButton>
+            </Link>
+          </S.HeaderButtonBox>
 
-        <S.HeaderTitleBox>
-          <S.RegionSpan>{region}</S.RegionSpan>
-          <S.HeaderTitle>{title}</S.HeaderTitle>
-          <S.HeaderSpanWrapper>
-            <S.HeaderDate>{author?.nickname}</S.HeaderDate>
-            <S.HeaderDate>{new Date(createdAt).toLocaleDateString()}</S.HeaderDate>
-          </S.HeaderSpanWrapper>
-        </S.HeaderTitleBox>
+          <S.HeaderTitleBox>
+            <S.RegionSpan>{region}</S.RegionSpan>
+            <S.HeaderTitle>{title}</S.HeaderTitle>
+            <S.HeaderSpanWrapper>
+              <S.HeaderDate>{author?.nickname}</S.HeaderDate>
+              <S.HeaderDate>{new Date(createdAt).toLocaleDateString()}</S.HeaderDate>
+            </S.HeaderSpanWrapper>
+          </S.HeaderTitleBox>
 
-        <S.CommunityStatusBox>
-          <S.FlexBox>
-            <S.StatusText>댓글 {totalComments}</S.StatusText>
-            <S.Divider />
-            <S.StatusText>추천 {recommendCount}</S.StatusText>
-            <S.Divider />
-            <S.StatusText>조회수 {views}</S.StatusText>
-          </S.FlexBox>
+          <S.CommunityStatusBox>
+            <S.FlexBox>
+              <S.StatusText>댓글 {totalComments}</S.StatusText>
+              <S.Divider />
+              <S.StatusText>추천 {recommendCount}</S.StatusText>
+              <S.Divider />
+              <S.StatusText>조회수 {views}</S.StatusText>
+            </S.FlexBox>
 
-          <S.EditBox>
-            {author?.id === userData?.id && (
-              <>
-                <Link href={`/community/post-edit/${id}`}>
+            <S.EditBox>
+              {author?.id === userData?.id && (
+                <>
+                  <Link href={`/community/post-edit/${id}`}>
+                    <S.PostFunctionBox>
+                      <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                      <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
+                    </S.PostFunctionBox>
+                  </Link>
+
                   <S.PostFunctionBox>
-                    <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-                    <S.PostFunctionButton type='button'>수정하기</S.PostFunctionButton>
+                    <Image src='/images/icon/delete-icon.svg' alt='edit-icon' width={20} height={20} />
+                    <S.PostFunctionButton type='button' onClick={() => handleDeletePost()}>
+                      삭제하기
+                    </S.PostFunctionButton>
                   </S.PostFunctionBox>
-                </Link>
+                </>
+              )}
+            </S.EditBox>
+          </S.CommunityStatusBox>
+        </S.HeaderArea>
 
-                <S.PostFunctionBox>
-                  <Image src='/images/icon/delete-icon.svg' alt='edit-icon' width={20} height={20} />
-                  <S.PostFunctionButton type='button' onClick={() => handleDeletePost()}>
-                    삭제하기
-                  </S.PostFunctionButton>
-                </S.PostFunctionBox>
-              </>
+        <S.ContentsArea>
+          <S.Contents>
+            <S.ContentsParagraph dangerouslySetInnerHTML={{ __html: htmlContent }} />
+          </S.Contents>
+
+          <S.RecommendButtonBox>
+            {isLiked ? (
+              <S.LikeButton type='button' onClick={handleUnlike}>
+                <S.LikeIconWrapper>
+                  <Image src='/images/icon/like-icon-hover.svg' alt='like-icon' fill />
+                </S.LikeIconWrapper>
+                추천취소
+              </S.LikeButton>
+            ) : (
+              <S.UnlikeButton type='button' onClick={handleLike}>
+                <S.LikeIconWrapper>
+                  <Image src='/images/icon/like-icon-default.svg' alt='like-icon' fill />
+                </S.LikeIconWrapper>
+                추천하기
+              </S.UnlikeButton>
             )}
-          </S.EditBox>
-        </S.CommunityStatusBox>
-      </S.HeaderArea>
+          </S.RecommendButtonBox>
+        </S.ContentsArea>
 
-      <S.ContentsArea>
-        <S.Contents>
-          <S.ContentsParagraph dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        </S.Contents>
+        {/* 댓글 입력 컴포넌트 */}
+        <S.CommentArea>
+          <S.ComentBox>
+            <S.ProfileImageWrapper>
+              {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
+            </S.ProfileImageWrapper>
+            <S.ComentPostBox onSubmit={handleCommentSubmit}>
+              <S.ComentTextareaBox>
+                <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
+                <S.ComentTextarea
+                  placeholder='댓글을 입력해주세요.'
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+              </S.ComentTextareaBox>
+              <S.ComentPostButtonWrapper>
+                <S.ComentPostButton type='submit'>댓글 등록하기</S.ComentPostButton>
+              </S.ComentPostButtonWrapper>
+            </S.ComentPostBox>
+          </S.ComentBox>
 
-        <S.RecommendButtonBox>
-          {isLiked ? (
-            <S.LikeButton type='button' onClick={handleUnlike}>
-              <S.LikeIconWrapper>
-                <Image src='/images/icon/like-icon-hover.svg' alt='like-icon' fill />
-              </S.LikeIconWrapper>
-              추천취소
-            </S.LikeButton>
-          ) : (
-            <S.UnlikeButton type='button' onClick={handleLike}>
-              <S.LikeIconWrapper>
-                <Image src='/images/icon/like-icon-default.svg' alt='like-icon' fill />
-              </S.LikeIconWrapper>
-              추천하기
-            </S.UnlikeButton>
-          )}
-        </S.RecommendButtonBox>
-      </S.ContentsArea>
-
-      {/* 댓글 입력 컴포넌트 */}
-      <S.CommentArea>
-        <S.ComentBox>
-          <S.ProfileImageWrapper>
-            {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
-          </S.ProfileImageWrapper>
-          <S.ComentPostBox onSubmit={handleCommentSubmit}>
-            <S.ComentTextareaBox>
-              <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
-              <S.ComentTextarea
-                placeholder='댓글을 입력해주세요.'
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-            </S.ComentTextareaBox>
-            <S.ComentPostButtonWrapper>
-              <S.ComentPostButton type='submit'>댓글 등록하기</S.ComentPostButton>
-            </S.ComentPostButtonWrapper>
-          </S.ComentPostBox>
-        </S.ComentBox>
-
-        {/* 댓글 컴포넌트 */}
-        {comments?.length > 0 &&
-          comments.map((comment) => (
-            <S.ComentBox key={comment.id}>
-              <S.ProfileImageWrapper>
-                <Image src={comment.author.profileImage} alt='profile-image' fill />
-              </S.ProfileImageWrapper>
-              <S.ComentPostBox>
-                <S.ComentTextareaBox>
-                  <S.ComentDeleteWrapper>
-                    <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
-                    {comment.author.id === userData?.id && (
-                      <>
-                        {editingCommentId === comment.id ? (
-                          <>
-                            <button type='button' onClick={cancelEditingComment}>
-                              취소
+          {/* 댓글 컴포넌트 */}
+          {comments?.length > 0 &&
+            comments.map((comment) => (
+              <S.ComentBox key={comment.id}>
+                <S.ProfileImageWrapper>
+                  <Image src={comment.author.profileImage} alt='profile-image' fill />
+                </S.ProfileImageWrapper>
+                <S.ComentPostBox>
+                  <S.ComentTextareaBox>
+                    <S.ComentDeleteWrapper>
+                      <S.ProfileNickname>{comment.author.nickname}</S.ProfileNickname>
+                      {comment.author.id === userData?.id && (
+                        <>
+                          {editingCommentId === comment.id ? (
+                            <>
+                              <button type='button' onClick={cancelEditingComment}>
+                                취소
+                              </button>
+                              <button type='button' onClick={() => handleCommentEditSubmit(comment.id)}>
+                                저장
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              type='button'
+                              onClick={() => handleEditCommentButtonClick(comment.id, comment.content)}
+                            >
+                              <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
                             </button>
-                            <button type='button' onClick={() => handleCommentEditSubmit(comment.id)}>
-                              저장
-                            </button>
-                          </>
-                        ) : (
-                          <button
-                            type='button'
-                            onClick={() => handleEditCommentButtonClick(comment.id, comment.content)}
-                          >
-                            <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
-                          </button>
-                        )}
+                          )}
 
-                        <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
-                          X
-                        </S.ComentDeleteButton>
-                      </>
-                    )}
-                  </S.ComentDeleteWrapper>
-                  <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
-                  {editingCommentId === comment.id ? (
-                    <S.ComentTextarea
-                      value={editingCommentText}
-                      onChange={(e) => setEditingCommentText(e.target.value)}
-                    />
-                  ) : (
-                    <S.Coment>{comment.content}</S.Coment>
-                  )}
-                </S.ComentTextareaBox>
-                <S.EmptySpace />
-
-                {/* 대댓글 컴포넌트 */}
-                {comment.replies.length > 0 &&
-                  comment.replies.map((reply) => (
-                    <>
-                      <S.ReplyWrapper key={reply.id}>
-                        <S.ProfileImageWrapper>
-                          <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
-                        </S.ProfileImageWrapper>
-                        <S.ComentPostBox>
-                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
-                          <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
-                          <S.Coment>{reply.content}</S.Coment>
-                        </S.ComentPostBox>
-                      </S.ReplyWrapper>
-                      <S.EmptySpace />
-                    </>
-                  ))}
-
-                {/* 대댓글 입력 컴포넌트 */}
-                <S.ReplyWrapper>
-                  <S.ProfileImageWrapper>
-                    {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
-                  </S.ProfileImageWrapper>
-                  <S.ComentPostBox>
-                    <S.ReplyForm onClick={(e) => submitReply(e, comment.id)}>
-                      <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
+                          <S.ComentDeleteButton type='button' onClick={() => handleDeleteComment(comment.id)}>
+                            X
+                          </S.ComentDeleteButton>
+                        </>
+                      )}
+                    </S.ComentDeleteWrapper>
+                    <S.PostDateText>{new Date(comment.createdAt).toLocaleDateString()}</S.PostDateText>
+                    {editingCommentId === comment.id ? (
                       <S.ComentTextarea
-                        placeholder='답글을 입력해주세요.'
-                        value={replyTexts[comment.id] || ''}
-                        onChange={(e) => handleReplyChange(comment.id, e.target.value)}
+                        value={editingCommentText}
+                        onChange={(e) => setEditingCommentText(e.target.value)}
                       />
-                      <S.ComentPostButtonWrapper>
-                        <S.ReplyPostButton type='submit'>답글 등록하기</S.ReplyPostButton>
-                      </S.ComentPostButtonWrapper>
-                    </S.ReplyForm>
-                  </S.ComentPostBox>
-                </S.ReplyWrapper>
-              </S.ComentPostBox>
-            </S.ComentBox>
-          ))}
-      </S.CommentArea>
-    </S.PostDetailPage>
+                    ) : (
+                      <S.Coment>{comment.content}</S.Coment>
+                    )}
+                  </S.ComentTextareaBox>
+                  <S.EmptySpace />
+
+                  {/* 대댓글 컴포넌트 */}
+                  {comment.replies.length > 0 &&
+                    comment.replies.map((reply) => (
+                      <>
+                        <S.ReplyWrapper key={reply.id}>
+                          <S.ProfileImageWrapper>
+                            <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
+                          </S.ProfileImageWrapper>
+                          <S.ComentPostBox>
+                            <S.ReplyFunctionBox>
+                              <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                              {reply.author.id === userData?.id && (
+                                <>
+                                  {editingReplyId === reply.id ? (
+                                    <>
+                                      <button type='button' onClick={cancelEditingReply}>
+                                        취소
+                                      </button>
+                                      <button type='button' onClick={() => handleReplyEditSubmit(reply.id, comment.id)}>
+                                        저장
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button type='button' onClick={() => startEditingReply(reply.id, reply.content)}>
+                                      <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                                    </button>
+                                  )}
+                                  <S.ComentDeleteButton
+                                    type='button'
+                                    onClick={() => handleDeleteReply(comment.id, reply.id)}
+                                  >
+                                    X
+                                  </S.ComentDeleteButton>
+                                </>
+                              )}
+                            </S.ReplyFunctionBox>
+                            <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
+                            {editingReplyId === reply.id ? (
+                              <S.ComentTextarea
+                                value={editingReplyText}
+                                onChange={(e) => setEditingReplyText(e.target.value)}
+                              />
+                            ) : (
+                              <S.Coment>{reply.content}</S.Coment>
+                            )}
+                          </S.ComentPostBox>
+                        </S.ReplyWrapper>
+                        <S.EmptySpace />
+                      </>
+                    ))}
+
+                  {/* 대댓글 입력 컴포넌트 */}
+                  <S.ReplyWrapper>
+                    <S.ProfileImageWrapper>
+                      {userData?.profileImage && <Image src={userData?.profileImage} alt='my profile image' fill />}
+                    </S.ProfileImageWrapper>
+                    <S.ComentPostBox>
+                      <S.ReplyForm onClick={(e) => submitReply(e, comment.id)}>
+                        <S.ProfileNickname>{userData?.nickname}</S.ProfileNickname>
+                        <S.ComentTextarea
+                          placeholder='답글을 입력해주세요.'
+                          value={replyTexts[comment.id] || ''}
+                          onChange={(e) => handleReplyChange(comment.id, e.target.value)}
+                        />
+                        <S.ComentPostButtonWrapper>
+                          <S.ReplyPostButton type='submit'>답글 등록하기</S.ReplyPostButton>
+                        </S.ComentPostButtonWrapper>
+                      </S.ReplyForm>
+                    </S.ComentPostBox>
+                  </S.ReplyWrapper>
+                </S.ComentPostBox>
+              </S.ComentBox>
+            ))}
+        </S.CommentArea>
+      </S.PostDetailPage>
+    </>
   );
 };

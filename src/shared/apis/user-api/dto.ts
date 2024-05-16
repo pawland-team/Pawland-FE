@@ -32,3 +32,34 @@ export interface GetUserInfoResponse {
   loginType: UserEntity['loginType'];
   reviewCount: UserEntity['reviewCount'];
 }
+
+export interface getUserProductListParams {
+  size: number;
+  userId: number;
+}
+
+export interface getUserReviewListParams {
+  page: number;
+  size: number;
+  userId: number;
+}
+
+export interface getUserCommunityListParams {
+  page: number;
+  userId: number;
+}
+
+export interface UserReviewEntity {
+  reviewId: number;
+  reviewerId: number;
+  reviewerNickName: string;
+  reviewerProfileImage: string;
+  star: number;
+  content: string;
+  createAt: string;
+}
+
+export type UserReviewListEntity = {
+  content: UserReviewEntity[];
+  totalPages: number;
+};

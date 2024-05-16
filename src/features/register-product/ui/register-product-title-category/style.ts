@@ -68,6 +68,7 @@ export const ProductTitleInput = styled.input`
 
   width: 521px;
   height: 64px;
+  margin-top: 9px;
   padding: 20px 32px 25px;
 
   font-size: 1.6rem;
