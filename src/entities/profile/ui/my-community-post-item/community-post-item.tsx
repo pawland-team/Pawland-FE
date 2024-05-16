@@ -29,7 +29,7 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
             </div>
           </div>
           <div className='button-area'>
-            <Link href='/'>
+            <Link href={`/post-edit/${item.id}`}>
               <Image
                 className='edit-button'
                 width={24}

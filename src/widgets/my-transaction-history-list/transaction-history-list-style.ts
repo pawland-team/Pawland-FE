@@ -10,6 +10,6 @@ export const TransactionHistoryList = styled.div`
 
   .button-area {
     display: flex;
-    justify-content: end;
+    justify-content: start;
   }
 `;
