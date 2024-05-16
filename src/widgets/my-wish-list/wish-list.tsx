@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { ProductFlexCardItem } from '@entities/product/ui';
 import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.query';
 import { NoProductBox } from '@shared/ui/error';

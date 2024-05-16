@@ -10,10 +10,17 @@ export const useChatStore = createWithEqualityFn<ChatStoreState>()(
   devtools(
     (set, get) => ({
       roomMap: new Map(),
+      destroyRoomList: () => {
+        set((prev) => ({
+          ...prev,
+          roomMap: new Map(),
+        }));
+      },
       /**
        * 자기 roomId에 맞는 정보를 주입함
+       * TODO: 프리뷰 메시지 받는 부분하고 메시지 받는 부분을 나눠야 함
        */
-      setRoomMap: ({ roomId, opponentUser, productInfo, unParsedMessage, previewMessage }) => {
+      setRoomMap: ({ roomId, opponentUser, productInfo, unParsedMessage, previewMessage, orderId }) => {
         try {
           if (unParsedMessage) {
             // # (Given) websocket 응답 시
@@ -42,6 +49,7 @@ export const useChatStore = createWithEqualityFn<ChatStoreState>()(
                   roomId,
                   opponentUser,
                   productInfo,
+                  orderId,
                   // * (Then) 새로운 메시지가 오면 기존 리스트의 맨 앞에 추가
                   // 새로운 메시지가 오면 기존 리스트의 맨 앞에 추가(column-reverse 방식으로 구현하기 위함)
                   // 0 번째 인덱스를 맨 밑으로 보내기 위함
@@ -65,6 +73,7 @@ export const useChatStore = createWithEqualityFn<ChatStoreState>()(
                   roomId,
                   opponentUser,
                   productInfo,
+                  orderId,
                   // * (Then) previewMessage 최신화
                   previewMessage,
                   // 기존 리스트 그대로 유지
@@ -112,7 +121,8 @@ export const useChatStore = createWithEqualityFn<ChatStoreState>()(
             const p = prev.roomMap.get(roomId) ?? roomStateFromGet;
 
             return {
-              ...p,
+              // TODO: double check
+              ...prev,
               roomMap: new Map(prev.roomMap).set(roomId, {
                 ...p,
                 messageList: [...(prev.roomMap.get(roomId)?.messageList ?? []), ...previousMessageList],

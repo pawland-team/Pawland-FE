@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { UserReviewEntity } from '@shared/apis/user-api/dto';
 import { StarRatingResult } from '@shared/ui/star-rating-result/number-to-star';
 import { formatDateShorter } from '@shared/utils/time';
 

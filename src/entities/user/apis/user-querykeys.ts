@@ -1,6 +1,11 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { getUserInfo } from '@shared/apis/user-api';
+import {
+  getUserCommunityListParams,
+  getUserProductListParams,
+  getUserReviewListParams,
+} from '@shared/apis/user-api/dto';
 import { getOtherUserInfo } from '@shared/apis/user-api/get-other-user-info-api';
 import {
   getUserCommunityListParams,

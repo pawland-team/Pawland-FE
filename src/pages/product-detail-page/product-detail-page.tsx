@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { Loading } from '@app/layout/loading';
 import { useGetMainProductList } from '@entities/product/hooks';
 import { useGetProductDetail } from '@entities/product/hooks/use-get-product-detail.query';
 import { ScrollToButton } from '@shared/ui/buttons';
@@ -14,12 +13,8 @@ const ProductDetailPage = () => {
   const router = useRouter();
   const PRODUCT_ID = Number(router.query.productId);
 
-  const { data: recentProductListData, isLoading: recentProductLoading } = useGetMainProductList(8);
-  const { data: productDetailData, isLoading: productDetailLoading } = useGetProductDetail(PRODUCT_ID);
-
-  if (recentProductLoading || productDetailLoading) {
-    return <Loading />;
-  }
+  const { data: recentProductListData } = useGetMainProductList(8);
+  const { data: productDetailData } = useGetProductDetail(PRODUCT_ID);
 
   return (
     <>
