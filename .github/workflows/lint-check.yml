@@ -45,3 +45,7 @@ jobs:
           TZ: Asia/Seoul
         run: |
           npm run test:ci || (echo "You should run test before pr" && exit 1)
+
+      - name: build next
+        run: |
+          npm run build || (echo "next build failed" && exit 1)

@@ -17,8 +17,8 @@ export const PaginationWrapper = styled.div`
   justify-content: center;
 
   margin-top: 13px;
+  margin-left: 330px;
 
   font-size: 1.8rem;
   color: ${({ theme }) => theme.color.blue_43ADFF};
-  margin-left: 330px;
 `;
