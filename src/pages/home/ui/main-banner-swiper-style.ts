@@ -56,7 +56,7 @@ export const mainBannerSwiperBox = styled.div`
       transition: 0.4s 0.7s;
     }
 
-    button {
+    a {
       transform: translateX(100px);
       margin-top: 12px;
       opacity: 0;
@@ -74,7 +74,7 @@ export const mainBannerSwiperBox = styled.div`
         opacity: 1;
       }
 
-      button {
+      a {
         transform: translateX(0);
         opacity: 1;
       }
