@@ -24,27 +24,27 @@ const Footer = () => {
             <h5>Category</h5>
             <ul>
               <li>
-                <Link href='/product?page=1&size=12&orderBy="최신순"' onClick={handleClickLink}>
+                <Link href='/product' onClick={handleClickLink}>
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="음식"&orderBy="최신순"' onClick={handleClickLink}>
+                <Link href='/product' onClick={handleClickLink}>
                   Food
                 </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="장난감"&orderBy="최신순"' onClick={handleClickLink}>
+                <Link href='/product' onClick={handleClickLink}>
                   Toy
                 </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="옷"&orderBy="최신순"' onClick={handleClickLink}>
+                <Link href='/product' onClick={handleClickLink}>
                   clothes
                 </Link>
               </li>
               <li>
-                <Link href='/product?page=1&size=12&category="악세서리"&orderBy="최신순"' onClick={handleClickLink}>
+                <Link href='/product' onClick={handleClickLink}>
                   Accessories
                 </Link>
               </li>

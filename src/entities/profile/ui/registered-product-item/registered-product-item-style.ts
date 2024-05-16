@@ -1,10 +1,12 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 
 export const RegisteredProductItem = styled.div`
   cursor: pointer;
 
+  position: relative;
+
   display: flex;
-  gap: 27px;
 
   width: 100%;
   padding: 20px 26px;
@@ -17,33 +19,48 @@ export const RegisteredProductItem = styled.div`
   }
 `;
 
-export const ItemInfoArea = styled.div`
-  width: 100%;
+export const DropDownArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
   margin-top: 14px;
+  margin-left: 27px;
+`;
 
-  div {
-    display: flex;
-    gap: 14px;
+export const IconPriceArea = styled.div`
+  /* margin-left: 200px; */
+  position: absolute;
+  right: 26px;
 
-    h1 {
-      font-size: 2.4rem;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 
-  .text-area {
-    justify-content: space-between;
-    margin-top: 15px;
+  margin-top: 14px;
+`;
 
-    span {
-      font-size: 1.6rem;
-      line-height: 28px;
-      color: ${({ theme }) => theme.color.gray_9E9E9E};
-    }
+export const EditIcon = styled(Image)`
+  float: right;
+`;
 
-    p {
-      font-size: 3.2rem;
-      font-weight: 700;
-      line-height: 42px;
-    }
-  }
+export const ProductName = styled.h1`
+  width: 100px;
+  margin-top: 14px;
+  margin-left: 14px;
+
+  font-size: 2.4rem;
+  white-space: nowrap;
+`;
+
+export const Date = styled.span`
+  font-size: 1.6rem;
+  line-height: 28px;
+  color: ${({ theme }) => theme.color.gray_9E9E9E};
+`;
+
+export const Price = styled.p`
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 42px;
 `;
