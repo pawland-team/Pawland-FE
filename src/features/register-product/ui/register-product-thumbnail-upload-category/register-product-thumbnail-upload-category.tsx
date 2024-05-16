@@ -30,7 +30,13 @@ export const RegisterProductThumbnailUploadCategory = () => {
     <S.Wrapper>
       <ProductRegisterCategoryMeta
         metaTitle='대표 이미지'
-        metaDescription={<>상품을 설명할 수 있는 가장 자신있는 이미지를 업로드해 주세요!</>}
+        metaDescription={
+          <>
+            상품을 설명할 수 있는 가장 자신있는
+            <br />
+            이미지를 업로드해 주세요!
+          </>
+        }
       />
       <S.SelectBox>
         <ProductRegisterCategorySubMeta metaTitle='대표이미지' metaDescription='*메인으로 보여지는 이미지에요' />

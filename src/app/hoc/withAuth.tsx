@@ -2,6 +2,7 @@ import { ComponentType, PropsWithChildren, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { NonFixedLoading } from '@app/layout/non-fixed-loading';
 import { useGetUserInfo } from '@entities/user/hooks';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { UseGetAndSetUserInfo } from '@entities/user/hooks/use-get-and-set-user-info';
@@ -19,8 +20,10 @@ import { useUserStore } from '@entities/user/model';
  * pathName 넣고 전체 Layout 컴포넌트에서 사용할 경우에는 ssr때 프리렌더링이 되더라도 pathName은 useEffect 내부에서만 사용하므로 빈 화면이 보임
  *
  * 일부 컴포넌트만을 보호하려면 {@link UseGetAndSetUserInfo} 훅을 사용해야 한다.
+ *
+ * @param minusHeight - 100vh에서 줄이고 싶은만큼의 높이를 string형태로 지정(단위 필요)
  */
-export const withAuth = (Component: ComponentType<PropsWithChildren>) => {
+export const withAuth = (Component: ComponentType<PropsWithChildren>, minusHeight?: string) => {
   const ProtectedComponent = (props: PropsWithChildren) => {
     const router = useRouter();
     const { data, status } = useGetUserInfo();
@@ -45,8 +48,7 @@ export const withAuth = (Component: ComponentType<PropsWithChildren>) => {
     }, [router, data, status, clearUserInfo, setUserInfo]);
 
     if (status === 'pending') {
-      // TODO: 로딩 스피너 추가
-      return <div>Loading...</div>;
+      return <NonFixedLoading minusHeight={minusHeight} />;
     }
 
     if (status === 'error') {
