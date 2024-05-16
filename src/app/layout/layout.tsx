@@ -24,10 +24,11 @@ const Layout = ({ children }: LayoutProps) => {
           <Footer />
           <S.StyledToastContainer
             position='bottom-center' // 알람 위치 지정
-            autoClose={4000} // 자동 off 시간
+            autoClose={3000} // 자동 off 시간
             hideProgressBar={false} // 진행시간바 숨김
             closeOnClick // 클릭으로 알람 닫기
             rtl={false} // 알림 좌우 반전
+            pauseOnFocusLoss={false} // focus 벗어나면 알람 정지
             theme='light'
           />
         </S.LayoutPage>
@@ -39,11 +40,11 @@ const Layout = ({ children }: LayoutProps) => {
     <S.LayoutPage>
       <main>{children}</main>
       <S.StyledToastContainer
-        position='bottom-center' // 알람 위치 지정
-        autoClose={4000} // 자동 off 시간
-        hideProgressBar={false} // 진행시간바 숨김
-        closeOnClick // 클릭으로 알람 닫기
-        rtl={false} // 알림 좌우 반전
+        position='bottom-center'
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
         theme='light'
       />
     </S.LayoutPage>
