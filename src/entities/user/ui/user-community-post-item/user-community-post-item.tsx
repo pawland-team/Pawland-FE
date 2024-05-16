@@ -3,10 +3,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import * as S from './user-community-post-item-style';
 import { UserCommunityPostEntity } from '@shared/apis/profile-api';
 import { formatDateShorter } from '@shared/utils/time';
-
-import * as S from './user-community-post-item-style';
 
 interface UserCommunityPostItemProps {
   item: UserCommunityPostEntity;

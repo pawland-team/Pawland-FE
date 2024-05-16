@@ -13,7 +13,6 @@ export const RegisteredProductList = styled.div`
     justify-content: end;
   }
 `;
-
 export const PaginationWrapper = styled.div`
   display: flex;
   gap: 32px;

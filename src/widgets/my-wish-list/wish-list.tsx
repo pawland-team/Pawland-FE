@@ -9,7 +9,6 @@ import * as S from './wish-list-style';
 export const WishList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
-
   const initialParams = {
     page: 1,
   };
