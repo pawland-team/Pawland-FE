@@ -8,7 +8,7 @@ export const TapMenuBar = () => {
   return (
     <S.TapMenuBar>
       <S.MenuButton $isActive={activeButton === 'written'} onClick={() => setActiveButton('written')}>
-        작성한 글
+        구매내역
       </S.MenuButton>
       <S.MenuButton $isActive={activeButton === 'recommand'} onClick={() => setActiveButton('recommand')}>
         추천한 글

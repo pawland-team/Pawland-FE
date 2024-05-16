@@ -4,29 +4,33 @@ import { formatPriceToKoStyle } from '@shared/utils/price';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './transaction-item-style';
+import { MyTransactionEntity } from '@shared/apis/profile-api';
 
 interface TransactionItemProps {
   reviewArea: React.ReactNode;
+  item: MyTransactionEntity;
+  itemTitle: string;
 }
 
-export const TransactionItem = ({ reviewArea }: TransactionItemProps) => {
+export const TransactionItem = ({ itemTitle, reviewArea, item }: TransactionItemProps) => {
   return (
     <S.TransactionItem>
       <S.ProductArea>
-        <SmallThumbnail imageUrl='' />
+        <SmallThumbnail imageUrl={item.product.thumbnailImage} />
         <S.ItemInfoArea>
-          <span className='saleSate'>판매완료</span>
+          <span className='saleSate'>{itemTitle}</span>
           <div>
-            <h1>뽁뽁이 뼈다귀</h1>
-            <p className='price'>{formatPriceToKoStyle(30000)}</p>
+            <h1>{item.product.name}</h1>
+            <p className='price'>{formatPriceToKoStyle(item.product.price)}</p>
           </div>
           <div>
-            <span>{formatDateShorter('2024-03-12T09:52:06.381Z')}</span>
-            <GoDetailButton pageUrl='/' />
+            <span>{formatDateShorter(item.product.createAt)}</span>
+            <GoDetailButton pageUrl={`/product/${item.product.id}`} />
           </div>
         </S.ItemInfoArea>
       </S.ProductArea>
       {reviewArea}
+      {/* {item?.orderReviewResponse && reviewArea} */}
     </S.TransactionItem>
   );
 };

@@ -14,7 +14,7 @@ const MainProductList = () => {
   const { data } = useGetMainProductList(8);
 
   if (!data || data?.content.length === 0) {
-    return <NoProductBox />;
+    return <NoProductBox message='등록된 상품이 없습니다.' />;
   }
 
   return (

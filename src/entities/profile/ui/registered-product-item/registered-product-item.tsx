@@ -17,26 +17,36 @@ export const RegisteredProductItem = ({ item }: RegisteredProductItemProps) => {
     <Link href={`/product/${item.id}`}>
       <S.RegisteredProductItem>
         <SmallThumbnail imageUrl={item.thumbnailImage} />
-        <S.ItemInfoArea>
-          <div>
-            <DropdownButton
-              dropdownItems={['판매중']}
-              lastDropdownItem={'판매완료'}
-              defaultMenu={'판매중'}
-              iconPath='images/icon/arrow-down-icon-black.svg'
-              width='100px'
-              buttonHeight='28px'
-              borderColor='#000000'
-              fontColor='#000000'
-              selectedFontSize='1.4rem'
+
+        <S.DropDownArea>
+          <DropdownButton
+            dropdownItems={['판매중']}
+            lastDropdownItem={'판매완료'}
+            defaultMenu={item.status}
+            iconPath='images/icon/arrow-down-icon-black.svg'
+            width='100px'
+            buttonHeight='28px'
+            borderColor='#000000'
+            fontColor='#000000'
+            selectedFontSize='1.4rem'
+          />
+          <S.Date className='create-date'>{formatDateShorter(item.createAt)}</S.Date>
+        </S.DropDownArea>
+
+        <S.ProductName>{item.name}</S.ProductName>
+        <S.IconPriceArea>
+          <Link href={`/product/edit/${item.id}`}>
+            <S.EditIcon
+              className='edit-button'
+              width={24}
+              height={24}
+              src='images/icon/pencil-icon.svg'
+              alt='연필 아이콘'
             />
-            <h1>{item.name}</h1>
-          </div>
-          <div className='text-area'>
-            <span className='create-date'>{formatDateShorter(item.createAt)}</span>
-            <p className='price'>{formatPriceToKoStyle(item.price)}</p>
-          </div>
-        </S.ItemInfoArea>
+          </Link>
+
+          <S.Price className='price'>{formatPriceToKoStyle(item.price)}</S.Price>
+        </S.IconPriceArea>
       </S.RegisteredProductItem>
     </Link>
   );

@@ -1,6 +1,13 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getMyCommunityList, getMyProductList, getMyProductListParams, getMyWishList } from '@shared/apis/profile-api';
+import {
+  getMyCommunityList,
+  getMyProductList,
+  getMyProductListParams,
+  getMyWishList,
+  getMyWishListParams,
+} from '@shared/apis/profile-api';
+import { getMyTransactionList } from '@shared/apis/profile-api/get-my-transaction-list-api';
 
 export const myCommunityQueryKeys = {
   all: () => ['myCommunityList'],
@@ -42,7 +49,7 @@ export const myProductQuery = {
 
 export const myWishListQueryKeys = {
   all: () => ['myWishList'],
-  myWishList: () => [...myProductQueryKeys.all()],
+  myWishList: ({ page }: getMyWishListParams) => [...myProductQueryKeys.all(), page],
 };
 
 export const myWishListQuery = {
@@ -51,10 +58,32 @@ export const myWishListQuery = {
       queryKey: myWishListQueryKeys.all(),
     }),
 
-  myWishList: () =>
+  myWishList: ({ page }: getMyWishListParams) =>
     queryOptions({
-      queryKey: myWishListQueryKeys.myWishList(),
-      queryFn: () => getMyWishList(),
+      queryKey: myWishListQueryKeys.myWishList({ page }),
+      queryFn: () => getMyWishList({ page }),
+      staleTime: 3 * 60 * 1000,
+    }),
+};
+
+export const myTransactionQueryKeys = {
+  all: () => ['myTransactionList'],
+  myTransactionList: ({ page, size, type }: getMyProductListParams) => [
+    ...myTransactionQueryKeys.all(),
+    { page, size, type },
+  ],
+};
+
+export const myTransactionQuery = {
+  all: () =>
+    queryOptions({
+      queryKey: myTransactionQueryKeys.all(),
+    }),
+
+  myTransactionList: ({ page, size, type }: getMyProductListParams) =>
+    queryOptions({
+      queryKey: myTransactionQueryKeys.myTransactionList({ page, size, type }),
+      queryFn: () => getMyTransactionList({ page, size, type }),
       staleTime: 3 * 60 * 1000,
     }),
 };
