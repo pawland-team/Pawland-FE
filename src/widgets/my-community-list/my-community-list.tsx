@@ -7,11 +7,17 @@ import { TapMenuBar } from '@widgets/profile-page-tap-menu-bar';
 
 import * as S from './my-community-list-style';
 import { useEffect, useState } from 'react';
+import { orderBy } from 'lodash';
 
 export const MyCommunityList = () => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
-  const { data, status } = useGetmyCommunityList(page);
+
+  const initialParams = {
+    page: page,
+    oderBy: orderBy,
+  };
+  const { data, status } = useGetmyCommunityList(initialParams);
   console.log(data);
 
   const handlePageChange = (newPage: number) => {
@@ -50,7 +56,7 @@ export const MyCommunityList = () => {
     return (
       <S.CommunityList>
         <div className='button-area'>
-          <TapMenuBar />
+          {/* <TapMenuBar /> */}
           <DropdownButton
             dropdownItems={['전체보기', '최신순']}
             lastDropdownItem={'인기순'}
