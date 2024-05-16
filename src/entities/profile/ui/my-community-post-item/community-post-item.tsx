@@ -7,6 +7,7 @@ import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './community-post-item-style';
+import DOMPurify from 'dompurify';
 
 interface CommunityPostItemProps {
   item: MyCommunityPostEntity;
@@ -20,7 +21,17 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
         <S.ItemInfoArea>
           <div className='text-area'>
             <h1>{item.title}</h1>
-            <p>{item.content}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(item.content, {
+                  /**
+                   * 렌더 화면에서 금지할 태그
+                   */
+                  FORBID_TAGS: ['img', 'script', 'iframe', 'video', 'audio', 'link'],
+                }),
+              }}
+            />
+
             <div className='value-area'>
               <span className='first-span'>{formatDateShorter(item.createdAt)}</span>
               <span>{`댓글 ${item.comments.length} `}</span>
