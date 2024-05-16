@@ -56,3 +56,18 @@ export const Price = styled.p`
   font-weight: 700;
   line-height: 42px;
 `;
+
+export const Status = styled.div`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: black;
+
+  border: 1px solid;
+  border-color: #9e9e9e;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
