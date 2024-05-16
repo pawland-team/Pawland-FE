@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
@@ -73,7 +72,7 @@ const ProductSearchResultList = () => {
     }
   }
 
-  return <NoProductBox />;
+  return <NoProductBox message='등록된 상품이 없습니다.' />;
 };
 
 export { ProductSearchResultList };
