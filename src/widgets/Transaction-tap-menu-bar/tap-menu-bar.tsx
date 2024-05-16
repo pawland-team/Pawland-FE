@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import * as S from './tap-menu-bar-style';
 import { useActiveMenuStore } from '@shared/store/use-active-menu-store';
 

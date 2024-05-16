@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { StarInput } from './star-input';
 import * as S from './star-rating-style';
 import { useRatingStore } from '@shared/store/use-rating-store';

@@ -26,9 +26,9 @@ const ProductDropdownButton = ({
   borderColor = '#9E9E9E',
   fontColor = '#9E9E9E',
   selectedFontSize = '1.6rem',
+  defaultMenu = '전체보기',
 }: DropdownButtonProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const [selectedMenu, setSelectedMenu] = useState(defaultMenu);
 
   const selectedMenu = useDropdownStore((state) => state.selectedMenu);
   const setSelectedMenu = useDropdownStore((state) => state.setSelectedMenu);

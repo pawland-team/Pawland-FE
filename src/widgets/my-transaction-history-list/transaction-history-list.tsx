@@ -1,6 +1,3 @@
-import { ReviewItem, TransactionItem } from '@entities/profile/ui';
-import { ReviewWritingArea } from '@widgets/profile-page-review-writing-area';
-
 import * as S from './transaction-history-list-style';
 import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
 import { TransactionTapMenuBar } from '@widgets/Transaction-tap-menu-bar';

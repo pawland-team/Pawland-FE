@@ -1,6 +1,5 @@
 import { useGetmyProductList } from '@entities/profile/hooks/use-get-my-product-list.query';
 import { RegisteredProductItem } from '@entities/profile/ui';
-import { DropdownButton } from '@shared/ui/buttons';
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './my-registered-product-list-style';
