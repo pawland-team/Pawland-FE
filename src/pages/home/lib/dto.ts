@@ -6,4 +6,5 @@ export interface MainBannerArray {
   description: string;
   imageSrc: string;
   buttonText?: string;
+  link?: string;
 }

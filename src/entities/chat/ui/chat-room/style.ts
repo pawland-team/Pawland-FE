@@ -217,6 +217,7 @@ export const ModalMessage = styled.pre`
 
   width: 100%;
   height: 118px;
+  padding: 0 12px;
 
   font-size: 1.6rem;
   font-weight: 400;
