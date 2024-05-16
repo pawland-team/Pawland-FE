@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useCreateChatRoom } from '@entities/chat/hooks';
 import { usePostOrder } from '@entities/order/hooks';
@@ -109,7 +110,7 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
           {detailInfo.status === '판매중' && '채팅하기'}
           {detailInfo.status === '판매취소' && '판매취소'}
           {detailInfo.status === '판매 완료' && '판매완료'}
-        </CommonLink>
+        </CommonButton>
       </S.ButtonContainer>
     </S.ProductDetailInfoArea>
   );
