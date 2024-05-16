@@ -66,7 +66,7 @@ export const ProductTitleInputBox = styled.div`
 export const ProductTitleInput = styled.input`
   flex-shrink: 0;
 
-  width: 521px;
+  width: 100%;
   height: 64px;
   margin-top: 9px;
   padding: 20px 32px 25px;
