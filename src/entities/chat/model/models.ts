@@ -14,6 +14,7 @@ export type RoomState = {
   opponentUser: RoomInfo['opponentUser'];
   messageList: ChatContent[];
   previewMessage?: ChatContent;
+  orderId: number;
 };
 
 interface SetRoomMapArgs extends Omit<RoomState, 'messageList'> {
@@ -40,6 +41,7 @@ type RoomMap = Map<RoomState['roomId'], RoomState>;
 
 export interface ChatStoreState {
   roomMap: RoomMap;
+  destroyRoomList: () => void;
   selectedChatRoomId?: RoomState['roomId'];
   webSocketClient?: Client;
   setRoomMap: (setRoomMapArgs: SetRoomMapArgs) => void;

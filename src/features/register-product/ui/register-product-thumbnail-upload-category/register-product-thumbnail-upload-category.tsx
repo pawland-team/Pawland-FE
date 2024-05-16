@@ -65,7 +65,8 @@ export const RegisterProductThumbnailUploadCategory = () => {
             {...register('thumbnail', {
               onChange: onChangeFiles,
               required: {
-                value: true,
+                // value: true,
+                value: !previewImage,
                 message: '대표 이미지를 업로드해주세요.',
               },
               validate: {

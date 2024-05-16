@@ -1,4 +1,3 @@
-// import { cookies } from 'next/headers';
 import { NextFetchEvent, NextRequest } from 'next/server';
 
 /**

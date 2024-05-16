@@ -73,7 +73,6 @@ export const ProductRegisterPage = ({
   useEffect(() => {
     // edit 페이지면 기존 데이터를 form에 채워넣는다.
     if (productId && getProductDetailStatus === 'success' && data) {
-      console.log(data);
       setValue('description', data.content);
       setValue('price', data.price.toString());
       setValue('images', data.imageUrls);
@@ -154,7 +153,6 @@ export const ProductRegisterPage = ({
         /**
          * unique file name
          */
-
         presignedUrl = (await getPreSignedURL({ fileName: uniqueFileName })).presignedUrl;
       } catch (error) {
         // 이건 콘솔로 바꿔야 할 듯
@@ -209,6 +207,8 @@ export const ProductRegisterPage = ({
     try {
       let productIdForPath: number | undefined = productId;
 
+      console.dir(productRegisterInfo);
+
       if (productId) {
         await editMutateAsync({ productId, product: productRegisterInfo });
       } else {
@@ -244,7 +244,7 @@ export const ProductRegisterPage = ({
     }
   };
 
-  const onSubmitInvalid = (
+  const onSubmitInvalid = async (
     inputsErrors: FieldErrors<RegisterProductForm>,
     _event?: BaseSyntheticEvent<object, any, any>,
   ) => {
@@ -276,6 +276,7 @@ export const ProductRegisterPage = ({
 
     // ref가 등록되어 있으면 해당 ref로 focus
     if (firstErrorRef) {
+      // file type (thumbnail input)이면
       if (firstErrorRef.type === 'file') {
         // VM18668 register-product-page.tsx:187 Uncaught (in promise) DOMException: Failed to execute 'querySelector' on 'Document': '#:Rdt5km:' is not a valid selector.
         // @see https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
@@ -283,7 +284,6 @@ export const ProductRegisterPage = ({
         const linkedLabel = document.querySelector<HTMLLabelElement>(`[id='${firstErrorRef.id}']`);
 
         if (linkedLabel) {
-          console.log(1);
           linkedLabel.focus();
         }
 

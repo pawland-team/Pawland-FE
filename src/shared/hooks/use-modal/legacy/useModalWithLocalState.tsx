@@ -139,6 +139,9 @@ const useModalWithLocalState = <CustomModalProps = unknown, T extends HTMLElemen
   //   }
   // };
 
+  /**
+   * TODO: DirectModalComponentProps에서 OptionalModalProps 제거하기
+   */
   const ModalComponent = (directProps?: DirectModalComponentProps) => {
     if (!modalInfo || !modalInfo.ModalComponent || !isModalOpen) {
       throw new Error(
