@@ -5,7 +5,6 @@ import { useGetMyWishList } from '@entities/profile/hooks/use-get-my-wish-list.q
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './wish-list-style';
-import { useEffect, useState } from 'react';
 
 export const WishList = () => {
   const [page, setPage] = useState<number>(1);

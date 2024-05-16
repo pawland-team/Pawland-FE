@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { useGetUserReviewList } from '@entities/user/hooks/use-get-user-review-list.query';
 import { UserReviewItem } from '@entities/user/ui/user-review-item';
-import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './user-review-list-style';
 import { useGetUserReviewList } from '@entities/user/hooks/use-get-user-review-list.query';
 import { NoProductBox } from '@shared/ui/error';
-import { useEffect, useState } from 'react';
 
 interface UserReviewListProps {
   userId: number;

@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { useGetmyCommunityList } from '@entities/profile/hooks';
 import { CommunityPostItem } from '@entities/profile/ui/my-community-post-item';
 import { MyCommunityPostEntity } from '@shared/apis/profile-api';

@@ -5,7 +5,6 @@ import { RegisteredProductItem } from '@entities/profile/ui';
 import { NoProductBox } from '@shared/ui/error';
 
 import * as S from './my-registered-product-list-style';
-import { useEffect, useState } from 'react';
 import { ProductDropdownButton } from '@shared/ui/buttons/product-dropdown/product-dropdown';
 import { useDropdownStore } from '@shared/store/use-drop-down-store';
 

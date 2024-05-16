@@ -5,7 +5,6 @@ import { useRatingStore } from '@shared/store/use-rating-store';
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './review-writing-area-style';
-import { useRatingStore } from '@shared/store/use-rating-store';
 
 interface ReviewWritingAreaProps {
   orderId: number;
