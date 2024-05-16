@@ -11,5 +11,6 @@ export const LogoutButton = () => {
     });
     window.location.href = '/';
   };
+
   return <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>;
 };

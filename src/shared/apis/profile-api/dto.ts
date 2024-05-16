@@ -95,6 +95,7 @@ export interface getMyProductListParams {
   size: number;
   type: string;
 }
+
 export interface getMyCommunityListParams {
   page: number;
 }

@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,7 +8,6 @@ import { SmallThumbnail } from '@shared/ui/thumbnails/small-thumbnail';
 import { formatDateShorter } from '@shared/utils/time';
 
 import * as S from './community-post-item-style';
-import DOMPurify from 'dompurify';
 
 interface CommunityPostItemProps {
   item: MyCommunityPostEntity;

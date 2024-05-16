@@ -13,9 +13,10 @@ interface UserCommunityListProps {
 export const UserCommunityList = ({ userId }: UserCommunityListProps) => {
   const [page, setPage] = useState<number>(1);
   const [pageNumbers, setPageNumbers] = useState<number[]>([]);
+
   const initialParams = {
-    page: page,
-    userId: userId,
+    page,
+    userId,
   };
 
   const { data, status } = useGetUserCommunityList(initialParams);

@@ -1,9 +1,10 @@
-import * as S from './transaction-history-list-style';
 import { useGetmyTransactionList } from '@entities/profile/hooks/use-get-my-transaction-list.query';
-import { TransactionTapMenuBar } from '@widgets/Transaction-tap-menu-bar';
 import { useActiveMenuStore } from '@shared/store/use-active-menu-store';
 import { MyBuyList } from '@widgets/my-buy-list';
 import { MySellList } from '@widgets/my-sell-list';
+import { TransactionTapMenuBar } from '@widgets/Transaction-tap-menu-bar';
+
+import * as S from './transaction-history-list-style';
 
 interface ActiveMenuState {
   activeMenu: string;

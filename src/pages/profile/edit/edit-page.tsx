@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 
 import { useGetUserInfo } from '@entities/user/hooks';
 import { useUserStore } from '@entities/user/model';
+import { getQueryClient } from '@shared/lib/get-query-client';
 
 import * as S from './edit-page-style';
-import { getQueryClient } from '@shared/lib/get-query-client';
 
 export const EditPage = () => {
   const queryClient = getQueryClient();

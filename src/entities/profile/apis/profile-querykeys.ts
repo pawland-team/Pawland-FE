@@ -2,11 +2,11 @@ import { queryOptions } from '@tanstack/react-query';
 
 import {
   getMyCommunityList,
+  getMyCommunityListParams,
   getMyProductList,
   getMyProductListParams,
   getMyWishList,
   getMyWishListParams,
-  getMyCommunityListParams,
 } from '@shared/apis/profile-api';
 import { getMyTransactionList } from '@shared/apis/profile-api/get-my-transaction-list-api';
 

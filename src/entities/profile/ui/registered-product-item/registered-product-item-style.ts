@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const RegisteredProductItem = styled.div`
   cursor: pointer;
-
   position: relative;
 
   display: flex;
