@@ -114,7 +114,7 @@ const initialValueList = {
     data: [
       { value: '강아지', label: '강아지', isChecked: false },
       { value: '고양이', label: '고양이', isChecked: false },
-      { value: '그 외 동물', label: '그 외 동물', isChecked: false },
+      { value: '그외 동물', label: '그외 동물', isChecked: false },
     ],
   },
   category: {
