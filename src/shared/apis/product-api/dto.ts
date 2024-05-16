@@ -5,10 +5,10 @@ export const CATEGORY = {
   toy: '장난감',
   clothes: '옷',
   accessory: '악세사리',
-  etc: '그외',
+  etc: '그 외 상품',
 } as const;
 
-export const CATEGORY_REGEX = /사료|장난감|옷|악세사리|그외/;
+export const CATEGORY_REGEX = /사료|장난감|옷|악세사리|그 외 상품/;
 
 export type CategoryValue = CategoryDTO[Category];
 
@@ -53,10 +53,10 @@ export type Region =
 export const SPECIES = {
   dog: '강아지',
   cat: '고양이',
-  etc: '그외',
+  etc: '그외 동물',
 } as const;
 
-export const SPECIES_REGEX = /강아지|고양이|그외/;
+export const SPECIES_REGEX = /강아지|고양이|그외 동물/;
 
 export type SpeciesValue = SpeciesDTO[Species];
 

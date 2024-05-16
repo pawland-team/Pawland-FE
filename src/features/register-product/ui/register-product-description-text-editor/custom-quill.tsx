@@ -208,6 +208,8 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
     'bullet',
     'indent',
     'link',
+    'color',
+    'background',
     'image',
   ];
 
