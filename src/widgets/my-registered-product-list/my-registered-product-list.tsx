@@ -56,7 +56,6 @@ export const MyRegisteredProductList = () => {
           <ProductDropdownButton
             dropdownItems={['전체보기', '판매중']}
             lastDropdownItem={'판매완료'}
-            defaultMenu={'전체보기'}
             iconPath={'images/icon/arrow-down-icon-gray.svg'}
           />
         </div>

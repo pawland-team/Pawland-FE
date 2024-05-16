@@ -14,7 +14,6 @@ interface DropdownButtonProps {
   borderColor?: string;
   fontColor?: string;
   selectedFontSize?: string;
-  defaultMenu: string;
 }
 
 const ProductDropdownButton = ({
@@ -26,7 +25,6 @@ const ProductDropdownButton = ({
   borderColor = '#9E9E9E',
   fontColor = '#9E9E9E',
   selectedFontSize = '1.6rem',
-  defaultMenu = '전체보기',
 }: DropdownButtonProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
