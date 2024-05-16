@@ -65,6 +65,8 @@ export const CommunityPostDetailPage = () => {
   const { openModalList } = useModalList();
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingCommentText, setEditingCommentText] = useState<string>('');
+  const [editingReplyId, setEditingReplyId] = useState<number | null>(null);
+  const [editingReplyText, setEditingReplyText] = useState<string>('');
 
   const startEditingComment = (commentId: number, currentText: string) => {
     setEditingCommentId(commentId);
@@ -115,6 +117,52 @@ export const CommunityPostDetailPage = () => {
     return comments?.reduce((total, comment) => {
       return total + 1 + comment.replies.length;
     }, 0);
+  };
+
+  const startEditingReply = (replyId: number, currentText: string) => {
+    setEditingReplyId(replyId);
+    setEditingReplyText(currentText);
+  };
+
+  const cancelEditingReply = () => {
+    setEditingReplyId(null);
+    setEditingReplyText('');
+  };
+
+  const handleReplyEditSubmit = async (replyId: number, commentId: number) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${replyId}`;
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: editingReplyText }),
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const updatedReply = await response.json();
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? {
+                  ...comment,
+                  replies: comment.replies.map((reply) =>
+                    reply.id === replyId ? { ...reply, content: updatedReply.content } : reply,
+                  ),
+                }
+              : comment,
+          ),
+        );
+        cancelEditingReply();
+      } else {
+        throw new Error('Failed to edit reply');
+      }
+    } catch (error) {
+      console.error('Error editing reply:', error);
+    }
   };
 
   const handleLike = async () => {
@@ -242,7 +290,7 @@ export const CommunityPostDetailPage = () => {
     if (!replyContent) return;
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/${commentId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${commentId}`;
 
       const response = await fetch(url, {
         method: 'POST',
@@ -270,6 +318,41 @@ export const CommunityPostDetailPage = () => {
       }
     } catch (error) {
       console.error('Error submitting reply:', error);
+    }
+  };
+
+  const handleDeleteReply = async (commentId: number, replyId: number) => {
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirmed = confirm('정말로 이 댓글을 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/comment/reply/${replyId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === commentId
+              ? { ...comment, replies: comment.replies.filter((reply) => reply.id !== replyId) }
+              : comment,
+          ),
+        );
+      } else {
+        throw new Error('Failed to delete reply');
+      }
+    } catch (error) {
+      console.error('Error deleting reply:', error);
     }
   };
 
@@ -509,9 +592,42 @@ export const CommunityPostDetailPage = () => {
                           <Image src={reply.author.profileImage} alt='reply-profile-image' fill />
                         </S.ProfileImageWrapper>
                         <S.ComentPostBox>
-                          <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                          <S.ReplyFunctionBox>
+                            <S.ProfileNickname>{reply.author.nickname}</S.ProfileNickname>
+                            {reply.author.id === userData?.id && (
+                              <>
+                                {editingReplyId === reply.id ? (
+                                  <>
+                                    <button type='button' onClick={cancelEditingReply}>
+                                      취소
+                                    </button>
+                                    <button type='button' onClick={() => handleReplyEditSubmit(reply.id, comment.id)}>
+                                      저장
+                                    </button>
+                                  </>
+                                ) : (
+                                  <button type='button' onClick={() => startEditingReply(reply.id, reply.content)}>
+                                    <Image src='/images/icon/edit-icon.svg' alt='edit-icon' width={20} height={20} />
+                                  </button>
+                                )}
+                                <S.ComentDeleteButton
+                                  type='button'
+                                  onClick={() => handleDeleteReply(comment.id, reply.id)}
+                                >
+                                  X
+                                </S.ComentDeleteButton>
+                              </>
+                            )}
+                          </S.ReplyFunctionBox>
                           <S.PostDateText>{new Date(reply.createdAt).toLocaleDateString()}</S.PostDateText>
-                          <S.Coment>{reply.content}</S.Coment>
+                          {editingReplyId === reply.id ? (
+                            <S.ComentTextarea
+                              value={editingReplyText}
+                              onChange={(e) => setEditingReplyText(e.target.value)}
+                            />
+                          ) : (
+                            <S.Coment>{reply.content}</S.Coment>
+                          )}
                         </S.ComentPostBox>
                       </S.ReplyWrapper>
                       <S.EmptySpace />
