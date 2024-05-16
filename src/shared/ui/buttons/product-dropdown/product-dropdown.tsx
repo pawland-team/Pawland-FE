@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
-import * as S from './product-dropdown-style';
 import { useDropdownStore } from '@shared/store/use-drop-down-store';
+
+import * as S from './product-dropdown-style';
 
 interface DropdownButtonProps {
   dropdownItems: string[];

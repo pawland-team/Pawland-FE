@@ -1,4 +1,4 @@
-import { CommunityListPage } from '../../../src/pages/community/list/list-page';
+import { CommunityListPage } from '@pages/community/list/list-page';
 
 const Page = () => {
   return <CommunityListPage />;
