@@ -48,7 +48,6 @@ const ToggleWishButton = ({ id, initialIsWished, width = 42, height = 35 }: Togg
     };
 
     if (!userData || userData === undefined) {
-      // ! 필수 : 로그인 상태 아닐 때 테스트 필요!!!
       // login 상태가 아닐 때 , 로그인 하라는 모달 띄움
       openModalList({
         ModalComponent: Modal,
