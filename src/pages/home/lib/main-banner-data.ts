@@ -14,7 +14,7 @@ export const mainBannerData: MainBannerArray[] = [
   },
   {
     id: 1,
-    title: '강아지',
+    title: '안전하고 편리한 거래',
     description:
       '합리적인 가격에 반려동물 용품을 구입하고 싶다면? <br>이제 Pawland에서 쉽고 빠르게 원하는 물건을 찾아보세요',
     imageSrc: '/images/banner/main-banner.png',
@@ -23,7 +23,7 @@ export const mainBannerData: MainBannerArray[] = [
   },
   {
     id: 2,
-    title: '강아지',
+    title: '발빠른 정보 공유',
     description:
       '최신 반려동물 정보부터 유익한 팁까지! <br>Pawland 커뮤니티 게시판에서 다양한 정보를 공유하고 소통해보세요',
     imageSrc: '/images/banner/main-banner.png',
