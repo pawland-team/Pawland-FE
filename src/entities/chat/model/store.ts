@@ -59,10 +59,14 @@ export const useChatStore = create<ChatStoreState>()(
       },
       setRoomMap: ({ roomId, opponentUser, productInfo, unParsedMessage, orderId }) => {
         try {
+          console.log('s-1');
+
           if (unParsedMessage) {
             // # (Given) websocket 응답 시
             const { body } = unParsedMessage;
             const data = JSON.parse(body) as WebSocketChatResponse;
+
+            console.log('s-2');
 
             if (!data) {
               console.error('data is undefined');
@@ -173,6 +177,8 @@ export const useChatStore = create<ChatStoreState>()(
       },
       appendPreviousMessageList: ({ previousMessageList, roomId }) => {
         const roomStateFromGet = get().roomMap.get(roomId);
+
+        console.log(roomStateFromGet);
 
         if (!roomStateFromGet) {
           return;
