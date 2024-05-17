@@ -53,6 +53,8 @@ export const SendChatForm = ({
       messageTime: new Date(),
     };
 
+    console.log(chatTypeRequest);
+
     // TODO: 성공여부 판단해서 성공하면 reset하기
     try {
       sendChatMessage({ chatRequestBody: chatTypeRequest });

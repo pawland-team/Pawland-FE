@@ -64,6 +64,8 @@ export const useChatStore = create<ChatStoreState>()(
             const { body } = unParsedMessage;
             const data = JSON.parse(body) as WebSocketChatResponse;
 
+            console.log('s-2');
+
             if (!data) {
               console.error('data is undefined');
 
@@ -173,6 +175,8 @@ export const useChatStore = create<ChatStoreState>()(
       },
       appendPreviousMessageList: ({ previousMessageList, roomId }) => {
         const roomStateFromGet = get().roomMap.get(roomId);
+
+        console.log(roomStateFromGet);
 
         if (!roomStateFromGet) {
           return;
