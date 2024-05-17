@@ -26,7 +26,7 @@ export const insertMessageGroupForDisplay = ({
     timeDisplayMessage: formatToFullDate(currentDate),
   };
 
-  if (messageList.length === 0) {
+  if (messageList.length === 0 || !messageList) {
     // # 메시지가 없는 경우
     // 날짜를 보여주는 메시지가 담긴 그룹 생성
     // [(new DATE)]

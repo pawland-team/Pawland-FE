@@ -1,8 +1,11 @@
 import { useEffect, useMemo } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { chatQueryKeys } from '@entities/chat/apis';
 import { useCreateChatRoom } from '@entities/chat/hooks';
 import { usePostOrder } from '@entities/order/hooks';
 import { ProductListItemDto } from '@shared/apis/product-api';
@@ -26,47 +29,65 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
   const { mutateAsync: createChatRoomMutate, status: createChatRoomStatus } = useCreateChatRoom();
   const { isModalOpen, ModalComponent, openModal, closeModal } = useModalWithLocalState();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const isLoading = useMemo(() => {
     return postOrderStatus === 'pending' || createChatRoomStatus === 'pending';
   }, [postOrderStatus, createChatRoomStatus]);
 
   const createChatRoom = async () => {
+    // TODO: 채팅방이 이미 만들어져 있으면 주문생성하기랑 채팅방 생성 더 이상 하지 않도록 막아야 함.
+    // ! 내가 이미 이 사람하고 채팅방 연결을 한 상태인지 확인할 수 있는 api가 필요함.
+    // - 이미 채팅방이 만들어져 있으면 채팅방으로 이동하도록 하고(router push),
+    // - 채팅방이 없으면 주문생성하기랑 채팅방 생성하기를 진행하도록 해야함. -> 성공하면 router push
+    // (오더에서) 302로 오면 챗으로 리다이렉트
+    let orderId: number | undefined;
+
     try {
-      await postOrderMutate(detailInfo.id, {
-        onError: () => {
-          openModal({
-            ModalComponent: NormalSnackBar,
-            props: { message: '주문 생성에 실패하였습니다.' },
-            options: {
-              persist: true,
-            },
-          });
-        },
-        onSuccess: (orderId) => {
-          if (orderId && postOrderStatus === 'success') {
-            createChatRoomMutate(
-              { productId: detailInfo.id, sellerId: detailInfo.seller.id, orderId },
-              {
-                onError: () => {
-                  openModal({
-                    ModalComponent: NormalSnackBar,
-                    props: { message: '채팅방 생성에 실패하였습니다.' },
-                    options: {
-                      persist: true,
-                    },
-                  });
-                },
-                onSuccess: () => {
-                  router.push('/chat');
-                },
-              },
-            );
-          }
-        },
-      });
+      orderId = await postOrderMutate(detailInfo.id);
     } catch (error) {
       console.error(error);
+
+      if (isAxiosError(error) && error.response?.status === 302) {
+        openModal({
+          ModalComponent: NormalSnackBar,
+          props: { message: '이미 존재하는 거래 채팅입니다.' },
+          options: {
+            persist: true,
+          },
+        });
+        router.push('/chat');
+
+        return;
+      }
+
+      openModal({
+        ModalComponent: NormalSnackBar,
+        props: { message: '주문 생성에 실패하였습니다.' },
+        options: {
+          persist: true,
+        },
+      });
+
+      return;
+    }
+
+    try {
+      // if (orderId && postOrderStatus === 'success') {
+      if (orderId) {
+        await createChatRoomMutate({ productId: detailInfo.id, sellerId: detailInfo.seller.id, orderId });
+        await queryClient.invalidateQueries({ queryKey: chatQueryKeys.all() });
+        router.push('/chat');
+      }
+    } catch (error) {
+      console.error(error);
+      openModal({
+        ModalComponent: NormalSnackBar,
+        props: { message: '채팅방 생성에 실패하였습니다.' },
+        options: {
+          persist: true,
+        },
+      });
     }
   };
 

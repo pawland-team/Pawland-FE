@@ -18,7 +18,7 @@ import { clientWithTokenApi } from '../instance';
  *
  */
 export const completeTransaction = async ({ orderId }: { orderId: number }) => {
-  const response = await clientWithTokenApi.post<CompleteTransactionResponse>(`/api/order/done/${orderId}`);
+  const response = await clientWithTokenApi.put<CompleteTransactionResponse>(`/api/order/done/${orderId}`);
 
   return response.data;
 };
