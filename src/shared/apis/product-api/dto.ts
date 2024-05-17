@@ -16,6 +16,9 @@ export type CategoryDTO = typeof CATEGORY;
 
 export type Category = keyof typeof CATEGORY;
 
+/**
+ * 판매취소는 지금 당장은 없다.
+ */
 export const SALE_STATE = {
   selling: '판매중',
   canceled: '판매취소',
@@ -26,6 +29,9 @@ export type SaleStateDTO = typeof SALE_STATE;
 
 export type SaleState = keyof typeof SALE_STATE;
 
+/**
+ * 판매취소는 지금 당장은 없다.
+ */
 export type SaleStateValue = SaleStateDTO[SaleState];
 
 export const REGION_REGEX = /서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|해외/;
@@ -134,7 +140,7 @@ export interface ProductInfoEntity {
    */
   createdAt: string;
   /**
-   * 판매중/판매취소/판매완료
+   * 판매중/판매취소/판매 완료
    */
   status: SaleStateValue;
   /**
