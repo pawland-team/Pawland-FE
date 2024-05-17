@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { styled } from 'styled-components';
 
-export const ChatPreviewWrapper = styled.div<{ $isChatRoomUnfolded?: boolean }>`
+export const ChatPreviewWrapper = styled.button<{ $isChatRoomUnfolded?: boolean }>`
   cursor: pointer;
 
   display: flex;
@@ -73,6 +73,7 @@ export const MessageContent = styled.p<{ $isChatRoomUnfolded?: boolean }>`
   font-weight: 400;
   line-height: 2.8rem; /* 175% */
   color: ${({ $isChatRoomUnfolded }) => ($isChatRoomUnfolded ? '#242424' : '#9E9E9E')};
+  text-align: left;
   text-overflow: ellipsis;
   letter-spacing: -0.06rem;
   white-space: nowrap;

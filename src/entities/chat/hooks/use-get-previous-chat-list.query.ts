@@ -8,5 +8,5 @@ interface UseGetPreviousChatListParam {
 }
 
 export const useGetPreviousChatList = ({ roomId }: UseGetPreviousChatListParam) => {
-  return useInfiniteQuery({ ...chatQuery.previousChatList(roomId) });
+  return useInfiniteQuery({ ...chatQuery.previousChatList({ roomId }) });
 };

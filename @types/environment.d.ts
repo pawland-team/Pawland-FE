@@ -6,7 +6,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_LOCAL_HOST: string;
     NEXT_PUBLIC_WSS_URL: string;
     NEXT_PUBLIC_PORT_ONE: string;
-    DEPLOY_SERVER_URL: string;
+    DEPLOYED_FRONT_SERVER_URL: string;
     SERVER_URL_ON_SSR: string;
     NEXT_PUBLIC_NAVER_CLIENT_ID: string;
     NEXT_PUBLIC_KAKAO_CLIENT_ID: string;
