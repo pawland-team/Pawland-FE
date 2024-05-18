@@ -26,21 +26,6 @@ function useInView_v2<T extends HTMLElement>(useInViewParam?: UseInViewParam): U
       }
     }, useInViewParam?.intersectionObserverInit);
 
-    // const intersectionObserveTargetRefCurrent = intersectionObserveTargetRef.current;
-
-    // if (intersectionObserveTargetRefCurrent) {
-    //   observer.observe(intersectionObserveTargetRefCurrent);
-    // }
-
-    // return () => {
-    //   // The ref value 'intersectionObserveTargetRef.current' will likely have changed by the time this effect cleanup function runs.
-    //   // If this ref points to a node rendered by React, copy 'intersectionObserveTargetRef.current' to a variable inside the effect, and use that variable in the cleanup function.eslintreact-hooks/exhaustive-deps
-
-    //   if (intersectionObserveTargetRefCurrent) {
-    //     observer.disconnect();
-    //   }
-    // };
-
     if (intersectionObserveTargetRef.current) {
       observer.observe(intersectionObserveTargetRef.current);
     }
