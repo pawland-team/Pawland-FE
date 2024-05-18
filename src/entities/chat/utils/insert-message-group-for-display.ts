@@ -111,10 +111,19 @@ export const insertMessageGroupForDisplay = ({
         messageGroupListForDisplay.push({
           messageGroupType: 'MESSAGE',
           messageGroupId: crypto.randomUUID(),
-          messageGroupTime: latestDateInfo.dateWithMillisecondsZero,
+          // messageGroupTime: latestDateInfo.dateWithMillisecondsZero,
+          messageGroupTime: oldDateInfo.dateWithMillisecondsZero,
           messageListInGroup: [currentMessage],
           sender: currentMessage.sender,
         });
+
+        // // * (Then) 새 날짜 메시지 그룹 추가 이전에 동일한 날짜 메시지 그룹이 있는지 확인해서 제거
+        // // messageGroupTime이 같은 것이 있으면 제거
+        // messageGroupListForDisplay = messageGroupListForDisplay.filter((messageGroup) => {
+        //   return !(
+        //     messageGroup.messageGroupType === 'DATE' && messageGroup.messageGroupTime === oldDateInfo.midnightDate
+        //   );
+        // });
 
         // * (Then) 새 날짜 메시지 그룹 생성 및 추가
         messageGroupListForDisplay.push({
@@ -126,6 +135,14 @@ export const insertMessageGroupForDisplay = ({
       } else {
         // ? (When) 마지막 메시지 그룹이 MESSAGE 타입인 경우
         // [(MESSAGE), (MESSAGE)] => [(MESSAGE), (MESSAGE), (new DATE), (new MESSAGE), (new DATE)]
+
+        // // * (Then) 새 날짜 메시지 그룹 추가 이전에 동일한 날짜 메시지 그룹이 있는지 확인해서 제거
+        // // messageGroupTime이 같은 것이 있으면 제거
+        // messageGroupListForDisplay = messageGroupListForDisplay.filter((messageGroup) => {
+        //   return !(
+        //     messageGroup.messageGroupType === 'DATE' && messageGroup.messageGroupTime === latestDateInfo.midnightDate
+        //   );
+        // });
 
         // * (Then) 새 날짜 메시지 그룹 생성 및 추가
         messageGroupListForDisplay.push({
@@ -179,6 +196,17 @@ export const insertMessageGroupForDisplay = ({
             messageListInGroup: [currentMessage],
             sender: currentMessage.sender,
           });
+
+          // /**
+          //  * ! 필요없는 로직일 수도 있음
+          //  */
+          // // * (Then) 새 날짜 메시지 그룹 추가 이전에 동일한 날짜 메시지 그룹이 있는지 확인해서 제거
+          // // messageGroupTime이 같은 것이 있으면 제거
+          // messageGroupListForDisplay = messageGroupListForDisplay.filter((messageGroup) => {
+          //   return !(
+          //     messageGroup.messageGroupType === 'DATE' && messageGroup.messageGroupTime === oldDateInfo.midnightDate
+          //   );
+          // });
 
           // * (Then) 새 날짜 메시지 그룹 생성 및 추가
           messageGroupListForDisplay.push({

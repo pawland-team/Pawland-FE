@@ -70,7 +70,6 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
       // 여기서 보내는 fileName이 s3에 저장될 파일 이름이다.
       try {
         presignedUrl = (await getPreSignedURL({ fileName: uniqueFileName })).presignedUrl;
-        console.log(presignedUrl);
       } catch (error) {
         // 이건 콘솔로 바꿔야 할 듯
         console.error(error);
@@ -112,7 +111,6 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
       }
 
       const uniqueImageUrl = `${process.env.NEXT_PUBLIC_BUCKET_BASE_URL}/${uniqueFileName}`;
-      console.log(uniqueImageUrl);
       // 에디터 정보 가져오기
       const quill = quillRef.current.getEditor();
       // const range = quillRef.current.getEditorSelection();
@@ -197,22 +195,6 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
     [],
   );
 
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'color',
-    'background',
-    'image',
-  ];
-
   return (
     <>
       {isModalOpen && <ModalComponent />}
@@ -228,7 +210,6 @@ export const CustomQuill = ({ theme = 'snow', onChange, focusRef, ...rest }: Cus
         modules={mod}
         value={watch('description')}
         onChange={onChange}
-        formats={formats}
         {...rest}
       />
     </>

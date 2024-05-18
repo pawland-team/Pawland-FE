@@ -31,7 +31,7 @@ interface ChatRoomProps extends Pick<UseChatFormTextareaSizeControlReturn, 'chan
   setChatRoomLocalRoomState: Dispatch<SetStateAction<RoomState | undefined>>;
   chatRoomLocalRoomState: RoomState | undefined;
   userInfo: GetUserInfoResponse;
-  selectedChatRoomId?: number;
+  selectedChatRoomId: number | undefined;
   roomMap: ChatStoreState['roomMap'];
   appendPreviousMessageList: ChatStoreState['appendPreviousMessageList'];
 }
@@ -68,60 +68,65 @@ export const ChatRoom = ({
   // TODO: _completeTransactionStatus 사용해서 페이지 넘어가기 전 Loading 구현하기
   const { mutate, status: _completeTransactionStatus } = useCompleteTransaction();
 
-  const { intersectionObserveTargetRef, isIntersecting } = useInView_v2<HTMLDivElement>();
+  const { intersectionObserveTargetRef, isIntersecting } = useInView_v2<HTMLDivElement>({
+    dependencyList: [selectedChatRoomId, chatRoomLocalRoomState],
+  });
 
-  const { isPlaceholderData, fetchNextPage, hasNextPage, data, status } = useGetPreviousChatList({
+  const { fetchNextPage, isPlaceholderData, hasNextPage, data, status } = useGetPreviousChatList({
     roomId: selectedChatRoomId,
   });
 
   const throttledFetchNextPage = useCallback(
     throttle(() => {
-      if (hasNextPage && !isPlaceholderData && isIntersecting) {
-        fetchNextPage({ throwOnError: true })
-          .then(({ data, status }) => {
-            if (status === 'success' && data && data.pages.length > 0) {
-              if (selectedChatRoomId === undefined) {
-                return;
-              }
+      console.log('fetchNextPage');
+      fetchNextPage({ throwOnError: true })
+        .then(({ data, status }) => {
+          if (selectedChatRoomId === undefined) {
+            return;
+          }
 
-              // 이전 메시지 리스트를 추가해야 함.
-              const previousMessageList: ChatContent[] = data.pages.flatMap((page) => {
-                return page.messageList.map<ChatContent>(({ sender, ...rest }) => ({
-                  sender: Number(sender),
-                  ...rest,
-                }));
-              });
+          if (status === 'success' && data && data.pages.length > 0) {
+            console.log(data.pages);
 
-              console.log(previousMessageList);
+            // 이전 메시지 리스트를 추가해야 함.
+            const previousMessageList: ChatContent[] = data.pages.flatMap((page) => {
+              return page.messageList.map<ChatContent>(({ sender, ...rest }) => ({
+                sender: Number(sender),
+                ...rest,
+              }));
+            });
 
-              // 이전 메시지 리스트 길이가 0이면 추가하지 않음
-              if (previousMessageList.length === 0) {
-                return;
-              }
-
-              appendPreviousMessageList({
-                roomId: selectedChatRoomId,
-                /**
-                 * previousMessageList: data.pages[data.pages.length - 1].messageList,
-                 * maxPages가 1임.
-                 * 그렇기 때문에 어차피 들고 있는 pages에 page가 단 한 개 밖에 없음.
-                 * 1페이지에는 최신 메시지가 있음.
-                 */
-                previousMessageList,
-              });
+            // 이전 메시지 리스트 길이가 0이면 추가하지 않음
+            if (previousMessageList.length === 0) {
+              return;
             }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+
+            appendPreviousMessageList({
+              roomId: selectedChatRoomId,
+              /**
+               * previousMessageList: data.pages[data.pages.length - 1].messageList,
+               * maxPages가 1임.
+               * 그렇기 때문에 어차피 들고 있는 pages에 page가 단 한 개 밖에 없음.
+               * 1페이지에는 최신 메시지가 있음.
+               */
+              previousMessageList,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }, 2000),
-    [appendPreviousMessageList, fetchNextPage, hasNextPage, isPlaceholderData, selectedChatRoomId, isIntersecting],
+    [appendPreviousMessageList, fetchNextPage, selectedChatRoomId, hasNextPage, isFirstRender, isIntersecting],
   );
 
   // 최초 진입 시 로직
   useEffect(() => {
     if (!isFirstRender) {
+      return;
+    }
+
+    if (selectedChatRoomId === undefined) {
       return;
     }
 
@@ -134,10 +139,6 @@ export const ChatRoom = ({
         }));
       });
 
-      if (selectedChatRoomId === undefined) {
-        return;
-      }
-
       setInitialMessageList({
         roomId: selectedChatRoomId,
         initialMessageList,
@@ -149,17 +150,12 @@ export const ChatRoom = ({
 
   // 스크롤 이벤트로 감지 시 로직
   useEffect(() => {
-    if (isFirstRender === false && isIntersecting) {
+    console.log(isIntersecting);
+
+    if (hasNextPage && isIntersecting && isFirstRender === false && isPlaceholderData === false) {
       throttledFetchNextPage();
     }
-  }, [throttledFetchNextPage, isIntersecting, isFirstRender]);
-
-  // selectedChatRoomId undefined여도 상관없음. UnselectedChatRoomDisplay 컴포넌트 보여주면 됨.
-  // const roomState = roomMap.get(selectedChatRoomId!);
-  // const { messageList, productInfo, opponentUser, orderId } = roomState ?? {};
-
-  // TODO: data 로직은 store에 있는 것이고 ui 로직은 component state로 관리해야 함.
-  // const [messageGroupListForDisplay, setMessageGroupListForDisplay] = useState<MessageGroupListForDisplay>([]);
+  }, [throttledFetchNextPage, isIntersecting, isFirstRender, hasNextPage, isPlaceholderData]);
 
   const handleConfirmTransaction = async ({ orderId, productId }: { orderId: number; productId: number }) => {
     const ModalComponent = await import('@shared/ui/modal/confirm-modal-frame').then(
@@ -227,7 +223,6 @@ export const ChatRoom = ({
 
     const handleConfirm = async () => {
       await closeModalList({ modalKey: CHAT_MESSAGE_DELETE_MODAL_KEY });
-      console.log('메세지 삭제 api 호출');
       openNotifyMessageDeleteModal();
     };
 
@@ -256,13 +251,6 @@ export const ChatRoom = ({
     });
   };
 
-  // useEffect(() => {
-  //   // Prefetch the `/product/[productId]` page
-  //   if (productInfo?.id) {
-  //     router.prefetch(`/product/${productInfo.id}`);
-  //   }
-  // }, [router, productInfo?.id]);
-
   useEffect(
     () => () => {
       // unmount 시에는 모달을 닫아준다.
@@ -271,34 +259,12 @@ export const ChatRoom = ({
     [],
   );
 
-  // const messageGroupListForDisplay = useMemo(() => {
-  //   return insertMessageGroupForDisplay({ messageList: messageList ?? [] });
-  // }, [messageList]);
+  // 현재 roomId에 해당하는 채팅방의 메시지 리스트를 가공하여 보여주는 컴포넌트
   const messageGroupListForDisplay = useMemo(() => {
     return insertMessageGroupForDisplay({ messageList: chatRoomLocalRoomState?.messageList ?? [] });
-  }, [chatRoomLocalRoomState]);
+  }, [chatRoomLocalRoomState?.messageList]);
 
-  // if (selectedChatRoomId === undefined || !messageList || !productInfo || !opponentUser || !userInfo || !orderId) {
-  // if (selectedChatRoomId === undefined || !productInfo || !opponentUser || !userInfo || !orderId) {
-  //   console.log(selectedChatRoomId);
-  //   console.log(productInfo);
-  //   console.log(opponentUser);
-  //   console.log(userInfo);
-  //   console.log(orderId);
-
-  //   return (
-  //     <S.ChatRoomWrapper>
-  //       <UnselectedChatRoomDisplay />
-  //     </S.ChatRoomWrapper>
-  //   );
-  // }
-  if (
-    selectedChatRoomId === undefined ||
-    !chatRoomLocalRoomState ||
-    !chatRoomLocalRoomState.productInfo ||
-    !chatRoomLocalRoomState.opponentUser ||
-    typeof chatRoomLocalRoomState.orderId !== 'number'
-  ) {
+  if (selectedChatRoomId === undefined || !chatRoomLocalRoomState) {
     return (
       <S.ChatRoomWrapper>
         <UnselectedChatRoomDisplay />
@@ -308,12 +274,6 @@ export const ChatRoom = ({
 
   const { orderId, productInfo, opponentUser } = chatRoomLocalRoomState;
   const { id: productId, thumbnailImage, price, productName, saleState } = productInfo;
-  // const { id: productId, thumbnailImage, price, productName, saleState } = productInfo;
-  // const { id: productId, imageThumbnail, price, productName, saleState } = productInfo ?? {};
-  // const { id: opponentUserId, nickname, profileImage: opponentUserProfileImage } = opponentUser;
-  // const { id: myId, email, nickname, profileImage: myProfileImage, stars, userDesc } = userInfo;
-  // 근데 이것도 리렌더링 때 전부 다시 계산해야 함.
-  // const messageGroupForDisplay = insertMessageGroupForDisplay({ messageList });
 
   return (
     <S.ChatRoomWrapper>

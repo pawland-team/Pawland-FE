@@ -12,9 +12,9 @@ import * as S from './style';
  */
 export interface ChatPreviewProps extends RoomInfo {
   userInfo: GetUserInfoResponse;
-  selectedChatRoomId?: number;
+  selectedChatRoomId: number | undefined;
   setSelectedChatRoomId: ChatStoreState['setSelectedChatRoomId'];
-  // webSocketClient?: Client;
+  // webSocketClient: Client | undefined;
   roomMap: ChatStoreState['roomMap'];
   // setRoomMap: ChatStoreState['setRoomMap'];
 }

@@ -29,6 +29,7 @@ export const useProductImageListStore = createWithEqualityFn<ProductImageListSto
     {
       anonymousActionType: 'useProductImageListStore Action',
       name: 'useProductImageListStore',
+      enabled: process.env.NODE_ENV === 'development',
     },
   ),
   shallow,

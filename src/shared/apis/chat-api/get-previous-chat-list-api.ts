@@ -2,7 +2,7 @@ import { ChatRoomListResponse, HTTPChatResponse } from './dto';
 import { clientWithTokenApi } from '../instance';
 
 interface GetPreviousChatListParam {
-  cursorId: string;
+  cursorId?: string;
   roomId: ChatRoomListResponse[number]['roomId'];
 }
 
@@ -12,7 +12,7 @@ export const getPreviousChatList = async ({ cursorId, roomId }: GetPreviousChatL
     // 반드시 일반 객체나 URLSearchParams 객체여야 합니다.
     // 참고: null이나 undefined는 URL에 렌더링되지 않습니다.
     params: {
-      cursorId: cursorId || undefined,
+      messageTime: cursorId || undefined,
     },
   });
 
