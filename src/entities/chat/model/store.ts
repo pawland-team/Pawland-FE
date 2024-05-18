@@ -13,6 +13,7 @@ export const useChatStore = create<ChatStoreState>()(
         set(
           (prev) => ({
             ...prev,
+            webSocketClient: prev.webSocketClient,
             roomMap: new Map(),
           }),
           false,
@@ -24,7 +25,6 @@ export const useChatStore = create<ChatStoreState>()(
        * TODO: 프리뷰 메시지 받는 부분하고 메시지 받는 부분을 나눠야 함
        */
       setInitialRoomMap: (initialChatRoomList) => {
-        console.log(initialChatRoomList);
         // Map에 담아서 초기화
         const initialRoomMap = new Map<RoomState['roomId'], RoomState>();
 
@@ -47,32 +47,22 @@ export const useChatStore = create<ChatStoreState>()(
           });
         });
 
-        console.log(initialRoomMap);
-
         set(
           (prev) => ({
             ...prev,
+            webSocketClient: prev.webSocketClient,
             roomMap: initialRoomMap,
           }),
           false,
           { type: 'ChatStore/SetInitialRoomMap' },
         );
-
-        console.log(get().roomMap);
-        console.log(get());
       },
       setRoomMap: ({ roomId, opponentUser, productInfo, unParsedMessage, orderId }) => {
-        console.log('s-0');
-
         try {
-          console.log('s-1');
-
           if (unParsedMessage) {
             // # (Given) websocket 응답 시
             const { body } = unParsedMessage;
             const data = JSON.parse(body) as WebSocketChatResponse;
-
-            console.log('s-2');
 
             if (!data) {
               console.error('data is undefined');
@@ -93,6 +83,7 @@ export const useChatStore = create<ChatStoreState>()(
             set(
               (prev) => ({
                 ...prev,
+                webSocketClient: prev.webSocketClient,
                 roomMap: new Map(prev.roomMap).set(roomId, {
                   roomId,
                   opponentUser,
@@ -114,8 +105,6 @@ export const useChatStore = create<ChatStoreState>()(
           //   // # (Given) http roomInfo 응답 시
           //   // latest ChatContent 가져옴
           //   // previewMessage가 이에 해당함.
-
-          //   console.log('s-3');
 
           //   set(
           //     (prev) => ({
@@ -163,8 +152,6 @@ export const useChatStore = create<ChatStoreState>()(
       setInitialMessageList: ({ initialMessageList, roomId }) => {
         const roomStateFromGet = get().roomMap.get(roomId);
 
-        console.log(roomStateFromGet);
-
         if (!roomStateFromGet) {
           return;
         }
@@ -175,6 +162,7 @@ export const useChatStore = create<ChatStoreState>()(
 
           return {
             ...prev,
+            webSocketClient: prev.webSocketClient,
             roomMap: new Map(prev.roomMap).set(roomId, {
               ...p,
               previewMessage: initialMessageList[0],
@@ -186,8 +174,6 @@ export const useChatStore = create<ChatStoreState>()(
       appendPreviousMessageList: ({ previousMessageList, roomId }) => {
         const roomStateFromGet = get().roomMap.get(roomId);
 
-        console.log(roomStateFromGet);
-
         if (!roomStateFromGet) {
           return;
         }
@@ -197,12 +183,8 @@ export const useChatStore = create<ChatStoreState>()(
             const p = prev.roomMap.get(roomId) ?? roomStateFromGet;
 
             return {
-              // TODO: double check
               ...prev,
-              // roomMap: new Map(prev.roomMap).set(roomId, {
-              //   ...p,
-              //   messageList: [...(prev.roomMap.get(roomId)?.messageList ?? []), ...previousMessageList],
-              // }),
+              webSocketClient: prev.webSocketClient,
               roomMap: new Map(prev.roomMap).set(roomId, {
                 ...p,
                 previewMessage: p.previewMessage ? p.previewMessage : previousMessageList[0],
@@ -219,6 +201,7 @@ export const useChatStore = create<ChatStoreState>()(
         set(
           (prev) => ({
             ...prev,
+            webSocketClient: prev.webSocketClient,
             selectedChatRoomId: roomId,
           }),
           false,
@@ -226,9 +209,6 @@ export const useChatStore = create<ChatStoreState>()(
         );
       },
       setWebSocketClient: (webSocketClient) => {
-        console.log(get().webSocketClient);
-        console.log(webSocketClient);
-
         if (get().webSocketClient) {
           // 스토어에 이미 있으면 return;
 
@@ -243,7 +223,6 @@ export const useChatStore = create<ChatStoreState>()(
           false,
           { type: 'ChatStore/setWebSocketClient' },
         );
-        console.log(get().webSocketClient);
       },
       sendChatMessage: ({ chatRequestBody }) => {
         const { webSocketClient, selectedChatRoomId } = get();
@@ -257,8 +236,6 @@ export const useChatStore = create<ChatStoreState>()(
         }
 
         try {
-          console.log(chatRequestBody); // 보내는 값이 제대로 담겼는지 확인
-
           webSocketClient.publish({
             destination: `/app/chat.sendMessage/${selectedChatRoomId}`,
             body: JSON.stringify(chatRequestBody),
@@ -269,7 +246,7 @@ export const useChatStore = create<ChatStoreState>()(
       },
     }),
     {
-      // enabled: process.env.NODE_ENV === 'development',
+      enabled: process.env.NODE_ENV === 'development',
       name: 'ChatStore',
     },
   ),

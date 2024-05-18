@@ -19,6 +19,7 @@ export const ChatPage = () => {
   const stompRef = useRef<Client>();
 
   // 작동 안 돼서 전부 끌어올렸음.
+  // TODO: 작동이 되는 거였음 나중에 다시 끌어내리기
   const {
     webSocketClient,
     selectedChatRoomId,
@@ -58,120 +59,31 @@ export const ChatPage = () => {
   });
 
   useEffect(() => {
-    if (userInfo?.id === undefined || status !== 'success' || data.length === 0) {
-      console.log(1);
-
-      return;
+    if (userInfo?.id && status === 'success' && data) {
+      setInitialRoomMap(data);
     }
+  }, [userInfo?.id, status, data]);
 
-    if (webSocketClient) {
-      console.log(webSocketClient);
-
-      if (!webSocketClient.active) {
-        webSocketClient.activate();
-      }
-
-      return;
-    }
-
+  useEffect(() => {
     if (typeof WebSocket !== 'function') {
       console.error('WebSocket is not supported in this browser.');
 
       return;
     }
 
-    // const stompClient = new Client({
-    //   brokerURL: process.env.NEXT_PUBLIC_WSS_URL,
-    //   onConnect: () => {
-    //     if (stompClient) {
-    //       console.log(3);
-
-    //       console.log(data);
-
-    //       setInitialRoomMap(data);
-
-    //       // data.forEach(({ roomId, lastMessage, orderId, opponentUser, productInfo }) => {
-    //       //   console.log(4);
-
-    //       //   setRoomMap({ unParsedMessage, roomId, previewMessage: lastMessage, orderId, ...rest });
-
-    //       //   stompClient.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
-    //       //     // ? 반복문 안에서 setState 안 되는 것으로 알고 있는데...?
-    //       //     // 소켓 다 따로 연결해야 할 것 같은데...
-
-    //       //     console.log(orderId);
-    //       //     setRoomMap({ unParsedMessage, roomId, previewMessage: lastMessage, orderId, ...rest });
-    //       //   });
-
-    //       //   // stompClient.publish({
-    //       //   //   destination: `/app/chat.addUser/${roomId}`,
-    //       //   //   body: JSON.stringify({ sender: id, type: 'ENTER' }),
-    //       //   // });
-    //       // });
-    //     }
-    //   },
-    // });
     stompRef.current = new Client({
       brokerURL: process.env.NEXT_PUBLIC_WSS_URL,
       debug: (str) => {
         console.log(str);
       },
-      reconnectDelay: 5000, // 자동 재 연결
+      reconnectDelay: 1000, // 재연결 딜레이 1초 (이 순간동안의 메시지는 유실된다. 기본값은 5초인듯. 참고로 0초는 유효하지 않은 값이다.)
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      // beforeConnect: () => {
-      //   setInitialRoomMap(data);
-      // }
+      beforeConnect: () => {
+        console.log('beforeconnect');
+      },
       onConnect: () => {
-        console.log(data);
-
-        setInitialRoomMap(data);
-
-        data.forEach(({ roomId, opponentUser, orderId, productInfo }) => {
-          stompRef.current?.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
-            console.log('------------------subscribed----------------');
-            console.log(opponentUser);
-            console.log(productInfo);
-            console.log(orderId);
-            console.log(unParsedMessage);
-            setRoomMap({
-              roomId,
-              unParsedMessage,
-              opponentUser,
-              productInfo,
-              orderId,
-            });
-          });
-        });
-
-        // data.forEach(({ roomId }) => {
-        //   stompRef.current?.subscribe(`/topic/chatroom/${roomId}`, (message) => {
-        //     const response = JSON.parse(message.body) as ChatContent;
-        //     const { messageId, messageTime, sender } = response;
-        //     console.log(typeof messageId);
-        //     console.log(typeof messageTime);
-        //     console.log(typeof sender);
-        //   });
-        // });
-
-        // data.forEach(({ roomId, lastMessage, orderId, opponentUser, productInfo }) => {
-        //   console.log(4);
-
-        //   setRoomMap({ unParsedMessage, roomId, previewMessage: lastMessage, orderId, ...rest });
-
-        //   stompClient.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
-        //     // ? 반복문 안에서 setState 안 되는 것으로 알고 있는데...?
-        //     // 소켓 다 따로 연결해야 할 것 같은데...
-
-        //     console.log(orderId);
-        //     setRoomMap({ unParsedMessage, roomId, previewMessage: lastMessage, orderId, ...rest });
-        //   });
-
-        //   // stompClient.publish({
-        //   //   destination: `/app/chat.addUser/${roomId}`,
-        //   //   body: JSON.stringify({ sender: id, type: 'ENTER' }),
-        //   // });
-        // });
+        console.log('OnConnect');
       },
     });
 
@@ -179,39 +91,65 @@ export const ChatPage = () => {
       // ?: 순서 상관 있을까?
       console.log(stompRef.current);
 
-      if (!stompRef.current.active) {
-        stompRef.current.activate();
-        setWebSocketClient(stompRef.current);
-      }
+      setWebSocketClient(stompRef.current);
     } catch (error) {
       console.error(error);
     }
+  }, []);
 
-    // return () => {
-    //   if (webSocketClient.connected) {
-    //     webSocketClient.unsubscribe(`/topic/chatroom/${roomId}`);
-    //   }
-    // };
+  useEffect(() => {
+    if (!webSocketClient) {
+      return;
+    }
+
+    if (!data || status !== 'success') {
+      return;
+    }
+
+    webSocketClient.onConnect = () => {
+      data.forEach(({ roomId, opponentUser, orderId, productInfo }) => {
+        webSocketClient.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
+          console.log('------------------subscribed----------------');
+          console.log(opponentUser);
+          console.log(productInfo);
+          console.log(orderId);
+          console.log(unParsedMessage);
+          setRoomMap({
+            roomId,
+            unParsedMessage,
+            opponentUser,
+            productInfo,
+            orderId,
+          });
+        });
+      });
+    };
+
+    if (!webSocketClient.active) {
+      console.log('reactivated');
+      webSocketClient.activate();
+    }
+
+    if (!webSocketClient.connected) {
+      console.log('unconnected');
+
+      return;
+    }
 
     return () => {
-      if (stompRef.current && stompRef.current.connected) {
-        stompRef.current.deactivate();
+      // unsubscribe
+      if (webSocketClient.connected) {
+        data.forEach(({ roomId }) => {
+          webSocketClient.unsubscribe(`/topic/chatroom/${roomId}`);
+        });
       }
     };
-  }, [status, data, userInfo?.id, webSocketClient, setInitialRoomMap, setWebSocketClient]);
+  }, [webSocketClient, data, status]);
 
   if (userInfo?.id === undefined || status !== 'success') {
     // TODO: status === 'error' || status === 'loading'일 때 처리 분기하기
     return null;
   }
-
-  // if (status === 'error') {
-  //   return <div>Error...</div>;
-  // }
-
-  // if (status === 'loading') {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <>
