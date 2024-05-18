@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MESSAGE_MAX_WIDTH, MESSAGE_MAX_WIDTH_WITH_CONTROLLER } from '@entities/chat/constants/style';
 
 // Gray-9E9E9E
+
 import MeatballsMenu from '@/public/images/icon/meatballs-menu-filled-9E9E9E-w24-h24.svg?component';
 
 export const MyMessageArea = styled.div`
@@ -116,6 +117,7 @@ export const MessageText = styled.pre`
   line-height: 2.8rem; /* 175% */
   color: ${({ theme: { color } }) => color.white_FFFFFF};
   letter-spacing: -0.06rem;
+  word-break: break-all;
   word-wrap: break-word;
   white-space: pre-wrap;
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
