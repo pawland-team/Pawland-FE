@@ -1,19 +1,53 @@
 import { ChangeEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
-type FileTypes = {
+type BasePreviewImageTypes = {
   id: number;
   url: string;
 };
 
+type BaseSubmitFileTypes = {
+  id: number;
+  file: File;
+};
+
+interface UseDragAndSetFilesState {
+  imageForPreview: BasePreviewImageTypes;
+  imageForSubmit: BaseSubmitFileTypes;
+}
+
 interface UseDragAndSetFilesParam {
+  /**
+   * - `true`: 여러 개의 파일을 선택할 수 있게 함.
+   * - `false` / `undefined`: 하나의 파일만 선택할 수 있게 함.
+   * @default undefined
+   */
   isMultipleFile?: boolean;
+  /**
+   * - `true`: 여러 번 파일 탐색기를 여닫으면서 선택했던 사진들을 모두 축적할 수 있게 함.
+   * - `false` / `undefined`: 덮어쓰기. 이전 파일들을 해제하고 새로운 파일들로 덮어씀
+   * @default undefined
+   */
   shouldAccumulateFiles?: boolean;
 }
 
 interface UseDragAndSetFilesReturn {
-  files: FileTypes[];
+  /**
+   * - 처리된 파일 리스트
+   * - 내부에 preview와 submit용 이미지가 담겨 있음.
+   */
+  fileList: UseDragAndSetFilesState[];
+  /**
+   * 드래그 앤 드롭 가능한 요소 위에 드롭 가능한 아이템을 끌고 있는 상태로 마우스가 올라가 있는지 여부
+   */
   isDraggingOnTargetElement: boolean;
+  /**
+   * - label 태그나 input 태그에 드래그 이벤트를 붙이기 위한 ref
+   * - 보통 label 태그에 붙임.
+   */
   dragRef: MutableRefObject<HTMLLabelElement | null>;
+  /**
+   * - input의 type이 file일 때 onChange 이벤트 핸들러로 사용
+   */
   onChangeFiles: (e: ChangeEvent<HTMLInputElement> | any) => void;
 }
 
@@ -34,7 +68,8 @@ export const useDragAndSetFiles = ({
    * 현재는 preview용 url string type 이미지들만 들어있는 리스트임.
    * TODO: 추후에 필요하다면 File 타입 이미지도 담아야 함.
    */
-  const [files, setFiles] = useState<FileTypes[]>([]);
+  // const [files, setFiles] = useState<BasePreviewImageTypes[]>([]);
+  const [fileList, setFileList] = useState<UseDragAndSetFilesState[]>([]);
   // const [selectedImage, setSelectedImage] = useState<string | null>(null);
   /**
    * 선택한 파일들 각각의 고유값 id를 임의로 생성
@@ -78,9 +113,11 @@ export const useDragAndSetFiles = ({
       /**
        * preview 할 url을 담을 배열
        */
-      let urlFiles: string[] = [];
-      // let tempFiles: FileList = files;
-      let tempFiles: FileTypes[] = files;
+      const prevProcessedFileList: UseDragAndSetFilesState[] = fileList;
+      /**
+       * 최종 반환될 처리된 파일 리스트
+       */
+      let processedFileList: UseDragAndSetFilesState[];
 
       if (e.type === 'drop') {
         // console.log('drop down data ⤵️');
@@ -93,33 +130,41 @@ export const useDragAndSetFiles = ({
         rawFiles = Array.from(e.target.files as File[]);
       }
 
-      urlFiles = rawFiles.map((file) => URL.createObjectURL(file));
+      // urlFiles = rawFiles.map((file) => URL.createObjectURL(file));
+      const newProcessedFileList: UseDragAndSetFilesState[] = rawFiles.map<UseDragAndSetFilesState>((file) => {
+        const currentFileId = fileId.current++;
+
+        return {
+          imageForPreview: { id: currentFileId, url: URL.createObjectURL(file) },
+          imageForSubmit: { id: currentFileId, file },
+        };
+      });
 
       if (isMultipleFile === true && shouldAccumulateFiles === true) {
         // 여러 번 파일 탐색기를 여닫으면서 선택했던 사진들을 모두 축적할 수 있게 하려는 경우
-        tempFiles = [...tempFiles, ...urlFiles.map((urlFile) => ({ id: fileId.current++, url: urlFile }))];
+        processedFileList = [...prevProcessedFileList, ...newProcessedFileList];
       }
 
       if (isMultipleFile === true && !shouldAccumulateFiles) {
         // 덮어쓸거면 이전 파일들을 해제하고 새로운 파일들로 덮어씀
-        for (const file of tempFiles) {
-          URL.revokeObjectURL(file.url);
+        for (const prevProcessedFile of prevProcessedFileList) {
+          URL.revokeObjectURL(prevProcessedFile.imageForPreview.url);
         }
 
-        tempFiles = urlFiles.map((urlFile) => ({ id: fileId.current++, url: urlFile }));
+        processedFileList = newProcessedFileList;
       } else {
         // multiple이 아닐 때
         // 이전 파일이 있으면 revokeObjectURL로 해제
-        if (tempFiles.length > 0) {
-          URL.revokeObjectURL(tempFiles[0].url);
+        if (prevProcessedFileList.length > 0) {
+          URL.revokeObjectURL(prevProcessedFileList[0].imageForPreview.url);
         }
 
-        tempFiles = [{ id: fileId.current++, url: urlFiles[0] }];
+        processedFileList = newProcessedFileList;
       }
 
-      setFiles(tempFiles);
+      setFileList(processedFileList);
     },
-    [],
+    [fileList, isMultipleFile, shouldAccumulateFiles],
   );
 
   const handleDrop = useCallback((e: DragEvent) => {
@@ -171,16 +216,16 @@ export const useDragAndSetFiles = ({
     return () => {
       resetDragEvents();
 
-      if (files.length) {
-        files.forEach((file) => {
-          URL.revokeObjectURL(file.url);
+      if (fileList.length) {
+        fileList.forEach((file) => {
+          URL.revokeObjectURL(file.imageForPreview.url);
         });
       }
     };
   }, []);
 
   return {
-    files,
+    fileList,
     isDraggingOnTargetElement,
     dragRef,
     onChangeFiles,
