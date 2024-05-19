@@ -1,7 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useShallow } from 'zustand/react/shallow';
 
 import { chatQueryKeys } from '@entities/chat/apis';
-import { ChatStoreState, RoomInfo } from '@entities/chat/model';
+import { RoomInfo, useChatStore } from '@entities/chat/model';
 import { getTimeDiffText } from '@entities/chat/utils';
 import { GetUserInfoResponse } from '@shared/apis/user-api';
 
@@ -12,11 +13,6 @@ import * as S from './style';
  */
 export interface ChatPreviewProps extends RoomInfo {
   userInfo: GetUserInfoResponse;
-  selectedChatRoomId: number | undefined;
-  setSelectedChatRoomId: ChatStoreState['setSelectedChatRoomId'];
-  // webSocketClient: Client | undefined;
-  roomMap: ChatStoreState['roomMap'];
-  // setRoomMap: ChatStoreState['setRoomMap'];
 }
 
 /**
@@ -25,53 +21,18 @@ export interface ChatPreviewProps extends RoomInfo {
  * - ENTER 타입으로 받아온 채팅 내용 10개에서 각 채팅방의 마지막 채팅 내용을 보여줌.
  *
  */
-const ChatRoomPreview = ({
-  roomId,
-  opponentUser,
-  productInfo,
-  // orderId,
-  userInfo,
-  selectedChatRoomId,
-  // webSocketClient,
-  roomMap,
-  setSelectedChatRoomId,
-  // setRoomMap,
-}: ChatPreviewProps) => {
-  // useEffect(() => {
-  //   if (!webSocketClient || webSocketClient.connected === false) {
-  //     console.log('websocket 도대체 왜 안 담김?');
-
-  //     return;
-  //   }
-
-  //   console.log('여기로 넘어오면 webSocketClient 담긴 거임');
-
-  //   // webSocketClient.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
-  //   //   console.log('------------------subscribed----------------');
-  //   //   console.log(opponentUser);
-  //   //   console.log(productInfo);
-  //   //   console.log(orderId);
-  //   //   console.log(unParsedMessage);
-  //   //   setRoomMap({
-  //   //     roomId,
-  //   //     unParsedMessage,
-  //   //     opponentUser,
-  //   //     productInfo,
-  //   //     orderId,
-  //   //   });
-  //   // });
-
-  //   // return () => {
-  //   //   if (webSocketClient.connected) {
-  //   //     webSocketClient.unsubscribe(`/topic/chatroom/${roomId}`);
-  //   //   }
-  //   // };
-  // }, [webSocketClient, setRoomMap, roomId, opponentUser, orderId, productInfo]);
-
+const ChatRoomPreview = ({ roomId, opponentUser, productInfo, userInfo }: ChatPreviewProps) => {
   const queryClient = useQueryClient();
 
+  const { liveLastPreviewMessage, selectedChatRoomId, setSelectedChatRoomId } = useChatStore(
+    useShallow((state) => ({
+      liveLastPreviewMessage: state.roomMap.get(roomId)?.previewMessage,
+      selectedChatRoomId: state.selectedChatRoomId,
+      setSelectedChatRoomId: state.setSelectedChatRoomId,
+    })),
+  );
+
   const selectRoom = async () => {
-    // await queryClient.invalidateQueries({ queryKey: chatQueryKeys.all(), type: 'all', refetchType: 'all' });
     await queryClient.invalidateQueries({
       queryKey: chatQueryKeys.previousChatList(roomId),
       type: 'all',
@@ -80,13 +41,13 @@ const ChatRoomPreview = ({
     setSelectedChatRoomId(roomId);
   };
 
-  const lastPreviewMessage = roomMap.get(roomId)?.previewMessage;
-
   const senderName =
-    lastPreviewMessage && lastPreviewMessage.sender === userInfo.id ? userInfo.nickname : opponentUser.nickname;
+    liveLastPreviewMessage && liveLastPreviewMessage.sender === userInfo.id ? userInfo.nickname : opponentUser.nickname;
 
   const time =
-    lastPreviewMessage && lastPreviewMessage.messageTime ? getTimeDiffText(lastPreviewMessage.messageTime) : '대화없음';
+    liveLastPreviewMessage && liveLastPreviewMessage.messageTime
+      ? getTimeDiffText(liveLastPreviewMessage.messageTime)
+      : '대화없음';
   const isChatRoomUnfolded = selectedChatRoomId === roomId;
 
   return (
@@ -109,7 +70,7 @@ const ChatRoomPreview = ({
           <S.SenderName>{senderName}</S.SenderName>
           <S.SentTime>{time}</S.SentTime>
         </S.MessageMeta>
-        <S.MessageContent $isChatRoomUnfolded={isChatRoomUnfolded}>{lastPreviewMessage?.message}</S.MessageContent>
+        <S.MessageContent $isChatRoomUnfolded={isChatRoomUnfolded}>{liveLastPreviewMessage?.message}</S.MessageContent>
       </S.MessageDetails>
     </S.ChatPreviewWrapper>
   );

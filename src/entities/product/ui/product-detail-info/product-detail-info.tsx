@@ -28,6 +28,7 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
   const { mutateAsync: postOrderMutate, status: postOrderStatus } = usePostOrder();
   const { mutateAsync: createChatRoomMutate, status: createChatRoomStatus } = useCreateChatRoom();
   const { isModalOpen, ModalComponent, openModal, closeModal } = useModalWithLocalState();
+
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -73,7 +74,6 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
     }
 
     try {
-      // if (orderId && postOrderStatus === 'success') {
       if (orderId) {
         await createChatRoomMutate({ productId: detailInfo.id, sellerId: detailInfo.seller.id, orderId });
         await queryClient.invalidateQueries({ queryKey: chatQueryKeys.all() });

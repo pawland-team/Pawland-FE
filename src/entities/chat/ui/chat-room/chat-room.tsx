@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import throttle from 'lodash/throttle';
 import { useRouter } from 'next/router';
@@ -11,12 +11,12 @@ import {
 } from '@entities/chat/constants/modal-key';
 import { useGetPreviousChatList } from '@entities/chat/hooks';
 import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks/use-chat-form-textarea-size-control';
-import { ChatStoreState, RoomState, useChatStore } from '@entities/chat/model';
+import { useChatStore } from '@entities/chat/model';
 import { insertMessageGroupForDisplay } from '@entities/chat/utils/insert-message-group-for-display';
 import { useCompleteTransaction } from '@entities/order/hooks';
 import { ChatContent } from '@shared/apis/chat-api';
 import { GetUserInfoResponse } from '@shared/apis/user-api';
-import { useInView_v2 } from '@shared/hooks/use-in-view';
+import { useInViewWithoutCallback } from '@shared/hooks/use-in-view';
 import { useModalList } from '@shared/hooks/use-modal';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 
@@ -28,47 +28,32 @@ import { UnselectedChatRoomDisplay } from '../unselected-chat-room-display';
 
 interface ChatRoomProps extends Pick<UseChatFormTextareaSizeControlReturn, 'changedTextAreaHeight'> {
   formInFooter: ReactNode;
-  setChatRoomLocalRoomState: Dispatch<SetStateAction<RoomState | undefined>>;
-  chatRoomLocalRoomState: RoomState | undefined;
   userInfo: GetUserInfoResponse;
-  selectedChatRoomId: number | undefined;
-  roomMap: ChatStoreState['roomMap'];
-  appendPreviousMessageList: ChatStoreState['appendPreviousMessageList'];
 }
 
 /**
  * 현재 선택된 roomId에 해당하는 채팅방을 보여주는 컴포넌트
  */
-export const ChatRoom = ({
-  formInFooter,
-  changedTextAreaHeight,
-  chatRoomLocalRoomState,
-  userInfo,
-  selectedChatRoomId,
-  roomMap,
-  setChatRoomLocalRoomState,
-  appendPreviousMessageList,
-}: ChatRoomProps) => {
+export const ChatRoom = ({ formInFooter, changedTextAreaHeight, userInfo }: ChatRoomProps) => {
   const router = useRouter();
   const { openModalList, closeModalList, destroy } = useModalList();
   // isFirstReder를 활용해서 첫 번째 렌더링일 경우에는 채팅 전체를 덮어쓸 것이고
   // 그 이후에는 이전 메세지 리스트에 추가하는 방식으로 사용할 것임.
   const [isFirstRender, setIsFirstRender] = useState(true);
 
-  const { setInitialMessageList } = useChatStore(
-    useShallow((state) => ({ setInitialMessageList: state.setInitialMessageList })),
+  const { setInitialMessageList, appendPreviousMessageList, selectedChatRoomId, chatRoomLocalRoomState } = useChatStore(
+    useShallow((state) => ({
+      setInitialMessageList: state.setInitialMessageList,
+      appendPreviousMessageList: state.appendPreviousMessageList,
+      selectedChatRoomId: state.selectedChatRoomId,
+      chatRoomLocalRoomState: state.selectedChatRoomId ? state.roomMap.get(state.selectedChatRoomId) : undefined,
+    })),
   );
-
-  useEffect(() => {
-    if (selectedChatRoomId !== undefined) {
-      setChatRoomLocalRoomState(roomMap.get(selectedChatRoomId!));
-    }
-  }, [roomMap, selectedChatRoomId, setChatRoomLocalRoomState]);
 
   // TODO: _completeTransactionStatus 사용해서 페이지 넘어가기 전 Loading 구현하기
   const { mutate, status: _completeTransactionStatus } = useCompleteTransaction();
 
-  const { intersectionObserveTargetRef, isIntersecting } = useInView_v2<HTMLDivElement>({
+  const { intersectionObserveTargetRef, isIntersecting } = useInViewWithoutCallback<HTMLDivElement>({
     dependencyList: [selectedChatRoomId, chatRoomLocalRoomState],
   });
 
