@@ -17,6 +17,8 @@ import { clientWithTokenApi } from '../instance';
  * "message": "서버 내부 오류"
  * }
  * ```
+ *
+ * TODO: API response에 만들어진 방 id를 반환하도록 요청하기
  */
 export const createChatRoom = async ({ sellerId, productId, orderId }: CreateChatRoomRequestDTO) => {
   const response = await clientWithTokenApi.post('/api/chat/room', { sellerId, productId, orderId });
