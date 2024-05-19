@@ -144,7 +144,12 @@ export const ChatPage = () => {
         });
       }
     };
-  }, [webSocketClient, data, status]);
+  }, [webSocketClient, data, data?.length, status]);
+
+  useEffect(() => {
+    // TODO: 이전에 넘어온 상품 번호에 일치하는 채팅방이 있는지 확인하고 있다면 해당 채팅방 default 선택
+    setSelectedChatRoomId();
+  }, [setSelectedChatRoomId]);
 
   if (userInfo?.id === undefined || status !== 'success') {
     // TODO: status === 'error' || status === 'loading'일 때 처리 분기하기

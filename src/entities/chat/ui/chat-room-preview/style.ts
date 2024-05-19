@@ -19,6 +19,10 @@ export const ChatPreviewWrapper = styled.button<{ $isChatRoomUnfolded?: boolean 
     $isChatRoomUnfolded ? theme.color.gray_F9F9F9 : theme.color.white_FFFFFF};
   border-top: 0.3px solid ${({ theme: { color } }) => color.gray_F3F3F3};
   border-bottom: 0.3px solid ${({ theme: { color } }) => color.gray_F3F3F3};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  }
 `;
 
 export const ProductImageWrap = styled.div`

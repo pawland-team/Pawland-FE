@@ -50,7 +50,7 @@ export interface ChatStoreState {
   setRoomMap: (setRoomMapArgs: SetRoomMapArgs) => void;
   // setInitialRoomMap: (initialRoomInfo: RoomInfo) => void;
   setInitialRoomMap: (initialChatRoomList: ChatRoomListResponse) => void;
-  setSelectedChatRoomId: (roomId: RoomState['roomId']) => void;
+  setSelectedChatRoomId: (roomId?: RoomState['roomId']) => void;
   setWebSocketClient: (webSocketClient: Client) => void;
   sendChatMessage: ({ chatRequestBody }: { chatRequestBody: ChatRequest }) => void;
   setInitialMessageList: ({
