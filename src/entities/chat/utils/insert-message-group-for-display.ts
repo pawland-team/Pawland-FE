@@ -2,11 +2,7 @@ import { ChatContent } from '@shared/apis/chat-api';
 import { formatDateMillisecondsToZero, formatToFullDate, formatToMidnightDate } from '@shared/utils/time';
 
 import { compareDateAndSenderOfChat } from './compare-date-and-sender-of-chat';
-import {
-  MessageGroupListForDisplay,
-  MessageGroupWithDateTypeForDisplay,
-  MessageGroupWithMessageTypeForDisplay,
-} from '../model';
+import { MessageGroupListForDisplay, MessageGroupWithDateTypeForDisplay } from '../model';
 
 export const insertMessageGroupForDisplay = ({
   messageList,
@@ -100,7 +96,7 @@ export const insertMessageGroupForDisplay = ({
       // # (Given) 날짜가 다른 상황
       // 날짜가 다르기 때문에 sender가 같을 경우에도 어차피 간격 이격해야 함
       // 중간에 날짜를 보여주는 메시지가 담긴 그룹을 삽입
-      // 날짜 메시지 그룹은 단순 디스플레이용임
+      // 날짜 메시지 그룹은 단순 디스플레이용임 -> 상태관리 배열에 포함하지 않음
       // messageGroupListForDisplay return하지 않고 로직 더 진행 ⏬
 
       if (lastMessageGroupForDisplay.messageGroupType === 'DATE') {
@@ -111,7 +107,6 @@ export const insertMessageGroupForDisplay = ({
         messageGroupListForDisplay.push({
           messageGroupType: 'MESSAGE',
           messageGroupId: crypto.randomUUID(),
-          // messageGroupTime: latestDateInfo.dateWithMillisecondsZero,
           messageGroupTime: oldDateInfo.dateWithMillisecondsZero,
           messageListInGroup: [currentMessage],
           sender: currentMessage.sender,
@@ -132,7 +127,11 @@ export const insertMessageGroupForDisplay = ({
           messageGroupTime: oldDateInfo.midnightDate,
           timeDisplayMessage: oldDateInfo.fullDateStringWithKoreaStyle,
         });
-      } else {
+
+        return messageGroupListForDisplay;
+      }
+
+      if (lastMessageGroupForDisplay.messageGroupType === 'MESSAGE') {
         // ? (When) 마지막 메시지 그룹이 MESSAGE 타입인 경우
         // [(MESSAGE), (MESSAGE)] => [(MESSAGE), (MESSAGE), (new DATE), (new MESSAGE), (new DATE)]
 
@@ -168,6 +167,8 @@ export const insertMessageGroupForDisplay = ({
           messageGroupTime: oldDateInfo.midnightDate,
           timeDisplayMessage: oldDateInfo.fullDateStringWithKoreaStyle,
         });
+
+        return messageGroupListForDisplay;
       }
 
       return messageGroupListForDisplay;
@@ -237,7 +238,11 @@ export const insertMessageGroupForDisplay = ({
 
             // * (Then) 기존 날짜 메시지 그룹을 리스트의 맨 뒤(마지막 인덱스)로 보내야 함.
             messageGroupListForDisplay.push(lastMessageGroupForDisplay);
-          } else {
+
+            return messageGroupListForDisplay;
+          }
+
+          if (currentMessage.messageTime < lastMessageGroupForDisplay.messageGroupTime) {
             // ?(When) 삽입하려는 메시지의 시간이 마지막 DATE 타입 메시지 그룹의 시간보다 더 오래된 경우
             // [..., (DATE)] => [..., (DATE), (new MESSAGE), (new DATE)]
 
@@ -257,6 +262,8 @@ export const insertMessageGroupForDisplay = ({
               messageGroupTime: oldDateInfo.midnightDate,
               timeDisplayMessage: oldDateInfo.fullDateStringWithKoreaStyle,
             });
+
+            return messageGroupListForDisplay;
           }
         }
 
@@ -290,10 +297,10 @@ export const insertMessageGroupForDisplay = ({
 
           // * (Then) 현재 메시지(old Message)를 이전 MESSAGE 타입 그룹에 추가
           // 이전 그룹 while 문으로 계속 탐색하면서 해야 할 수도 있을 듯.
-          if (messageGroupListForDisplay[messageGroupListForDisplay.length - 2].messageGroupType === 'MESSAGE') {
-            (
-              messageGroupListForDisplay[messageGroupListForDisplay.length - 2] as MessageGroupWithMessageTypeForDisplay
-            ).messageListInGroup.push(currentMessage);
+          const twoStepPreviousGroup = messageGroupListForDisplay[messageGroupListForDisplay.length - 2];
+
+          if (twoStepPreviousGroup.messageGroupType === 'MESSAGE') {
+            twoStepPreviousGroup.messageListInGroup.push(currentMessage);
           }
         }
 
@@ -339,7 +346,7 @@ export const insertMessageGroupForDisplay = ({
             sender: currentMessage.sender,
           };
 
-          messageGroupListForDisplay[messageGroupListForDisplay.length] = lastMessageGroupForDisplay;
+          messageGroupListForDisplay.push(lastMessageGroupForDisplay);
         }
 
         return messageGroupListForDisplay;

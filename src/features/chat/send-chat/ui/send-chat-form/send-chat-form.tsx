@@ -1,8 +1,10 @@
 import { useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useShallow } from 'zustand/react/shallow';
+
 import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks';
-import { ChatStoreState } from '@entities/chat/model';
+import { useChatStore } from '@entities/chat/model';
 import { ChatRequest } from '@shared/apis/chat-api';
 import { GetUserInfoResponse } from '@shared/apis/user-api';
 
@@ -10,8 +12,6 @@ import * as S from './style';
 
 interface SendChatFormProps extends UseChatFormTextareaSizeControlReturn {
   userInfo: GetUserInfoResponse;
-  selectedChatRoomId?: number;
-  sendChatMessage: ChatStoreState['sendChatMessage'];
 }
 
 export const SendChatForm = ({
@@ -20,9 +20,11 @@ export const SendChatForm = ({
   observerTargetRef,
   textAreaRef,
   userInfo,
-  selectedChatRoomId,
-  sendChatMessage,
 }: SendChatFormProps) => {
+  const { selectedChatRoomId, sendChatMessage } = useChatStore(
+    useShallow((state) => ({ selectedChatRoomId: state.selectedChatRoomId, sendChatMessage: state.sendChatMessage })),
+  );
+
   const { register, handleSubmit, reset } = useForm<{ message: string }>({
     defaultValues: {
       message: '',

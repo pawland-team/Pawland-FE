@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useEffect, useId } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import Image from 'next/image';
@@ -14,17 +14,18 @@ export const RegisterProductThumbnailUploadCategory = () => {
   const isMultipleFile = false;
   const uniqueLabelId = useId();
 
-  const {
-    dragRef,
-    files: previewImageList,
-    isDraggingOnTargetElement,
-    onChangeFiles,
-  } = useDragAndSetFiles({ isMultipleFile });
+  const { dragRef, fileList, isDraggingOnTargetElement, onChangeFiles } = useDragAndSetFiles({ isMultipleFile });
 
-  const { register, watch } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
+  const { register, watch, setValue } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
   const thumbnail = watch('thumbnail');
   const defaultImage = typeof thumbnail === 'string' ? thumbnail : null;
-  const previewImage = previewImageList[0]?.url || defaultImage;
+  const previewImage = fileList[0]?.imageForPreview.url || defaultImage;
+
+  useEffect(() => {
+    if (fileList.length && fileList[0].imageForSubmit.file) {
+      setValue('thumbnail', [fileList[0].imageForSubmit.file] as unknown as FileList);
+    }
+  }, [setValue, fileList]);
 
   return (
     <S.Wrapper>

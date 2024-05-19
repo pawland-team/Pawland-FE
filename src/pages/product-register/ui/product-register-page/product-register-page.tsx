@@ -248,10 +248,8 @@ export const ProductRegisterPage = ({
     inputsErrors: FieldErrors<RegisterProductForm>,
     _event?: BaseSyntheticEvent<object, any, any>,
   ) => {
-    console.log(inputsErrors);
-
     if (isModalOpen) {
-      closeModal();
+      await closeModal();
     }
 
     // const firstErrorKey = Object.keys(inputsErrors).find((key) => inputsErrors[key]);

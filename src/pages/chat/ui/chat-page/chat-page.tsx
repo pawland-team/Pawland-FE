@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { Client } from '@stomp/stompjs';
 import Head from 'next/head';
@@ -6,7 +6,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { CHAT_TEXTAREA_SIZE } from '@entities/chat/constants/style';
 import { useChatFormTextareaSizeControl, useGetChatRoomList } from '@entities/chat/hooks';
-import { RoomState, useChatStore } from '@entities/chat/model';
+import { useChatStore } from '@entities/chat/model';
 import { ChatRoom, ChatRoomPreview } from '@entities/chat/ui';
 import { useUserStore } from '@entities/user/model';
 import { SendChatForm } from '@features/chat/send-chat/ui';
@@ -18,37 +18,28 @@ export const ChatPage = () => {
   const { data, status } = useGetChatRoomList();
   const stompRef = useRef<Client>();
 
-  // 작동 안 돼서 전부 끌어올렸음.
-  // TODO: 작동이 되는 거였음 나중에 다시 끌어내리기
   const {
     webSocketClient,
     selectedChatRoomId,
-    roomMap,
     setWebSocketClient,
     setInitialRoomMap,
     setRoomMap,
-    appendPreviousMessageList,
-    sendChatMessage,
     setSelectedChatRoomId,
   } = useChatStore(
     useShallow((state) => ({
-      setRoomMap: state.setRoomMap,
-      roomMap: state.roomMap,
-      setWebSocketClient: state.setWebSocketClient,
-      setInitialRoomMap: state.setInitialRoomMap,
       webSocketClient: state.webSocketClient,
       selectedChatRoomId: state.selectedChatRoomId,
-      appendPreviousMessageList: state.appendPreviousMessageList,
-      sendChatMessage: state.sendChatMessage,
+      setWebSocketClient: state.setWebSocketClient,
+      setInitialRoomMap: state.setInitialRoomMap,
+      setRoomMap: state.setRoomMap,
       setSelectedChatRoomId: state.setSelectedChatRoomId,
     })),
   );
-  const [chatRoomLocalRoomState, setChatRoomLocalRoomState] = useState<RoomState>();
 
   const { changedTextAreaHeight, ...sizeControlRest } = useChatFormTextareaSizeControl({
     // id가 undefined면 DOM 렌더링 하지 않도록 해놨음(return null).
     // DOM 렌더링 안 되면 ref에 node가 담기지 않기 때문에 size 조절이 안 됨. -> id를 dependencyList에 추가
-    dependencyListForObserver: [selectedChatRoomId, roomMap, userInfo?.id, data, status, chatRoomLocalRoomState],
+    dependencyListForObserver: [selectedChatRoomId, userInfo?.id, data, status],
     sizes: {
       onDesktop: {
         height: CHAT_TEXTAREA_SIZE.onDesktop.height,
@@ -144,7 +135,10 @@ export const ChatPage = () => {
         });
       }
     };
-  }, [webSocketClient, data, status]);
+  }, [webSocketClient, data, data?.length, status]);
+
+  // 언마운트 될 때 selectedChatRoomId 초기화
+  useEffect(() => () => setSelectedChatRoomId(), [setSelectedChatRoomId]);
 
   if (userInfo?.id === undefined || status !== 'success') {
     // TODO: status === 'error' || status === 'loading'일 때 처리 분기하기
@@ -162,33 +156,14 @@ export const ChatPage = () => {
           <S.ChatContentArea>
             <S.ChatRoomPreviewListWrapper>
               {data?.map(({ roomId, ...rest }) => (
-                <ChatRoomPreview
-                  key={roomId}
-                  selectedChatRoomId={selectedChatRoomId}
-                  setSelectedChatRoomId={setSelectedChatRoomId}
-                  userInfo={userInfo}
-                  roomId={roomId}
-                  roomMap={roomMap}
-                  {...rest}
-                />
+                <ChatRoomPreview key={roomId} userInfo={userInfo} roomId={roomId} {...rest} />
               ))}
             </S.ChatRoomPreviewListWrapper>
             <ChatRoom
               userInfo={userInfo}
-              chatRoomLocalRoomState={chatRoomLocalRoomState}
-              setChatRoomLocalRoomState={setChatRoomLocalRoomState}
               changedTextAreaHeight={changedTextAreaHeight}
-              selectedChatRoomId={selectedChatRoomId}
-              roomMap={roomMap}
-              appendPreviousMessageList={appendPreviousMessageList}
               formInFooter={
-                <SendChatForm
-                  userInfo={userInfo}
-                  sendChatMessage={sendChatMessage}
-                  selectedChatRoomId={selectedChatRoomId}
-                  changedTextAreaHeight={changedTextAreaHeight}
-                  {...sizeControlRest}
-                />
+                <SendChatForm userInfo={userInfo} changedTextAreaHeight={changedTextAreaHeight} {...sizeControlRest} />
               }
             />
           </S.ChatContentArea>
