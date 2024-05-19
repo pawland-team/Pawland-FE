@@ -15,7 +15,7 @@ interface UseInViewReturn<T extends HTMLElement> {
  *
  * const { intersectionObserveTargetRef, isIntersecting } = useInView<HTMLDivElement>();
  */
-function useInView_v2<T extends HTMLElement>(useInViewParam?: UseInViewParam): UseInViewReturn<T> {
+function useInViewWithoutCallback<T extends HTMLElement>(useInViewParam?: UseInViewParam): UseInViewReturn<T> {
   const [isIntersecting, setIntersecting] = useState(false);
   const intersectionObserveTargetRef = useRef<T>(null);
 
@@ -41,4 +41,4 @@ function useInView_v2<T extends HTMLElement>(useInViewParam?: UseInViewParam): U
   return { intersectionObserveTargetRef, isIntersecting };
 }
 
-export { useInView_v2 };
+export { useInViewWithoutCallback };
