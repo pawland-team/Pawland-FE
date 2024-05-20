@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { CommonButton } from '@shared/ui/buttons';
+import { CommonLink } from '@shared/ui/buttons/common-link';
 
 import * as S from './main-banner-swiper-style';
 import { MainBannerArray } from '../lib/dto';
@@ -15,11 +14,6 @@ interface MainBannerProps {
 }
 const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const router = useRouter();
-
-  const handleClickJoin = () => {
-    router.push('/signup');
-  };
 
   return (
     <S.mainBannerSwiperBox>
@@ -47,9 +41,11 @@ const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
             <div className={`description-box ${banner.id === activeIndex ? 'active' : ''}`}>
               <h2>{banner.title}</h2>
               <p dangerouslySetInnerHTML={{ __html: banner.description }} />
-              <CommonButton handleClick={handleClickJoin} maxWidth={'174px'}>
-                {banner.buttonText}
-              </CommonButton>
+              {banner.buttonText && banner.link ? (
+                <CommonLink href={banner.link} maxWidth={'174px'}>
+                  {banner.buttonText}
+                </CommonLink>
+              ) : null}
             </div>
           </SwiperSlide>
         ))}

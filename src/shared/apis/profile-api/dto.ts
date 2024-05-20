@@ -96,6 +96,10 @@ export interface getMyProductListParams {
   type: string;
 }
 
+export interface getMyCommunityListParams {
+  page: number;
+}
+
 export interface Seller {
   id: number;
   email: string;

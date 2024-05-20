@@ -47,25 +47,27 @@ export const WishList = () => {
 
   if (status === 'success') {
     return (
-      <S.WishList>
+      <>
         {data?.content.length === 0 && <NoProductBox message='찜한 상품이 없습니다.' />}
-        {data?.content.map((item) => (
-          <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />
-        ))}
-        <S.PaginationWrapper>
-          <button type='button' onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
-            &lt;
-          </button>
-          {pageNumbers.map((number) => (
-            <button type='button' key={number} onClick={() => handlePageChange(number)} disabled={number === page}>
-              {number}
-            </button>
+        <S.WishList>
+          {data?.content.map((item) => (
+            <ProductFlexCardItem key={item.id} item={item} flexGap={16} cardNumberPerRow={3} />
           ))}
-          <button type='button' onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
-            &gt;
-          </button>
-        </S.PaginationWrapper>
-      </S.WishList>
+          <S.PaginationWrapper>
+            <button type='button' onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
+              &lt;
+            </button>
+            {pageNumbers.map((number) => (
+              <button type='button' key={number} onClick={() => handlePageChange(number)} disabled={number === page}>
+                {number}
+              </button>
+            ))}
+            <button type='button' onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
+              &gt;
+            </button>
+          </S.PaginationWrapper>
+        </S.WishList>
+      </>
     );
   }
 };

@@ -4,7 +4,6 @@ import { likePre } from '@shared/ui/styles/utils/text-style';
 
 export const Wrapper = styled.section`
   display: flex;
-  column-gap: 245px;
   align-items: flex-start;
   justify-content: space-between;
 

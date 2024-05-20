@@ -1,5 +1,3 @@
-'use client';
-
 import { DependencyList, useEffect, useRef, useState } from 'react';
 
 interface UseResizeObserverParam {

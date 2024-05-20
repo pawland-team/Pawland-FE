@@ -42,8 +42,14 @@ export const RegisterProductConditionTagSelectCategory = ({
   return (
     <S.Wrapper>
       <ProductRegisterCategoryMeta
-        metaTitle='상품태그 선택'
-        metaDescription={<>구매자분들이 쉽게 찾을 수 있도록, 카테고리를 선정해주세요.</>}
+        metaTitle='상품 상태 선택'
+        metaDescription={
+          <>
+            구매자분들이 쉽게 찾을 수 있도록,
+            <br />
+            카테고리를 선정해주세요.
+          </>
+        }
       />
       <S.SelectBox>
         <ProductRegisterCategorySubMeta

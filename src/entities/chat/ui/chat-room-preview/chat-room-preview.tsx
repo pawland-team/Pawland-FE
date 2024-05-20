@@ -1,18 +1,18 @@
-import { memo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useShallow } from 'zustand/react/shallow';
 
+import { chatQueryKeys } from '@entities/chat/apis';
 import { RoomInfo, useChatStore } from '@entities/chat/model';
 import { getTimeDiffText } from '@entities/chat/utils';
-import { useUserStore } from '@entities/user/model';
+import { GetUserInfoResponse } from '@shared/apis/user-api';
 
 import * as S from './style';
 
 /**
  * Opponent info, room info, product info에 대한 정보를 받아야 함
  */
-export interface ChatPreviewProps {
-  roomId: RoomInfo['roomId'];
-  opponentUser: RoomInfo['opponentUser'];
-  productInfo: RoomInfo['productInfo'];
+export interface ChatPreviewProps extends RoomInfo {
+  userInfo: GetUserInfoResponse;
 }
 
 /**
@@ -21,30 +21,37 @@ export interface ChatPreviewProps {
  * - ENTER 타입으로 받아온 채팅 내용 10개에서 각 채팅방의 마지막 채팅 내용을 보여줌.
  *
  */
-const ChatRoomPreview = ({ roomId, opponentUser, productInfo }: ChatPreviewProps) => {
-  const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
+const ChatRoomPreview = ({ roomId, opponentUser, productInfo, userInfo }: ChatPreviewProps) => {
+  const queryClient = useQueryClient();
 
-  const { roomMap, setSelectedChatRoomId, selectedChatRoomId } = useChatStore((state) => ({
-    roomMap: state.roomMap,
-    setSelectedChatRoomId: state.setSelectedChatRoomId,
-    selectedChatRoomId: state.selectedChatRoomId,
-  }));
+  const { liveLastPreviewMessage, selectedChatRoomId, setSelectedChatRoomId } = useChatStore(
+    useShallow((state) => ({
+      liveLastPreviewMessage: state.roomMap.get(roomId)?.previewMessage,
+      selectedChatRoomId: state.selectedChatRoomId,
+      setSelectedChatRoomId: state.setSelectedChatRoomId,
+    })),
+  );
 
-  if (!userInfo) {
-    return null;
-  }
-
-  const lastPreviewMessage = roomMap.get(roomId)?.previewMessage;
+  const selectRoom = async () => {
+    await queryClient.invalidateQueries({
+      queryKey: chatQueryKeys.previousChatList(roomId),
+      type: 'all',
+      refetchType: 'all',
+    });
+    setSelectedChatRoomId(roomId);
+  };
 
   const senderName =
-    lastPreviewMessage && lastPreviewMessage.sender === userInfo.id ? userInfo.nickname : opponentUser.nickname;
+    liveLastPreviewMessage && liveLastPreviewMessage.sender === userInfo.id ? userInfo.nickname : opponentUser.nickname;
 
   const time =
-    lastPreviewMessage && lastPreviewMessage.messageTime ? getTimeDiffText(lastPreviewMessage.messageTime) : '대화없음';
+    liveLastPreviewMessage && liveLastPreviewMessage.messageTime
+      ? getTimeDiffText(liveLastPreviewMessage.messageTime)
+      : '대화없음';
   const isChatRoomUnfolded = selectedChatRoomId === roomId;
 
   return (
-    <S.ChatPreviewWrapper onClick={() => setSelectedChatRoomId(roomId)} $isChatRoomUnfolded={isChatRoomUnfolded}>
+    <S.ChatPreviewWrapper type='button' onClick={selectRoom} $isChatRoomUnfolded={isChatRoomUnfolded}>
       <S.ProductImageWrap>
         {/* TODO: 화면 분기별 프로필 사이즈 정해지면 sizes 수정 */}
         {/* 마지막에 말한 사람의 정보 */}
@@ -63,10 +70,10 @@ const ChatRoomPreview = ({ roomId, opponentUser, productInfo }: ChatPreviewProps
           <S.SenderName>{senderName}</S.SenderName>
           <S.SentTime>{time}</S.SentTime>
         </S.MessageMeta>
-        <S.MessageContent $isChatRoomUnfolded={isChatRoomUnfolded}>{lastPreviewMessage?.message}</S.MessageContent>
+        <S.MessageContent $isChatRoomUnfolded={isChatRoomUnfolded}>{liveLastPreviewMessage?.message}</S.MessageContent>
       </S.MessageDetails>
     </S.ChatPreviewWrapper>
   );
 };
 
-export default memo(ChatRoomPreview);
+export default ChatRoomPreview;

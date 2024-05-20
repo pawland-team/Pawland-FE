@@ -2,6 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 
 import {
   getMyCommunityList,
+  getMyCommunityListParams,
   getMyProductList,
   getMyProductListParams,
   getMyWishList,
@@ -11,7 +12,7 @@ import { getMyTransactionList } from '@shared/apis/profile-api/get-my-transactio
 
 export const myCommunityQueryKeys = {
   all: () => ['myCommunityList'],
-  myCommunityList: (page: number) => [...myCommunityQueryKeys.all(), page],
+  myCommunityList: ({ page }: getMyCommunityListParams) => [...myCommunityQueryKeys.all(), { page }],
 };
 
 export const myCommunityQuery = {
@@ -20,10 +21,10 @@ export const myCommunityQuery = {
       queryKey: myCommunityQueryKeys.all(),
     }),
 
-  myCommunityList: (page: number) =>
+  myCommunityList: ({ page }: getMyCommunityListParams) =>
     queryOptions({
-      queryKey: myCommunityQueryKeys.myCommunityList(page),
-      queryFn: () => getMyCommunityList(page),
+      queryKey: myCommunityQueryKeys.myCommunityList({ page }),
+      queryFn: () => getMyCommunityList({ page }),
       staleTime: 3 * 60 * 1000,
     }),
 };

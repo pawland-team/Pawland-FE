@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { styled } from 'styled-components';
 
-export const ChatPreviewWrapper = styled.div<{ $isChatRoomUnfolded?: boolean }>`
+export const ChatPreviewWrapper = styled.button<{ $isChatRoomUnfolded?: boolean }>`
   cursor: pointer;
 
   display: flex;
@@ -19,6 +19,10 @@ export const ChatPreviewWrapper = styled.div<{ $isChatRoomUnfolded?: boolean }>`
     $isChatRoomUnfolded ? theme.color.gray_F9F9F9 : theme.color.white_FFFFFF};
   border-top: 0.3px solid ${({ theme: { color } }) => color.gray_F3F3F3};
   border-bottom: 0.3px solid ${({ theme: { color } }) => color.gray_F3F3F3};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.gray_F9F9F9};
+  }
 `;
 
 export const ProductImageWrap = styled.div`
@@ -73,6 +77,7 @@ export const MessageContent = styled.p<{ $isChatRoomUnfolded?: boolean }>`
   font-weight: 400;
   line-height: 2.8rem; /* 175% */
   color: ${({ $isChatRoomUnfolded }) => ($isChatRoomUnfolded ? '#242424' : '#9E9E9E')};
+  text-align: left;
   text-overflow: ellipsis;
   letter-spacing: -0.06rem;
   white-space: nowrap;

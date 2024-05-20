@@ -39,7 +39,13 @@ export const RegisterProductRegionSelectCategory = ({ focusRef }: RegisterProduc
     <S.Wrapper>
       <ProductRegisterCategoryMeta
         metaTitle='지역 선택'
-        metaDescription={<>구매자분들이 쉽게 찾을 수 있도록, 카테고리를 선정해주세요.</>}
+        metaDescription={
+          <>
+            구매자분들이 쉽게 찾을 수 있도록,
+            <br />
+            카테고리를 선정해주세요.
+          </>
+        }
       />
       <S.SelectBox>
         <ProductRegisterCategorySubMeta

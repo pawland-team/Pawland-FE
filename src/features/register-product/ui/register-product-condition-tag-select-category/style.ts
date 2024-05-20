@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 
 export const Wrapper = styled.section`
   display: flex;
-  column-gap: 245px;
   align-items: flex-start;
   justify-content: space-between;
 

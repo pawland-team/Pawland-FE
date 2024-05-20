@@ -10,7 +10,7 @@ export const CommunityList = styled.div`
 
   .button-area {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
   }
 `;
 

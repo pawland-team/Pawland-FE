@@ -13,7 +13,7 @@ export const withGetServerSideProps = (getServerSideProps: GetServerSideProps) =
     // https://developer.mozilla.org/ko/docs/Web/API/URL/pathname
     // const pathName = new URL(
     //   pagePath,
-    //   process.env.NODE_ENV === 'development' ? `http://localhost:${process.env.PORT}` : process.env.DEPLOY_SERVER_URL,
+    //   process.env.NODE_ENV === 'development' ? `http://localhost:${process.env.PORT}` : process.env.DEPLOYED_FRONT_SERVER_URL,
     // ).pathname;
 
     console.log(context.req.cookies.jwt); // undefined

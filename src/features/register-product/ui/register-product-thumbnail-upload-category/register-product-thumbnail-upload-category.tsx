@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useEffect, useId } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import Image from 'next/image';
@@ -14,23 +14,30 @@ export const RegisterProductThumbnailUploadCategory = () => {
   const isMultipleFile = false;
   const uniqueLabelId = useId();
 
-  const {
-    dragRef,
-    files: previewImageList,
-    isDraggingOnTargetElement,
-    onChangeFiles,
-  } = useDragAndSetFiles({ isMultipleFile });
+  const { dragRef, fileList, isDraggingOnTargetElement, onChangeFiles } = useDragAndSetFiles({ isMultipleFile });
 
-  const { register, watch } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
+  const { register, watch, setValue } = useFormContext<Pick<RegisterProductForm, 'thumbnail'>>();
   const thumbnail = watch('thumbnail');
   const defaultImage = typeof thumbnail === 'string' ? thumbnail : null;
-  const previewImage = previewImageList[0]?.url || defaultImage;
+  const previewImage = fileList[0]?.imageForPreview.url || defaultImage;
+
+  useEffect(() => {
+    if (fileList.length && fileList[0].imageForSubmit.file) {
+      setValue('thumbnail', [fileList[0].imageForSubmit.file] as unknown as FileList);
+    }
+  }, [setValue, fileList]);
 
   return (
     <S.Wrapper>
       <ProductRegisterCategoryMeta
-        metaTitle='상품 카테고리'
-        metaDescription={<>구매자분들이 쉽게 찾을 수 있도록, 카테고리를 선정해주세요.</>}
+        metaTitle='대표 이미지'
+        metaDescription={
+          <>
+            상품을 설명할 수 있는 가장 자신있는
+            <br />
+            이미지를 업로드해 주세요!
+          </>
+        }
       />
       <S.SelectBox>
         <ProductRegisterCategorySubMeta metaTitle='대표이미지' metaDescription='*메인으로 보여지는 이미지에요' />
@@ -65,7 +72,8 @@ export const RegisterProductThumbnailUploadCategory = () => {
             {...register('thumbnail', {
               onChange: onChangeFiles,
               required: {
-                value: true,
+                // value: true,
+                value: !previewImage,
                 message: '대표 이미지를 업로드해주세요.',
               },
               validate: {

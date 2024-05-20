@@ -10,13 +10,17 @@ import {
 } from '../types';
 // import { useToggleModal } from '../useToggleModal';
 
-type DirectModalComponentProps = Partial<OptionalModalProps>;
+// Patial 하나 안에 넣으면 에러가 난다.
+// why? OptionalModalProps는 무조건 보장해야 하기 때문임
+type DirectModalComponentProps<CustomModalProps> = Partial<OptionalModalProps> & CustomModalProps;
 
 /**
  * ### use context useModal hook instead
  * - this hook can be used to open and close modal without context api
  * - but it is not recommended to use this hook
  * - because this is a hook bound to a local component(local state), so it's unlikely to be used frequently.
+ *
+ * CustomModalProps - custom props for modal component. This generic is optional but if you set this it will be used as a type of props for modal component. If you want your openModal function to have flexible props, you should not set this generic.
  */
 const useModalWithLocalState = <CustomModalProps = unknown, T extends HTMLElement = HTMLElement>() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -139,7 +143,10 @@ const useModalWithLocalState = <CustomModalProps = unknown, T extends HTMLElemen
   //   }
   // };
 
-  const ModalComponent = (directProps?: DirectModalComponentProps) => {
+  /**
+   * TODO: DirectModalComponentProps에서 OptionalModalProps 제거하기
+   */
+  const ModalComponent = (directProps?: DirectModalComponentProps<CustomModalProps>) => {
     if (!modalInfo || !modalInfo.ModalComponent || !isModalOpen) {
       throw new Error(
         'ModalComponent property should be passed to openModal function.\nYou can see this message when isModalOpen is not true but has been tried to render ModalComponent.',

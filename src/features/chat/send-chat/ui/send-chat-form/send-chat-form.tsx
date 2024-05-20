@@ -1,25 +1,29 @@
 import { useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useShallow } from 'zustand/react/shallow';
+
 import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks';
 import { useChatStore } from '@entities/chat/model';
-import { useUserStore } from '@entities/user/model';
 import { ChatRequest } from '@shared/apis/chat-api';
+import { GetUserInfoResponse } from '@shared/apis/user-api';
 
 import * as S from './style';
+
+interface SendChatFormProps extends UseChatFormTextareaSizeControlReturn {
+  userInfo: GetUserInfoResponse;
+}
 
 export const SendChatForm = ({
   changedTextAreaHeight,
   handleResizeHeight,
   observerTargetRef,
   textAreaRef,
-}: UseChatFormTextareaSizeControlReturn) => {
-  const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
-
-  const { sendChatMessage, selectedChatRoomId } = useChatStore((state) => ({
-    sendChatMessage: state.sendChatMessage,
-    selectedChatRoomId: state.selectedChatRoomId,
-  }));
+  userInfo,
+}: SendChatFormProps) => {
+  const { selectedChatRoomId, sendChatMessage } = useChatStore(
+    useShallow((state) => ({ selectedChatRoomId: state.selectedChatRoomId, sendChatMessage: state.sendChatMessage })),
+  );
 
   const { register, handleSubmit, reset } = useForm<{ message: string }>({
     defaultValues: {
@@ -69,10 +73,10 @@ export const SendChatForm = ({
    * - 문제: textarea의 특성상 엔터를 누르면 onSubmit이 실행되지 않고 줄바꿈이 발생하는 문제
    * - 해결: 엔터로 전송, shift+엔터로 줄바꿈
    */
-  const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleEnter = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // textArea 기본동작 막기
-      handleSubmit(onSubmit)();
+      await handleSubmit(onSubmit)();
     }
   };
 

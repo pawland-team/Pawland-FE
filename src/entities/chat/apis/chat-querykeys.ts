@@ -26,23 +26,26 @@ export const chatQuery = {
       staleTime: 1000 * 60 * 10,
       // 1시간
       gcTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
+      retry: 0,
     }),
 
-  previousChatList: (roomId?: number) =>
+  previousChatList: ({ roomId }: { roomId?: number }) =>
     infiniteQueryOptions<
       HTTPChatResponse,
       Error,
       InfiniteData<HTTPChatResponse>,
       Readonly<ReturnType<typeof chatQueryKeys.previousChatList>>,
-      string
+      string | undefined
     >({
       // enabled option 덕분에 roomId가 undefined일 때는 쿼리가 실행되지 않음.
       // ! 문제점: 쿼리는 생성됨 (["chat","chatRoomList","previousChatList",null])
       queryKey: chatQueryKeys.previousChatList(roomId!),
       queryFn: ({ pageParam }) => getPreviousChatList({ cursorId: pageParam, roomId: roomId! }),
-      initialPageParam: '',
+      initialPageParam: undefined,
       getNextPageParam: (lastPage) => {
         const { nextCursor } = lastPage;
+        console.log(nextCursor);
 
         if (nextCursor) {
           return nextCursor;
@@ -57,7 +60,8 @@ export const chatQuery = {
       gcTime: 1000 * 60 * 60,
       enabled: roomId !== undefined,
       placeholderData: keepPreviousData,
-      maxPages: 1,
+      maxPages: 1, // 소켓으로 가져온 채팅 1개 + 스크롤로 가져온 채팅 리스트 10개(1페이지)...에 매번 1페이지씩만 새로 가져와서 추가하는 방식으로 구현
       refetchOnWindowFocus: false,
+      refetchOnMount: true,
     }),
 };

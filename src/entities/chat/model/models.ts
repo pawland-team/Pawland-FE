@@ -8,15 +8,19 @@ import { UserEntity } from '@shared/apis/user-api';
 
 export type RoomInfo = ChatRoomListResponse[number];
 
+/**
+ * sender는 number로 유지하자
+ */
 export type RoomState = {
   roomId: RoomInfo['roomId'];
   productInfo: RoomInfo['productInfo'];
   opponentUser: RoomInfo['opponentUser'];
   messageList: ChatContent[];
   previewMessage?: ChatContent;
+  orderId: number;
 };
 
-interface SetRoomMapArgs extends Omit<RoomState, 'messageList'> {
+interface SetRoomMapArgs extends Omit<RoomState, 'messageList' | 'previewMessage'> {
   /**
    * socket json response message
    *
@@ -40,12 +44,22 @@ type RoomMap = Map<RoomState['roomId'], RoomState>;
 
 export interface ChatStoreState {
   roomMap: RoomMap;
+  destroyRoomList: () => void;
   selectedChatRoomId?: RoomState['roomId'];
   webSocketClient?: Client;
   setRoomMap: (setRoomMapArgs: SetRoomMapArgs) => void;
-  setSelectedChatRoomId: (roomId: RoomState['roomId']) => void;
+  // setInitialRoomMap: (initialRoomInfo: RoomInfo) => void;
+  setInitialRoomMap: (initialChatRoomList: ChatRoomListResponse) => void;
+  setSelectedChatRoomId: (roomId?: RoomState['roomId']) => void;
   setWebSocketClient: (webSocketClient: Client) => void;
   sendChatMessage: ({ chatRequestBody }: { chatRequestBody: ChatRequest }) => void;
+  setInitialMessageList: ({
+    roomId,
+    initialMessageList,
+  }: {
+    roomId: RoomState['roomId'];
+    initialMessageList: ChatContent[];
+  }) => void;
   appendPreviousMessageList: ({
     roomId,
     previousMessageList,
