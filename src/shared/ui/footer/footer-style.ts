@@ -44,7 +44,8 @@ export const UpperContainer = styled.div`
       gap: 10px;
 
       li {
-        a {
+        a,
+        button {
           font-size: 1.6rem;
           color: ${({ theme }) => theme.color.gray_9E9E9E};
 
