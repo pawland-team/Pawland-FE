@@ -1,0 +1,1 @@
+export { translateEnglishToKorean } from './translateEnglishToKorean';

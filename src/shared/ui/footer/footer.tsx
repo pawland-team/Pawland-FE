@@ -1,16 +1,35 @@
+import { MouseEvent } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { PAWLAND_GITHUB } from '@shared/constants/link';
+import { translateEnglishToKorean } from '@widgets/main-category-list/lib';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
 import * as S from './footer-style';
 
 const Footer = () => {
-  const { clearSelectedValues } = useCheckedCategoryStore();
+  const router = useRouter();
+  const { clearSelectedValues, changePagingStatus, pagingStatus, addSelectedValue } = useCheckedCategoryStore();
 
-  const handleClickLink = () => {
-    clearSelectedValues();
+  const handleClickProductLink = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const target = e.target as HTMLButtonElement;
+
+    if (target) {
+      const targetText = target.innerText;
+      clearSelectedValues();
+      changePagingStatus(1, 12, pagingStatus.totalItemCount);
+
+      if (targetText !== 'All Products') {
+        addSelectedValue('category', translateEnglishToKorean(targetText), true);
+      }
+
+      return router.push('/product');
+    }
   };
 
   return (
@@ -24,29 +43,29 @@ const Footer = () => {
             <h5>Category</h5>
             <ul>
               <li>
-                <Link href='/product' onClick={handleClickLink}>
+                <button type='button' onClick={handleClickProductLink}>
                   All Products
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href='/product' onClick={handleClickLink}>
+                <button type='button' onClick={handleClickProductLink}>
                   Food
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href='/product' onClick={handleClickLink}>
+                <button type='button' onClick={handleClickProductLink}>
                   Toy
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href='/product' onClick={handleClickLink}>
-                  clothes
-                </Link>
+                <button type='button' onClick={handleClickProductLink}>
+                  Clothes
+                </button>
               </li>
               <li>
-                <Link href='/product' onClick={handleClickLink}>
+                <button type='button' onClick={handleClickProductLink}>
                   Accessories
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
