@@ -25,25 +25,46 @@ export const useChatStore = create<ChatStoreState>()(
        * TODO: 프리뷰 메시지 받는 부분하고 메시지 받는 부분을 나눠야 함
        */
       setInitialRoomMap: (initialChatRoomList) => {
-        // Map에 담아서 초기화
-        const initialRoomMap = new Map<RoomState['roomId'], RoomState>();
+        // 변경사항: 기존 roomMap을 초기화하는 것이 아니라 기존 roomMap에 추가하는 방식으로 변경
+        // 대신 새로운 roomId는 추가되고, 기존 roomId는 유지됨
+        // 기존 roomId에 대한 정보가 없으면 추가하고, 있으면 유지함
 
-        if (!initialChatRoomList) {
-          return;
-        }
+        // 기존 roomMap을 가져옴
+        const prevRoomMap = get().roomMap;
 
-        // 반복문 안에서는 setState 불가능하므로 forEach 돌려서 Map에 담은 후에 그 Map을 setState에 담음
-        [...initialChatRoomList].forEach((roomInfo) => {
+        // 새로운 roomMap을 만들기 위한 Map 생성
+        const newRoomMap = new Map<RoomState['roomId'], RoomState>();
+
+        initialChatRoomList.forEach((roomInfo) => {
           const { roomId, opponentUser, productInfo, lastMessage, orderId } = roomInfo;
 
-          initialRoomMap.set(roomId, {
+          // initialChatRoomList에서 기존 roomMap에 없는 roomId에 대한 정보를 추가함
+          if (!prevRoomMap.has(roomId)) {
+            newRoomMap.set(roomId, {
+              roomId,
+              opponentUser,
+              productInfo,
+              orderId,
+              messageList: [],
+              previewMessage: lastMessage ?? null,
+              nextCursor: null,
+            });
+
+            return;
+          }
+
+          // 기존 roomMap에 있는 roomId에 대한 정보를 유지함
+          // 기존 roomState에서 messageList는 유지하고, previewMessage를 포함한 나머지 필드는 initialChatRoomList에서 가져옴
+          const prevRoomState = prevRoomMap.get(roomId);
+
+          newRoomMap.set(roomId, {
             roomId,
             opponentUser,
             productInfo,
             orderId,
-            messageList: lastMessage ? [lastMessage] : [],
-            // TODO: null로 타입 개선하기
-            previewMessage: lastMessage ?? undefined,
+            messageList: prevRoomState?.messageList ?? [],
+            previewMessage: lastMessage ?? null,
+            nextCursor: prevRoomState?.nextCursor ?? null,
           });
         });
 
@@ -51,7 +72,7 @@ export const useChatStore = create<ChatStoreState>()(
           (prev) => ({
             ...prev,
             webSocketClient: prev.webSocketClient,
-            roomMap: initialRoomMap,
+            roomMap: newRoomMap,
           }),
           false,
           { type: 'ChatStore/SetInitialRoomMap' },
@@ -94,84 +115,19 @@ export const useChatStore = create<ChatStoreState>()(
                   // 0 번째 인덱스를 맨 밑으로 보내기 위함
                   messageList: [latestChat, ...(prev.roomMap.get(roomId)?.messageList ?? [])],
                   previewMessage: latestChat,
+                  // 이전 값 조회하기 위한 nextCursor라서 args로 받는 게 아니라 여기서는 get으로 가져옴
+                  nextCursor: prev.roomMap.get(roomId)?.nextCursor ?? null,
                 }),
               }),
               false,
               { type: 'ChatStore/SetRoomMap' },
             );
           }
-
-          // if (previewMessage) {
-          //   // # (Given) http roomInfo 응답 시
-          //   // latest ChatContent 가져옴
-          //   // previewMessage가 이에 해당함.
-
-          //   set(
-          //     (prev) => ({
-          //       ...prev,
-          //       roomMap: new Map(prev.roomMap).set(roomId, {
-          //         roomId,
-          //         opponentUser,
-          //         productInfo,
-          //         orderId,
-          //         // * (Then) previewMessage 최신화
-          //         previewMessage,
-          //         // 기존 리스트 그대로 유지
-          //         messageList: prev.roomMap.get(roomId)?.messageList ?? [],
-          //       }),
-          //     }),
-          //     false,
-          //     { type: `ChatStore setRoomMap ${roomId} on RoomInfo` },
-          //   );
-          // }
-
-          // if (previousMessageList) {
-          //   // # (Given) http Previous chat list 응답 시
-          //   set((prev) => ({
-          //     ...prev,
-          //     roomMap: new Map(prev.roomMap).set(roomId, {
-          //       roomId,
-          //       opponentUser,
-          //       productInfo,
-
-          //       // ? (When) previous 요청이 채팅방 진입 최초 요청이면 어차피 messageList에 아무것도 없음.
-          //       // ? (When) previous 요청이 채팅방 진입 최초 요청이 아니면 기존 리스트에 그냥 추가해주면 됨.
-          //       // * (Then): 그러므로 기존 리스트에 그냥 추가해주면 됨.
-          //       messageList: [...(prev.roomMap.get(roomId)?.messageList ?? []), ...previousMessageList],
-          //       // previewMessage는 그대로 유지
-          //       previewMessage: prev.roomMap.get(roomId)?.previewMessage,
-          //     }),
-          //   }));
-          // }
-
-          // LEAVE일 때는 해당 room 삭제?
         } catch (error) {
           console.error(error);
         }
       },
-      setInitialMessageList: ({ initialMessageList, roomId }) => {
-        const roomStateFromGet = get().roomMap.get(roomId);
-
-        if (!roomStateFromGet) {
-          return;
-        }
-
-        // initial이기 때문에 messageList와 previewMessage를 덮어써야 함
-        set((prev) => {
-          const p = prev.roomMap.get(roomId) ?? roomStateFromGet;
-
-          return {
-            ...prev,
-            webSocketClient: prev.webSocketClient,
-            roomMap: new Map(prev.roomMap).set(roomId, {
-              ...p,
-              previewMessage: initialMessageList[0],
-              messageList: initialMessageList,
-            }),
-          };
-        });
-      },
-      appendPreviousMessageList: ({ previousMessageList, roomId }) => {
+      appendPreviousMessageList: ({ previousMessageList, roomId, nextCursor }) => {
         const roomStateFromGet = get().roomMap.get(roomId);
 
         if (!roomStateFromGet) {
@@ -190,6 +146,7 @@ export const useChatStore = create<ChatStoreState>()(
                 previewMessage: p.previewMessage ? p.previewMessage : previousMessageList[0],
                 roomId: p.roomId,
                 messageList: [...(prev.roomMap.get(roomId)?.messageList ?? []), ...previousMessageList],
+                nextCursor,
               }),
             };
           },

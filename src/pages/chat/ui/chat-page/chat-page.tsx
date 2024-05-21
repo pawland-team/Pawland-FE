@@ -10,6 +10,8 @@ import { useChatStore } from '@entities/chat/model';
 import { ChatRoom, ChatRoomPreview } from '@entities/chat/ui';
 import { useUserStore } from '@entities/user/model';
 import { SendChatForm } from '@features/chat/send-chat/ui';
+import { useSetRoomMapOnWebSocketConnect } from '@pages/chat/hooks/use-set-room-map-on-web-socket-connect';
+import { useSetWebSocket } from '@pages/chat/hooks/use-set-web-socket';
 
 import * as S from './style';
 
@@ -55,87 +57,8 @@ export const ChatPage = () => {
     }
   }, [userInfo?.id, status, data]);
 
-  useEffect(() => {
-    if (typeof WebSocket !== 'function') {
-      console.error('WebSocket is not supported in this browser.');
-
-      return;
-    }
-
-    stompRef.current = new Client({
-      brokerURL: process.env.NEXT_PUBLIC_WSS_URL,
-      debug: (str) => {
-        console.log(str);
-      },
-      reconnectDelay: 1000, // 재연결 딜레이 1초 (이 순간동안의 메시지는 유실된다. 기본값은 5초인듯. 참고로 0초는 유효하지 않은 값이다.)
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-      beforeConnect: () => {
-        console.log('beforeconnect');
-      },
-      onConnect: () => {
-        console.log('OnConnect');
-      },
-    });
-
-    try {
-      // ?: 순서 상관 있을까?
-      console.log(stompRef.current);
-
-      setWebSocketClient(stompRef.current);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!webSocketClient) {
-      return;
-    }
-
-    if (!data || status !== 'success') {
-      return;
-    }
-
-    webSocketClient.onConnect = () => {
-      data.forEach(({ roomId, opponentUser, orderId, productInfo }) => {
-        webSocketClient.subscribe(`/topic/chatroom/${roomId}`, (unParsedMessage) => {
-          console.log('------------------subscribed----------------');
-          console.log(opponentUser);
-          console.log(productInfo);
-          console.log(orderId);
-          console.log(unParsedMessage);
-          setRoomMap({
-            roomId,
-            unParsedMessage,
-            opponentUser,
-            productInfo,
-            orderId,
-          });
-        });
-      });
-    };
-
-    if (!webSocketClient.active) {
-      console.log('reactivated');
-      webSocketClient.activate();
-    }
-
-    if (!webSocketClient.connected) {
-      console.log('unconnected');
-
-      return;
-    }
-
-    return () => {
-      // unsubscribe
-      if (webSocketClient.connected) {
-        data.forEach(({ roomId }) => {
-          webSocketClient.unsubscribe(`/topic/chatroom/${roomId}`);
-        });
-      }
-    };
-  }, [webSocketClient, data, data?.length, status]);
+  useSetWebSocket({ stompRef, setWebSocketClient });
+  useSetRoomMapOnWebSocketConnect({ data, status, webSocketClient, setRoomMap });
 
   // 언마운트 될 때 selectedChatRoomId 초기화
   useEffect(() => () => setSelectedChatRoomId(), [setSelectedChatRoomId]);

@@ -32,9 +32,6 @@ export const RegisterProductDescriptionTextEditor = ({ focusRef }: RegisterProdu
     _source: SourceOnChangeQuill,
     editor: EditorOnChangeQuill,
   ) => {
-    // console.dir(editor.getContents());
-    // console.log('-------------------------------');
-
     // img 추출
     // 형태: [{ insert: { image: '....' } }, { insert: { image: '....' } }, ...]
     // console.dir(editor.getContents().ops?.filter((op) => op.insert.image));
