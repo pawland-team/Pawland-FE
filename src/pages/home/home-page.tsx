@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from 'react';
 
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -10,7 +11,13 @@ import { MainProductList } from '@widgets/main-product-list';
 import { useCheckedCategoryStore } from '@widgets/product-list-filter-container/model';
 
 import * as S from './home-page-style';
-import { MainBannerSwiper } from './ui/main-banner-swiper';
+// import { MainBannerSwiper } from './ui/main-banner-swiper';
+
+const MainBannerSwiper = dynamic(() => import('./ui/main-banner-swiper').then((module) => module.MainBannerSwiper), {
+  ssr: false,
+  // suspense: true,
+  // loading: () => <Loading />,
+});
 
 export const HomePage = () => {
   const router = useRouter();
