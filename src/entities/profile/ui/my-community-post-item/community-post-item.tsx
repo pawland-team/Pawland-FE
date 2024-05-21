@@ -22,6 +22,7 @@ export const CommunityPostItem = ({ item }: CommunityPostItemProps) => {
           <div className='text-area'>
             <h1>{item.title}</h1>
             <p
+              // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(item.content, {
                   /**

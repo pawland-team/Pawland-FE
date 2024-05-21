@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+import DOMPurify from 'dompurify';
 import styled from 'styled-components';
 
 import { CommonButton } from '@shared/ui/buttons';
@@ -35,7 +36,13 @@ const ProductDetailContent = ({ detailContent }: ProductDetailContentProps) => {
   return (
     <SContentContainer>
       <SContentBox ref={contentRef} $height={isOpened ? 'auto' : '500px'}>
-        <STextArea ref={contentTextRef} dangerouslySetInnerHTML={{ __html: detailContent }} />
+        <STextArea
+          ref={contentTextRef}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(detailContent),
+          }}
+        />
+        {/* <STextArea ref={contentTextRef} dangerouslySetInnerHTML={{ __html: detailContent }} /> */}
         {!isOpened && textBoxHeight > 500 && (
           <SButtonBox>
             <CommonButton

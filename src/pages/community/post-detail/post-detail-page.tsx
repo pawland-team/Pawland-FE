@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import DOMPurify from 'dompurify';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -496,7 +497,11 @@ export const CommunityPostDetailPage = () => {
 
         <S.ContentsArea>
           <S.Contents>
-            <S.ContentsParagraph dangerouslySetInnerHTML={{ __html: htmlContent }} />
+            <S.ContentsParagraph
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(htmlContent),
+              }}
+            />
           </S.Contents>
 
           <S.RecommendButtonBox>
