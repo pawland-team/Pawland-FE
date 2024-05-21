@@ -1,7 +1,7 @@
 import { ChatContent } from '@shared/apis/chat-api';
 import { compareDate } from '@shared/utils/time';
 
-interface CompareDateAndSenderOfChatResult extends ReturnType<typeof compareDate> {
+export interface CompareDateAndSenderOfChatResult extends ReturnType<typeof compareDate> {
   isSameSender: boolean;
 }
 
@@ -17,6 +17,8 @@ export const compareDateAndSenderOfChat = (
   return {
     ...compareDateResult,
     isSameSender:
-      latestMessageSender !== undefined && oldMessageSender !== undefined && latestMessageSender === oldMessageSender,
+      latestMessageSender !== undefined &&
+      oldMessageSender !== undefined &&
+      Number(latestMessageSender) === Number(oldMessageSender),
   };
 };
