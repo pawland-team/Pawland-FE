@@ -158,7 +158,7 @@ export const ConfirmTransactionButton = styled.button`
   border-radius: 22px;
 `;
 
-export const ChatRoomBodyWrapper = styled.div<{ $changedTextAreaHeight: number }>`
+export const ChatRoomBodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -172,15 +172,15 @@ export const ChatRoomBodyWrapper = styled.div<{ $changedTextAreaHeight: number }
   max-height: 711px; */
   height: 799px; /* 711px + 88px */
   max-height: 799px; /* 711px + 88px */
-  padding-bottom: calc(
-    88px + ${({ $changedTextAreaHeight }) => $changedTextAreaHeight}px
-  ); /* textarea 높이 높아지면 여기 아니면 ChatRoomBody를 높여야 함 */
+
+  /* textarea 높이 높아지면 여기 아니면 ChatRoomBody를 높여야 함 */
+  padding-bottom: 88px;
 `;
 
 /**
  *  * 최신 메시지는 0번째 인덱스에 추가되는 방식이므로, flex-direction: column-reverse로 설정
  */
-export const ChatRoomBody = styled.div`
+export const ChatRoomBody = styled.div<{ $changedTextAreaHeight: number }>`
   overflow: hidden scroll;
   display: flex;
   flex-direction: column-reverse;
@@ -191,7 +191,9 @@ export const ChatRoomBody = styled.div`
 
   /* max-height: 100%; */
   max-height: 711px;
-  padding: 14px 26.76px 14px 23px;
+
+  /* textarea 높이 높아지면 여기 아니면 ChatRoomBodyWrapper를 높여야 함 */
+  padding: 14px 26.76px calc(14px + ${({ $changedTextAreaHeight }) => $changedTextAreaHeight}px) 23px;
 
   &::-webkit-scrollbar {
     display: none;
