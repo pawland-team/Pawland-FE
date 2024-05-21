@@ -16,11 +16,17 @@ export type RoomState = {
   productInfo: RoomInfo['productInfo'];
   opponentUser: RoomInfo['opponentUser'];
   messageList: ChatContent[];
-  previewMessage?: ChatContent;
+  previewMessage: ChatContent | null;
   orderId: number;
+  /**
+   * - infiniteQuery에서 nextPageParam이 제대로 동작하지 않아서 추가함
+   * - 페이지 벗어났다가(->언마운트 됐다가) 다시 마운트 됐을 때 nextCursor를 사용해서 불러와야 하는데 이전 커서를 이용해서 똑같은 데이터 불러오는 현상이 있었음
+   * @default null
+   */
+  nextCursor: string | null;
 };
 
-interface SetRoomMapArgs extends Omit<RoomState, 'messageList' | 'previewMessage'> {
+interface SetRoomMapArgs extends Omit<RoomState, 'messageList' | 'previewMessage' | 'nextCursor'> {
   /**
    * socket json response message
    *
@@ -48,24 +54,18 @@ export interface ChatStoreState {
   selectedChatRoomId?: RoomState['roomId'];
   webSocketClient?: Client;
   setRoomMap: (setRoomMapArgs: SetRoomMapArgs) => void;
-  // setInitialRoomMap: (initialRoomInfo: RoomInfo) => void;
   setInitialRoomMap: (initialChatRoomList: ChatRoomListResponse) => void;
   setSelectedChatRoomId: (roomId?: RoomState['roomId']) => void;
   setWebSocketClient: (webSocketClient: Client) => void;
   sendChatMessage: ({ chatRequestBody }: { chatRequestBody: ChatRequest }) => void;
-  setInitialMessageList: ({
-    roomId,
-    initialMessageList,
-  }: {
-    roomId: RoomState['roomId'];
-    initialMessageList: ChatContent[];
-  }) => void;
   appendPreviousMessageList: ({
     roomId,
     previousMessageList,
+    nextCursor,
   }: {
     roomId: RoomState['roomId'];
     previousMessageList: ChatContent[];
+    nextCursor: RoomState['nextCursor'];
   }) => void;
 }
 

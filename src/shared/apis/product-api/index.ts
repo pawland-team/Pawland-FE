@@ -12,4 +12,4 @@ export { getProductSearchList } from './get-product-search-list-api';
 
 export { registerProduct } from './register-product-api';
 
-export { editProduct } from './edit-product-api';
+export { editProduct, type EditProductParam } from './edit-product-api';

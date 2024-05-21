@@ -46,7 +46,6 @@ const Pagination = ({ totalCount, itemsPerPage = 12, pagesPerGroup = 5, initialP
       )}
       {currentPageGroup.map((number) => (
         <>
-          {console.log(currentPage)}
           <S.NumberButton
             type='button'
             key={number}

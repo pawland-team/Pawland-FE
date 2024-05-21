@@ -22,7 +22,7 @@ export interface StringifiedSenderChatContent {
  * http 응답 시
  */
 export type HTTPChatResponse = {
-  nextCursor: string;
+  nextCursor: string | null;
   // hasNext: boolean;
   messageList: StringifiedSenderChatContent[];
 };
@@ -38,6 +38,9 @@ export interface ChatContent {
   sender: number;
   message: string;
   messageId: string;
+  /**
+   * 주의할 점: 초기에는 string타입으로 넘어오므로 Date 객체와 비교할 때는 Date 객체로 변환해서 비교해야 함
+   */
   messageTime: ValidDateUtilFuncArgs;
   // 나중에 추가(메시지 delete 기능)
   // invisibleTo: string[]; // 유저 아이디 리스트

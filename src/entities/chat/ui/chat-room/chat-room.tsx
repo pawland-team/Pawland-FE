@@ -1,20 +1,17 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 
-import throttle from 'lodash/throttle';
 import { useRouter } from 'next/router';
 import { useShallow } from 'zustand/react/shallow';
 
-import {
-  CHAT_CONFIRM_MESSAGE_DELETE_MODAL_KEY,
-  CHAT_CONFIRM_MODAL_KEY,
-  CHAT_MESSAGE_DELETE_MODAL_KEY,
-} from '@entities/chat/constants/modal-key';
-import { useGetPreviousChatList } from '@entities/chat/hooks';
+import { useGetPreviousChatList, useResetRoomScrollHeight } from '@entities/chat/hooks';
+import { useAppendPreviousMessageList } from '@entities/chat/hooks/use-append-previous-message-list';
 import { UseChatFormTextareaSizeControlReturn } from '@entities/chat/hooks/use-chat-form-textarea-size-control';
+import { useThrottledFetchNextPage } from '@entities/chat/hooks/use-throttled-fetch-next-page';
 import { useChatStore } from '@entities/chat/model';
+import { handleDeleteMessageImpl, openNotifyMessageDeleteModalImpl } from '@entities/chat/utils';
+import { handleConfirmTransactionImpl } from '@entities/chat/utils/handle-confirm-transaction-impl';
 import { insertMessageGroupForDisplay } from '@entities/chat/utils/insert-message-group-for-display';
 import { useCompleteTransaction } from '@entities/order/hooks';
-import { ChatContent } from '@shared/apis/chat-api';
 import { GetUserInfoResponse } from '@shared/apis/user-api';
 import { useInViewWithoutCallback } from '@shared/hooks/use-in-view';
 import { useModalList } from '@shared/hooks/use-modal';
@@ -37,13 +34,9 @@ interface ChatRoomProps extends Pick<UseChatFormTextareaSizeControlReturn, 'chan
 export const ChatRoom = ({ formInFooter, changedTextAreaHeight, userInfo }: ChatRoomProps) => {
   const router = useRouter();
   const { openModalList, closeModalList, destroy } = useModalList();
-  // isFirstReder를 활용해서 첫 번째 렌더링일 경우에는 채팅 전체를 덮어쓸 것이고
-  // 그 이후에는 이전 메세지 리스트에 추가하는 방식으로 사용할 것임.
-  const [isFirstRender, setIsFirstRender] = useState(true);
 
-  const { setInitialMessageList, appendPreviousMessageList, selectedChatRoomId, chatRoomLocalRoomState } = useChatStore(
+  const { appendPreviousMessageList, selectedChatRoomId, chatRoomLocalRoomState } = useChatStore(
     useShallow((state) => ({
-      setInitialMessageList: state.setInitialMessageList,
       appendPreviousMessageList: state.appendPreviousMessageList,
       selectedChatRoomId: state.selectedChatRoomId,
       chatRoomLocalRoomState: state.selectedChatRoomId ? state.roomMap.get(state.selectedChatRoomId) : undefined,
@@ -57,183 +50,42 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight, userInfo }: Chat
     dependencyList: [selectedChatRoomId, chatRoomLocalRoomState],
   });
 
-  const { fetchNextPage, isPlaceholderData, hasNextPage, data, status } = useGetPreviousChatList({
-    roomId: selectedChatRoomId,
+  const { fetchNextPage, isFetchingNextPage, isFetching, isPlaceholderData, hasNextPage, data, status } =
+    useGetPreviousChatList({
+      roomId: selectedChatRoomId,
+    });
+
+  useAppendPreviousMessageList({
+    selectedChatRoomId,
+    status,
+    data,
+    isPlaceholderData,
+    chatRoomLocalRoomState,
+    appendPreviousMessageList,
   });
 
-  const throttledFetchNextPage = useCallback(
-    throttle(() => {
-      console.log('fetchNextPage');
-      fetchNextPage({ throwOnError: true })
-        .then(({ data, status }) => {
-          if (selectedChatRoomId === undefined) {
-            return;
-          }
+  useThrottledFetchNextPage({
+    fetchNextPage,
+    hasNextPage,
+    isIntersecting,
+    isPlaceholderData,
+    isFetchingNextPage,
+    isFetching,
+    selectedChatRoomId,
+  });
 
-          if (status === 'success' && data && data.pages.length > 0) {
-            console.log(data.pages);
-
-            // 이전 메시지 리스트를 추가해야 함.
-            const previousMessageList: ChatContent[] = data.pages.flatMap((page) => {
-              return page.messageList.map<ChatContent>(({ sender, ...rest }) => ({
-                sender: Number(sender),
-                ...rest,
-              }));
-            });
-
-            // 이전 메시지 리스트 길이가 0이면 추가하지 않음
-            if (previousMessageList.length === 0) {
-              return;
-            }
-
-            appendPreviousMessageList({
-              roomId: selectedChatRoomId,
-              /**
-               * previousMessageList: data.pages[data.pages.length - 1].messageList,
-               * maxPages가 1임.
-               * 그렇기 때문에 어차피 들고 있는 pages에 page가 단 한 개 밖에 없음.
-               * 1페이지에는 최신 메시지가 있음.
-               */
-              previousMessageList,
-            });
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, 2000),
-    [appendPreviousMessageList, fetchNextPage, selectedChatRoomId, hasNextPage, isFirstRender, isIntersecting],
-  );
-
-  // 최초 진입 시 로직
-  useEffect(() => {
-    if (!isFirstRender) {
-      return;
-    }
-
-    if (selectedChatRoomId === undefined) {
-      return;
-    }
-
-    if (status === 'success' && data) {
-      // 최초 메시지는 해당 룸의 메시지 리스트를 덮어써야 함.
-      const initialMessageList: ChatContent[] = data.pages.flatMap((page) => {
-        return page.messageList.map<ChatContent>(({ sender, ...rest }) => ({
-          sender: Number(sender),
-          ...rest,
-        }));
-      });
-
-      setInitialMessageList({
-        roomId: selectedChatRoomId,
-        initialMessageList,
-      });
-
-      setIsFirstRender(false);
-    }
-  }, [isFirstRender, status, data, selectedChatRoomId, setInitialMessageList]);
-
-  // 스크롤 이벤트로 감지 시 로직
-  useEffect(() => {
-    console.log(isIntersecting);
-
-    if (hasNextPage && isIntersecting && isFirstRender === false && isPlaceholderData === false) {
-      throttledFetchNextPage();
-    }
-  }, [throttledFetchNextPage, isIntersecting, isFirstRender, hasNextPage, isPlaceholderData]);
+  const { currentRoomBodyRef } = useResetRoomScrollHeight({ selectedChatRoomId });
 
   const handleConfirmTransaction = async ({ orderId, productId }: { orderId: number; productId: number }) => {
-    const ModalComponent = await import('@shared/ui/modal/confirm-modal-frame').then(
-      (module) => module.ConfirmModalFrame,
-    );
-
-    const handleConfirm = () => {
-      mutate(
-        { orderId, productId },
-        {
-          onSuccess: () => {
-            router.push(`/product/${productId}`);
-            closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY });
-          },
-        },
-      );
-    };
-
-    openModalList({
-      ModalComponent,
-      modalKey: CHAT_CONFIRM_MODAL_KEY,
-      props: {
-        modalMessage: <S.ModalMessage>거래를 확정하시겠습니까?</S.ModalMessage>,
-        modalFooter: (
-          <S.ButtonGroup>
-            <button type='button' onClick={handleConfirm}>
-              거래확정
-            </button>
-            <button type='button' onClick={() => closeModalList({ modalKey: CHAT_CONFIRM_MODAL_KEY })}>
-              취소
-            </button>
-          </S.ButtonGroup>
-        ),
-      },
-    });
+    handleConfirmTransactionImpl({ closeModalList, mutate, openModalList, orderId, productId, router });
   };
 
   const openNotifyMessageDeleteModal = async () => {
-    const ModalComponent = await import('@shared/ui/modal/confirm-modal-frame').then(
-      (module) => module.ConfirmModalFrame,
-    );
-
-    const handleConfirm = () => {
-      closeModalList({ modalKey: CHAT_CONFIRM_MESSAGE_DELETE_MODAL_KEY });
-    };
-
-    openModalList({
-      ModalComponent,
-      modalKey: CHAT_CONFIRM_MESSAGE_DELETE_MODAL_KEY,
-      props: {
-        modalMessage: <S.ModalMessage>메세지 삭제가 완료되었습니다.</S.ModalMessage>,
-        modalFooter: (
-          <S.ModalFooterOnelineButton type='button' onClick={handleConfirm}>
-            확인
-          </S.ModalFooterOnelineButton>
-        ),
-      },
-    });
+    openNotifyMessageDeleteModalImpl({ closeModalList, openModalList });
   };
 
   const handleDeleteMessage = async () => {
-    const ModalComponent = await import('@shared/ui/modal/confirm-modal-frame').then(
-      (module) => module.ConfirmModalFrame,
-    );
-
-    const handleConfirm = async () => {
-      await closeModalList({ modalKey: CHAT_MESSAGE_DELETE_MODAL_KEY });
-      openNotifyMessageDeleteModal();
-    };
-
-    openModalList({
-      ModalComponent,
-      modalKey: CHAT_MESSAGE_DELETE_MODAL_KEY,
-      props: {
-        modalMessage: (
-          <S.ModalMessage>
-            메세지를 삭제하시겠습니까?
-            {`\n`}
-            삭제 후 복구는 불가능합니다.
-          </S.ModalMessage>
-        ),
-        modalFooter: (
-          <S.ButtonGroup>
-            <button type='button' onClick={handleConfirm}>
-              확인
-            </button>
-            <button type='button' onClick={() => closeModalList({ modalKey: CHAT_MESSAGE_DELETE_MODAL_KEY })}>
-              취소
-            </button>
-          </S.ButtonGroup>
-        ),
-      },
-    });
+    handleDeleteMessageImpl({ openModalList, closeModalList, openNotifyMessageDeleteModal });
   };
 
   useEffect(
@@ -291,12 +143,13 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight, userInfo }: Chat
       </S.ChatRoomHeader>
 
       {/* Body */}
-      <S.ChatRoomBodyWrapper $changedTextAreaHeight={changedTextAreaHeight.changedHeight}>
-        <S.ChatRoomBody>
+      <S.ChatRoomBodyWrapper>
+        <S.ChatRoomBody ref={currentRoomBodyRef} $changedTextAreaHeight={changedTextAreaHeight.changedHeight}>
           {messageGroupListForDisplay.map((messageGroup, groupListIdx) => {
             if (messageGroup.messageGroupType === 'DATE') {
               const { messageGroupId, timeDisplayMessage } = messageGroup;
 
+              // 날짜 표시 메시지
               return (
                 <ChatDateMessage
                   ref={
