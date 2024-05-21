@@ -1,7 +1,7 @@
 import { ProductRegisterRequest, ProductRegisterResponse } from './dto';
 import { clientWithTokenApi } from '../instance';
 
-interface EditProductParam {
+export interface EditProductParam {
   productId: number;
   product: ProductRegisterRequest;
 }

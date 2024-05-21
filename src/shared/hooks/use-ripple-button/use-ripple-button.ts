@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react';
  * import { grapRipple, ripple } from '@shared/ui/styles/animation';
  *
  *  const Button = styled.button`
- *  ...some button styles
+ *  // ...some button styles
  * ${grapRipple} // ripple 효과를 버튼 내부로 잡아줄 수 있는 css 주입(optional하다)
  *
  *  ${ripple} // ripple css 함수 주입
