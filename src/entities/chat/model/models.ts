@@ -1,4 +1,4 @@
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client, IFrame, IMessage } from '@stomp/stompjs';
 
 import { ChatContent, ChatRequest, ChatRoomListResponse } from '@shared/apis/chat-api';
 import { UserEntity } from '@shared/apis/user-api';
@@ -33,14 +33,6 @@ interface SetRoomMapArgs extends Omit<RoomState, 'messageList' | 'previewMessage
    * http response때는 없음
    */
   unParsedMessage?: IMessage;
-  /**
-   * http response message list
-   *
-   * socket json response때는 없음
-   */
-  // previousMessageList?: ChatContent[];
-  // nextCursor: string;
-  // hasNext: boolean;
 }
 
 /**
@@ -50,13 +42,16 @@ type RoomMap = Map<RoomState['roomId'], RoomState>;
 
 export interface ChatStoreState {
   roomMap: RoomMap;
-  destroyRoomList: () => void;
+  destroyRoomList: VoidFunction;
   selectedChatRoomId?: RoomState['roomId'];
   webSocketClient?: Client;
   setRoomMap: (setRoomMapArgs: SetRoomMapArgs) => void;
   setInitialRoomMap: (initialChatRoomList: ChatRoomListResponse) => void;
   setSelectedChatRoomId: (roomId?: RoomState['roomId']) => void;
-  setWebSocketClient: (webSocketClient: Client) => void;
+  setWebSocketClient: VoidFunction;
+  connectWebSocket: (
+    onConnect: ({ frame, webSocketClient }: { frame: IFrame; webSocketClient: Client }) => void,
+  ) => Client;
   sendChatMessage: ({ chatRequestBody }: { chatRequestBody: ChatRequest }) => void;
   appendPreviousMessageList: ({
     roomId,
