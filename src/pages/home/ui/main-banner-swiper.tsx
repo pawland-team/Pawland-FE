@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -40,7 +41,11 @@ const MainBannerSwiper = ({ mainBannerList }: MainBannerProps) => {
             <Image src={banner.imageSrc} alt={banner.title} fill sizes='1195px' priority />
             <div className={`description-box ${banner.id === activeIndex ? 'active' : ''}`}>
               <h2>{banner.title}</h2>
-              <p dangerouslySetInnerHTML={{ __html: banner.description }} />
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(banner.description),
+                }}
+              />
               {banner.buttonText && banner.link ? (
                 <CommonLink href={banner.link} maxWidth={'174px'}>
                   {banner.buttonText}
