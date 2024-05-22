@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { chatQueryKeys } from '@entities/chat/apis';
 import { useCreateChatRoom } from '@entities/chat/hooks';
 import { usePostOrder } from '@entities/order/hooks';
+import { useUserStore } from '@entities/user/model';
 import { ProductListItemDto } from '@shared/apis/product-api';
 import { useModalWithLocalState } from '@shared/hooks/use-modal';
 import { CommonButton } from '@shared/ui/buttons';
@@ -28,6 +29,7 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
   const { mutateAsync: postOrderMutate, status: postOrderStatus } = usePostOrder();
   const { mutateAsync: createChatRoomMutate, status: createChatRoomStatus } = useCreateChatRoom();
   const { isModalOpen, ModalComponent, openModal, closeModal } = useModalWithLocalState();
+  const userInfo = useUserStore((state) => state.userInfo);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -43,6 +45,11 @@ const ProductDetailInfo = ({ id, detailInfo }: ProductDetailInfoProps) => {
     // - 채팅방이 없으면 주문생성하기랑 채팅방 생성하기를 진행하도록 해야함. -> 성공하면 router push
     // (오더에서) 302로 오면 챗으로 리다이렉트
     let orderId: number | undefined;
+
+    // 현재 user의 id랑 해당 상품의 seller의 id가 같으면 내 채팅방으로 이동
+    if (userInfo?.id === detailInfo.seller.id) {
+      router.push('/chat');
+    }
 
     try {
       orderId = await postOrderMutate(detailInfo.id);
