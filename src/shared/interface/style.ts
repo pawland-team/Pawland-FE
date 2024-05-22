@@ -2,7 +2,7 @@ export type RGB = `rgb(${number}, ${number}, ${number})`;
 
 export type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 
-export type HEX = `#${string}`;
+export type HEX = `#${string | number}`;
 
 export type Color = RGB | HEX | RGBA;
 
@@ -47,11 +47,31 @@ export type ResponsiveUnitUtility = DesktopFirstResponsiveUtility<string>;
  */
 export type ResponsiveBooleanUtility = DesktopFirstResponsiveUtility<boolean>;
 
+/**
+ * @example
+ * ```ts
+ * const globalNavBar: ResponsiveSizeProperties<{ onDesktop: { height: '80px' } }> = {
+ *  onDesktop: {
+ *   height: '80px',
+ *  },
+ * };
+ * ```
+ */
 export type ResponsiveSizeProperties<
   KnownSizeProperty extends
     DropPrimitiveTypeFromResponsiveStyleUtility<Size> = DropPrimitiveTypeFromResponsiveStyleUtility<Size>,
 > = KnownSizeProperty;
 
+/**
+ * @example
+ * ```ts
+ * const globalNavBar: ResponsiveNumericSizeProperties<{ onDesktop: { height: 80 } }> = {
+ *  onDesktop: {
+ *    height: 80,
+ *  },
+ * };
+ * ```
+ */
 export type ResponsiveNumericSizeProperties<
   KnownSizeProperty extends
     DropPrimitiveTypeFromResponsiveStyleUtility<NumericSize> = DropPrimitiveTypeFromResponsiveStyleUtility<NumericSize>,
