@@ -25,16 +25,7 @@ export const getServerSideProps: GetServerSideProps<{ dehydratedState: Dehydrate
   const queryClient = getQueryClient();
   // const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    ...productQuery.searchList({
-      page: 1,
-      size: 12,
-      region: '',
-      species: '',
-      category: '',
-      isFree: '',
-      orderBy: '최신순',
-      content: '',
-    }),
+    ...productQuery.mainList(8),
   });
 
   return {
