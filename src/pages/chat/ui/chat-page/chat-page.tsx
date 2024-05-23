@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
-import { Client } from '@stomp/stompjs';
 import Head from 'next/head';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -11,29 +10,18 @@ import { ChatRoom, ChatRoomPreview } from '@entities/chat/ui';
 import { useUserStore } from '@entities/user/model';
 import { SendChatForm } from '@features/chat/send-chat/ui';
 import { useSetRoomMapOnWebSocketConnect } from '@pages/chat/hooks/use-set-room-map-on-web-socket-connect';
-import { useSetWebSocket } from '@pages/chat/hooks/use-set-web-socket';
 
 import * as S from './style';
 
 export const ChatPage = () => {
   const { userInfo } = useUserStore((state) => ({ userInfo: state.userInfo }));
   const { data, status } = useGetChatRoomList();
-  const stompRef = useRef<Client>();
 
-  const {
-    webSocketClient,
-    selectedChatRoomId,
-    setWebSocketClient,
-    setInitialRoomMap,
-    setRoomMap,
-    setSelectedChatRoomId,
-  } = useChatStore(
+  const { selectedChatRoomId, setWebSocketClient, setInitialRoomMap, setSelectedChatRoomId } = useChatStore(
     useShallow((state) => ({
-      webSocketClient: state.webSocketClient,
       selectedChatRoomId: state.selectedChatRoomId,
       setWebSocketClient: state.setWebSocketClient,
       setInitialRoomMap: state.setInitialRoomMap,
-      setRoomMap: state.setRoomMap,
       setSelectedChatRoomId: state.setSelectedChatRoomId,
     })),
   );
@@ -57,8 +45,11 @@ export const ChatPage = () => {
     }
   }, [userInfo?.id, status, data]);
 
-  useSetWebSocket({ stompRef, setWebSocketClient });
-  useSetRoomMapOnWebSocketConnect({ data, status, webSocketClient, setRoomMap });
+  useEffect(() => {
+    setWebSocketClient();
+  }, [setWebSocketClient]);
+
+  useSetRoomMapOnWebSocketConnect({ data, status });
 
   // 언마운트 될 때 selectedChatRoomId 초기화
   useEffect(() => () => setSelectedChatRoomId(), [setSelectedChatRoomId]);

@@ -15,6 +15,7 @@ import { useCompleteTransaction } from '@entities/order/hooks';
 import { GetUserInfoResponse } from '@shared/apis/user-api';
 import { useInViewWithoutCallback } from '@shared/hooks/use-in-view';
 import { useModalList } from '@shared/hooks/use-modal';
+import { Spinner } from '@shared/ui/loading/spinner';
 import { formatPriceToKoStyle } from '@shared/utils/price';
 
 import * as S from './style';
@@ -200,6 +201,7 @@ export const ChatRoom = ({ formInFooter, changedTextAreaHeight, userInfo }: Chat
               </S.MessageGroup>
             );
           })}
+          {isFetchingNextPage || isFetching ? <Spinner size='20px' /> : null}
         </S.ChatRoomBody>
       </S.ChatRoomBodyWrapper>
 
