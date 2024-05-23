@@ -23,8 +23,8 @@ export const productQuery = {
     queryOptions({
       queryKey: productQueryKeys.mainList(size),
       queryFn: () => getProductList(size),
-      // gcTime은 기본 5분
-      staleTime: 1 * 60 * 1000, // 1 minute
+      staleTime: 10 * 60 * 1000, // 10 min
+      gcTime: 15 * 60 * 1000, // 15 min
     }),
 
   // ? : 검색 리스트는 리렌더링 시간이 짧은 경우가 많을것 같아서 staleTime 0 으로 유지..?
