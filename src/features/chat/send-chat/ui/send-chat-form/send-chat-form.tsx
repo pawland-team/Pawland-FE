@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle } from 'react';
+import { useEffect, useId, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useShallow } from 'zustand/react/shallow';
@@ -21,6 +21,8 @@ export const SendChatForm = ({
   textAreaRef,
   userInfo,
 }: SendChatFormProps) => {
+  const uniqueFormId = useId();
+
   const { selectedChatRoomId, sendChatMessage } = useChatStore(
     useShallow((state) => ({ selectedChatRoomId: state.selectedChatRoomId, sendChatMessage: state.sendChatMessage })),
   );
@@ -93,7 +95,7 @@ export const SendChatForm = ({
     <S.ChatRoomFooter $textAreaChangedHeight={changedTextAreaHeight.changedHeight}>
       <S.ChatForm
         $textAreaChangedHeight={changedTextAreaHeight.changedHeight}
-        id='chat-form'
+        id={uniqueFormId}
         noValidate
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -114,7 +116,7 @@ export const SendChatForm = ({
           onKeyDown={handleEnter}
         />
         <S.ChatSendButtonContainer>
-          <S.ChatSendButton form='chat-form' type='submit'>
+          <S.ChatSendButton form={uniqueFormId} type='submit'>
             <S.AirplaneIcon />
           </S.ChatSendButton>
         </S.ChatSendButtonContainer>

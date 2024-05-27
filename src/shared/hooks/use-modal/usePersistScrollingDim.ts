@@ -21,7 +21,9 @@ export const usePersistScrollingDim = ({ modalInfoManageMap, dependencyList = []
 
     // modalInfoManageMap을 순회하면서 scrollable(기본값 false)이 false인 모달이 하나라도 없으면 fixed 처리하지 않음.
     if (
-      Array.from(modalInfoManageMap.values()).some((managedModalInfo) => managedModalInfo.options?.scrollable === false)
+      !Array.from(modalInfoManageMap.values()).some(
+        (managedModalInfo) => managedModalInfo.options?.scrollable === false,
+      )
     ) {
       return;
     }
