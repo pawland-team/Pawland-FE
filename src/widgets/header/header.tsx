@@ -33,10 +33,8 @@ const Header = () => {
               <li>
                 <Link href='/community/list'>커뮤니티</Link>
               </li>
-              <li className='disabled'>
-                <button type='button' onClick={handleNotReadyAleart}>
-                  반려동물동반
-                </button>
+              <li>
+                <Link href='/pet-allowed'>반려동물동반</Link>
               </li>
               <li className='disabled'>
                 <button type='button' onClick={handleNotReadyAleart}>
