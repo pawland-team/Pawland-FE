@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
 export const LayoutPage = styled.div`
-  padding-top: 80px;
+  padding-top: ${({ theme }) => theme.header.web};
 
   main {
     min-height: calc(100vh - ${({ theme }) => theme.header.web});

@@ -11,7 +11,7 @@ export const HeaderArea = styled.header`
   justify-content: center;
 
   width: 100%;
-  height: 80px;
+  height: ${({ theme }) => theme.header.web};
 
   background: #fff;
   border-bottom: 1px solid #bdbdbd;
