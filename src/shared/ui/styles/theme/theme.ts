@@ -20,6 +20,10 @@ export const theme = {
     gray_F3F3F3: '#F3F3F3',
     gray_F9F9F9: '#F9F9F9',
   },
+  header: {
+    web: '80px',
+    mobile: '60px',
+  },
   zIndex,
   blockSize,
 } as const;
