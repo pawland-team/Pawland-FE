@@ -182,6 +182,7 @@ export const ChatRoomBodyWrapper = styled.div`
  */
 export const ChatRoomBody = styled.div<{ $changedTextAreaHeight: number }>`
   overflow: hidden scroll;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 1;

@@ -15,9 +15,7 @@ export const RegisterProductConditionTagSelectCategory = ({
   focusRef,
 }: RegisterProductConditionTagSelectCategoryProps) => {
   const { fieldObj, handleChangeCheckBox, setError, clearErrors } = useSelectByName<
-    {
-      selectedProductConditionTagCategory: RegisterProductForm['selectedProductConditionTagCategory'];
-    },
+    Pick<RegisterProductForm, 'selectedProductConditionTagCategory'>,
     MouseEvent<HTMLInputElement>
   >({
     initialFieldValue: {

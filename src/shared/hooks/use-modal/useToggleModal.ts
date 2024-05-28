@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { OpenModalOptions } from './types';
-import { useToggle } from '../use-toggle';
+import { useToggle } from './useToggle';
 
 interface UseToggleModalReturn<T extends HTMLElement> {
   /**
