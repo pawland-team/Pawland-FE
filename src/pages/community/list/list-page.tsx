@@ -133,7 +133,7 @@ const CommunityListPage = () => {
   ): Promise<ApiResponse> => {
     const region = selectedRegions.length ? selectedRegions.join(',') : '';
 
-    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&content=${encodeURIComponent(searchQuery)}&region=${encodeURIComponent(region)}`;
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/post?page=${page}&size=6&content=${encodeURIComponent(searchQuery)}&region=${encodeURIComponent(region)}`;
 
     switch (selectedFilter) {
       case '내가 쓴 글':
