@@ -12,5 +12,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_KAKAO_CLIENT_ID: string;
     NEXT_PUBLIC_GOOGLE_CLIENT_ID: string;
     NEXT_PUBLIC_BUCKET_BASE_URL: string;
+    NEXT_PUBLIC_KOREA_DATA_BASE_URL: string;
+    NEXT_PUBLIC_PET_ALLOWED_API_KEY: string;
   }
 }
