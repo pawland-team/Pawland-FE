@@ -1,11 +1,20 @@
 import { useGetDetailPetTour } from '@entities/pet-allowed/hooks';
+import { useGetTourInformation } from '@entities/pet-allowed/hooks/use-get-tour-information.query';
 
 import * as S from './style';
 
 const PetAllowedPage = () => {
-  const { data } = useGetDetailPetTour({ page: 1, size: 20 });
+  // const { data } = useGetDetailPetTour({ page: 1, size: 20 });
 
-  console.log(data);
+  const { data: tourInformationData } = useGetTourInformation({
+    page: 1,
+    size: 20,
+    contentId: 125534,
+    contentTypeId: 12,
+  });
+
+  // console.log(`useGetDetailPetTour${data}`);
+  console.log(tourInformationData);
 
   return <S.PetAllowedArea>aha</S.PetAllowedArea>;
 };

@@ -1,8 +1,14 @@
+/**
+ * 반려 동물 동반 param dto
+ */
 export interface GetDetailPetTourParams {
   page: number;
   size: number;
 }
 
+/**
+ * 반려 동물 동반 response dto
+ */
 export interface GetDetailPetTourResponse {
   response: {
     header: {
@@ -70,6 +76,69 @@ export interface GetDetailPetTourResponse {
           petTursmInfo: string;
         };
       };
+    };
+  };
+}
+
+/**
+ * 관광 정보 통합 조회 param dto
+ */
+export interface GetTourInformationParams {
+  page: number;
+  size: number;
+  /**
+   * 콘텐츠ID
+   */
+  contentId: number;
+  /**
+   * 관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점) ID
+   */
+  contentTypeId: number;
+}
+
+/**
+ * 관광 정보 통합 조회 response dto
+ */
+export interface GetTourInformationResponse {
+  response: {
+    header: {
+      resultCode: string;
+      resultMsg: string;
+    };
+    body: {
+      items: {
+        item: [
+          {
+            contentid: string;
+            contenttypeid: string;
+            title: string;
+            createdtime: string;
+            modifiedtime: string;
+            tel: string;
+            telname: string;
+            homepage: '\u003Ca href="http://www.jeondeungsa.org/" target="_blank" title="새창: 전등사 홈페이지로 이동"\u003Ehttp://www.jeondeungsa.org\u003C/a\u003E';
+            booktour: string;
+            firstimage: string;
+            firstimage2: string;
+            cpyrhtDivCd: string;
+            areacode: string;
+            sigungucode: string;
+            cat1: string;
+            cat2: string;
+            cat3: string;
+            addr1: string;
+            addr2: string;
+            zipcode: string;
+            mapx: string;
+            mapy: string;
+            mlevel: string;
+            overview: string;
+          },
+        ];
+      };
+      numOfRows: number;
+      pageNo: number;
+      totalCount: number;
     };
   };
 }
