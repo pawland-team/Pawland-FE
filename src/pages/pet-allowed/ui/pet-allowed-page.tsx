@@ -1,6 +1,7 @@
 // import { useGetDetailPetTour } from '@entities/pet-allowed/hooks';
 import { useGetTourInformation } from '@entities/pet-allowed/hooks/use-get-tour-information.query';
-import { StartFunnel } from '@features/pet-allowed';
+// import { StartFunnel } from '@features/pet-allowed';
+import { SelectType } from '@features/pet-allowed/ui/funnel/select-type';
 
 const PetAllowedPage = () => {
   // const { data } = useGetDetailPetTour({ page: 1, size: 20 });
@@ -17,7 +18,8 @@ const PetAllowedPage = () => {
 
   return (
     <>
-      <StartFunnel />
+      {/* <StartFunnel /> */}
+      <SelectType />
     </>
   );
 };

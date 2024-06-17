@@ -32,4 +32,14 @@ export const FunnelArea = styled.section`
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .funnel-button-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 600px;
+    margin: 0 auto;
+  }
 `;

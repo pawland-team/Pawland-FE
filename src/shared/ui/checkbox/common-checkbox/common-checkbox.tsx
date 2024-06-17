@@ -4,6 +4,10 @@ import * as S from './common-checkbox-style';
 
 export interface CommonCheckBoxProps {
   /**
+   * input의 타입 (default checkbox)
+   */
+  type?: string;
+  /**
    * input 태그의 id 그리고 label 태그의 htmlFor에도 동시에 들어감
    */
   label: string;
@@ -34,7 +38,7 @@ export interface CommonCheckBoxProps {
  */
 
 const CommonCheckBox = forwardRef<HTMLElement | null, CommonCheckBoxProps>(
-  ({ label, group, value, isChecked = false, handleChangeCheckBox }, ref) => {
+  ({ type = 'checkbox', label, group, value, isChecked = false, handleChangeCheckBox }, ref) => {
     return (
       <S.CommonCheckBoxContainer>
         <div className={isChecked ? 'checkbox checked' : 'checkbox'} />
@@ -50,7 +54,7 @@ const CommonCheckBox = forwardRef<HTMLElement | null, CommonCheckBoxProps>(
         >
           {value}
         </label>
-        <input type='checkbox' name={group} id={label} checked={isChecked} onChange={handleChangeCheckBox} />
+        <input type={type} name={group} id={label} checked={isChecked} onChange={handleChangeCheckBox} />
       </S.CommonCheckBoxContainer>
     );
   },

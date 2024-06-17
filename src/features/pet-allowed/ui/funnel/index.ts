@@ -1,1 +1,1 @@
-export { StartFunnel } from './StartFunnel';
+export { StartFunnel } from './start-funnel';
