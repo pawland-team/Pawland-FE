@@ -1,20 +1,36 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-const useFunnel = () => {
-  const [step, setStep] = useState();
+import { FunnelProps, NonEmptyArray, StepProps } from './type';
+import { Funnel, Step } from './ui/funnel';
 
-  const Step = (props) => {
-    return <>{props.children}</>;
-  };
+type RouteFunnelProps<Steps extends NonEmptyArray<string>> = Omit<FunnelProps<Steps>, 'steps' | 'step'>;
 
-  const Funnel = ({ children }) => {
-    // name이 현재 step 상태와 동일할 경우 렌더링
-    const targetStep = children.find((childStep) => childStep.props.name === step);
-
-    return Object.assign(targetStep, { Step });
-  };
-
-  return [Funnel, setStep];
+type FunnelComponent<Steps extends NonEmptyArray<string>> = ((props: RouteFunnelProps<Steps>) => JSX.Element) & {
+  Step: (props: StepProps<Steps>) => JSX.Element;
 };
 
-export { useFunnel };
+/**
+ * - 사용 예시 파일: pet-allowed-page.tsx
+ * - 도움 받았던 블로그 주소: www.journee.life/devlog/react-useFunnel-hook
+ */
+export const useFunnel = <Steps extends NonEmptyArray<string>>(
+  steps: Steps,
+  options?: { initialStep?: Steps[number] },
+): readonly [FunnelComponent<Steps>, activeStepIndex: number, (step: Steps[number]) => void] => {
+  const [step, setStep] = useState(options?.initialStep ?? steps[0]);
+  const activeStepIndex = steps.findIndex((s) => s === step);
+
+  const FunnelComponent = useMemo(() => {
+    return Object.assign(
+      function RouteFunnel(props: RouteFunnelProps<Steps>) {
+        return <Funnel<Steps> steps={steps} step={step} {...props} />;
+      },
+      {
+        Step,
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  return [FunnelComponent, activeStepIndex, setStep] as const;
+};

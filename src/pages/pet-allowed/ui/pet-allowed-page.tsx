@@ -1,7 +1,6 @@
-import { useGetDetailPetTour } from '@entities/pet-allowed/hooks';
+// import { useGetDetailPetTour } from '@entities/pet-allowed/hooks';
 import { useGetTourInformation } from '@entities/pet-allowed/hooks/use-get-tour-information.query';
-
-import * as S from './style';
+import { StartFunnel } from '@features/pet-allowed';
 
 const PetAllowedPage = () => {
   // const { data } = useGetDetailPetTour({ page: 1, size: 20 });
@@ -16,7 +15,11 @@ const PetAllowedPage = () => {
   // console.log(`useGetDetailPetTour${data}`);
   console.log(tourInformationData);
 
-  return <S.PetAllowedArea>aha</S.PetAllowedArea>;
+  return (
+    <>
+      <StartFunnel />
+    </>
+  );
 };
 
 export { PetAllowedPage };
