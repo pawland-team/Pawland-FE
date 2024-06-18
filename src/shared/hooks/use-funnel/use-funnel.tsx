@@ -11,7 +11,7 @@ type FunnelComponent<Steps extends NonEmptyArray<string>> = ((props: RouteFunnel
 
 /**
  * - 사용 예시 파일: pet-allowed-page.tsx
- * - 도움 받았던 블로그 주소: www.journee.life/devlog/react-useFunnel-hook
+ * - 도움 받았던 참고 블로그 주소: www.journee.life/devlog/react-useFunnel-hook
  */
 export const useFunnel = <Steps extends NonEmptyArray<string>>(
   steps: Steps,

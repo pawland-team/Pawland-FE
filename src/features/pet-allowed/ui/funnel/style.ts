@@ -42,4 +42,10 @@ export const FunnelArea = styled.section`
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .funnel-radio-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;

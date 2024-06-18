@@ -1,8 +1,14 @@
+import { MouseEvent } from 'react';
+
 import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './style';
 
-const StartFunnel = () => {
+interface OnNextProps {
+  onNext: (e: MouseEvent<HTMLElement>) => void;
+}
+
+const StartFunnel = ({ onNext }: OnNextProps) => {
   return (
     <S.FunnelArea>
       <div className='funnel-container'>
@@ -11,7 +17,14 @@ const StartFunnel = () => {
           <p>함께 방문할 수 있는 장소를 쉽게 검색해 보세요!</p>
         </div>
         <div className='funnel-button-box'>
-          <CommonButton fontSize='1.8rem' fontWeight='600' fontColor='#fff' backgroundColor='#43ADFF' padding='23px 0'>
+          <CommonButton
+            handleClick={onNext}
+            fontSize='1.8rem'
+            fontWeight='600'
+            fontColor='#fff'
+            backgroundColor='#43ADFF'
+            padding='23px 0'
+          >
             시작하기
           </CommonButton>
         </div>
