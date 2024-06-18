@@ -4,7 +4,7 @@ import { CommonButton } from '@shared/ui/buttons';
 
 import * as S from './style';
 
-interface OnNextProps {
+export interface OnNextProps {
   onNext: (e: MouseEvent<HTMLElement>) => void;
 }
 

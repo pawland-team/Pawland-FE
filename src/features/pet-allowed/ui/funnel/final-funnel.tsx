@@ -1,8 +1,9 @@
 import { CommonButton } from '@shared/ui/buttons';
 
+import { OnNextProps } from './start-funnel';
 import * as S from './style';
 
-const FinalFunnel = () => {
+const FinalFunnel = ({ onNext }: OnNextProps) => {
   return (
     <S.FunnelArea>
       <div className='funnel-container'>
@@ -12,7 +13,14 @@ const FinalFunnel = () => {
         </div>
         <div>결과 리스트 보여주기</div>
         <div className='funnel-button-box'>
-          <CommonButton fontSize='1.8rem' fontWeight='600' fontColor='#fff' backgroundColor='#43ADFF' padding='23px 0'>
+          <CommonButton
+            handleClick={onNext}
+            fontSize='1.8rem'
+            fontWeight='600'
+            fontColor='#fff'
+            backgroundColor='#43ADFF'
+            padding='23px 0'
+          >
             처음부터
           </CommonButton>
         </div>

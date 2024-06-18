@@ -18,8 +18,7 @@ const PetAllowedPage = () => {
   const { start, type, region, final } = PET_ALLOW_SEARCH_FUNNEL;
   const funnelSteps = [start, type, region, final] as const;
 
-  // activeStepIndex는 쓸지 말지 고민중
-  const [Funnel, setStep] = useFunnel(funnelSteps, {
+  const [Funnel, activeStepIndex, setStep] = useFunnel(funnelSteps, {
     initialStep: start,
   });
   // const { data } = useGetDetailPetTour({ page: 1, size: 20 });
@@ -47,7 +46,7 @@ const PetAllowedPage = () => {
           <SelectRegion onPrev={() => setStep(type)} onNext={() => setStep(final)} />
         </Funnel.Step>
         <Funnel.Step name={final}>
-          <FinalFunnel />
+          <FinalFunnel onNext={() => setStep(start)} />
         </Funnel.Step>
       </Funnel>
     </>
